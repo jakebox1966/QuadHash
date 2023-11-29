@@ -1,0 +1,19 @@
+{
+    "Layout": {
+        "header": {
+            "locale_switcher": {
+                "language": "Language",
+                "ko": "Korean",
+                "en": "English"
+            },
+            "nav_bar": {
+                "about": "About",
+                "gallery": "Gallery",
+                "crew": "Crew",
+                "buy": "Buy",
+                "sns": "SNS",
+                "utility": "Utility"
+            }
+        }
+    }
+}
