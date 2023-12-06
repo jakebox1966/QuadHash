@@ -1,6 +1,11 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import Test from './Test'
+import Main from './main/page'
 
-export default async function Home({ params: { lng } }: { params: any }) {
-    return <>main</>
+export default function Home() {
+    return (
+        <>
+            <Main />
+        </>
+    )
 }

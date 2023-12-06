@@ -1,31 +1,23 @@
 'use client'
-
-// import Link from 'next/link'
-
-import * as React from 'react'
+import { Button } from '@material-tailwind/react'
+import { useTranslations } from 'next-intl'
 import { locales } from '@/i18nconfig'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
-import { useTranslations } from 'next-intl'
+import * as React from 'react'
 
-export interface INavBarProps {}
+export interface INavListProps {}
 
-export default function NavBar(props: INavBarProps) {
+export default function NavList(props: INavListProps) {
     const t = useTranslations('Layout.header.nav_bar')
     const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
-
-    const menus = ['about', 'gallery', 'crew', 'buy', 'sns']
-
+    const menuList = ['about', 'gallery', 'crew', 'buy', 'sns', 'utility']
     return (
-        <>
-            <nav className="flex-2">
-                <div className="flex flex-row justify-center items-center gap-10">
-                    {menus.map((menu) => (
-                        <Link key={menu} href={`${menu}`}>
-                            {t(`${menu}`)}
-                        </Link>
-                    ))}
-                </div>
-            </nav>
-        </>
+        <div className="relative flex items-center gap-12 pr-4 font-bold">
+            {menuList.map((menu) => (
+                <Link key={menu} href={`${menu}`} className="cursor-pointer hover:opacity-40">
+                    {t(menu)}
+                </Link>
+            ))}
+        </div>
     )
 }

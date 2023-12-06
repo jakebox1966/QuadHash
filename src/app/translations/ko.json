@@ -13,7 +13,15 @@
                 "buy": "Buy",
                 "sns": "SNS",
                 "utility": "Utility"
+            },
+            "connect": {
+                "install_metamask": "메타마스크 설치",
+                "connect_metamask": "메타마스크 연결",
+                "sign_in": "로그인"
             }
+        },
+        "test": {
+            "test": "테스트"
         }
     }
 }

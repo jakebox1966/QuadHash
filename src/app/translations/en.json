@@ -13,7 +13,15 @@
                 "buy": "Buy",
                 "sns": "SNS",
                 "utility": "Utility"
+            },
+            "connect": {
+                "install_metamask": "Install MetaMask",
+                "connect_metamask": "Connect MetaMask",
+                "sign_in": "Sign In"
             }
+        },
+        "test": {
+            "test": "test"
         }
     }
 }

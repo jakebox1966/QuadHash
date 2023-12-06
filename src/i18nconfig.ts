@@ -5,7 +5,6 @@
 // union: "en-US" | "ar-EG"
 
 import { ILocale } from './app/interfaces/locale/interface'
-
 export const defaultLocale: ILocale['locale'] = 'ko'
 
 export const locales: ILocale['locale'][] = ['ko', 'en']

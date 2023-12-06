@@ -1,7 +1,7 @@
 // app/_hooks/useLocaleNames.ts
 
 import { useTranslations } from 'next-intl'
-import { locales } from '../../i18nconfig'
+import { locales } from '@/i18nconfig'
 import { ILocale } from '../interfaces/locale/interface'
 // Returns a localized map of locale names
 // in the shape: { "en-US": "English", ... }
