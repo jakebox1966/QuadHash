@@ -5,9 +5,9 @@ import { locales } from '@/i18nconfig'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import * as React from 'react'
 
-export interface INavListProps {}
+export interface INavbarProps {}
 
-export default function NavBar(props: INavListProps) {
+export default function Navbar(props: INavbarProps) {
     const t = useTranslations('Layout.header.nav_bar')
     const { Link } = createSharedPathnamesNavigation({ locales })
     const menuList = ['about', 'gallery', 'crew', 'buy', 'sns', 'utility', 'admin']
