@@ -2,9 +2,9 @@
 
 import Logo from './Logo'
 import React from 'react'
-import Navbar from './Navbar'
-import Setting from './Setting'
-import Connect from './Connect'
+import Navbar from '@/app/[locale]/common/layouts/header/Navbar'
+import Setting from '@/app/[locale]/common/layouts/header/Setting'
+import Connect from '@/app/[locale]/common/layouts/header/Connect'
 import { useEffect, useRef } from 'react'
 import { SignInModal } from './SignInModal'
 import { useSignInModal } from '@/app/hooks/useSignInModal'
