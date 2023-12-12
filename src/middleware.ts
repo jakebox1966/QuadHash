@@ -1,96 +1,85 @@
-import createMiddleware from 'next-intl/middleware'
 import createIntlMiddleware from 'next-intl/middleware'
 import { defaultLocale, locales } from './i18nconfig'
-import { withAuth } from 'next-auth/middleware'
-import { NextRequest, NextResponse } from 'next/server'
-import { decode, getToken } from 'next-auth/jwt'
+import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
+import { NextResponse } from 'next/server'
 
-export default createMiddleware({
-    // Our app's supported locales. We can have
-    // as many as we want.
-    // locales: ['en', 'ko'],
+const publicPages = ['/', '/about', '/gallery', '/sns', '/signIn']
+
+const privatePages = ['/crew', '/admin', '/buy']
+
+const intlMiddleware = createIntlMiddleware({
     locales,
-
-    // If this locale is matched, pathnames work without
-    // a prefix (e.g. `/about`)
     defaultLocale,
-
-    localeDetection: true,
-
     localePrefix: 'always',
 })
 
-// const secret = process.env.NEXTAUTH_SECRET
+const authMiddleware = withAuth(
+    function onSuccess(request: NextRequestWithAuth) {
+        console.log('B')
 
-// const publicPages = ['/', '/about']
+        // if (request.nextUrl.pathname.includes('/crew')) {
+        //     console.log('sdafasdfasdfasdfasfdd')
+        //     return NextResponse.rewrite(new URL('/signIn', request.nextUrl))
+        // }
 
-// const intlMiddleware = createIntlMiddleware({
-//     locales,
-//     defaultLocale,
-//     localeDetection: true,
-//     localePrefix: 'as-needed',
-// })
+        /**
+         * 관리자 페이지 권한 체크
+         *
+         * is_admin 이 0이라면 (관리자가 아니라면) access-denied 페이지로 이동
+         */
+        if (request.nextUrl.pathname.includes('/admin') && request.nextauth.token?.is_admin === 0) {
+            return NextResponse.redirect(new URL('/access-denied', request.nextUrl))
+        }
+        return intlMiddleware(request)
+    },
+    {
+        callbacks: {
+            authorized: ({ token }) => {
+                return !!token
+            },
+        },
+        pages: {
+            signIn: '/signIn',
+        },
+    },
+)
 
-// const authMiddleware = withAuth(
-//     async function onSuccess(req) {
-//         return intlMiddleware(req)
-//     },
-//     {
-//         callbacks: {
-//             authorized: ({ token }) => token != null,
-//         },
-//         // pages: {
-//         //     signIn: '/login',
-//         // },
-//     },
-// )
+export default async function middleware(request: NextRequestWithAuth) {
+    console.log('A')
+    const publicPathnameRegex = RegExp(
+        `^(/(${locales.join('|')}))?(${publicPages
+            .flatMap((p) => (p === '/' ? ['', '/'] : p))
+            .join('|')})/?$`,
+        'i',
+    )
 
-// export default async function middleware(req: NextRequest) {
-//     const session = await getToken({ req, secret, raw: true })
-//     const { pathname } = req.nextUrl
+    const privatePathnameRegex = RegExp(
+        `^(/(${locales.join('|')}))?(${privatePages
+            .flatMap((p) => (p === '/' ? ['', '/'] : p))
+            .join('|')})/?$`,
+        'i',
+    )
 
-//     if (pathname.startsWith('/about')) {
+    const isPublicPage = publicPathnameRegex.test(request.nextUrl.pathname)
 
-//         console.log('어드민 유뮤ㅜ')
+    const IsPrivatePages = privatePathnameRegex.test(request.nextUrl.pathname)
 
-//         console.log(session)
-//         if (!session) {
-//             console.log(123123)
-//             return NextResponse.redirect(new URL('/', req.url))
-//         }
-//         if (session.is_admin === 0) {
-//             console.log('걸렸다')
-//             alert('not admin')
-//             return NextResponse.redirect(new URL('/', req.url))
-//             // throw new Error('you dont have any authority')
-//         }
-//     }
-
-//     const publicPathnameRegex = RegExp(
-//         `^(/(${locales.join('|')}))?(${publicPages
-//             .flatMap((p) => (p === '/' ? ['', '/'] : p))
-//             .join('|')})/?$`,
-//         'i',
-//     )
-
-//     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
-
-//     if (isPublicPage) {
-//         console.log('public')
-//         return intlMiddleware(req)
-//     } else {
-//         console.log('private')
-//         return (authMiddleware as any)(req)
-//     }
-// }
-
-export const config = {
-    matcher: ['/((?!api|_next|.*\\..*).*)'],
+    if (isPublicPage) {
+        console.log('public')
+        return intlMiddleware(request)
+    } else if (IsPrivatePages) {
+        console.log('private')
+        // return intlMiddleware(request)
+        return (authMiddleware as any)(request)
+    } else {
+        console.log('nothing')
+        return intlMiddleware(request)
+    }
 }
 
-// export const config = {
-//     // Skip all paths that should not be internationalized.
-//     // This skips the folders "api", "_next" and all files
-//     // with an extension (e.g. favicon.ico)
-//     matcher: ['/((?!api|_next|.*\\..*).*)'],
-// }
+export const config = {
+    // Skip all paths that should not be internationalized.
+    // This skips the folders "api", "_next" and all files
+    // with an extension (e.g. favicon.ico)
+    matcher: ['/((?!api|_next|.*\\..*).*)'],
+}

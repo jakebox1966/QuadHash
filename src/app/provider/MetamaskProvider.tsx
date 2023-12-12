@@ -100,9 +100,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
             const accounts = await window.ethereum.request({
                 method: 'eth_requestAccounts',
             })
-            const chain_id = await window.ethereum.request({
-                method: 'eth_chainId',
-            })
+
             clearError()
             updateWallet(accounts)
         } catch (err: any) {

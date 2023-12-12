@@ -8,14 +8,10 @@ import { JWT } from 'next-auth/jwt'
  * @param account
  * @returns string
  */
-export const getUuidByAccount = async (account: any | string, chainId: number) => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${account}?chain_id=${chainId}`,
-    )
+export const getUuidByAccount = async (account: any | string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${account}`)
     const result = await response.json()
     return result
-    // console.log(result)
-    // return result[0].eth_nonce
 }
 
 /**

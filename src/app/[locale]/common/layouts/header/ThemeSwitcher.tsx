@@ -15,7 +15,8 @@ export default function ThemeSwitcher(props: IThemeSwitcherProps) {
     }, [])
 
     const changeTheme = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-        if (e.target.checked === true) {
+        const { checked } = e.target as HTMLInputElement
+        if (checked === true) {
             setTheme('dark')
         } else {
             setTheme('light')
@@ -28,7 +29,7 @@ export default function ThemeSwitcher(props: IThemeSwitcherProps) {
             <Switch
                 defaultChecked={theme === 'dark' ? true : false}
                 onClick={(e) => changeTheme(e)}
-                label="Dark Mode"
+                crossOrigin={undefined}
             />
         </>
     )

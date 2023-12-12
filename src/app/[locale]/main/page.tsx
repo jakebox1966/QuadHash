@@ -9,12 +9,14 @@ export default function Main(props: IMainProps) {
     return (
         <>
             <div className="flex flex-col justify-center items-center">
-                <section className="w-[40%]">
+                <section className="w-[40%] h-full">
                     <Carousel
                         className="rounded-xl"
                         autoplay={true}
                         loop={true}
-                        autoplayDelay={3000}>
+                        autoplayDelay={3000}
+                        prevArrow={undefined}
+                        nextArrow={undefined}>
                         <img
                             src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
                             alt="image 1"
@@ -43,7 +45,6 @@ export default function Main(props: IMainProps) {
                     </Carousel>
                 </section>
 
-                <section>section2</section>
                 <section>section3</section>
                 <section>section4</section>
                 <section>section5</section>

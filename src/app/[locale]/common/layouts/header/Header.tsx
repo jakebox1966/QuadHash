@@ -1,23 +1,26 @@
 'use client'
 
 import Logo from './Logo'
-import React from 'react'
+import React, { useState } from 'react'
 import Connect from './Connect'
 import NavList from './Navbar'
 import Setting from './Setting'
 import { useEffect, useRef } from 'react'
+import { SignInModal } from './SignInModal'
+import { useSignInModal } from '@/app/hooks/useSignInModal'
+
 export interface IHeaderProps {}
 
 export default function Header(props: IHeaderProps) {
-    const headerColorRef = useRef(null)
+    const headerColorRef = useRef<HTMLInputElement>(null)
+
+    const { signInModalopen, setSignInModalOpen, handleSignInModalOpen } = useSignInModal()
 
     const handleScroll = () => {
         if (window && window.scrollY > 80) {
-            // console.log(123)
-
-            headerColorRef.current.className = `sticky top-0 w-full z-50 h-[70px] bg-white dark:text-white dark:bg-black text-black transition duration-700`
+            headerColorRef.current!.className = `sticky top-0 w-full z-50 h-[70px] bg-white dark:text-white dark:bg-black text-black transition duration-700`
         } else {
-            headerColorRef.current.className =
+            headerColorRef.current!.className =
                 'sticky top-0 w-full z-50 h-[70px] text-white dark-bg-black transition duration-700'
         }
     }
@@ -42,6 +45,8 @@ export default function Header(props: IHeaderProps) {
                     </div>
                 </div>
             </header>
+
+            <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
             <div className="bg-gradient-to-b from-blue-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div>
         </>
     )

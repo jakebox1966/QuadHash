@@ -12,7 +12,8 @@
                 "crew": "Crew",
                 "buy": "Buy",
                 "sns": "SNS",
-                "utility": "Utility"
+                "utility": "Utility",
+                "admin": "Admin"
             },
             "connect": {
                 "install_metamask": "Install MetaMask",
@@ -22,6 +23,14 @@
         },
         "test": {
             "test": "test"
+        }
+    },
+    "Error": {
+        "not_found": {
+            "title": "Not Found Page"
+        },
+        "access_denied": {
+            "title": "Need Auth for the page."
         }
     }
 }
