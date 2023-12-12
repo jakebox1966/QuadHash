@@ -7,7 +7,7 @@ import * as React from 'react'
 
 export interface INavListProps {}
 
-export default function NavList(props: INavListProps) {
+export default function NavBar(props: INavListProps) {
     const t = useTranslations('Layout.header.nav_bar')
     const { Link } = createSharedPathnamesNavigation({ locales })
     const menuList = ['about', 'gallery', 'crew', 'buy', 'sns', 'utility', 'admin']

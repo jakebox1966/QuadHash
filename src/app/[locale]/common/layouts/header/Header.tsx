@@ -2,7 +2,7 @@
 
 import Logo from './Logo'
 import React from 'react'
-import NavList from './Navbar'
+import NavBar from './Navbar'
 import Setting from './Setting'
 import Connect from './Connect'
 import { useEffect, useRef } from 'react'
@@ -38,7 +38,7 @@ export default function Header(props: IHeaderProps) {
                     <div className="flex flex-row items-center justify-between w-full">
                         <Logo />
                         <div className="flex flex-row items-center gap-x-1 min-w-max">
-                            <NavList />
+                            <NavBar />
                             <Setting />
                             <Connect />
                         </div>
