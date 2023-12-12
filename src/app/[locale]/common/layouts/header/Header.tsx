@@ -1,10 +1,10 @@
 'use client'
 
 import Logo from './Logo'
-import React, { useState } from 'react'
-import Connect from './Connect'
+import React from 'react'
 import NavList from './Navbar'
 import Setting from './Setting'
+import Connect from './Connect'
 import { useEffect, useRef } from 'react'
 import { SignInModal } from './SignInModal'
 import { useSignInModal } from '@/app/hooks/useSignInModal'
