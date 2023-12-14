@@ -14,7 +14,7 @@ export interface IHeaderProps {}
 export default function Header(props: IHeaderProps) {
     const headerColorRef = useRef<HTMLInputElement>(null)
 
-    const { signInModalopen, setSignInModalOpen, handleSignInModalOpen } = useSignInModal()
+    const { signInModalopen, handleSignInModalOpen } = useSignInModal()
 
     const handleScroll = () => {
         if (window && window.scrollY > 80) {

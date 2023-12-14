@@ -9,8 +9,7 @@ import { JWT } from 'next-auth/jwt'
  * @returns string
  */
 export const getUuidByAccount = async (account: any | string) => {
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${account}`)
-    const response = await fetch(`/api/v1/users/${account}`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${account}`)
     const result = await response.json()
     return result
 }

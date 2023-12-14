@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Button,
     Dialog,
@@ -10,12 +10,14 @@ import {
     IconButton,
     Typography,
     MenuItem,
+    Spinner,
 } from '@material-tailwind/react'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount, signUpUser } from '@/app/api/auth/api'
+import { useSearchParams } from 'next/navigation'
 
 export interface ISignInModalProps {
     open: boolean
@@ -23,7 +25,15 @@ export interface ISignInModalProps {
 }
 
 export function SignInModal({ open, handleOpen }: ISignInModalProps) {
-    const { wallet, hasProvider, isConnecting, connectMetaMask } = useMetaMask()
+    const [isConnecting, setIsConnecting] = useState(false)
+    const callbackUrlParams = useSearchParams()
+    let callbackUrl = '/'
+
+    if (callbackUrlParams.get('callbackUrl')) {
+        callbackUrl = callbackUrlParams.get('callbackUrl')
+    }
+    const { wallet, hasProvider, connectMetaMask } = useMetaMask()
+
     // const router = useRouter()
     const t = useTranslations('Layout.header.connect')
 
@@ -37,6 +47,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
             return
         }
         try {
+            setIsConnecting(true)
             await connectMetaMask()
 
             const accounts = await getAccounts()
@@ -57,16 +68,14 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
             const signInResult = await signIn('Credentials', {
                 wallet_address: accounts[0],
                 wallet_signature: signature,
-                redirect: false,
-                // callbackUrl: '/',
+                redirect: true,
+                // redirect: false,
+                callbackUrl: callbackUrl,
             })
-
-            if (signInResult.ok) {
-                handleOpen()
-            }
         } catch (error) {
             throw new Error('Error occured.')
         }
+        setIsConnecting(false)
     }
     return (
         <>
@@ -104,9 +113,9 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                             className="py-3 font-semibold uppercase opacity-70">
                             Popular
                         </Typography>
-                        <ul className="mt-3 -ml-2 flex flex-col gap-1">
+                        <ul className="mt-3 -ml-2 flex flex-col">
                             <MenuItem
-                                className="mb-4 flex items-center justify-center gap-3 !py-4 shadow-md"
+                                className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
                                 onClick={connect}>
                                 <img
                                     src="https://docs.material-tailwind.com/icons/metamask.svg"
@@ -116,6 +125,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                                 <Typography className="uppercase" color="blue-gray" variant="h6">
                                     Connect with MetaMask
                                 </Typography>
+                                {isConnecting && <Spinner className="h-6 w-6" />}
                             </MenuItem>
                         </ul>
                     </div>

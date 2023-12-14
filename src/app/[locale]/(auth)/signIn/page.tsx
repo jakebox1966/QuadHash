@@ -3,20 +3,19 @@
 import { getUuidByAccount, signUpUser } from '@/app/api/auth/api'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
-import { Button } from '@material-tailwind/react'
+import { Button, Spinner } from '@material-tailwind/react'
 import { locales } from '@/i18nconfig'
 import { signIn } from 'next-auth/react'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 
-import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import * as React from 'react'
 
 export interface ISignInProps {}
 
 export default function SignIn(props: ISignInProps) {
-    const { useRouter } = createSharedPathnamesNavigation({ locales })
-    const router = useRouter()
-    const { wallet, hasProvider, isConnecting, connectMetaMask } = useMetaMask()
+    const [isConnecting, setIsConnecting] = React.useState(false)
+    const { wallet, hasProvider, connectMetaMask } = useMetaMask()
     const callbackUrlParams = useSearchParams()
 
     const callbackUrl = callbackUrlParams.get('callbackUrl')
@@ -31,6 +30,7 @@ export default function SignIn(props: ISignInProps) {
             return
         }
         try {
+            setIsConnecting(true)
             await connectMetaMask()
 
             const accounts = await getAccounts()
@@ -48,15 +48,16 @@ export default function SignIn(props: ISignInProps) {
 
             const signature = await personalSign(accounts[0], result.eth_nonce)
 
-            const signInResult = await signIn('Credentials', {
+            await signIn('Credentials', {
                 wallet_address: accounts[0],
                 wallet_signature: signature,
                 redirect: true,
-                callbackUrl: `${callbackUrl}`,
+                callbackUrl: callbackUrl,
             })
         } catch (error) {
             throw new Error('Error occured.')
         }
+        setIsConnecting(false)
     }
     return (
         <>
@@ -77,6 +78,7 @@ export default function SignIn(props: ISignInProps) {
                                 className="h-6 w-6"
                             />
                             Connect with MetaMask
+                            {isConnecting && <Spinner className="h-6 w-6" />}
                         </Button>
                     </div>
                 </div>
