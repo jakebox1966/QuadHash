@@ -9,7 +9,9 @@ export default function MainWrapper({ children }: { children: React.ReactNode })
     return (
         <>
             <Header />
-            <main className="min-h-[calc(100vh-170px)] w-full z-40 relative pt-40">{children}</main>
+            <main className="min-h-[calc(100vh-170px)] w-full z-40 relative pt-40 px-10">
+                {children}
+            </main>
             <Footer />
         </>
     )

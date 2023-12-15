@@ -47,7 +47,8 @@ export default function Header(props: IHeaderProps) {
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
-            <div className="bg-gradient-to-b from-blue-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div>
+            <div className="bg-gradient-to-b from-orange-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div>
+            {/* <div className="headerbackground dark:darkheaderbackground bg-cover blur-sm bg-no-repeatz-10 absolute top-0 w-full h-[500px]"></div> */}
         </>
     )
 }

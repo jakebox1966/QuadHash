@@ -1,9 +1,24 @@
 @tailwind base;
-/* @tailwind components; */
+@tailwind components;
 @tailwind utilities;
 
 @layer base{
     body {
         @apply dark:bg-black bg-white
+    }
+}
+
+@layer components {
+    .headerbackground {
+        background : 
+        linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.5)35%,rgba(255,255,255,0.7)50%, rgba(255,255,255,1)100% ),
+        url("https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png");
+        background-size: cover;
+    }
+    .darkheaderbackground {
+        background : 
+        linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5)35%,rgba(0,0,0,0.7)50%, rgba(0,0,0,1)100% ),
+        url("https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png");
+        background-size: cover;
     }
 }

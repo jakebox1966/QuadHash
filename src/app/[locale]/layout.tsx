@@ -28,9 +28,7 @@ export default function RootLayout({
             <body className={`${inter.className}`}>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <AuthProvider>
-                        <CommonProvider>
-                            <MainWrapper>{children}</MainWrapper>
-                        </CommonProvider>
+                        <CommonProvider>{children}</CommonProvider>
                     </AuthProvider>
                 </NextIntlClientProvider>
             </body>

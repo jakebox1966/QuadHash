@@ -10,7 +10,7 @@ export interface INavbarProps {}
 export default function Navbar(props: INavbarProps) {
     const t = useTranslations('Layout.header.nav_bar')
     const { Link } = createSharedPathnamesNavigation({ locales })
-    const menuList = ['about', 'gallery', 'crew', 'buy', 'sns', 'utility', 'admin']
+    const menuList = ['about', 'crew', 'buy', 'sns', 'utility', 'admin']
     return (
         <div className="relative flex items-center gap-12 pr-4 font-bold">
             {menuList.map((menu) => (

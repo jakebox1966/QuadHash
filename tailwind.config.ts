@@ -11,7 +11,11 @@ const config: Config = withMT({
     ],
     darkMode: ['class'],
     theme: {
-        extend: {},
+        extend: {
+            // backgroundImage: {
+            //     'header-section': "gurl('https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png')",
+            // },
+        },
     },
     plugins: [],
 })
