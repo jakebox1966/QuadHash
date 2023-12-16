@@ -21,4 +21,27 @@
         url("https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png");
         background-size: cover;
     }
+
+    .card_area {
+        display: inline-grid;
+        backface-visibility: hidden;
+        transition: transform 0.3s;
+        transform: perspective(800px) rotateY(0deg);
+        transform-style: preserve-3d;
+    }
+
+    .card_area > * {
+        grid-area: 1 / 1 / 1 / 1;
+        backface-visibility: hidden;
+    }
+
+    .card_locked {
+        
+        transform: rotateY(180deg);
+    }
+
+    .cardanimation {
+        transform: perspective(800px) rotateY(180deg);
+    }
+
 }

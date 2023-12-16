@@ -10,13 +10,17 @@ export interface IInputAreaProps {
 }
 
 export default function InputArea({ exNftList }: IInputAreaProps) {
+    React.useEffect(()=>{
+        console.log('exNftList', exNftList)
+    },[exNftList])
     return (
         <>
             <div className="flex justify-center items-center w-full">
                 <div className="w-[80%] flex flex-col justify-center items-center gap-5">
-                    <div className="flex flex-row justify-start items-center w-full gap-3">
-                        {exNftList.map((nft, index) => (
-                            <Chip key={index} value={'A123'} open={true} onClose={() => {}} />
+                    <div className="flex flex-row justify-start items-center w-full gap-3 h-[2.5rem]">
+                        
+                        {exNftList?.map((nft, index) => (
+                            <Chip key={index} value={nft} open={true} onClose={() => {}} />
                         ))}
                     </div>
                     <Input label="제목" crossOrigin={undefined} />

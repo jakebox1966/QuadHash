@@ -9,119 +9,62 @@ export interface INftListProps {
 
 export default function NftList({ exNftList, setExNftList }: INftListProps) {
     const selectNft = (item: string) => {
-        console.log(item)
-        exNftList.push(item)
-        setExNftList(exNftList)
+        if (exNftList.includes(item)) {
+            setExNftList(exNftList.filter((nft) => nft !== item))
+            return
+        }
+        setExNftList([...exNftList, item])
     }
     return (
         <>
             <div className="flex flex-row justify-start gap-2 overflow-auto whitespace-nowrap w-[80%]">
-                <Card
-                    className="w-[200px] cursor-pointer hover:opacity-80 m-4"
+                <div
+                    className="card_area hover:cardanimation m-10"
                     onClick={() => {
-                        selectNft('A123')
+                        selectNft('1')
                     }}>
-                    <CardHeader floated={false}>
-                        <img
-                            src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
-                            alt="profile-picture"
-                        />
-                    </CardHeader>
-                    <CardBody className="text-center">
-                        <Typography variant="h4" color="blue-gray" className="mb-2">
-                            Natalie Paisley
-                        </Typography>
-                        <Typography color="blue-gray" className="font-medium" textGradient>
-                            CEO / Co-Founder
-                        </Typography>
-                    </CardBody>
-                </Card>
-                <Card
-                    className="w-[200px] cursor-pointer hover:opacity-80 m-4"
-                    onClick={() => {
-                        selectNft('A123')
-                    }}>
-                    <CardHeader floated={false}>
-                        <img
-                            src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
-                            alt="profile-picture"
-                        />
-                    </CardHeader>
-                    <CardBody className="text-center">
-                        <Typography variant="h4" color="blue-gray" className="mb-2">
-                            Natalie Paisley
-                        </Typography>
-                        <Typography color="blue-gray" className="font-medium" textGradient>
-                            CEO / Co-Founder
-                        </Typography>
-                    </CardBody>
-                </Card>
-                <Card
-                    className="w-[200px] cursor-pointer hover:opacity-80 m-4"
-                    onClick={() => {
-                        selectNft('A123')
-                    }}>
-                    <CardHeader floated={false}>
-                        <img
-                            src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
-                            alt="profile-picture"
-                        />
-                    </CardHeader>
-                    <CardBody className="text-center">
-                        <Typography variant="h4" color="blue-gray" className="mb-2">
-                            Natalie Paisley
-                        </Typography>
-                        <Typography color="blue-gray" className="font-medium" textGradient>
-                            CEO / Co-Founder
-                        </Typography>
-                    </CardBody>
-                </Card>
-                <Card
-                    className="w-[200px] cursor-pointer hover:opacity-80 m-4"
-                    onClick={() => {
-                        selectNft('A123')
-                    }}>
-                    <CardHeader floated={false}>
-                        <img
-                            src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
-                            alt="profile-picture"
-                        />
-                    </CardHeader>
-                    <CardBody className="text-center">
-                        <Typography variant="h4" color="blue-gray" className="mb-2">
-                            Natalie Paisley
-                        </Typography>
-                        <Typography color="blue-gray" className="font-medium" textGradient>
-                            CEO / Co-Founder
-                        </Typography>
-                    </CardBody>
-                </Card>
+                    <Card className="w-[200px] cursor-pointer hover:opacity-80 m-4">
+                        <CardHeader floated={false}>
+                            <img
+                                src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
+                                alt="profile-picture"
+                            />
+                        </CardHeader>
+                        <CardBody className="text-center">
+                            <Typography variant="h4" color="blue-gray" className="mb-2">
+                                Natalie Paisley
+                            </Typography>
+                            <Typography color="blue-gray" className="font-medium" textGradient>
+                                CEO / Co-Founder
+                            </Typography>
+                        </CardBody>
+                    </Card>
+                    <Card
+                        className="w-[200px] cursor-pointer hover:opacity-80 m-6 card_locked"
+                        onClick={() => {
+                            selectNft('1')
+                        }}>
+                        <CardHeader floated={false}>
+                            <img
+                                src="https://d1fv2z2t2pz1fy.cloudfront.net/images/2.png"
+                                alt="profile-picture"
+                            />
+                        </CardHeader>
+                        <CardBody className="text-center">
+                            <Typography variant="h4" color="blue-gray" className="mb-2">
+                                Natalie Paisley
+                            </Typography>
+                            <Typography color="blue-gray" className="font-medium" textGradient>
+                                CEO / Co-Founder
+                            </Typography>
+                        </CardBody>
+                    </Card>
+                </div>
 
                 <Card
                     className="w-[200px] cursor-pointer hover:opacity-80 m-4"
                     onClick={() => {
-                        selectNft('A123')
-                    }}>
-                    <CardHeader floated={false}>
-                        <img
-                            src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
-                            alt="profile-picture"
-                        />
-                    </CardHeader>
-                    <CardBody className="text-center">
-                        <Typography variant="h4" color="blue-gray" className="mb-2">
-                            Natalie Paisley
-                        </Typography>
-                        <Typography color="blue-gray" className="font-medium" textGradient>
-                            CEO / Co-Founder
-                        </Typography>
-                    </CardBody>
-                </Card>
-
-                <Card
-                    className="w-[200px] cursor-pointer hover:opacity-80 m-4"
-                    onClick={() => {
-                        selectNft('A123')
+                        selectNft('2')
                     }}>
                     <CardHeader floated={false}>
                         <img
@@ -141,7 +84,7 @@ export default function NftList({ exNftList, setExNftList }: INftListProps) {
                 <Card
                     className="w-[200px] cursor-pointer hover:opacity-80 m-4"
                     onClick={() => {
-                        selectNft('A123')
+                        selectNft('3')
                     }}>
                     <CardHeader floated={false}>
                         <img
@@ -161,7 +104,7 @@ export default function NftList({ exNftList, setExNftList }: INftListProps) {
                 <Card
                     className="w-[200px] cursor-pointer hover:opacity-80 m-4"
                     onClick={() => {
-                        selectNft('A123')
+                        selectNft('4')
                     }}>
                     <CardHeader floated={false}>
                         <img
