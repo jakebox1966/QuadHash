@@ -22,26 +22,32 @@
         background-size: cover;
     }
 
-    .card_area {
+    .nft_card {
         display: inline-grid;
-        backface-visibility: hidden;
+        /* backface-visibility: hidden; */
         transition: transform 0.3s;
         transform: perspective(800px) rotateY(0deg);
         transform-style: preserve-3d;
     }
 
-    .card_area > * {
+
+    .nft_card > * {
         grid-area: 1 / 1 / 1 / 1;
         backface-visibility: hidden;
     }
 
-    .card_locked {
-        
+    .nft_card_shadow:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .nft_card_back {
         transform: rotateY(180deg);
     }
 
-    .cardanimation {
+    .nft_card_checked {
         transform: perspective(800px) rotateY(180deg);
     }
+
+
 
 }
