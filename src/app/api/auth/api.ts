@@ -70,6 +70,7 @@ export const getUserInfo = async (access_token: string) => {
  * @returns string
  */
 export const refreshToken = async (last_token: JWT) => {
+    console.log('from api', last_token)
     const refresh_token = last_token.refresh_token
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/sessions/new?refresh_token=${refresh_token}`,
