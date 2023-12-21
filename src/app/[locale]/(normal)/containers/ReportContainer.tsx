@@ -7,7 +7,7 @@ import { getBlock, getTransfersForOwner } from '@/app/api/alchemy/api'
 import { GetTransfersForOwnerTransferType, NftOrdering } from 'alchemy-sdk'
 import React from 'react'
 import { Button, Input, Textarea } from '@material-tailwind/react'
-import { nftReport } from '@/app/api/report/api'
+import { postReport } from '@/app/api/report/api'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 
@@ -133,7 +133,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
             const nfts = [...sazaList, ...gazaList]
 
-            const result = await nftReport({
+            const result = await postReport({
                 title: input.title,
                 content: input.content,
                 user_email: input.email,

@@ -6,9 +6,9 @@ export interface IAdminWrapperProps {}
 export default function AdminWrapper({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <main className="flex flex-row min-h-screen w-full bg-green-300 p-4 border-black">
+            <main className="flex flex-row min-h-screen w-full border-black">
                 <Sidebar />
-                <div className="w-full bg-red-300">{children}</div>
+                <div className="w-full mx-3">{children}</div>
             </main>
         </>
     )

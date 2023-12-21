@@ -7,21 +7,27 @@ import { MetaMaskContextProvider } from './MetamaskProvider'
 import { SignInModalContextProvider } from './SignInModalProvider'
 import AlertProvider from './AlertProvider'
 import ConfirmProvider from './ConfirmProvider'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 export default function CommonProvider({ children }: { children: React.ReactNode }) {
+    const queryClient = new QueryClient()
     return (
         <>
-            <NextThemeProvider attribute="class">
-                <MaterialProvider>
-                    <MetaMaskContextProvider>
-                        <ConfirmProvider>
-                            <AlertProvider>
-                                <SignInModalContextProvider>{children}</SignInModalContextProvider>
-                            </AlertProvider>
-                        </ConfirmProvider>
-                    </MetaMaskContextProvider>
-                </MaterialProvider>
-            </NextThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                <NextThemeProvider attribute="class">
+                    <MaterialProvider>
+                        <MetaMaskContextProvider>
+                            <ConfirmProvider>
+                                <AlertProvider>
+                                    <SignInModalContextProvider>
+                                        {children}
+                                    </SignInModalContextProvider>
+                                </AlertProvider>
+                            </ConfirmProvider>
+                        </MetaMaskContextProvider>
+                    </MaterialProvider>
+                </NextThemeProvider>
+            </QueryClientProvider>
         </>
     )
 }

@@ -3,8 +3,6 @@ import { Inter } from 'next/font/google'
 import '@/app/globals.css'
 import CommonProvider from '../provider/CommonProvider'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
-
-import MainWrapper from './common/layouts/MainWrapper'
 import AuthProvider from '../provider/SessionProvider'
 
 const inter = Inter({ subsets: ['latin'] })

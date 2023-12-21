@@ -18,7 +18,7 @@ export default function Sidebar(props: ISidebarProps) {
                 </Typography>
             </div>
             <List>
-                <Link href="/admin/hacking-report">
+                <Link href="/admin/report">
                     <ListItem>
                         <ListItemPrefix>
                             <svg

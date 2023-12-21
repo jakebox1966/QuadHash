@@ -42,14 +42,13 @@ const ConfirmProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <ConfirmContext.Provider value={{ $confirm }}>
             {children}
-            (
+
             <Confirm
                 open={open}
                 message={state?.message}
                 onClickOK={state?.onClickOK}
                 onClickCancel={state?.onClickCancel}
             />
-            )
         </ConfirmContext.Provider>
     )
 }
