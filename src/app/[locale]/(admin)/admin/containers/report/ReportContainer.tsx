@@ -40,13 +40,13 @@ export default function ReportContainer(props: IReportContainerProps) {
 
             {isLoading && <Spinner className="h-12 w-12" />}
 
-            <ReportList list={data?.pages} />
+            {!isLoading && data.pages && <ReportList list={data.pages} />}
 
-            {/* <div>
+            <div>
                 {data?.pages.map((page, index) => {
                     return page?.data.map((item, index) => <div key={index}>{item.user_email}</div>)
                 })}
-            </div> */}
+            </div>
 
             {/* <Button onClick={fetchNextPage}>asdfasdfasdf</Button> */}
         </div>
