@@ -70,27 +70,27 @@ export const authOption: AuthOptions = {
             // console.log(token.expired_at)
             // console.log(nowTime)
 
-        //     if ((token && (token?.expired_at as number) - 540000) < nowTime) {
-        //         console.log('========== 토큰 만료 ==========')
+            // if ((token && (token?.expired_at as number) - 540000) < nowTime) {
+            //     console.log('========== 토큰 만료 ==========')
 
-        //         try {
-        //             const result = await refreshToken(token)
-        //             console.log('result', result)
-        //             console.log('result.expired_at', result.expired_at)
-        //             const new_token = {
-        //                 ...token,
-        //                 access_token: result.access_token,
-        //                 refresh_token: result.refresh_token,
-        //                 expired_at: new Date(result.expired_at).getTime(),
-        //             }
-        //             return new_token
-        //         } catch (error) {
-        //             console.error(error)
-        //         }
-        //     }
+            //     try {
+            //         const result = await refreshToken(token)
+            //         console.log('result', result)
+            //         console.log('result.expired_at', result.expired_at)
+            //         const new_token = {
+            //             ...token,
+            //             access_token: result.access_token,
+            //             refresh_token: result.refresh_token,
+            //             expired_at: new Date(result.expired_at).getTime(),
+            //         }
+            //         return new_token
+            //     } catch (error) {
+            //         console.error(error)
+            //     }
+            // }
 
-        //     return { ...token, ...user }
-        // },
+            return { ...token, ...user }
+        },
 
         async session({ session, token }) {
             session.user = token as any

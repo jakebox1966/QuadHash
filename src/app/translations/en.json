@@ -13,7 +13,9 @@
                 "buy": "Buy",
                 "sns": "SNS",
                 "utility": "Utility",
-                "admin": "Admin"
+                "admin": "Admin",
+                "dynamicNFT": "Dynamic NFT",
+                "fractionalInvest": "Fractional Investing"
             },
             "connect": {
                 "install_metamask": "Install MetaMask",

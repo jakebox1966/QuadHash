@@ -13,7 +13,9 @@
                 "buy": "구매",
                 "sns": "SNS",
                 "utility": "유틸리티",
-                "admin": "관리자"
+                "admin": "관리자",
+                "dynamicNFT": "다이나믹NFT",
+                "fractionalInvest": "조각투자"
             },
             "connect": {
                 "install_metamask": "메타마스크 설치",
