@@ -9,7 +9,7 @@ export default function Main(props: IMainProps) {
     return (
         <>
             <div className="flex flex-col justify-center items-center">
-                <section className="w-[40%] h-full">
+                {/* <section className="w-[40%] h-full">
                     <Carousel
                         className="rounded-xl"
                         autoplay={true}
@@ -78,11 +78,7 @@ export default function Main(props: IMainProps) {
                             className="h-full w-full object-cover"
                         />
                     </Carousel>
-                </section>
-
-                <section>section3</section>
-                <section>section4</section>
-                <section>section5</section>
+                </section> */}
             </div>
         </>
     )

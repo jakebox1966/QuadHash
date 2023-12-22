@@ -55,7 +55,7 @@ export default function Setting(props: ISettingProps) {
             {/* <div> */}
             <Menu dismiss={{ itemPress: false }} allowHover placement="bottom-end">
                 <MenuHandler>
-                    <IconButton className="bg-white/20">
+                    <IconButton variant="outlined">
                         <i ref={headerColorRef}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ export default function Setting(props: ISettingProps) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6">
+                                className="w-6 h-6 text-black dark:text-white">
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"

@@ -33,7 +33,9 @@ export default function Header(props: IHeaderProps) {
 
     return (
         <>
-            <header ref={headerColorRef} className="sticky top-0 w-full z-50 h-[70px] text-white">
+            <header
+                ref={headerColorRef}
+                className="sticky top-0 w-full z-50 h-[70px] text-black dark:text-white">
                 <div className="px-10 pt-4 flex flex-row justify-between items-center ">
                     <div className="flex flex-row items-center justify-between w-full">
                         <Logo />
@@ -47,7 +49,7 @@ export default function Header(props: IHeaderProps) {
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
-            <div className="bg-gradient-to-b from-orange-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div>
+            {/* <div className="bg-gradient-to-b from-orange-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div> */}
             {/* <div className="headerbackground dark:darkheaderbackground bg-cover blur-sm bg-no-repeatz-10 absolute top-0 w-full h-[500px]"></div> */}
         </>
     )
