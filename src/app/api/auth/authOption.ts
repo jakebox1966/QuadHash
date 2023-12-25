@@ -26,7 +26,7 @@ export const authOption: AuthOptions = {
 
                 const tokenResponse = await signInUser(formData)
 
-                console.log(tokenResponse)
+                console.log('tokenResponse', tokenResponse)
 
                 // 인증 API 요청 후 받아온 응답데이터를 user정보 API호출을 위해 destructuring 한다.
                 const { access_token } = tokenResponse
@@ -40,7 +40,7 @@ export const authOption: AuthOptions = {
                 // authorize에서 최종적으로 return할 user 객체에 담을 user 정보를 얻기 위해 위에서 추출한 access_token을 파라미터로하여 API 호출
                 const userInfoResponse = await getUserInfo(access_token as string)
 
-                console.log(userInfoResponse)
+                console.log('userInfoResponse', userInfoResponse)
 
                 // user 정보 조합
                 const user = { ...rest, ...userInfoResponse.data }

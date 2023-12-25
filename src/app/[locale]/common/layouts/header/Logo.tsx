@@ -18,7 +18,7 @@ export default function Logo(props: ILogoProps) {
                         viewBox="0 0 186 31"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <g id="Layer_1" clip-path="url(#clip0_2_3665)">
+                        <g id="Layer_1" clipPath="url(#clip0_2_3665)">
                             <path
                                 className="dark:fill-white"
                                 id="Vector"

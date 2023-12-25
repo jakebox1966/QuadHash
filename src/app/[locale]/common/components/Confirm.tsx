@@ -24,7 +24,7 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                         Confirm
                     </Typography>
                 </DialogHeader>
-                <DialogBody>{message}</DialogBody>
+                <DialogBody>{message ? message : ''}</DialogBody>
                 <DialogFooter>
                     <Button
                         variant="gradient"

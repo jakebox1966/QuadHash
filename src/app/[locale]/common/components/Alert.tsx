@@ -23,7 +23,7 @@ export function Alert({ open, message, onClose }: IAlertProps) {
                         Alert
                     </Typography>
                 </DialogHeader>
-                <DialogBody>{message}</DialogBody>
+                <DialogBody>{message ? message : ''}</DialogBody>
                 <DialogFooter>
                     <Button variant="gradient" color="gray" onClick={onClose}>
                         <span>OK</span>
