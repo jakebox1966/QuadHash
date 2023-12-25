@@ -11,16 +11,18 @@ export default function Sidebar(props: ISidebarProps) {
     const router = useRouter()
 
     return (
-        <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+        <Card
+            className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5"
+            placeholder={undefined}>
             <div className="mb-2 p-4">
-                <Typography variant="h5" color="blue-gray">
+                <Typography variant="h5" color="blue-gray" placeholder={undefined}>
                     관리자
                 </Typography>
             </div>
-            <List>
+            <List placeholder={undefined}>
                 <Link href="/admin/report">
-                    <ListItem>
-                        <ListItemPrefix>
+                    <ListItem placeholder={undefined}>
+                        <ListItemPrefix placeholder={undefined}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -40,8 +42,8 @@ export default function Sidebar(props: ISidebarProps) {
                 </Link>
 
                 <Link href="/admin/something-for-admin">
-                    <ListItem>
-                        <ListItemPrefix>
+                    <ListItem placeholder={undefined}>
+                        <ListItemPrefix placeholder={undefined}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -65,8 +67,8 @@ export default function Sidebar(props: ISidebarProps) {
                     </ListItem>
                 </Link>
                 <Link href="/admin/something-for-admin">
-                    <ListItem>
-                        <ListItemPrefix>
+                    <ListItem placeholder={undefined}>
+                        <ListItemPrefix placeholder={undefined}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -91,8 +93,8 @@ export default function Sidebar(props: ISidebarProps) {
                 </Link>
 
                 <Link href="/">
-                    <ListItem>
-                        <ListItemPrefix>
+                    <ListItem placeholder={undefined}>
+                        <ListItemPrefix placeholder={undefined}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

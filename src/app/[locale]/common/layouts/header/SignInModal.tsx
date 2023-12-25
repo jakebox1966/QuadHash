@@ -81,17 +81,22 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
     }
     return (
         <>
-            <Dialog size="xs" open={open} handler={handleOpen}>
-                <DialogHeader className="justify-between">
+            <Dialog size="xs" open={open} handler={handleOpen} placeholder={undefined}>
+                <DialogHeader className="justify-between" placeholder={undefined}>
                     <div>
-                        <Typography variant="h5" color="blue-gray">
+                        <Typography variant="h5" color="blue-gray" placeholder={undefined}>
                             Connect a Wallet
                         </Typography>
-                        <Typography color="gray" variant="paragraph">
+                        <Typography color="gray" variant="paragraph" placeholder={undefined}>
                             Choose which card you want to connect
                         </Typography>
                     </div>
-                    <IconButton color="blue-gray" size="sm" variant="text" onClick={handleOpen}>
+                    <IconButton
+                        color="blue-gray"
+                        size="sm"
+                        variant="text"
+                        onClick={handleOpen}
+                        placeholder={undefined}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -107,24 +112,30 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                         </svg>
                     </IconButton>
                 </DialogHeader>
-                <DialogBody className="!px-5">
+                <DialogBody className="!px-5" placeholder={undefined}>
                     <div className="mb-6">
                         <Typography
                             variant="paragraph"
                             color="blue-gray"
-                            className="py-3 font-semibold uppercase opacity-70">
+                            className="py-3 font-semibold uppercase opacity-70"
+                            placeholder={undefined}>
                             Popular
                         </Typography>
                         <ul className="mt-3 -ml-2 flex flex-col">
                             <MenuItem
                                 className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
-                                onClick={connect}>
+                                onClick={connect}
+                                placeholder={undefined}>
                                 <img
                                     src="https://docs.material-tailwind.com/icons/metamask.svg"
                                     alt="metamast"
                                     className="h-6 w-6"
                                 />
-                                <Typography className="uppercase" color="blue-gray" variant="h6">
+                                <Typography
+                                    className="uppercase"
+                                    color="blue-gray"
+                                    variant="h6"
+                                    placeholder={undefined}>
                                     Connect with MetaMask
                                 </Typography>
                                 {isConnecting && <Spinner className="h-6 w-6" />}
@@ -132,11 +143,15 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                         </ul>
                     </div>
                 </DialogBody>
-                <DialogFooter className="justify-between gap-2">
-                    <Typography variant="small" color="gray" className="font-normal">
+                <DialogFooter className="justify-between gap-2" placeholder={undefined}>
+                    <Typography
+                        variant="small"
+                        color="gray"
+                        className="font-normal"
+                        placeholder={undefined}>
                         New to Ethereum wallets?
                     </Typography>
-                    <Button variant="outlined" size="sm">
+                    <Button variant="outlined" size="sm" placeholder={undefined}>
                         Learn More
                     </Button>
                 </DialogFooter>

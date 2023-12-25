@@ -31,18 +31,27 @@ export default function NftList({ exNftList, setExNftList }: INftListProps) {
                         className={`w-[200px] nft_card_shadow`}
                         onClick={() => {
                             selectNft('1')
-                        }}>
-                        <CardHeader floated={false}>
+                        }}
+                        placeholder={undefined}>
+                        <CardHeader floated={false} placeholder={undefined}>
                             <img
                                 src="https://d1fv2z2t2pz1fy.cloudfront.net/images/0.png"
                                 alt="profile-picture"
                             />
                         </CardHeader>
-                        <CardBody className="text-center">
-                            <Typography variant="h4" color="blue-gray" className="mb-2">
+                        <CardBody className="text-center" placeholder={undefined}>
+                            <Typography
+                                variant="h4"
+                                color="blue-gray"
+                                className="mb-2"
+                                placeholder={undefined}>
                                 Natalie Paisley
                             </Typography>
-                            <Typography color="blue-gray" className="font-medium" textGradient>
+                            <Typography
+                                color="blue-gray"
+                                className="font-medium"
+                                textGradient
+                                placeholder={undefined}>
                                 CEO / Co-Founder
                             </Typography>
                         </CardBody>
@@ -51,12 +60,21 @@ export default function NftList({ exNftList, setExNftList }: INftListProps) {
                         className={`w-[200px] nft_card_back nft_card_shadow`}
                         onClick={() => {
                             selectNft('1')
-                        }}>
-                        <CardBody className="text-center">
-                            <Typography variant="h4" color="blue-gray" className="mb-2">
+                        }}
+                        placeholder={undefined}>
+                        <CardBody className="text-center" placeholder={undefined}>
+                            <Typography
+                                variant="h4"
+                                color="blue-gray"
+                                className="mb-2"
+                                placeholder={undefined}>
                                 Locked
                             </Typography>
-                            <Typography color="blue-gray" className="font-medium" textGradient>
+                            <Typography
+                                color="blue-gray"
+                                className="font-medium"
+                                textGradient
+                                placeholder={undefined}>
                                 Locked
                             </Typography>
                         </CardBody>

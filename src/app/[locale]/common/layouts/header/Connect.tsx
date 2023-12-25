@@ -27,12 +27,12 @@ export default function Connect(props: IConnectProps) {
             headerColorRef.current!.className = `dark:text-white text-white transition duration-700`
         }
     }
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll) //clean up
-        }
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll) //clean up
+    //     }
+    // }, [])
 
     return (
         <>
@@ -41,14 +41,16 @@ export default function Connect(props: IConnectProps) {
                     variant="outlined"
                     className=" text-black dark:text-white"
                     disabled={isConnecting}
-                    onClick={handleSignInModalOpen}>
+                    onClick={handleSignInModalOpen}
+                    placeholder={undefined}>
                     <span ref={headerColorRef}>{t('sign_in')}</span>
                 </Button>
             ) : (
                 <Button
                     variant="outlined"
                     className=" text-black dark:text-white"
-                    disabled={isConnecting}>
+                    disabled={isConnecting}
+                    placeholder={undefined}>
                     <span ref={headerColorRef}>{formatAddress(wallet.accounts[0])}</span>
                 </Button>
             )}

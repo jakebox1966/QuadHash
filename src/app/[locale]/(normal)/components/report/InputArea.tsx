@@ -26,7 +26,7 @@ export default function InputArea({ exNftList }: IInputAreaProps) {
                     <Input label="이메일" crossOrigin={undefined} />
                     <Textarea label="내용" />
                     <div className="flex flex-col justify-end items-end  w-full">
-                        <Button>SUBMIT</Button>
+                        <Button placeholder={undefined}>SUBMIT</Button>
                     </div>
                 </div>
             </div>

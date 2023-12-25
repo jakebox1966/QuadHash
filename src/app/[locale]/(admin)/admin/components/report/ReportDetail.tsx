@@ -17,11 +17,13 @@ export default function ReportDetail(props: IReportDetailProps) {
     const handleOpen = () => setOpen(!open)
     return (
         <>
-            <Button onClick={handleOpen}>Long Dialog</Button>
-            <Dialog open={open} handler={handleOpen}>
-                <DialogHeader>Long Dialog</DialogHeader>
-                <DialogBody className="h-[42rem] overflow-scroll">
-                    <Typography className="font-normal">
+            <Button onClick={handleOpen} placeholder={undefined}>
+                Long Dialog
+            </Button>
+            <Dialog open={open} handler={handleOpen} placeholder={undefined}>
+                <DialogHeader placeholder={undefined}>Long Dialog</DialogHeader>
+                <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined}>
+                    <Typography className="font-normal" placeholder={undefined}>
                         I&apos;ve always had unwavering confidence in my abilities, and I believe
                         our thoughts and self-perception are the primary forces that shape us. Many
                         people limit themselves by their own self-doubt, slowing their progress.
@@ -53,11 +55,19 @@ export default function ReportDetail(props: IReportDetailProps) {
                         you&apos;re the only one who does?
                     </Typography>
                 </DialogBody>
-                <DialogFooter className="space-x-2">
-                    <Button variant="text" color="blue-gray" onClick={handleOpen}>
+                <DialogFooter className="space-x-2" placeholder={undefined}>
+                    <Button
+                        variant="text"
+                        color="blue-gray"
+                        onClick={handleOpen}
+                        placeholder={undefined}>
                         cancel
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleOpen}>
+                    <Button
+                        variant="gradient"
+                        color="green"
+                        onClick={handleOpen}
+                        placeholder={undefined}>
                         confirm
                     </Button>
                 </DialogFooter>

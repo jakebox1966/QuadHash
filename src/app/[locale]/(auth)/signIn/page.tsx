@@ -71,7 +71,8 @@ export default function SignIn(props: ISignInProps) {
                     <div className="mb-6">
                         <Button
                             onClick={connect}
-                            className="mt-3 flex flex-row items-center justify-center w-full gap-3 rounded-full">
+                            className="mt-3 flex flex-row items-center justify-center w-full gap-3 rounded-full"
+                            placeholder={undefined}>
                             <img
                                 src="https://docs.material-tailwind.com/icons/metamask.svg"
                                 alt="metamast"

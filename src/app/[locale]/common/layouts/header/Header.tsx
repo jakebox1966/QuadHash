@@ -24,26 +24,24 @@ export default function Header(props: IHeaderProps) {
                 'sticky top-0 w-full z-50 h-[70px] text-white dark-bg-black transition duration-700'
         }
     }
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll) //clean up
-        }
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll) //clean up
+    //     }
+    // }, [])
 
     return (
         <>
             <header
                 ref={headerColorRef}
-                className="max-w-[1600px] sticky top-0 w-full z-50 h-[70px] text-black dark:text-white">
-                <div className="px-10 pt-4 flex flex-row justify-between items-center ">
-                    <div className="flex flex-row items-center justify-between w-full">
-                        <Logo />
-                        <div className="flex flex-row items-center gap-x-1 min-w-max">
-                            <Navbar />
-                            <Setting />
-                            <Connect />
-                        </div>
+                className="flex flex-row justify-center items-center sticky top-0 w-full z-50 h-[70px] bg-[#FFCD19] text-black dark:text-white">
+                <div className="flex flex-row items-center justify-between w-full max-w-[1600px] px-10">
+                    <Logo />
+                    <div className="flex flex-row justify-center items-center gap-x-1 min-w-max">
+                        <Navbar />
+                        <Setting />
+                        <Connect />
                     </div>
                 </div>
             </header>

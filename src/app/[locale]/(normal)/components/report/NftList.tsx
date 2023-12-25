@@ -76,15 +76,24 @@ export default function NftList({ type, exNftList, setExNftList, isLoading }: IN
                             className="nft_card_shadow"
                             onClick={() => {
                                 selectNft(index)
-                            }}>
-                            <CardHeader floated={false}>
+                            }}
+                            placeholder={undefined}>
+                            <CardHeader floated={false} placeholder={undefined}>
                                 <img src={nft.image.originalUrl} alt="profile-picture" />
                             </CardHeader>
-                            <CardBody className="text-center">
-                                <Typography variant="h4" color="blue-gray" className="mb-2">
+                            <CardBody className="text-center" placeholder={undefined}>
+                                <Typography
+                                    variant="h4"
+                                    color="blue-gray"
+                                    className="mb-2"
+                                    placeholder={undefined}>
                                     {nft.name.split(':')[1]}
                                 </Typography>
-                                <Typography color="blue-gray" className="font-medium" textGradient>
+                                <Typography
+                                    color="blue-gray"
+                                    className="font-medium"
+                                    textGradient
+                                    placeholder={undefined}>
                                     {nft.name.split(':')[0]}
                                 </Typography>
                             </CardBody>
@@ -93,12 +102,21 @@ export default function NftList({ type, exNftList, setExNftList, isLoading }: IN
                             className={`w-full nft_card_back nft_card_shadow`}
                             onClick={() => {
                                 selectNft(index)
-                            }}>
-                            <CardBody className="text-center">
-                                <Typography variant="h4" color="blue-gray" className="mb-2">
+                            }}
+                            placeholder={undefined}>
+                            <CardBody className="text-center" placeholder={undefined}>
+                                <Typography
+                                    variant="h4"
+                                    color="blue-gray"
+                                    className="mb-2"
+                                    placeholder={undefined}>
                                     Locked
                                 </Typography>
-                                <Typography color="blue-gray" className="font-medium" textGradient>
+                                <Typography
+                                    color="blue-gray"
+                                    className="font-medium"
+                                    textGradient
+                                    placeholder={undefined}>
                                     Locked
                                 </Typography>
                             </CardBody>

@@ -183,7 +183,9 @@ export default function ReportContainer(props: IReportContainerProps) {
                         />
                         <Textarea label="Content" name="content" onChange={inputHandler} />
                         <div className="flex justify-end">
-                            <Button onClick={report}>Report</Button>
+                            <Button onClick={report} placeholder={undefined}>
+                                Report
+                            </Button>
                         </div>
                     </div>
                 </div>
