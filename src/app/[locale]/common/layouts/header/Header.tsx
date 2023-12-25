@@ -35,7 +35,7 @@ export default function Header(props: IHeaderProps) {
         <>
             <header
                 ref={headerColorRef}
-                className="sticky top-0 w-full z-50 h-[70px] text-black dark:text-white">
+                className="max-w-[1600px] sticky top-0 w-full z-50 h-[70px] text-black dark:text-white">
                 <div className="px-10 pt-4 flex flex-row justify-between items-center ">
                     <div className="flex flex-row items-center justify-between w-full">
                         <Logo />

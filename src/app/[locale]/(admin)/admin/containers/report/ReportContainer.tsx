@@ -4,6 +4,9 @@ import ReportList from '../../components/report/ReportList'
 import { getReports } from '@/app/api/report/api'
 import { useInfiniteQuery } from 'react-query'
 import { Button, Spinner } from '@material-tailwind/react'
+import Image from 'next/image'
+import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
+import ReportDetail from '../../components/report/ReportDetail'
 
 export interface IReportContainerProps {}
 
@@ -14,24 +17,32 @@ type lastpage = {
 
 export default function ReportContainer(props: IReportContainerProps) {
     const fetchData = async (pageParam: number) => {
-        const result = await getReports((pageParam = 1))
+        const result = await getReports(pageParam)
         return result
     }
 
-    const { data, fetchNextPage, isLoading } = useInfiniteQuery({
+    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
         queryKey: ['getReports'],
         queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
-        getNextPageParam: (lastPage, allPosts) => {
+        getNextPageParam: (lastPage, allPages) => {
             const currentPage = lastPage.paging.page
             const totalPage = lastPage.paging.total_pages
 
             if (currentPage === totalPage) {
-                return undefined
+                return false
             }
             return currentPage + 1
         },
     })
-    console.log(data)
+    const { setTarget } = useIntersectionObserver({
+        hasNextPage,
+        fetchNextPage,
+    })
+
+    React.useEffect(() => {
+        console.log(hasNextPage)
+    }, [hasNextPage])
+
     return (
         <div className="flex flex-col justify-center items-center mt-3">
             <div className="flex flex-row justify-start items-center w-full">
@@ -40,15 +51,9 @@ export default function ReportContainer(props: IReportContainerProps) {
 
             {isLoading && <Spinner className="h-12 w-12" />}
 
-            {!isLoading && data.pages && <ReportList list={data.pages} />}
-
-            <div>
-                {data?.pages.map((page, index) => {
-                    return page?.data.map((item, index) => <div key={index}>{item.user_email}</div>)
-                })}
-            </div>
-
-            {/* <Button onClick={fetchNextPage}>asdfasdfasdf</Button> */}
+            <ReportList list={data} />
+            <ReportDetail />
+            <div ref={setTarget} className="h-[1rem]" />
         </div>
     )
 }
