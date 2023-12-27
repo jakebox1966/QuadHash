@@ -15,7 +15,10 @@
                 "utility": "Utility",
                 "admin": "Admin",
                 "dynamicNFT": "Dynamic NFT",
-                "fractionalInvest": "Fractional Investing"
+                "fractionalInvest": "Fractional Investing",
+                "myprofile": "My Profile",
+                "report": "Report",
+                "language": "Language"
             },
             "connect": {
                 "install_metamask": "Install MetaMask",

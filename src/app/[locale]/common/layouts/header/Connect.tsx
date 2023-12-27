@@ -17,7 +17,6 @@ export default function Connect(props: IConnectProps) {
     const { data: session } = useSession()
     const { wallet, hasProvider, isConnecting, connectMetaMask } = useMetaMask()
     const t = useTranslations('Layout.header.connect')
-
     const { handleSignInModalOpen } = useSignInModal()
 
     const handleScroll = () => {
