@@ -35,10 +35,7 @@ export default function LocaleSwitcher(props: ILocaleSwitcherProps) {
         <>
             <Menu>
                 <MenuHandler>
-                    <Button
-                        className="bg-gray-200 dark:bg-black text-black dark:text-white"
-                        size="sm"
-                        placeholder={undefined}>
+                    <Button className="bg-gray-200 text-black" size="sm" placeholder={undefined}>
                         {localeNames[locale as ILocale['locale']]}
                     </Button>
                 </MenuHandler>

@@ -14,19 +14,17 @@ export default function CommonProvider({ children }: { children: React.ReactNode
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <NextThemeProvider attribute="class">
-                    <MaterialProvider>
-                        <MetaMaskContextProvider>
-                            <ConfirmProvider>
-                                <AlertProvider>
-                                    <SignInModalContextProvider>
-                                        {children}
-                                    </SignInModalContextProvider>
-                                </AlertProvider>
-                            </ConfirmProvider>
-                        </MetaMaskContextProvider>
-                    </MaterialProvider>
-                </NextThemeProvider>
+                {/* <NextThemeProvider attribute="class"> */}
+                <MaterialProvider>
+                    <MetaMaskContextProvider>
+                        <ConfirmProvider>
+                            <AlertProvider>
+                                <SignInModalContextProvider>{children}</SignInModalContextProvider>
+                            </AlertProvider>
+                        </ConfirmProvider>
+                    </MetaMaskContextProvider>
+                </MaterialProvider>
+                {/* </NextThemeProvider> */}
             </QueryClientProvider>
         </>
     )

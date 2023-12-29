@@ -25,7 +25,7 @@ export default function ReportList({ list }: IReportListProps) {
                         <div
                             key={index}
                             className="flex flex-col justify-center items-center w-full p-3 gap-3">
-                            <div className="flex flex-col justify-center items-center border-gray-300 dark:border-white border-2 pb-7 pt-3 px-7  rounded-lg w-[400px] min-w-max cursor-pointer shadow-2xl hover:scale-110 transition-all">
+                            <div className="flex flex-col justify-center items-center border-gray-300 border-2 pb-7 pt-3 px-7  rounded-lg w-[400px] min-w-max cursor-pointer shadow-2xl hover:scale-110 transition-all">
                                 <div className="text-sm text-gray-600 text-left w-full">
                                     {new Date(item.created_at).toLocaleString('ko-KR')}
                                 </div>

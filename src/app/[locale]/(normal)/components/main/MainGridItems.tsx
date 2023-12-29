@@ -10,7 +10,7 @@ export default function MainGridItems(props: IMainGridItemsProps) {
                 <div className="main_grid_section gap-2">
                     <div className="border-2 rounded-lg overflow-hidden aspect-[1/1]">
                         <img
-                            className="w-full h-full object-contain p-3 dark:fill-white"
+                            className="w-full h-full object-contain p-3"
                             src="/logo2.svg"
                             alt="123"
                         />

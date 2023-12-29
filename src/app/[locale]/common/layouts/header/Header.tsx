@@ -22,10 +22,10 @@ export default function Header(props: IHeaderProps) {
 
     const handleScroll = () => {
         if (window && window.scrollY > 80) {
-            headerColorRef.current!.className = `sticky top-0 w-full z-50 h-[70px] bg-white dark:text-white dark:bg-black text-black transition duration-700`
+            headerColorRef.current!.className = `sticky top-0 w-full z-50 h-[70px] bg-white text-black transition duration-700`
         } else {
             headerColorRef.current!.className =
-                'sticky top-0 w-full z-50 h-[70px] text-white dark-bg-black transition duration-700'
+                'sticky top-0 w-full z-50 h-[70px] text-white transition duration-700'
         }
     }
 
@@ -64,7 +64,7 @@ export default function Header(props: IHeaderProps) {
         <>
             <header
                 ref={headerColorRef}
-                className="flex flex-row justify-center items-center sticky top-0 w-full z-50 h-[70px] bg-[#FFCD19] text-black dark:text-white">
+                className="flex flex-row justify-center items-center sticky top-0 w-full z-50 h-[70px] bg-[#FFCD19] text-black">
                 <div className="flex flex-row items-center justify-between w-full max-w-[1600px] px-10">
                     <Logo />
                     <div className="hidden lg:flex lg:flex-row justify-center items-center gap-x-1 min-w-max">
@@ -87,8 +87,8 @@ export default function Header(props: IHeaderProps) {
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
-            {/* <div className="bg-gradient-to-b from-orange-500 to-white dark:to-black z-10 absolute top-0 w-full h-[500px]"></div> */}
-            {/* <div className="headerbackground dark:darkheaderbackground bg-cover blur-sm bg-no-repeatz-10 absolute top-0 w-full h-[500px]"></div> */}
+            {/* <div className="bg-gradient-to-b from-orange-500 to-white z-10 absolute top-0 w-full h-[500px]"></div> */}
+            {/* <div className="headerbackground bg-cover blur-sm bg-no-repeatz-10 absolute top-0 w-full h-[500px]"></div> */}
         </>
     )
 }

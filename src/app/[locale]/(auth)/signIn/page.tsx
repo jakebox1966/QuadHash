@@ -62,7 +62,7 @@ export default function SignIn(props: ISignInProps) {
     return (
         <>
             <div className="min-h-[50%] w-full flex flex-col justify-center items-center">
-                <div className="bg-white/60 dark:bg-gray-800 w-[60%] p-6 rounded-lg">
+                <div className="bg-white/60 w-[60%] p-6 rounded-lg">
                     <div className="flex flex-col justify-center items-center ">
                         <div>Connect a Wallet</div>
                         <div>Choose which card you want to connect</div>

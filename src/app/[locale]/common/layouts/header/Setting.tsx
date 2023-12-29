@@ -38,9 +38,9 @@ export default function Setting(props: ISettingProps) {
 
     const handleScroll = () => {
         if (window && window.scrollY > 80) {
-            headerColorRef.current!.className = `dark:text-white text-black transition duration-700`
+            headerColorRef.current!.className = `text-black transition duration-700`
         } else {
-            headerColorRef.current!.className = 'dark:text-white text-white transition duration-700'
+            headerColorRef.current!.className = 'text-white transition duration-700'
         }
     }
 
@@ -69,7 +69,7 @@ export default function Setting(props: ISettingProps) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6 text-black dark:text-white">
+                                className="w-6 h-6 text-black">
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -84,9 +84,7 @@ export default function Setting(props: ISettingProps) {
                         </i>
                     </IconButton>
                 </MenuHandler>
-                <MenuList
-                    className="p-5 min-w-[300px] dark:bg-gray-800 dark:border-gray-800 dark:text-white"
-                    placeholder={undefined}>
+                <MenuList className="p-5 min-w-[300px]" placeholder={undefined}>
                     <MenuItem
                         className="flex flex-row items-center justify-between"
                         onClick={() => moveToPage(true, '/user')}
@@ -128,7 +126,7 @@ export default function Setting(props: ISettingProps) {
                     </MenuItem>
 
                     <hr className="my-3" />
-                    <MenuItem
+                    {/* <MenuItem
                         className="flex flex-row items-center justify-between"
                         placeholder={undefined}>
                         <svg
@@ -146,7 +144,7 @@ export default function Setting(props: ISettingProps) {
                         </svg>
                         <ThemeSwitcher />
                         Dark Mode
-                    </MenuItem>
+                    </MenuItem> */}
                     <Menu placement="right-start" allowHover offset={15}>
                         <MenuHandler className="flex items-center justify-between">
                             <MenuItem placeholder={undefined}>

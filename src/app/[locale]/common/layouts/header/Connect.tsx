@@ -21,9 +21,9 @@ export default function Connect(props: IConnectProps) {
 
     const handleScroll = () => {
         if (window && window.scrollY > 80) {
-            headerColorRef.current!.className = 'dark:text-white text-black transition duration-700'
+            headerColorRef.current!.className = 'text-black transition duration-700'
         } else {
-            headerColorRef.current!.className = `dark:text-white text-white transition duration-700`
+            headerColorRef.current!.className = `text-white transition duration-700`
         }
     }
     // useEffect(() => {
@@ -38,7 +38,7 @@ export default function Connect(props: IConnectProps) {
             {(hasProvider && wallet.accounts.length < 1) || !session ? (
                 <Button
                     variant="outlined"
-                    className=" text-black dark:text-white"
+                    className=" text-black"
                     disabled={isConnecting}
                     onClick={handleSignInModalOpen}
                     placeholder={undefined}>
@@ -47,7 +47,7 @@ export default function Connect(props: IConnectProps) {
             ) : (
                 <Button
                     variant="outlined"
-                    className=" text-black dark:text-white"
+                    className=" text-black"
                     disabled={isConnecting}
                     placeholder={undefined}>
                     <span ref={headerColorRef}>{formatAddress(wallet.accounts[0])}</span>
