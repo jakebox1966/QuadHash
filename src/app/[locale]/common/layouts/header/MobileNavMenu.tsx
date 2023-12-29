@@ -23,10 +23,10 @@ export default function MobileNavMenu({ isMobileMenuOpen }: IMobileNavMenuProps)
                     <>
                         <div className="flex flex-col items-start justify-center px-10 py-7 gap-10">
                             {menuList.map((menu) => (
-                                <div className="flex flex-row justify-between items-center w-full hover:opacity-50">
-                                    <Link key={menu} href={`/${menu}`}>
-                                        {t(menu)}
-                                    </Link>
+                                <div
+                                    key={menu}
+                                    className="flex flex-row justify-between items-center w-full hover:opacity-50">
+                                    <Link href={`/${menu}`}>{t(menu)}</Link>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20"

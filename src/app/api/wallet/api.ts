@@ -37,3 +37,17 @@ export const personalSign = async (account: any, message: any) => {
     })
     return signature
 }
+
+/**
+ * Transaction에 서명하고 메소드 실행한다.
+ *
+ * @param transactionParameters
+ * @returns
+ */
+export const callContractMethod = async (transactionParameters: any) => {
+    const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+    })
+    return txHash
+}

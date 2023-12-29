@@ -1,7 +1,11 @@
 import { Alchemy, GetTransfersForOwnerTransferType, Network } from 'alchemy-sdk'
+import { createAlchemyWeb3 } from '@alch/alchemy-web3'
+import EtherToQHT_ContractABI from '@/app/abi/EtherToQHT.json'
+import { calcCoinPriceWithWei } from '@/app/utils/ethUtils'
 
+const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
 const config = {
-    apiKey: '2jp0674GCJeIZW9qmM3WB92wslh1P8yM', // Replace with your API key
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY, // Replace with your API key
     network: Network.ETH_SEPOLIA, // Replace with your network
 }
 
@@ -35,7 +39,42 @@ export const getTransfersForOwner = async (
     return response
 }
 
+/**
+ * Get Block Id
+ *
+ * @param blockId
+ * @returns
+ */
 export const getBlock = async (blockId: string) => {
     const response = await alchemy.core.getBlock(blockId)
     return response
+}
+
+/**
+ * Buy Coin for Dynamic NFT or Fractional Investing
+ *
+ * @param coinAmount
+ * @param etherValue
+ * @returns
+ */
+export const getCoin = async (coinAmount: number) => {
+    window.contract = new web3.eth.Contract(
+        EtherToQHT_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_ETH_TO_ERC20_CONTRACT_ADDRESS,
+    )
+
+    const coinPriceInWei = await window.contract.methods._tokenPrice.call().call()
+
+    const transactionParameters = {
+        to: process.env.NEXT_PUBLIC_ETH_TO_ERC20_CONTRACT_ADDRESS,
+        from: window.ethereum.selectedAddress,
+        value: calcCoinPriceWithWei(coinAmount, coinPriceInWei),
+        data: window.contract.methods.etherToERC20(coinAmount).encodeABI(),
+    }
+
+    const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+    })
+    return txHash
 }
