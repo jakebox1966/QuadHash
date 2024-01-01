@@ -11,8 +11,6 @@ import { getCoin } from '@/app/api/alchemy/api'
 
 export interface ICoinExchangeProps {}
 
-const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
-
 export default function CoinExchange(props: ICoinExchangeProps) {
     const { useRouter } = createSharedPathnamesNavigation({ locales })
     // const { $alert } = React.useContext(AlertContext)

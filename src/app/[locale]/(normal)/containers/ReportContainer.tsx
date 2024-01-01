@@ -45,69 +45,69 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     const { wallet } = useMetaMask()
 
-    // useEffect(() => {
-    //     const getExNfts = async () => {
-    //         if (wallet.accounts.length > 0) {
-    //             setIsLoading(true)
-    //             const result = await getTransfersForOwner(
-    //                 wallet.accounts[0],
-    //                 GetTransfersForOwnerTransferType.TO,
-    //                 {
-    //                     contractAddresses: [
-    //                         process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-    //                         process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-    //                     ],
-    //                     tokenType: 'ERC721',
-    //                     orderby: NftOrdering.TRANSFERTIME,
-    //                 },
-    //             )
+    useEffect(() => {
+        const getExNfts = async () => {
+            if (wallet.accounts.length > 0) {
+                setIsLoading(true)
+                const result = await getTransfersForOwner(
+                    wallet.accounts[0],
+                    GetTransfersForOwnerTransferType.TO,
+                    {
+                        contractAddresses: [
+                            process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                            process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+                        ],
+                        tokenType: 'ERC721',
+                        orderby: NftOrdering.TRANSFERTIME,
+                    },
+                )
 
-    //             const nfts = result.nfts
-    //             // console.log(nfts)
+                const nfts = result.nfts
+                // console.log(nfts)
 
-    //             let filteredTransaction = []
+                let filteredTransaction = []
 
-    //             for (let i = 0; i < nfts.length; i++) {
-    //                 const block = await getBlock(nfts[i].blockNumber)
-    //                 // if (block.timestamp + 60 * 60 * 24 > Math.floor(new Date().getTime() / 1000)) {
-    //                 filteredTransaction.push(nfts[i])
-    //                 // }
-    //             }
-    //             let sazaExNftList = []
-    //             let gazaExNftList = []
+                for (let i = 0; i < nfts.length; i++) {
+                    const block = await getBlock(nfts[i].blockNumber)
+                    // if (block.timestamp + 60 * 60 * 24 > Math.floor(new Date().getTime() / 1000)) {
+                    filteredTransaction.push(nfts[i])
+                    // }
+                }
+                let sazaExNftList = []
+                let gazaExNftList = []
 
-    //             filteredTransaction.forEach((transaction) => {
-    //                 if (
-    //                     transaction.contract.address ===
-    //                     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
-    //                 ) {
-    //                     sazaExNftList.push(transaction)
-    //                 } else if (
-    //                     transaction.contract.address ===
-    //                     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
-    //                 ) {
-    //                     gazaExNftList.push(transaction)
-    //                 }
-    //             })
+                filteredTransaction.forEach((transaction) => {
+                    if (
+                        transaction.contract.address ===
+                        process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
+                    ) {
+                        sazaExNftList.push(transaction)
+                    } else if (
+                        transaction.contract.address ===
+                        process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
+                    ) {
+                        gazaExNftList.push(transaction)
+                    }
+                })
 
-    //             setSazaExNftList(
-    //                 sazaExNftList.map((exNft) => ({
-    //                     ...exNft,
-    //                     ...{ isChecked: false },
-    //                 })),
-    //             )
-    //             setGazaExNftList(
-    //                 gazaExNftList.map((exNft) => ({
-    //                     ...exNft,
-    //                     ...{ isChecked: false },
-    //                 })),
-    //             )
-    //         }
-    //         setIsLoading(false)
-    //     }
+                setSazaExNftList(
+                    sazaExNftList.map((exNft) => ({
+                        ...exNft,
+                        ...{ isChecked: false },
+                    })),
+                )
+                setGazaExNftList(
+                    gazaExNftList.map((exNft) => ({
+                        ...exNft,
+                        ...{ isChecked: false },
+                    })),
+                )
+            }
+            setIsLoading(false)
+        }
 
-    //     getExNfts()
-    // }, [wallet])
+        getExNfts()
+    }, [wallet])
 
     const inputHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {

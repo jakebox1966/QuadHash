@@ -18,14 +18,14 @@ export default function MobileNavMenu({ isMobileMenuOpen }: IMobileNavMenuProps)
     const menuList = ['about', 'buy', 'dynamicNFT', 'fractionalInvest', 'admin']
     return (
         <>
-            <div className={`${isMobileMenuOpen && 'act'} bg-white mobile_nav_bar font-black`}>
+            <div className={`${isMobileMenuOpen && 'act'} bg-gray-200 mobile_nav_bar font-black`}>
                 {isMobileMenuOpen && (
                     <>
                         <div className="flex flex-col items-start justify-center px-10 py-7 gap-10">
                             {menuList.map((menu) => (
                                 <div
                                     key={menu}
-                                    className="flex flex-row justify-between items-center w-full hover:opacity-50">
+                                    className="flex flex-row justify-between items-center w-full hover:opacity-50 cursor-pointer">
                                     <Link href={`/${menu}`}>{t(menu)}</Link>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

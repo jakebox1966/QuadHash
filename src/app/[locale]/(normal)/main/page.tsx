@@ -10,7 +10,7 @@ export interface IMainProps {}
 export default function Main(props: IMainProps) {
     return (
         <>
-            <div className="flex flex-col justify-center items-center gap-20 mb-80 max-w-[1600px]">
+            <div className="flex flex-col justify-center items-center gap-20 mb-80">
                 <MainTop />
                 <MainMiddle />
                 <MainBottom />
