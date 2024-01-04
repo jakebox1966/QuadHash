@@ -75,7 +75,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
             token_type: nftType,
             category: selectedCategory.trait_type.toLowerCase(),
             wallet_signature: signature,
-            wallet_address: '0x63120565a91C891920285bFc3781F56047d711b7',
+            wallet_address: window.ethereum.selectedAddress,
         })
         console.log(result)
 
