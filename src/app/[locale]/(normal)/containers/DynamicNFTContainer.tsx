@@ -69,7 +69,9 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         console.log(metaData)
     }, [metaData])
 
-    React.useEffect(() => {}, [selectedCategory])
+    React.useEffect(() => {
+        console.log(selectedCategory)
+    }, [selectedCategory])
 
     const startDynamicNFT = async () => {
         const accounts = await getAccounts()
@@ -93,7 +95,14 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         console.log('refreshResult', refreshResult)
 
         setMetaData(refreshResult)
-
+        const keyChanged = selectedCategory?.trait_type
+        console.log('keyChanged', keyChanged)
+        const changedValue = refreshResult.attributes.find((item) => item.trait_type === keyChanged)
+        console.log('changedValue', changedValue)
+        setSelectedCategory((prev) => ({
+            ...prev,
+            value: changedValue.value,
+        }))
         console.log(refreshResult)
     }
 
@@ -121,7 +130,9 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden"
                             onClick={handleOpen}>
                             {!selectedNft && <img src="/1.png" alt="example-image" />}
-                            {selectedNft && metaData && <img src={metaData.image} />}
+                            {selectedNft && metaData && (
+                                <img src={`${metaData.image}?${new Date().getTime()}`} />
+                            )}
                         </div>
                         <div className="w-full md:w-[40%] border-4  rounded-2xl overflow-hidden">
                             {nftType && selectedCategory && nftType === 'saza' ? (
@@ -131,7 +142,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                                     }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
                                         ' ',
                                         '-',
-                                    )}.png`}
+                                    )}.png?${new Date().getTime()}`}
                                     alt=""
                                 />
                             ) : nftType && selectedCategory && nftType === 'gaza' ? (
@@ -141,7 +152,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                                     }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
                                         ' ',
                                         '-',
-                                    )}.png`}
+                                    )}.png?${new Date().getTime()}`}
                                     alt=""
                                 />
                             ) : (

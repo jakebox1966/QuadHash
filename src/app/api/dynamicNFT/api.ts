@@ -14,6 +14,7 @@ export const postDynamicNFT = async (parameter: any) => {
 }
 
 export const getMetadata = async ({ nftType, tokenId }) => {
+    console.log('now refetch Data')
     let jsonUrl = ''
     if (nftType === 'saza') {
         jsonUrl = `${process.env.NEXT_PUBLIC_SAZA_METADATA_URL}/${tokenId}.json`
@@ -21,7 +22,9 @@ export const getMetadata = async ({ nftType, tokenId }) => {
         jsonUrl = `${process.env.NEXT_PUBLIC_GAZA_METADATA_URL}/${tokenId}.json`
     }
 
-    const result = await fetch(jsonUrl)
+    const result = await fetch(jsonUrl, {
+        cache: 'no-store',
+    })
 
     return await result.json()
 }
