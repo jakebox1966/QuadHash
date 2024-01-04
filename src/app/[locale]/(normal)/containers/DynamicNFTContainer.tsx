@@ -1,175 +1,191 @@
 'use client'
+
 import * as React from 'react'
-import { Tabs, TabsHeader, TabsBody, Tab, TabPanel, Spinner } from '@material-tailwind/react'
-import CardList from '../../common/components/CardList'
-import Card from '../../common/components/Card'
-import { getNftsForOwner } from '@/app/api/alchemy/api'
+import Category from '../components/dynamicNFT/Category'
+import {
+    Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+    Typography,
+} from '@material-tailwind/react'
+import DynamicNFTList from '../components/dynamicNFT/DynamicNFTList'
+import { postDynamicNFT } from '@/app/api/dynamicNFT/api'
+import { getAccounts, personalSign } from '@/app/api/wallet/api'
+import { getUuidByAccount } from '@/app/api/auth/api'
+import { refreshMetadata } from '@/app/api/alchemy/api'
 
 export interface IDynamicNFTContainerProps {}
 
-type lastpage = {
-    page: number
-    total_pages: number
-}
-
-const data = [
-    {
-        label: 'SAZA',
-        value: 'SAZA',
-    },
-    {
-        label: 'GAZA',
-        value: 'GAZA',
-    },
+const sazaPart = ['Background', 'Body', 'Extra', 'Eyes', 'Head', 'Headwear', 'Mane', 'Mouth']
+const gazaPart = [
+    'Background',
+    'Body',
+    'Extra',
+    'Eyes',
+    'Front',
+    'Head',
+    'Headwear',
+    'Mane',
+    'Mouth',
 ]
 
 export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
-    const [sazaNfts, setSazaNfts] = React.useState([])
-    const [gazaNfts, setGazaNfts] = React.useState([])
-    const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
-    const [gazaIsLoading, setGazaIsLoading] = React.useState(false)
+    const [open, setOpen] = React.useState(false)
+    const [categories, setCategoires] = React.useState(null)
+
+    const [selectedNft, setSelectedNft] = React.useState(null)
+    const [nftType, setNftType] = React.useState(null)
+    const [selectedCategory, setSelectedCategory] = React.useState(null)
+    // const [metaData, setMetaData] = React.useState(null)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setSazaIsLoading(true)
-                setGazaIsLoading(true)
-                console.log('Start loading data')
-                const sazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
-                    contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
-                })
-                const gazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
-                    contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
-                })
-
-                setSazaNfts(sazaNfts.ownedNfts)
-                setGazaNfts(gazaNfts.ownedNfts)
-                setSazaIsLoading(false)
-                setGazaIsLoading(false)
-            } catch (error) {
-                console.error(error)
-                setSazaIsLoading(false)
-                setGazaIsLoading(false)
-            }
+        // init()
+        setCategoires(null)
+        if (selectedNft?.contract.address === process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS) {
+            setNftType('saza')
+        } else if (
+            selectedNft?.contract.address === process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
+        ) {
+            setNftType('gaza')
         }
-        fetchData()
-    }, [])
+        setCategoires(selectedNft?.raw.metadata.attributes.filter((item, index) => index !== 0))
+    }, [selectedNft])
 
     React.useEffect(() => {
-        console.log(sazaNfts)
-    }, [sazaNfts])
-    const [activeTab, setActiveTab] = React.useState('SAZA')
+        console.log(nftType, selectedCategory)
+    }, [nftType])
+
+    React.useEffect(() => {
+        console.log(selectedCategory)
+    }, [selectedCategory])
+
+    const startDynamicNFT = async () => {
+        const accounts = await getAccounts()
+
+        let signResult = await getUuidByAccount(accounts[0])
+        const signature = await personalSign(accounts[0], signResult.eth_nonce)
+
+        const result = await postDynamicNFT({
+            token_id: selectedNft.tokenId,
+            token_type: nftType,
+            category: selectedCategory.trait_type.toLowerCase(),
+            wallet_signature: signature,
+            wallet_address: '0x63120565a91C891920285bFc3781F56047d711b7',
+        })
+        console.log(result)
+
+        const test = await refreshMetadata({
+            tokenId: selectedNft.tokenId,
+            contractAddress: selectedNft.contract.address,
+        })
+        console.log('test', test)
+    }
+
     return (
         <>
-            <div className="flex flex-col justify-center items-center gap-10 w-full px-10 mt-3 rounded-lg">
-                <div className="flex flex-row justify-start items-center w-full">
-                    <div className="font-black text-4xl">DYNAMIC NFT</div>
+            <div className="flex flex-col justify-center items-center w-full px-10 mt-3 rounded-l">
+                <div className="flex flex-col justify-center items-center border-4 w-full rounded-2xl p-5 gap-5">
+                    <div className="w-[80%]">
+                        {categories ? (
+                            <Category
+                                categories={categories}
+                                selectedCategory={selectedCategory}
+                                setSelectedCategory={setSelectedCategory}
+                            />
+                        ) : (
+                            <div className="text-center uppercase py-3 border-4 rounded-2xl text-xs font-black md:text-base lg:text-xl">
+                                왼쪽 이미지를 클릭하면 보유하신 NFT 목록을 확인하실 수 있습니다.
+                            </div>
+                        )}
+                    </div>
+                    <div className="w-full flex flex-col md:flex-row justify-between items-center gap-3">
+                        <div
+                            className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden"
+                            onClick={handleOpen}>
+                            {!selectedNft && <img src="/1.png" alt="" />}
+                            {selectedNft && <img src={selectedNft.image.originalUrl} />}
+                        </div>
+                        <div className="w-full md:w-[40%] border-4  rounded-2xl overflow-hidden">
+                            {nftType && selectedCategory && nftType === 'saza' ? (
+                                <img
+                                    src={`${
+                                        process.env.NEXT_PUBLIC_SAZA_PART_IMG_URL
+                                    }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
+                                        ' ',
+                                        '-',
+                                    )}.png`}
+                                    alt=""
+                                />
+                            ) : nftType && selectedCategory && nftType === 'gaza' ? (
+                                <img
+                                    src={`${
+                                        process.env.NEXT_PUBLIC_GAZA_PART_IMG_URL
+                                    }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
+                                        ' ',
+                                        '-',
+                                    )}.png`}
+                                    alt=""
+                                />
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    </div>
+                    <div className="w-full">
+                        <Button
+                            className="w-full p-5"
+                            variant="gradient"
+                            placeholder={undefined}
+                            onClick={startDynamicNFT}>
+                            START
+                        </Button>
+                    </div>
+                    <div className="flex flex-col justify-center items-start gap-3">
+                        <div className="font-black">Footer [Dynamic NFT 이용 조건]</div>
+                        <div>
+                            본 QH 웹사이트에서 제공하는 Dynamic NFT 서비스를 이용하기 위해서는
+                            이더리움(ETH)을 활용하여 구매한 ERC-20 기반 토큰(이하 '토큰')을 QH
+                            티켓으로 전환하셔야 합니다. 모든 사용자는 아래의 조건을 이해하고
+                            동의하신 것으로 간주됩니다.
+                        </div>
+                        <div>
+                            <div>
+                                1. Dynamic NFT 서비스를 이용하여 파츠 변경 시, 변경된 내용은 원상
+                                복구가 불가능합니다.
+                            </div>
+                            <div>
+                                2. 사용자는 토큰 구매와 서비스 이용에 필요한 모든 조건을 충분히
+                                이해하고, 이에 동의 합니다.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <Tabs value="SAZA" className="w-full">
-                    <TabsHeader
-                        className="bg-transparent"
-                        indicatorProps={{
-                            className: 'bg-gray-900/10 shadow-none !text-gray-900',
-                        }}
-                        placeholder={undefined}>
-                        <Tab
-                            value={'SAZA'}
-                            onClick={() => setActiveTab('SAZA')}
-                            placeholder={undefined}>
-                            <svg
-                                width="70"
-                                height="25"
-                                viewBox="0 0 70 25"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M15.5 2.82812L14.6562 8.14062L8.10938 6.60938L15.5 17.5781L12.0469 24.5L1.04688 23L0.828125 16.8906L7.78125 18.0625L0.578125 6.375L5.15625 0.109375L15.5 2.82812ZM23.2031 19.7344L22.3125 23L16.1406 22.9375L22.8438 0.390625L30.5938 0.578125L35.5781 23.1094L29.0781 23.0625L28.4844 20.0625L23.2031 19.7344ZM27.2344 13.8125L26.2031 8.65625L24.8281 13.7188L27.2344 13.8125ZM43.1875 16.9688L49.875 17.1094L50.0625 23.2812L35.8125 22.8125L35.875 16.8281L42.6562 6.9375H35.9375L35.9844 0.671875L49.8594 0.65625L49.9375 6.9375L43.1875 16.9688ZM57.5156 19.7344L56.625 23L50.4531 22.9375L57.1562 0.390625L64.9062 0.578125L69.8906 23.1094L63.3906 23.0625L62.7969 20.0625L57.5156 19.7344ZM61.5469 13.8125L60.5156 8.65625L59.1406 13.7188L61.5469 13.8125Z"
-                                    fill={activeTab === 'SAZA' ? '#FFCD19' : '#AEAEAE'}
-                                />
-                            </svg>
-                        </Tab>
-                        <Tab
-                            value={'GAZA'}
-                            onClick={() => setActiveTab('GAZA')}
-                            placeholder={undefined}>
-                            <svg
-                                width="73"
-                                height="25"
-                                viewBox="0 0 73 25"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M17.8281 20.9219L8.73438 24.9219L0.90625 20.6875L1 4.96875L9.20312 0.890625L17.0781 5.04688L17.25 8.1875L11.125 9.26562L11.1094 8.17188L8.96875 7.34375L7.32812 8.51562L6.89062 17.6719L8.96875 18.4688L11.1562 16.9062V15.4375H8.98438L8.64062 10.7188L17.4688 10.5469L17.8281 20.9219ZM25.3281 20.7344L24.4375 24L18.2656 23.9375L24.9688 1.39062L32.7188 1.57812L37.7031 24.1094L31.2031 24.0625L30.6094 21.0625L25.3281 20.7344ZM29.3594 14.8125L28.3281 9.65625L26.9531 14.7188L29.3594 14.8125ZM45.3125 17.9688L52 18.1094L52.1875 24.2812L37.9375 23.8125L38 17.8281L44.7812 7.9375H38.0625L38.1094 1.67188L51.9844 1.65625L52.0625 7.9375L45.3125 17.9688ZM59.6406 20.7344L58.75 24L52.5781 23.9375L59.2812 1.39062L67.0312 1.57812L72.0156 24.1094L65.5156 24.0625L64.9219 21.0625L59.6406 20.7344ZM63.6719 14.8125L62.6406 9.65625L61.2656 14.7188L63.6719 14.8125Z"
-                                    fill={activeTab === 'GAZA' ? '#FFCD19' : '#AEAEAE'}
-                                />
-                            </svg>
-                        </Tab>
-                    </TabsHeader>
-                    <TabsBody placeholder={undefined}>
-                        <TabPanel key={'SAZA'} value={'SAZA'} className="p-1 pt-3">
-                            {sazaIsLoading && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
-                                        <div className="bg-gray-400">
-                                            <img src="/1.png" alt="" />
-                                        </div>
-                                    </div>
-                                    <Spinner className="h-24 w-24 absolute" />
-                                </div>
-                            )}
-
-                            {!sazaIsLoading && sazaNfts.length === 0 && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
-                                        <div className="bg-gray-400">
-                                            <img src="/1.png" alt="" />
-                                        </div>
-                                    </div>
-                                    <div>You dont have any NFT in your account.</div>
-                                </div>
-                            )}
-
-                            {!sazaIsLoading && sazaNfts.length > 0 && (
-                                <CardList>
-                                    {sazaNfts.map((saza) => (
-                                        <Card imgUrl={saza.image.originalUrl} key={saza.name} />
-                                    ))}
-                                </CardList>
-                            )}
-                        </TabPanel>
-                        <TabPanel key={'GAZA'} value={'GAZA'} className="p-1 pt-3">
-                            {gazaIsLoading && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
-                                        <div className="bg-gray-400">
-                                            <img src="/1.png" alt="" />
-                                        </div>
-                                    </div>
-                                    <Spinner className="h-24 w-24 absolute" />
-                                </div>
-                            )}
-
-                            {!gazaIsLoading && gazaNfts.length === 0 && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
-                                        <div className="bg-gray-400">
-                                            <img src="/1.png" alt="" />
-                                        </div>
-                                    </div>
-                                    <div>You dont have any NFT in your account.</div>
-                                </div>
-                            )}
-
-                            <CardList>
-                                {gazaNfts.map((gaza) => (
-                                    <Card imgUrl={gaza.image.originalUrl} key={gaza.name} />
-                                ))}
-                            </CardList>
-                        </TabPanel>
-                    </TabsBody>
-                </Tabs>
             </div>
+
+            <Dialog open={open} handler={handleOpen} placeholder={undefined}>
+                <DialogHeader placeholder={undefined}>SELECT YOUR NFT</DialogHeader>
+                <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined}>
+                    <DynamicNFTList
+                        setSelectedNft={setSelectedNft}
+                        setCategoires={setCategoires}
+                        handleOpen={handleOpen}
+                    />
+                </DialogBody>
+                <DialogFooter className="space-x-2" placeholder={undefined}>
+                    <Button
+                        variant="text"
+                        color="blue-gray"
+                        onClick={handleOpen}
+                        placeholder={undefined}>
+                        cancel
+                    </Button>
+                </DialogFooter>
+            </Dialog>
         </>
     )
 }

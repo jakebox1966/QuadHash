@@ -70,7 +70,7 @@ export const getCoin = async (coinAmount: number) => {
     const transactionParameters = {
         to: process.env.NEXT_PUBLIC_ETH_TO_ERC20_CONTRACT_ADDRESS,
         from: window.ethereum.selectedAddress,
-        value: calcCoinPriceWithWei(coinAmount, coinPriceInWei),
+        value: (coinAmount * coinPriceInWei).toString(16),
         data: window.contract.methods.etherToERC20(coinAmount).encodeABI(),
     }
 
@@ -79,4 +79,9 @@ export const getCoin = async (coinAmount: number) => {
         params: [transactionParameters],
     })
     return txHash
+}
+
+export const refreshMetadata = async ({ tokenId, contractAddress }) => {
+    const response = await alchemy.nft.refreshNftMetadata(contractAddress, tokenId)
+    console.log('refreshMetadata')
 }

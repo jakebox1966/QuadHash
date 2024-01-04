@@ -88,4 +88,12 @@
     .nft_card_checked {
         transform: perspective(800px) rotateY(180deg);
     }
+
+    .swiper .swiper-pagination {
+      position: static;
+      bottom: -10px !important;
+    }
+    .swiper .swiper-pagination-bullet {
+      margin: 0 5px !important;
+    }
 }
