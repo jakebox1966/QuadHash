@@ -1,4 +1,5 @@
 'use client'
+import { getMetadata } from '@/app/api/dynamicNFT/api'
 import * as React from 'react'
 
 export interface ICardProps {
@@ -6,11 +7,23 @@ export interface ICardProps {
     onClick?: React.MouseEventHandler | undefined
     setSelectedNft?: React.Dispatch<any>
     setCategoires: React.Dispatch<any>
+    setMetaData: React.Dispatch<any>
     handleOpen?: () => void
 }
 
-export default function Card({ nft, setSelectedNft, handleOpen, setCategoires }: ICardProps) {
-    const selectNft = () => {
+export default function Card({
+    nft,
+    setSelectedNft,
+    handleOpen,
+    setCategoires,
+    setMetaData,
+}: ICardProps) {
+    const selectNft = async () => {
+        const result = await getMetadata({
+            nftType: nft.contract.symbol.toLowerCase(),
+            tokenId: nft.tokenId,
+        })
+        setMetaData(result)
         setSelectedNft(nft)
         setCategoires(null)
         handleOpen()
@@ -23,8 +36,8 @@ export default function Card({ nft, setSelectedNft, handleOpen, setCategoires }:
             <div className="cursor-pointer transition-all group-hover:opacity-75 group-hover:scale-110 overflow-hidden">
                 <img src={nft?.image.originalUrl} alt="" />
             </div>
-            <div className="absolute bottom-0 w-full text-center bg-gray-300 opacity-0 group-hover:opacity-100 transition-all p-3 font-black">
-                SELECT NFT
+            <div className="absolute bottom-0 w-full text-center bg-gray-300 opacity-0 group-hover:opacity-100 transition-all p-1 font-black cursor-pointer">
+                # {nft.tokenId}
             </div>
         </div>
     )

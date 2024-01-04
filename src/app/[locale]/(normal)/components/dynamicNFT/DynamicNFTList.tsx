@@ -12,6 +12,7 @@ export interface IDynamicNFTListProps {
     setSelectedNft?: React.Dispatch<any>
     setCategoires: React.Dispatch<any>
     handleOpen?: () => void
+    setMetaData?: React.Dispatch<any>
 }
 
 type lastpage = {
@@ -34,6 +35,7 @@ export default function DynamicNFTList({
     setSelectedNft,
     setCategoires,
     handleOpen,
+    setMetaData,
 }: IDynamicNFTListProps) {
     const { Link } = createSharedPathnamesNavigation({ locales })
     const [sazaNfts, setSazaNfts] = React.useState(null)
@@ -51,6 +53,7 @@ export default function DynamicNFTList({
                 const sazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                 })
+
                 const gazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                 })
@@ -141,6 +144,7 @@ export default function DynamicNFTList({
                                             key={saza.name}
                                             setSelectedNft={setSelectedNft}
                                             setCategoires={setCategoires}
+                                            setMetaData={setMetaData}
                                             handleOpen={handleOpen}
                                         />
                                     ))}
@@ -177,6 +181,7 @@ export default function DynamicNFTList({
                                         key={gaza.name}
                                         setSelectedNft={setSelectedNft}
                                         setCategoires={setCategoires}
+                                        setMetaData={setMetaData}
                                         handleOpen={handleOpen}
                                     />
                                 ))}
