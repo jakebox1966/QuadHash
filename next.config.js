@@ -21,7 +21,9 @@ const nextConfig = {
             fullUrl: true,
         },
     },
-    reactStrictMode: false,
+    images: {
+        remotePatterns: [{ protocol: 'https', hostname: '**' }],
+    },
 }
 
 module.exports = withNextIntl(nextConfig)

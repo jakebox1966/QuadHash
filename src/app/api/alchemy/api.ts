@@ -19,8 +19,6 @@ const alchemy = new Alchemy(config)
  * @returns
  */
 export const getNftsForOwner = async (wallet_address: string, option = null) => {
-    console.log(wallet_address)
-    console.log(option)
     const response = await alchemy.nft.getNftsForOwner(wallet_address, option)
     return response
 }

@@ -7,15 +7,20 @@ import 'swiper/css/pagination'
 import SwiperCore from 'swiper'
 import { Navigation } from 'swiper/modules'
 import CategoryButton from './CategoryButton'
+import { gazaCategoryValidation, sazaCategoryValidation } from '@/app/utils/partsUtils'
 
 export interface ICategoryProps {
     categories?: any[]
+    metaData: any
+    nftType: string
     selectedCategory: any
     setSelectedCategory: React.Dispatch<any>
 }
 
 export default function Category({
     categories,
+    nftType,
+    metaData,
     selectedCategory,
     setSelectedCategory,
 }: ICategoryProps) {
@@ -27,20 +32,52 @@ export default function Category({
                     navigation={true}
                     spaceBetween={30}
                     slidesPerView={1}
+                    preventClicks={true}
+                    preventClicksPropagation={true}
                     onBeforeInit={(boforeInitValue) => {
-                        console.log('boforeInit', boforeInitValue)
-                        setSelectedCategory(categories[boforeInitValue.activeIndex])
+                        if (nftType === 'saza') {
+                            const result = sazaCategoryValidation(
+                                metaData.attributes[0].value,
+                                selectedCategory?.trait_type,
+                            )
+                            setSelectedCategory({ ...selectedCategory, ...result })
+                        } else if (nftType === 'gaza') {
+                            const result = gazaCategoryValidation(
+                                metaData.attributes[0].value,
+                                selectedCategory?.trait_type,
+                                metaData.attributes.filter((item, index) => index !== 0),
+                            )
+                            setSelectedCategory({
+                                ...categories[boforeInitValue.activeIndex],
+                                ...result,
+                            })
+                        }
                     }}
                     onSlideChange={(afterChangeValue) => {
-                        console.log('slider value', afterChangeValue)
-                        setSelectedCategory(categories[afterChangeValue.activeIndex])
+                        if (nftType === 'saza') {
+                            const result = sazaCategoryValidation(
+                                metaData.attributes[0].value,
+                                categories[afterChangeValue.activeIndex].trait_type,
+                            )
+
+                            setSelectedCategory({
+                                ...categories[afterChangeValue.activeIndex],
+                                ...result,
+                            })
+                        } else if (nftType === 'gaza') {
+                            const result = gazaCategoryValidation(
+                                metaData.attributes[0].value,
+                                categories[afterChangeValue.activeIndex].trait_type,
+                                metaData.attributes,
+                            )
+                            setSelectedCategory({
+                                ...categories[afterChangeValue.activeIndex],
+                                ...result,
+                            })
+                        }
                     }}>
-                    {/* <CategoryButton></CategoryButton> */}
                     {categories?.map((item) => (
                         <SwiperSlide
-                            onClick={() => {
-                                setSelectedCategory(item)
-                            }}
                             key={item.trait_type}
                             className={`text-center uppercase py-3 border-4 rounded-2xl text-xs font-black md:text-base lg:text-xl cursor-pointer`}>
                             {item.trait_type}

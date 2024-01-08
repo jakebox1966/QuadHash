@@ -1,12 +1,9 @@
 'use client'
 import * as React from 'react'
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel, Spinner } from '@material-tailwind/react'
-import CardList from '../../../common/components/CardList'
-import Card from '../../../common/components/Card'
+import CardList from './CardList'
+import Card from './Card'
 import { getNftsForOwner } from '@/app/api/alchemy/api'
-import { locales } from '@/i18nconfig'
-
-import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 
 export interface IDynamicNFTListProps {
     setSelectedNft?: React.Dispatch<any>
@@ -37,7 +34,6 @@ export default function DynamicNFTList({
     handleOpen,
     setMetaData,
 }: IDynamicNFTListProps) {
-    const { Link } = createSharedPathnamesNavigation({ locales })
     const [sazaNfts, setSazaNfts] = React.useState(null)
     const [gazaNfts, setGazaNfts] = React.useState(null)
     const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
@@ -58,8 +54,6 @@ export default function DynamicNFTList({
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                 })
 
-                console.log(sazaNfts)
-
                 setSazaNfts(sazaNfts.ownedNfts)
                 setGazaNfts(gazaNfts.ownedNfts)
                 setSazaIsLoading(false)
@@ -73,16 +67,9 @@ export default function DynamicNFTList({
         fetchData()
     }, [])
 
-    React.useEffect(() => {
-        console.log(open)
-    }, [open])
     return (
         <>
             <div className="flex flex-col justify-center items-center gap-10 w-full px-10 mt-3 rounded-lg">
-                {/* <div className="flex flex-row justify-start items-center w-full">
-                    <div className="font-black text-4xl">DYNAMIC NFT</div>
-                </div> */}
-
                 <Tabs value="SAZA" className="w-full">
                     <TabsHeader
                         className="bg-transparent"
@@ -156,6 +143,7 @@ export default function DynamicNFTList({
                                 </div>
                             )}
                         </TabPanel>
+
                         <TabPanel key={'GAZA'} value={'GAZA'} className="p-1 pt-3">
                             {gazaIsLoading && (
                                 <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
@@ -168,24 +156,26 @@ export default function DynamicNFTList({
                                 </div>
                             )}
 
+                            {!gazaIsLoading && gazaNfts && gazaNfts.length > 0 && (
+                                <CardList>
+                                    {gazaNfts?.map((gaza) => (
+                                        <Card
+                                            nft={gaza}
+                                            key={gaza.name}
+                                            setSelectedNft={setSelectedNft}
+                                            setCategoires={setCategoires}
+                                            setMetaData={setMetaData}
+                                            handleOpen={handleOpen}
+                                        />
+                                    ))}
+                                </CardList>
+                            )}
+
                             {!gazaIsLoading && gazaNfts && gazaNfts.length === 0 && (
                                 <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
                                     <div>You dont have any NFT in your account.</div>
                                 </div>
                             )}
-
-                            <CardList>
-                                {gazaNfts?.map((gaza) => (
-                                    <Card
-                                        nft={gaza}
-                                        key={gaza.name}
-                                        setSelectedNft={setSelectedNft}
-                                        setCategoires={setCategoires}
-                                        setMetaData={setMetaData}
-                                        handleOpen={handleOpen}
-                                    />
-                                ))}
-                            </CardList>
                         </TabPanel>
                     </TabsBody>
                 </Tabs>

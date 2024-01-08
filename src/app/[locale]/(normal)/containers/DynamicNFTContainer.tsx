@@ -2,52 +2,52 @@
 
 import * as React from 'react'
 import Category from '../components/dynamicNFT/Category'
-import {
-    Button,
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
-    Typography,
-} from '@material-tailwind/react'
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react'
 import DynamicNFTList from '../components/dynamicNFT/DynamicNFTList'
 import { getMetadata, postDynamicNFT } from '@/app/api/dynamicNFT/api'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
-import { locales } from '@/i18nconfig'
-import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import Loading from '../../common/components/Loading'
+import Image from 'next/image'
+import { AlertContext } from '@/app/provider/AlertProvider'
+import { ConfirmContext } from '@/app/provider/ConfirmProvider'
+import DynamicNFTPolicy from '../components/dynamicNFT/DynamicNFTAgreement'
+// import { gazaCategoryValidation, sazaCategoryValidation } from '@/app/utils/partsUtils'
 
 export interface IDynamicNFTContainerProps {}
 
-const sazaPart = ['Background', 'Body', 'Extra', 'Eyes', 'Head', 'Headwear', 'Mane', 'Mouth']
-const gazaPart = [
-    'Background',
-    'Body',
-    'Extra',
-    'Eyes',
-    'Front',
-    'Head',
-    'Headwear',
-    'Mane',
-    'Mouth',
-]
-
 export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
-    const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
+    const { $alert } = React.useContext(AlertContext)
     const [open, setOpen] = React.useState(false)
+    const [policyOpen, setPolicyOpen] = React.useState(false)
+    const [isDynamicNFTLoading, setIsDynamicNFTLoading] = React.useState(false)
     const [categories, setCategoires] = React.useState(null)
     const [selectedNft, setSelectedNft] = React.useState(null)
     const [nftType, setNftType] = React.useState(null)
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [metaData, setMetaData] = React.useState(null)
 
-    const router = useRouter()
     const handleOpen = () => {
         setOpen(!open)
     }
+    // const test = () => {
+    //     // console.log(sazaCategoryValidation(200, 'background'))
+    //     console.log(
+    //         gazaCategoryValidation(5000, 'Bottoms', [
+    //             { trait_type: 'Background', value: 'Night' },
+    //             { trait_type: 'Body', value: 'Body' },
+    //             { trait_type: 'Top', value: 'None' },
+    //             { trait_type: 'Bottoms', value: 'None' },
+    //             { trait_type: 'Onesie', value: 'Rainbow' },
+    //             { trait_type: 'Eyes', value: 'Lasers' },
+    //             { trait_type: 'Mouth', value: 'NonChalant' },
+    //             { trait_type: 'Headwear', value: 'Halo' },
+    //             { trait_type: 'Extras', value: 'Snail' },
+    //         ]),
+    //     )
+    // }
 
     React.useEffect(() => {
-        // init()
         setCategoires(null)
         if (selectedNft?.contract.address === process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS) {
             setNftType('saza')
@@ -56,54 +56,55 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         ) {
             setNftType('gaza')
         }
-        setCategoires(
-            selectedNft?.raw.metadata.attributes.filter((item: any, index: number) => index !== 0),
-        )
+        setCategoires(metaData?.attributes)
+        setSelectedCategory(metaData?.attributes[1])
     }, [selectedNft])
 
     React.useEffect(() => {
-        console.log(selectedCategory)
-    }, [selectedCategory])
-
-    React.useEffect(() => {
-        console.log(metaData)
-    }, [metaData])
-
-    React.useEffect(() => {
-        console.log(selectedCategory)
+        console.log('selectedCategory', selectedCategory)
     }, [selectedCategory])
 
     const startDynamicNFT = async () => {
-        const accounts = await getAccounts()
+        setPolicyOpen(!open)
+        return
+        try {
+            setIsDynamicNFTLoading(true)
 
-        let signResult = await getUuidByAccount(accounts[0])
-        const signature = await personalSign(accounts[0], signResult.eth_nonce)
+            const accounts = await getAccounts()
 
-        const result = await postDynamicNFT({
-            token_id: selectedNft.tokenId,
-            token_type: nftType,
-            category: selectedCategory.trait_type.toLowerCase(),
-            wallet_signature: signature,
-            wallet_address: window.ethereum.selectedAddress,
-        })
+            let signResult = await getUuidByAccount(accounts[0])
+            const signature = await personalSign(accounts[0], signResult.eth_nonce)
 
-        const refreshResult = await getMetadata({
-            nftType: nftType,
-            tokenId: selectedNft.tokenId,
-        })
+            const result = await postDynamicNFT({
+                token_id: selectedNft.tokenId,
+                token_type: nftType,
+                category: selectedCategory.trait_type.toLowerCase(),
+                wallet_signature: signature,
+                wallet_address: window.ethereum.selectedAddress,
+            })
 
-        console.log('refreshResult', refreshResult)
+            if (result) {
+                const refreshResult = await getMetadata({
+                    nftType: nftType,
+                    tokenId: selectedNft.tokenId,
+                })
 
-        setMetaData(refreshResult)
-        const keyChanged = selectedCategory?.trait_type
-        console.log('keyChanged', keyChanged)
-        const changedValue = refreshResult.attributes.find((item) => item.trait_type === keyChanged)
-        console.log('changedValue', changedValue)
-        setSelectedCategory((prev) => ({
-            ...prev,
-            value: changedValue.value,
-        }))
-        console.log(refreshResult)
+                setMetaData(refreshResult)
+                const keyChanged = selectedCategory?.trait_type
+                const changedValue = refreshResult.attributes.find(
+                    (item) => item.trait_type === keyChanged,
+                )
+                setSelectedCategory((prev) => ({
+                    ...prev,
+                    value: changedValue.value,
+                }))
+            }
+            setIsDynamicNFTLoading(false)
+            await $alert('Dynamic NFT 적용 완료되었습니다.')
+        } catch (error) {
+            setIsDynamicNFTLoading(false)
+            console.error(error)
+        }
     }
 
     return (
@@ -116,6 +117,8 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                                 categories={metaData?.attributes?.filter(
                                     (item: any, index: number) => index !== 0,
                                 )}
+                                metaData={metaData}
+                                nftType={nftType}
                                 selectedCategory={selectedCategory}
                                 setSelectedCategory={setSelectedCategory}
                             />
@@ -125,35 +128,74 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             </div>
                         )}
                     </div>
-                    <div className="w-full flex flex-col md:flex-row justify-between items-center gap-3">
+                    <div className="w-full flex flex-row  md:flex-row justify-between items-stretch gap-3 cursor-pointer flex-wrap">
                         <div
-                            className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden"
+                            className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden relative"
                             onClick={handleOpen}>
-                            {!selectedNft && <img src="/1.png" alt="example-image" />}
+                            {!selectedNft && (
+                                <Image
+                                    className="!relative"
+                                    src="/1.png"
+                                    alt="sample"
+                                    fill
+                                    sizes="(max-width: 900px), (max-width:900px)"
+                                    priority
+                                    unoptimized={true}
+                                />
+                            )}
                             {selectedNft && metaData && (
-                                <img src={`${metaData.image}?${new Date().getTime()}`} />
+                                <Image
+                                    className="!relative"
+                                    src={`${selectedNft.image.originalUrl}?${new Date().getTime()}`}
+                                    alt="nftImage"
+                                    sizes="(max-width: 900px) 100px, (max-width:900px) 100px"
+                                    fill
+                                    unoptimized={true}
+                                    priority
+                                />
                             )}
                         </div>
-                        <div className="w-full md:w-[40%] border-4  rounded-2xl overflow-hidden">
+
+                        <div className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden relative">
+                            {!nftType && !selectedCategory && (
+                                <Image
+                                    className="!relative"
+                                    src="/question-mark.svg"
+                                    alt="question-mark"
+                                    fill
+                                    unoptimized={true}
+                                    priority
+                                    sizes="(max-width: 900px), (max-width:900px)"
+                                />
+                            )}
                             {nftType && selectedCategory && nftType === 'saza' ? (
-                                <img
+                                <Image
+                                    className="!relative"
                                     src={`${
                                         process.env.NEXT_PUBLIC_SAZA_PART_IMG_URL
                                     }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
-                                        ' ',
+                                        / /gi,
                                         '-',
                                     )}.png?${new Date().getTime()}`}
-                                    alt=""
+                                    alt="saza-image"
+                                    sizes="(max-width: 900px) 100px, (max-width:900px) 100px"
+                                    fill
+                                    unoptimized={true}
+                                    priority
                                 />
                             ) : nftType && selectedCategory && nftType === 'gaza' ? (
-                                <img
+                                <Image
+                                    className="!relative"
                                     src={`${
                                         process.env.NEXT_PUBLIC_GAZA_PART_IMG_URL
                                     }/${selectedCategory?.trait_type}/${selectedCategory?.value.replace(
-                                        ' ',
+                                        / /gi,
                                         '-',
                                     )}.png?${new Date().getTime()}`}
-                                    alt=""
+                                    alt="gaza-image"
+                                    sizes="(max-width: 900px) 100px, (max-width:900px) 100px"
+                                    unoptimized={true}
+                                    fill
                                 />
                             ) : (
                                 <></>
@@ -162,11 +204,20 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                     </div>
                     <div className="w-full">
                         <Button
+                            disabled={
+                                !selectedNft ||
+                                !selectedCategory ||
+                                selectedCategory?.availability === false
+                            }
                             className="w-full p-5"
                             variant="gradient"
                             placeholder={undefined}
                             onClick={startDynamicNFT}>
-                            START
+                            {selectedNft && selectedCategory
+                                ? selectedCategory.availability === true
+                                    ? 'START'
+                                    : '해당 NFT의 해당 파츠는 변경할 수 없습니다.'
+                                : '이미지를 클릭하면 보유하신 NFT 목록을 확인하실 수 있습니다.'}
                         </Button>
                     </div>
                     <div className="flex flex-col justify-center items-start gap-3">
@@ -211,6 +262,10 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                     </Button>
                 </DialogFooter>
             </Dialog>
+
+            {isDynamicNFTLoading && <Loading />}
+
+            <DynamicNFTPolicy open={policyOpen} setOpen={setPolicyOpen} />
         </>
     )
 }
