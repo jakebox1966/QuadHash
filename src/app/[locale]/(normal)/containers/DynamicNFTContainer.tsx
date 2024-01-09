@@ -65,8 +65,6 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
     }, [selectedCategory])
 
     const startDynamicNFT = async () => {
-        setPolicyOpen(!open)
-        return
         try {
             setIsDynamicNFTLoading(true)
 
@@ -128,13 +126,13 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             </div>
                         )}
                     </div>
-                    <div className="w-full flex flex-row  md:flex-row justify-between items-stretch gap-3 cursor-pointer flex-wrap">
+                    <div className="w-full flex flex-row justify-between content-stretch gap-3 cursor-pointer flex-wrap">
                         <div
-                            className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden relative"
+                            className="w-full md:w-[46%] border-4 rounded-2xl overflow-hidden relative"
                             onClick={handleOpen}>
                             {!selectedNft && (
                                 <Image
-                                    className="!relative"
+                                    className="!relative w-full h-full object-contain object-center"
                                     src="/1.png"
                                     alt="sample"
                                     fill
@@ -156,7 +154,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             )}
                         </div>
 
-                        <div className="w-full md:w-[40%] border-4 rounded-2xl overflow-hidden relative">
+                        <div className="w-full md:w-[46%] border-4 rounded-2xl overflow-hidden relative">
                             {!nftType && !selectedCategory && (
                                 <Image
                                     className="!relative"
@@ -212,7 +210,9 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             className="w-full p-5"
                             variant="gradient"
                             placeholder={undefined}
-                            onClick={startDynamicNFT}>
+                            onClick={() => {
+                                setPolicyOpen(!open)
+                            }}>
                             {selectedNft && selectedCategory
                                 ? selectedCategory.availability === true
                                     ? 'START'
@@ -265,7 +265,11 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
 
             {isDynamicNFTLoading && <Loading />}
 
-            <DynamicNFTPolicy open={policyOpen} setOpen={setPolicyOpen} />
+            <DynamicNFTPolicy
+                startDynamicNFT={startDynamicNFT}
+                open={policyOpen}
+                setOpen={setPolicyOpen}
+            />
         </>
     )
 }

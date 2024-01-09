@@ -14,44 +14,72 @@ import {
 } from '@material-tailwind/react'
 
 export interface IDynamicNFTPolicyProps {
+    startDynamicNFT: () => Promise<void>
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function DynamicNFTPolicy({ open, setOpen }: IDynamicNFTPolicyProps) {
+export default function DynamicNFTPolicy({
+    startDynamicNFT,
+    open,
+    setOpen,
+}: IDynamicNFTPolicyProps) {
     const handleOpen = () => setOpen((cur) => !cur)
     const [allAgreed, setAllAgreed] = React.useState(false)
     const [agreements, setAgreements] = React.useState({
         firstTerm: false,
         secondTerm: false,
     })
+    const [isError, setIsError] = React.useState(false)
+
+    React.useEffect(() => {
+        return () => {
+            setAllAgreed(false)
+            setAgreements((prev) => ({ ...prev, firstTerm: false, secondTerm: false }))
+        }
+    }, [])
 
     const handleAgreementChange = (e: { target: { name: any; checked: any } }) => {
         const { name, checked } = e.target
-
-        console.log(Object.values({ ...agreements, [name]: checked }))
+        setIsError(false)
         setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }))
         const allChecked = Object.values({ ...agreements, [name]: checked }).every(
             (value) => value === true,
         )
-        console.log(allChecked)
         setAllAgreed(allChecked)
     }
 
-    React.useEffect(() => {
-        console.log(agreements)
-    }, [agreements])
-
     const handleAllAgreementChange = (e: { target: { checked: any } }) => {
         const { checked } = e.target
-
-        console.log(checked)
+        setIsError(false)
         setAllAgreed(checked)
+
+        if (e.target.checked) {
+            setAgreements((prev) => ({ ...prev, firstTerm: true, secondTerm: true }))
+        } else {
+            setAgreements((prev) => ({ ...prev, firstTerm: false, secondTerm: false }))
+        }
     }
 
-    React.useEffect(() => {
-        console.log(allAgreed)
-    }, [allAgreed])
+    const generateDynamicNFT = () => {
+        if (allAgreed && Object.values(agreements).every((item) => item === true)) {
+            setOpen(!open)
+            startDynamicNFT()
+            setAllAgreed(false)
+            setAgreements((prev) => ({ ...prev, firstTerm: false, secondTerm: false }))
+            setIsError(false)
+        } else {
+            setIsError(true)
+        }
+    }
+
+    const cancelDynamicNFT = () => {
+        setOpen(!open)
+        setAllAgreed(false)
+        setAgreements((prev) => ({ ...prev, firstTerm: false, secondTerm: false }))
+        setIsError(false)
+    }
+
     return (
         <>
             <Dialog
@@ -105,6 +133,12 @@ export default function DynamicNFTPolicy({ open, setOpen }: IDynamicNFTPolicyPro
                             </div>
                         </div>
 
+                        <div
+                            className={`text-center font-black text-red-600 ${
+                                isError ? 'visible' : 'invisible'
+                            }`}>
+                            약관에 동의해주세요.
+                        </div>
                         <div className="text-center">
                             Dynamic NFT 진행시 보유한 티켓 1개가 차감됩니다. 진행 하시겠습니까?
                         </div>
@@ -114,14 +148,14 @@ export default function DynamicNFTPolicy({ open, setOpen }: IDynamicNFTPolicyPro
                         placeholder={undefined}>
                         <Button
                             variant="gradient"
-                            onClick={handleOpen}
+                            onClick={generateDynamicNFT}
                             fullWidth
                             placeholder={undefined}>
                             확인
                         </Button>
                         <Button
                             variant="gradient"
-                            onClick={handleOpen}
+                            onClick={cancelDynamicNFT}
                             fullWidth
                             placeholder={undefined}>
                             취소

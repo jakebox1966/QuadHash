@@ -79,7 +79,7 @@ export default function Category({
                     {categories?.map((item) => (
                         <SwiperSlide
                             key={item.trait_type}
-                            className={`text-center uppercase py-3 border-4 rounded-2xl text-xs font-black md:text-base lg:text-xl cursor-pointer`}>
+                            className={`text-center uppercase py-3 border-4 rounded-2xl font-black text-xl cursor-pointer`}>
                             {item.trait_type}
                         </SwiperSlide>
                     ))}
