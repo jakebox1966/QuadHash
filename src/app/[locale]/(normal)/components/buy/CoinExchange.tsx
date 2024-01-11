@@ -44,24 +44,27 @@ export default function CoinExchange(props: ICoinExchangeProps) {
 
     return (
         <>
-            <div className="flex flex-col border-4">
-                <div className="flex flex-row justify-center text-3xl w-full">
-                    <div className="w-full flex-[1_1_40%] text-center">
+            <div className="flex flex-col border-4 rounded-xl">
+                <div className="flex flex-col lg:flex-row justify-center text-3xl w-full font-black">
+                    <div className="w-full hidden lg:block lg:flex-[1_1_40%] text-center">
                         <img src="/qh_token.png" alt="" className="w-full" />
                     </div>
-                    <div className="w-full text-xs flex-[1_1_60%] flex flex-col justify-between items-center gap-10">
-                        <div className="w-full bg-green-300">
-                            <div className="flex flex-row justify-between items-center border-4">
+                    <div className="w-full text-xs lg:flex-[1_1_60%] flex flex-col justify-between items-center gap-10 p-2 lg:p-6">
+                        <div className="w-full flex flex-col gap-4">
+                            <div className="flex flex-row justify-between items-center text-sm lg:text-xl">
                                 <div>Select Quantity :</div>
-                                <div className="flex flex-row justify-center items-center gap-4">
-                                    {/* <IconButton placeholder={undefined} onClick={decreaseCoin}>
+                                <div className="flex flex-row justify-center items-center gap-4 mx-3">
+                                    <IconButton
+                                        className="w-6 h-6 lg:w-10 lg:h-10"
+                                        placeholder={undefined}
+                                        onClick={decreaseCoin}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-6 h-6">
+                                            className="lg:w-6 h-6">
                                             <path
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -69,8 +72,13 @@ export default function CoinExchange(props: ICoinExchangeProps) {
                                             />
                                         </svg>
                                     </IconButton>
-                                    <div className="">{coinAmount}</div>
-                                    <IconButton placeholder={undefined} onClick={increaseCoin}>
+                                    <div className="min-w-[20px] text-sm lg:text-xl text-center">
+                                        {coinAmount}
+                                    </div>
+                                    <IconButton
+                                        className="w-6 h-6 lg:w-10 lg:h-10"
+                                        placeholder={undefined}
+                                        onClick={increaseCoin}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -85,12 +93,16 @@ export default function CoinExchange(props: ICoinExchangeProps) {
                                             />
                                         </svg>
                                     </IconButton>
-                                    <Button className="bg-[#FF0000]" placeholder={undefined}>
+
+                                    <Button
+                                        className="bg-[#FF0000] text-center w-20 h-6 lg:h-10 p-0
+                                        "
+                                        placeholder={undefined}>
                                         MAX
-                                    </Button> */}
+                                    </Button>
                                 </div>
                             </div>
-                            <div className="flex flex-row justify-between items-center border-4">
+                            <div className="flex flex-row justify-between items-center text-sm lg:text-xl">
                                 <div>Sub Total :</div>
                                 <div>
                                     <input type="text" />
@@ -98,10 +110,10 @@ export default function CoinExchange(props: ICoinExchangeProps) {
                             </div>
                         </div>
 
-                        <div className="w-full flex flex-col justify-between items-center gap-2">
-                            <div>Wallet</div>
-                            <div className="w-[80%]">
-                                <Button className="w-full p-2" placeholder={undefined}>
+                        <div className="w-full flex flex-col justify-between items-center gap-5 text-sm lg:text-xl">
+                            <div className="w-full">Wallet Balance :</div>
+                            <div className="w-full">
+                                <Button className="w-full p-3" placeholder={undefined}>
                                     Continue to Payment
                                 </Button>
                             </div>

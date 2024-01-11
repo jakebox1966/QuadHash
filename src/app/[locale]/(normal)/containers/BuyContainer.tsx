@@ -9,7 +9,7 @@ export interface IBuyContainerProps {}
 export default function BuyContainer(props: IBuyContainerProps) {
     return (
         <>
-            <div className="flex flex-col justify-center items-center pt-40 gap-10 w-full max-w-[1134px] px-10">
+            <div className="flex flex-col justify-center pt-20 gap-10 w-full max-w-[1134px] px-10">
                 <CoinExchange />
                 <CoinExchangePolicy />
             </div>

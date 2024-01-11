@@ -247,7 +247,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                                 '선택하신 NFT의 해당 파츠는 변경할 수 없습니다.'}
                         </Button>
                     </div>
-                    <div className="flex flex-col justify-center items-start gap-3">
+                    <div className="flex flex-col justify-center items-start gap-3 text-xs lg:text-base">
                         <div className="font-black">Footer [Dynamic NFT 이용 조건]</div>
                         <div>
                             본 QH 웹사이트에서 제공하는 Dynamic NFT 서비스를 이용하기 위해서는

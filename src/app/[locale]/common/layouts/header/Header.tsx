@@ -66,7 +66,7 @@ export default function Header(props: IHeaderProps) {
                 // ref={headerColorRef}
                 className="flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] bg-[#FFCD19] text-black gap-6">
                 <div
-                    className="lg:hidden cursor-pointer left-10 fixed bg-white p-3 rounded-full shadow-lg"
+                    className="lg:hidden cursor-pointer fixed left-4 top-4 bg-white p-3 rounded-full shadow-lg"
                     onClick={handleOpen}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
