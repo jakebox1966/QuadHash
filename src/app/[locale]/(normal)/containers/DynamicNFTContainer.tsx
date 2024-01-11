@@ -27,6 +27,8 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
     const [selectedCategory, setSelectedCategory] = React.useState(null)
     const [metaData, setMetaData] = React.useState(null)
 
+    const [isLocked, setIsLocked] = React.useState(false)
+
     const handleOpen = () => {
         setOpen(!open)
     }
@@ -58,7 +60,17 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         }
         setCategoires(metaData?.attributes)
         setSelectedCategory(metaData?.attributes[1])
+
+        if (metaData?.image?.includes('lock')) {
+            setIsLocked(true)
+        } else {
+            setIsLocked(false)
+        }
     }, [selectedNft])
+
+    React.useEffect(() => {
+        console.log(isLocked)
+    }, [isLocked])
 
     React.useEffect(() => {
         console.log('selectedCategory', selectedCategory)
@@ -81,7 +93,9 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                 wallet_address: window.ethereum.selectedAddress,
             })
 
-            if (result) {
+            console.log('result', result)
+
+            if (result.ok) {
                 const refreshResult = await getMetadata({
                     nftType: nftType,
                     tokenId: selectedNft.tokenId,
@@ -96,9 +110,11 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                     ...prev,
                     value: changedValue.value,
                 }))
+                await $alert('Dynamic NFT 적용 완료되었습니다.')
+            } else {
+                console.error(result.statusText)
             }
             setIsDynamicNFTLoading(false)
-            await $alert('Dynamic NFT 적용 완료되었습니다.')
         } catch (error) {
             setIsDynamicNFTLoading(false)
             console.error(error)
@@ -144,7 +160,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             {selectedNft && metaData && (
                                 <Image
                                     className="!relative"
-                                    src={`${selectedNft.image.originalUrl}?${new Date().getTime()}`}
+                                    src={`${metaData.image}?${new Date().getTime()}`}
                                     alt="nftImage"
                                     sizes="(max-width: 900px) 100px, (max-width:900px) 100px"
                                     fill
@@ -205,7 +221,8 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             disabled={
                                 !selectedNft ||
                                 !selectedCategory ||
-                                selectedCategory?.availability === false
+                                selectedCategory?.availability === false ||
+                                isLocked === true
                             }
                             className="w-full p-5"
                             variant="gradient"
@@ -213,11 +230,21 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             onClick={() => {
                                 setPolicyOpen(!open)
                             }}>
-                            {selectedNft && selectedCategory
-                                ? selectedCategory.availability === true
-                                    ? 'START'
-                                    : '해당 NFT의 해당 파츠는 변경할 수 없습니다.'
-                                : '이미지를 클릭하면 보유하신 NFT 목록을 확인하실 수 있습니다.'}
+                            {!selectedNft &&
+                                '이미지를 클릭하면 보유하신 NFT 목록을 확인하실 수 있습니다.'}
+
+                            {isLocked && '선택하신 NFT는 현재 잠금 상태 입니다.'}
+
+                            {selectedNft &&
+                                selectedCategory &&
+                                selectedCategory.availability === true &&
+                                !isLocked &&
+                                'START'}
+
+                            {selectedNft &&
+                                selectedCategory &&
+                                selectedCategory.availability === false &&
+                                '선택하신 NFT의 해당 파츠는 변경할 수 없습니다.'}
                         </Button>
                     </div>
                     <div className="flex flex-col justify-center items-start gap-3">

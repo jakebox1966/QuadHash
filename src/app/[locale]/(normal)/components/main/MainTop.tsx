@@ -6,16 +6,16 @@ export interface IMainTopProps {}
 export default function MainTop(props: IMainTopProps) {
     return (
         <>
-            <section className="flex flex-col justify-center items-center bg-[#FFCD19] pt-40">
+            <section className="flex flex-col justify-center items-center bg-[#FFCD19]">
                 <div className="text-white flex flex-col justify-center items-end">
-                    <div className="flex flex-col justify-end items-end px-9 text-6xl font-black pb-10">
-                        <div>QUADHASH</div>
-                        <div>HOME PAGE RENEW</div>
-                        <div className="text-sm font-light">
+                    <div className="flex flex-col justify-end items-end px-9 text-6xl font-black pb-10 pt-16">
+                        <div className="text-3xl lg:text-6xl">QUADHASH</div>
+                        <div className="text-3xl lg:text-6xl">HOME PAGE RENEW</div>
+                        <div className="text-sm lg:text-xl font-light mt-3">
                             QUADHASH 20,000 UNIQUE COLLECTIBLE.
                         </div>
                         <Link href={'https://opensea.io/kr/collection/qh-saza'} target="_blank">
-                            <div className="text-[#F46221] font-semibold text-2xl py-4 pl-7 pr-5 mt-6 bg-white rounded-r-full rounded-tl-full flex flex-row gap-2 justify-center items-center cursor-pointer hover:opacity-60 transition-all">
+                            <div className="font-semibold text-sm lg:text-2xl py-4 pl-7 pr-5 mt-6 bg-[#F26C25] rounded-r-full rounded-tl-full flex flex-row gap-2 justify-center items-center cursor-pointer hover:opacity-60 transition-all shadow-lg">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -33,7 +33,7 @@ export default function MainTop(props: IMainTopProps) {
                             </div>
                         </Link>
                         <Link href={'https://opensea.io/kr/collection/qh-gaza'} target="_blank">
-                            <div className="text-[#F46221] font-semibold text-2xl py-4 pl-7 pr-5 mt-6 bg-white rounded-r-full rounded-tl-full flex flex-row gap-2 justify-center items-center cursor-pointer hover:opacity-60 transition-all">
+                            <div className="font-semibold text-sm lg:text-2xl py-4 pl-7 pr-5 mt-6 bg-[#F26C25] rounded-r-full rounded-tl-full flex flex-row gap-2 justify-center items-center cursor-pointer hover:opacity-60 transition-all shadow-lg">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

@@ -10,7 +10,15 @@ export interface INavbarProps {}
 export default function Navbar(props: INavbarProps) {
     const t = useTranslations('Layout.header.nav_bar')
     const { Link } = createSharedPathnamesNavigation({ locales })
-    const menuList = ['about', 'buy', 'dynamicNFT', 'fractionalInvest', 'admin']
+    const menuList = [
+        'about',
+        'collectable',
+        'saza&gaza',
+        'qh_token',
+        'dynamicNFT',
+        'fractionalInvest',
+        'mypage',
+    ]
     return (
         <div className="relative flex items-center gap-12 pr-4 font-bold">
             {menuList.map((menu) => (

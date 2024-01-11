@@ -5,7 +5,7 @@ export interface IMainMiddleProps {}
 export default function MainMiddle(props: IMainMiddleProps) {
     return (
         <>
-            <div className="flex flex-col justify-center items-center">
+            <div className="lg:flex flex-col justify-center items-center hidden">
                 <div className="flex flex-row justify-between items-center w-full px-20 text-[#F46221] font-black">
                     <div>
                         <div>WE PRESENT A COLLECTION</div>

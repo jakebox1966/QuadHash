@@ -61,14 +61,17 @@ export default function Setting(props: ISettingProps) {
             {/* <div> */}
             <Menu allowHover placement="bottom-end">
                 <MenuHandler>
-                    <IconButton variant="outlined" placeholder={undefined}>
+                    <IconButton
+                        variant="text"
+                        placeholder={undefined}
+                        className="rounded-full bg-[#F46221] shadow-lg">
                         <i ref={headerColorRef}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
-                                stroke="currentColor"
+                                stroke="white"
                                 className="w-6 h-6 text-black">
                                 <path
                                     strokeLinecap="round"

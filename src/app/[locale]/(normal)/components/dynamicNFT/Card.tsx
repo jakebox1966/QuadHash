@@ -23,6 +23,7 @@ export default function Card({
             nftType: nft.contract.symbol.toLowerCase(),
             tokenId: nft.tokenId,
         })
+        console.log(result)
         setMetaData(result)
         setSelectedNft(nft)
         setCategoires(null)

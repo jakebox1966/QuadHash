@@ -12,11 +12,6 @@ export interface IDynamicNFTListProps {
     setMetaData?: React.Dispatch<any>
 }
 
-type lastpage = {
-    page: number
-    total_pages: number
-}
-
 const data = [
     {
         label: 'SAZA',
@@ -49,6 +44,8 @@ export default function DynamicNFTList({
                 const sazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                 })
+
+                console.log(sazaNfts)
 
                 const gazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],

@@ -38,7 +38,7 @@ export default function Connect(props: IConnectProps) {
             {(hasProvider && wallet.accounts.length < 1) || !session ? (
                 <Button
                     variant="outlined"
-                    className=" text-black"
+                    className=" text-black rounded-full bg-[#F46221] shadow-lg"
                     disabled={isConnecting}
                     onClick={handleSignInModalOpen}
                     placeholder={undefined}>
@@ -46,8 +46,8 @@ export default function Connect(props: IConnectProps) {
                 </Button>
             ) : (
                 <Button
-                    variant="outlined"
-                    className=" text-black"
+                    variant="text"
+                    className=" text-black rounded-full bg-[#F46221] shadow-lg text-white"
                     disabled={isConnecting}
                     placeholder={undefined}>
                     <span ref={headerColorRef}>{formatAddress(wallet.accounts[0])}</span>

@@ -34,7 +34,7 @@ export default function Header(props: IHeaderProps) {
             setIsMobileMenuOpen(false)
         }
     }
-    const onChange = () => {
+    const handleOpen = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen)
     }
 
@@ -63,27 +63,44 @@ export default function Header(props: IHeaderProps) {
     return (
         <>
             <header
-                ref={headerColorRef}
-                className="flex flex-row justify-center items-center sticky top-0 w-full z-50 h-[70px] bg-[#FFCD19] text-black">
-                <div className="flex flex-row items-center justify-between w-full max-w-[1600px] px-10">
-                    <Logo />
-                    <div className="hidden lg:flex lg:flex-row justify-center items-center gap-x-1 min-w-max">
-                        <Navbar />
-                        <Setting />
-                        <Connect />
-                    </div>
+                // ref={headerColorRef}
+                className="flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] bg-[#FFCD19] text-black gap-6">
+                <div
+                    className="lg:hidden cursor-pointer left-10 fixed bg-white p-3 rounded-full shadow-lg"
+                    onClick={handleOpen}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6">
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                        />
+                    </svg>
+                </div>
 
-                    <div className="lg:hidden center">
+                <Logo />
+                {/* <div className="lg:hidden center">
                         <label className="menu-wrap cursor-pointer">
                             <input className="check-menu" type="checkbox" onChange={onChange} />
                             <div className={`menu-bar ${isMobileMenuOpen && 'last-bar'}`}></div>
                             <div className={`menu-bar ${isMobileMenuOpen && 'middle-bar'}`}></div>
                             <div className={`menu-bar ${isMobileMenuOpen && 'top-bar'}`}></div>
                         </label>
+                    </div> */}
+                <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] min-w-[1281px] px-20">
+                    <Navbar />
+                    <div className="flex flex-row gap-3">
+                        <Setting />
+                        <Connect />
                     </div>
-
-                    <MobileNavMenu isMobileMenuOpen={isMobileMenuOpen} />
                 </div>
+
+                <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />

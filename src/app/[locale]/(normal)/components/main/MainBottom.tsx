@@ -13,7 +13,7 @@ export default function MainBottom(props: IMainBottomProps) {
                         <div>
                             <img src="/main_bottom_image1.svg" alt="main_bottom_image1" />
                         </div>
-                        <div className="flex flex-col justify-center items-center font-black text-white text-2xl pt-14">
+                        <div className="flex flex-col justify-center items-center font-black text-white text-lg lg:text-2xl pt-14">
                             <div>QUADHASH ARE 20,000 UNIQUE</div>
                             <div>COLLECTIBLE.</div>
                         </div>
@@ -55,34 +55,42 @@ export default function MainBottom(props: IMainBottomProps) {
                         <div className="bg-white"></div>
                     </div>
                     <div className="flex flex-col justify-center items-center text-white font-black mt-24 ">
-                        <div className="text-3xl">Meet The QUADHASH Team</div>
+                        <div className="text-lg lg:text-3xl">Meet The QUADHASH Team</div>
                         <div className="grid grid-cols-4 mt-10 gap-6 px-12 pb-40">
                             <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
                                 <img src="/main_bottom_image3.svg" alt="main_bottom_image3" />
                                 <div className="text-center mt-3">
                                     <div>Doo</div>
-                                    <div className="text-sm font-normal">Art Director</div>
+                                    <div className="text-xs lg:text-sm font-normal">
+                                        Art Director
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
                                 <img src="/main_bottom_image3.svg" alt="main_bottom_image3" />
                                 <div className="text-center mt-3">
                                     <div>Doo</div>
-                                    <div className="text-sm font-normal">Art Director</div>
+                                    <div className="text-xs lg:text-sm font-normal">
+                                        Art Director
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
                                 <img src="/main_bottom_image3.svg" alt="main_bottom_image3" />
                                 <div className="text-center mt-3">
                                     <div>Doo</div>
-                                    <div className="text-sm font-normal">Art Director</div>
+                                    <div className="text-xs lg:text-sm font-normal">
+                                        Art Director
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
                                 <img src="/main_bottom_image3.svg" alt="main_bottom_image3" />
                                 <div className="text-center mt-3">
                                     <div>Doo</div>
-                                    <div className="text-sm font-normal">Art Director</div>
+                                    <div className="text-xs lg:text-sm font-normal">
+                                        Art Director
+                                    </div>
                                 </div>
                             </div>
                         </div>
