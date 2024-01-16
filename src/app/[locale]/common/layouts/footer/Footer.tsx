@@ -6,7 +6,7 @@ export interface IFooterProps {}
 export default function Footer(props: IFooterProps) {
     return (
         <>
-            <footer className="h-[280px] relative w-full flex flex-col justify-center gap-6 px-10">
+            <footer className="h-[280px] relative w-full flex flex-col justify-center gap-6 px-10 max-w-[1296px]">
                 <hr />
                 <div className="flex flex-row justify-center md:justify-between items-center">
                     <div>

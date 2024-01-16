@@ -10,11 +10,17 @@ import { SignInModal } from './SignInModal'
 import { useSignInModal } from '@/app/hooks/useSignInModal'
 import MobileNavMenu from './MobileNavMenu'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface IHeaderProps {}
 
 export default function Header(props: IHeaderProps) {
     const headerColorRef = useRef<HTMLInputElement>(null)
+    const { usePathname } = createSharedPathnamesNavigation({ locales })
+
+    const pathName = usePathname()
+    console.log(pathName)
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
     const { signInModalopen, handleSignInModalOpen } = useSignInModal()
@@ -64,7 +70,9 @@ export default function Header(props: IHeaderProps) {
         <>
             <header
                 // ref={headerColorRef}
-                className="flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] bg-[#FFCD19] text-black gap-6">
+                className={`${
+                    pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
+                } flex flex-col justify-center sticky items-center top-0 w-full z-50 h-[176px] text-black gap-6`}>
                 <div
                     className="lg:hidden cursor-pointer fixed left-4 top-4 bg-white p-3 rounded-full shadow-lg"
                     onClick={handleOpen}>
@@ -84,15 +92,8 @@ export default function Header(props: IHeaderProps) {
                 </div>
 
                 <Logo />
-                {/* <div className="lg:hidden center">
-                        <label className="menu-wrap cursor-pointer">
-                            <input className="check-menu" type="checkbox" onChange={onChange} />
-                            <div className={`menu-bar ${isMobileMenuOpen && 'last-bar'}`}></div>
-                            <div className={`menu-bar ${isMobileMenuOpen && 'middle-bar'}`}></div>
-                            <div className={`menu-bar ${isMobileMenuOpen && 'top-bar'}`}></div>
-                        </label>
-                    </div> */}
-                <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] min-w-[1281px] px-20">
+
+                <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] px-10">
                     <Navbar />
                     <div className="flex flex-row gap-3">
                         <Setting />
@@ -104,8 +105,6 @@ export default function Header(props: IHeaderProps) {
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
-            {/* <div className="bg-gradient-to-b from-orange-500 to-white z-10 absolute top-0 w-full h-[500px]"></div> */}
-            {/* <div className="headerbackground bg-cover blur-sm bg-no-repeatz-10 absolute top-0 w-full h-[500px]"></div> */}
         </>
     )
 }
