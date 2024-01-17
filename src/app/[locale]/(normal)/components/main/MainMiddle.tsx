@@ -10,22 +10,22 @@ export default function MainMiddle(props: IMainMiddleProps) {
     return (
         <>
             <div className="w-full flex flex-col justify-center items-center mt-28">
-                <div className="flex flex-row justify-between items-start max-w-[1296px] w-full px-5 lg:px-20 text-[#F46221] font-black">
-                    <div className="text-xs lg:text-lg">
+                <div className="flex flex-row justify-between items-start max-w-[1296px] w-full px-10 lg:px-28 text-[#F46221] font-black">
+                    <div className="text-xs md:text-xl lg:text-3xl">
                         <div>WE PRESENT A COLLECTION</div>
 
                         <div>OF EXCLUSIVE AND UNIQUE</div>
 
                         <div>WORKS</div>
                     </div>
-                    <div className="text-lg  lg:text-2xl">
+                    <div className="text-lg  md:text-3xl lg:text-5xl">
                         <div>WELCOME</div>
                         <div>TO THE</div>
                         <div>QUADHASH</div>
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-stretch items-center max-w-[1296px] w-full px-5 lg:px-20 gap-4 mt-10 text-white">
+                <div className="flex flex-col justify-stretch items-center max-w-[1296px] w-full px-10 lg:px-28 gap-4 mt-10 text-white">
                     <div className="w-full relative">
                         <Image
                             src={main_image1}

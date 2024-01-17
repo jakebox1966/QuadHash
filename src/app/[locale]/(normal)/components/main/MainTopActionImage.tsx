@@ -18,16 +18,20 @@ export default function MainTopActionImage(props: IMainTopActionImageProps) {
                 </div>
                 <div className="max-w-[1600px]">
                     <div
-                        className={`${
-                            isMounted ? 'opacity-1' : ' opacity-0'
-                        } flex flex-row justify-center items-center relative transition-all`}>
+                        className={`
+                   
+                        flex flex-row justify-center items-end relative transition-all`}>
                         <img
-                            className="max-w-[200px] lg:max-w-[300px] translate-y-56 hidden lg:block"
+                            className={`max-w-[200px] lg:max-w-[300px] translate-y-16 hidden lg:block ${
+                                isMounted ? 'vibration' : ''
+                            }`}
                             src="/homepage2_5.png"
                             alt="homepage2_5"
                         />
                         <img
-                            className="max-w-[300px] lg:max-w-[600px] translate-y-14 transition-all"
+                            className={`max-w-[300px] lg:max-w-[600px] translate-y-6 ${
+                                isMounted ? 'vibration' : ''
+                            } `}
                             src="/homepage2_6.png"
                             alt="homepage2_6"
                         />

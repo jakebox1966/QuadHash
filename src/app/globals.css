@@ -60,6 +60,19 @@
     
   }
 
+  .vibration {
+    animation: vibration .1s 1 
+  }
+
+  @keyframes vibration {
+    from {
+      transform: rotate(1deg);
+    }
+    to {
+      transform: translateY(3rem) rotate(-1deg);
+    }
+  }
+
   .track {
     position: relative;
     width: 2800px;

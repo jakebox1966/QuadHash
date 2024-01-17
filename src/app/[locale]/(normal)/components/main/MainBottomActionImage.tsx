@@ -1,8 +1,15 @@
+'use client'
+
 import * as React from 'react'
 
 export interface IMainBottomActionImage {}
 
 export default function MainBottomActionImage(props: IMainBottomActionImage) {
+    const [isMounted, setIsMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setIsMounted(true)
+    }, [])
     return (
         <div className="w-full flex flex-col justify-center items-center relative overflow-hidden mt-20">
             <div className="absolute bottom-0 z-0">
@@ -26,7 +33,7 @@ export default function MainBottomActionImage(props: IMainBottomActionImage) {
                     </div>
 
                     <img
-                        className="max-w-[100px] lg:max-w-[200px] translate-y-60 hidden lg:block"
+                        className={`max-w-[100px] lg:max-w-[200px] translate-y-60 hidden lg:block`}
                         src="/homepage2_5.png"
                         alt="homepage2_5"
                     />
