@@ -64,7 +64,7 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
                 </div>
                 <List placeholder={undefined}>
                     {menuList.map((item) => (
-                        <Link href={`/${item}`}>
+                        <Link key={item} href={`/${item}`}>
                             <ListItem placeholder={undefined}>{t(item)}</ListItem>
                         </Link>
                     ))}

@@ -33,8 +33,8 @@ export default function MainBottomTextSlider(props: IMainBottomTextSliderProps) 
     return (
         <div className="scroll-text bg-[#D2F65A] text-sm py-3">
             <div className="track">
-                {slides.map((item) => (
-                    <p>{item}</p>
+                {slides.map((item, index) => (
+                    <p key={index}>{item}</p>
                 ))}
             </div>
         </div>
