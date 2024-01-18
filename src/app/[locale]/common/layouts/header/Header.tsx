@@ -59,6 +59,7 @@ export default function Header(props: IHeaderProps) {
     // }, [])
 
     useEffect(() => {
+        console.log('리렌더')
         window.addEventListener('resize', handleResize)
 
         return () => {
