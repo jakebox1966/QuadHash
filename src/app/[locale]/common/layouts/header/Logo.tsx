@@ -5,9 +5,9 @@ import { locales } from '@/i18nconfig'
 
 export interface ILogoProps {}
 
+const localePrefix = 'always' // Default
+const { Link } = createSharedPathnamesNavigation({ locales, localePrefix })
 export default function Logo(props: ILogoProps) {
-    const localePrefix = 'always' // Default
-    const { Link } = createSharedPathnamesNavigation({ locales, localePrefix })
     return (
         <>
             <div className="min-w-max">
