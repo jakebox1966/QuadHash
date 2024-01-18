@@ -1,7 +1,8 @@
 import createIntlMiddleware from 'next-intl/middleware'
 import { defaultLocale, locales } from './i18nconfig'
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { decode, getToken } from 'next-auth/jwt'
 
 const publicPages = ['/', '/about', '/gallery', '/sns', '/signIn', 'admin']
 
@@ -9,6 +10,7 @@ const privatePages = [
     '/crew',
     // '/admin',
     '/buy',
+    '/dynamicNFT',
 ]
 
 const intlMiddleware = createIntlMiddleware({
@@ -16,15 +18,14 @@ const intlMiddleware = createIntlMiddleware({
     defaultLocale,
     localePrefix: 'always',
 })
-
+const secret = process.env.NEXTAUTH_SECRET
 const authMiddleware = withAuth(
-    function onSuccess(request: NextRequestWithAuth) {
-        console.log('B')
+    async function onSuccess(req: NextRequestWithAuth) {
+        const session = await getToken({ req })
 
-        // if (request.nextUrl.pathname.includes('/crew')) {
-        //     console.log('sdafasdfasdfasdfasfdd')
-        //     return NextResponse.rewrite(new URL('/signIn', request.nextUrl))
-        // }
+        if (!session) {
+            return NextResponse.rewrite(new URL('/signIn', req.nextUrl))
+        }
 
         /**
          * 관리자 페이지 권한 체크
@@ -34,7 +35,7 @@ const authMiddleware = withAuth(
         // if (request.nextUrl.pathname.includes('/admin') && request.nextauth.token?.is_admin === 0) {
         //     return NextResponse.redirect(new URL('/access-denied', request.nextUrl))
         // }
-        return intlMiddleware(request)
+        return intlMiddleware(req)
     },
     {
         callbacks: {

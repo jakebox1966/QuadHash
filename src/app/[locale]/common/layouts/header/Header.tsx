@@ -57,18 +57,17 @@ export default function Header(props: IHeaderProps) {
     //     }
     // }, [])
 
-    useEffect(() => {
-        window.addEventListener('resize', handleResize)
+    // useEffect(() => {
+    //     window.addEventListener('resize', handleResize)
 
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    })
+    //     return () => {
+    //         window.removeEventListener('resize', handleResize)
+    //     }
+    // })
 
     return (
         <>
             <header
-                // ref={headerColorRef}
                 className={`${
                     pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
                 } flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] text-black gap-6`}>
