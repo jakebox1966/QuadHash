@@ -16,6 +16,7 @@ import { locales } from '@/i18nconfig'
 export interface IHeaderProps {}
 
 export default function Header(props: IHeaderProps) {
+    console.log(123)
     const headerColorRef = useRef<HTMLInputElement>(null)
     const { usePathname } = createSharedPathnamesNavigation({ locales })
 

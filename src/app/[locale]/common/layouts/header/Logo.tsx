@@ -1,12 +1,13 @@
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import * as React from 'react'
-import { locales } from '@/i18nconfig'
+// import { locales } from '@/i18nconfig'
 
 export interface ILogoProps {}
 
 export default function Logo(props: ILogoProps) {
-    const { Link } = createSharedPathnamesNavigation({ locales })
+    // const { Link } = createSharedPathnamesNavigation({ locales })
     return (
         <>
             <div className="min-w-max">
