@@ -14,11 +14,11 @@ import { useSignInModal } from '@/app/hooks/useSignInModal'
 
 export interface ISettingProps {}
 
+const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
 export default function Setting(props: ISettingProps) {
     const { data: session } = useSession()
     const localeNames = useLocaleNames()
     const t = useTranslations('Layout.header.locale_switcher')
-    const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
     const router = useRouter()
     const locale = useLocale()
     const pathName = usePathname()

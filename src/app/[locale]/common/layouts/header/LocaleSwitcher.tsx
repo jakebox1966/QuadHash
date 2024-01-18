@@ -17,12 +17,12 @@ import {
 import { ILocale } from '@/app/interfaces/locale/interface'
 
 export interface ILocaleSwitcherProps {}
+const { useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
 
 export default function LocaleSwitcher(props: ILocaleSwitcherProps) {
     const localeNames = useLocaleNames()
     const t = useTranslations('Layout.header.locale_switcher')
 
-    const { useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
     const router = useRouter()
 
     const locale = useLocale()

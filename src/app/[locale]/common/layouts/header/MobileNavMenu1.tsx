@@ -11,10 +11,10 @@ import LocaleSwitcher from './LocaleSwitcher'
 export interface IMobileNavMenu1Props {
     isMobileMenuOpen: boolean
 }
+const { Link } = createSharedPathnamesNavigation({ locales })
 
 export default function MobileNavMenu1({ isMobileMenuOpen }: IMobileNavMenu1Props) {
     const t = useTranslations('Layout.header.nav_bar')
-    const { Link } = createSharedPathnamesNavigation({ locales })
     const menuList = ['about', 'buy', 'dynamicNFT', 'fractionalInvest', 'admin']
     return (
         <>

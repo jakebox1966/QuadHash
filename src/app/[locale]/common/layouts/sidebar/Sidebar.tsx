@@ -6,8 +6,8 @@ import { locales } from '@/i18nconfig'
 
 export interface ISidebarProps {}
 
+const { Link, useRouter } = createSharedPathnamesNavigation({ locales })
 export default function Sidebar(props: ISidebarProps) {
-    const { Link, useRouter } = createSharedPathnamesNavigation({ locales })
     const router = useRouter()
 
     return (

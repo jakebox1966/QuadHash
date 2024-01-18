@@ -14,11 +14,11 @@ import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
 
 export interface IHeaderProps {}
+const { usePathname } = createSharedPathnamesNavigation({ locales })
 
 export default function Header(props: IHeaderProps) {
     console.log(123)
     const headerColorRef = useRef<HTMLInputElement>(null)
-    const { usePathname } = createSharedPathnamesNavigation({ locales })
 
     const pathName = usePathname()
 

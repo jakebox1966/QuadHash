@@ -21,9 +21,9 @@ export interface IMobileNavMenuProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+const { Link } = createSharedPathnamesNavigation({ locales })
 export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
     const t = useTranslations('Layout.header.nav_bar')
-    const { Link } = createSharedPathnamesNavigation({ locales })
     const menuList = [
         'about',
         'collectable',
