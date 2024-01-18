@@ -63,7 +63,7 @@ export default function Header(props: IHeaderProps) {
         return () => {
             window.removeEventListener('resize', handleResize)
         }
-    })
+    }, [])
 
     return (
         <>
@@ -91,14 +91,14 @@ export default function Header(props: IHeaderProps) {
 
                 <Logo />
 
-                {/* <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] px-10">
+                <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] px-10">
                     <Navbar />
                     <div className="flex flex-row gap-3">
                         <Setting />
                         <Connect />
                     </div>
-                </div> */}
-                {/* <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} /> */}
+                </div>
+                <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
             </header>
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
