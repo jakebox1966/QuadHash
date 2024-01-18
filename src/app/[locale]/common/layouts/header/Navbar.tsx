@@ -8,8 +8,9 @@ import * as React from 'react'
 export interface INavbarProps {}
 
 export default function Navbar(props: INavbarProps) {
+    const localePrefix = 'always' // Default
     const t = useTranslations('Layout.header.nav_bar')
-    const { Link } = createSharedPathnamesNavigation({ locales })
+    const { Link } = createSharedPathnamesNavigation({ locales, localePrefix })
     const menuList = [
         'about',
         'collectable',
