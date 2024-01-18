@@ -20,7 +20,6 @@ export default function Header(props: IHeaderProps) {
     const { usePathname } = createSharedPathnamesNavigation({ locales })
 
     const pathName = usePathname()
-    console.log(pathName)
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
     const { signInModalopen, handleSignInModalOpen } = useSignInModal()
