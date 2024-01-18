@@ -53,6 +53,7 @@ export default function Setting(props: ISettingProps) {
     const moveToPage = (isLoginRequired: boolean, path: string) => {
         if (isLoginRequired && !session) {
             handleSignInModalOpen()
+            return
         }
         router.push(`/${path}`)
     }
