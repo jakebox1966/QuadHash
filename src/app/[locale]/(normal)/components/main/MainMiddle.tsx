@@ -27,12 +27,7 @@ export default function MainMiddle(props: IMainMiddleProps) {
 
                 <div className="flex flex-col justify-stretch items-center max-w-[1296px] w-full px-10 lg:px-28 gap-4 mt-10 text-white">
                     <div className="w-full relative">
-                        <Image
-                            src={main_image1}
-                            alt="main_middle_image1"
-                            objectFit="cover"
-                            objectPosition="center"
-                        />
+                        <Image src={main_image1} alt="main_middle_image1" />
                         <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1">
                             <div className="lg:text-2xl">About</div>
                             <div className="bg-[#F46221] text-xs lg:text-lg p-2 lg:p-4 rounded-full">

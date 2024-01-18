@@ -71,7 +71,7 @@ export default function Header(props: IHeaderProps) {
                 // ref={headerColorRef}
                 className={`${
                     pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
-                } flex flex-col justify-center sticky items-center top-0 w-full z-50 h-[176px] text-black gap-6`}>
+                } flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] text-black gap-6`}>
                 <div
                     className="lg:hidden cursor-pointer fixed left-4 top-4 bg-white p-3 rounded-full shadow-lg"
                     onClick={handleOpen}>
@@ -99,7 +99,6 @@ export default function Header(props: IHeaderProps) {
                         <Connect />
                     </div>
                 </div>
-
                 <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
             </header>
 

@@ -4,10 +4,6 @@ import * as React from 'react'
 export interface IMainBottomTextSliderProps {}
 
 export default function MainBottomTextSlider(props: IMainBottomTextSliderProps) {
-    const [animate, setAnimate] = React.useState(true)
-    const onStop = () => setAnimate(false)
-    const onRun = () => setAnimate(true)
-
     const slides = [
         'Let’s work together',
         '·',

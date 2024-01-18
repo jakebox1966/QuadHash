@@ -14,7 +14,7 @@ export default function MainTopActionImage(props: IMainTopActionImageProps) {
         <>
             <div className="w-full bg-[#FFCD19] flex flex-col justify-center items-center relative overflow-hidden">
                 <div className="absolute bottom-0 z-0">
-                    <img className="z-[-9999]" src="homepage_1.png" alt="homepage_1.png" />
+                    <img className="z-[-9999]" src="/homepage_1.png" alt="homepage_1.png" />
                 </div>
                 <div className="max-w-[1600px]">
                     <div
