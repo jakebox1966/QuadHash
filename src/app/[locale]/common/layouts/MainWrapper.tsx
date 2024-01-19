@@ -10,7 +10,7 @@ export default function MainWrapper({ children }: { children: React.ReactNode })
         <>
             <div className="flex flex-col w-full justify-center items-center">
                 <Header />
-                <main className="min-h-[calc(100vh-176px)] top-[176px] flex flex-col justify-start items-center w-full">
+                <main className="min-h-[calc(100vh-176px)] flex flex-col justify-start items-center w-full">
                     {children}
                 </main>
                 {/* <main className=" w-full relative px-10 max-h-full">{children}</main> */}

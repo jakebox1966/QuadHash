@@ -39,7 +39,7 @@ export default function LocaleSwitcher(props: ILocaleSwitcherProps) {
                         {localeNames[locale as ILocale['locale']]}
                     </Button>
                 </MenuHandler>
-                <MenuList placeholder={undefined}>
+                <MenuList placeholder={undefined} className="z-[9999]">
                     {locales.map((locale) => (
                         <MenuItem
                             key={locale}

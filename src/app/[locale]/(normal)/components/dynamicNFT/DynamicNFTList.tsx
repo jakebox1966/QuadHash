@@ -7,7 +7,7 @@ import { getNftsForOwner } from '@/app/api/alchemy/api'
 
 export interface IDynamicNFTListProps {
     setSelectedNft?: React.Dispatch<any>
-    setCategoires?: React.Dispatch<any>
+    setCategoires: React.Dispatch<any>
     handleOpen?: () => void
     setMetaData?: React.Dispatch<any>
 }
@@ -44,8 +44,6 @@ export default function DynamicNFTList({
                 const sazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                 })
-
-                console.log(sazaNfts)
 
                 const gazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],

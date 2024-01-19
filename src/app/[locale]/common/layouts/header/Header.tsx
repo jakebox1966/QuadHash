@@ -99,8 +99,8 @@ export default function Header(props: IHeaderProps) {
                         <Connect />
                     </div>
                 </div>
-                <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
             </header>
+            <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
         </>

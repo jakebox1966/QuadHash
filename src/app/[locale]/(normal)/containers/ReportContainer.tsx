@@ -7,10 +7,12 @@ import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getBlock, getTransfersForOwner } from '@/app/api/alchemy/api'
 import { Alchemy, GetTransfersForOwnerTransferType, Network, NftOrdering } from 'alchemy-sdk'
 import React from 'react'
-import { Button, Checkbox, Input, Textarea } from '@material-tailwind/react'
+import { Button, Checkbox, Stepper, Step, Typography } from '@material-tailwind/react'
 import { postReport } from '@/app/api/report/api'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface IReportContainerProps {}
 
@@ -29,9 +31,29 @@ const config = {
     apiKey: '2jp0674GCJeIZW9qmM3WB92wslh1P8yM', // Replace with your API key
     network: Network.ETH_MAINNET, // Replace with your network
 }
+
 const alchemy = new Alchemy(config)
+
+const { useRouter } = createSharedPathnamesNavigation({ locales })
 export default function ReportContainer(props: IReportContainerProps) {
-    const { $alert } = useContext(AlertContext)
+    const [activeStep, setActiveStep] = React.useState(0)
+    const [isLastStep, setIsLastStep] = React.useState(false)
+    const [isFirstStep, setIsFirstStep] = React.useState(false)
+
+    const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1)
+    const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1)
+
+    const router = useRouter()
+    const [allAgreed, setAllAgreed] = React.useState(false)
+    const [agreements, setAgreements] = React.useState({
+        firstTerm: false,
+        secondTerm: false,
+        thirdTerm: false,
+        fourthTerm: false,
+        fifthTerm: false,
+        sixthTerm: false,
+    })
+    const [isError, setIsError] = React.useState(false)
     const { $confirm } = useContext(ConfirmContext)
     const [sazaExNftList, setSazaExNftList] = useState([])
     const [gazaExNftList, setGazaExNftList] = useState([])
@@ -44,6 +66,21 @@ export default function ReportContainer(props: IReportContainerProps) {
     })
 
     const { wallet } = useMetaMask()
+
+    React.useEffect(() => {
+        return () => {
+            setAllAgreed(false)
+            setAgreements((prev) => ({
+                ...prev,
+                firstTerm: false,
+                secondTerm: false,
+                thirdTerm: false,
+                fourthTerm: false,
+                fifthTerm: false,
+                sixthTerm: false,
+            }))
+        }
+    }, [])
 
     useEffect(() => {
         const getExNfts = async () => {
@@ -119,6 +156,44 @@ export default function ReportContainer(props: IReportContainerProps) {
         }
     }
 
+    const handleAgreementChange = (e: { target: { name: any; checked: any } }) => {
+        const { name, checked } = e.target
+        setIsError(false)
+        setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }))
+        const allChecked = Object.values({ ...agreements, [name]: checked }).every(
+            (value) => value === true,
+        )
+        setAllAgreed(allChecked)
+    }
+
+    const handleAllAgreementChange = (e: { target: { checked: any } }) => {
+        const { checked } = e.target
+        setIsError(false)
+        setAllAgreed(checked)
+
+        if (e.target.checked) {
+            setAgreements((prev) => ({
+                ...prev,
+                firstTerm: true,
+                secondTerm: true,
+                thirdTerm: true,
+                fourthTerm: true,
+                fifthTerm: true,
+                sixthTerm: true,
+            }))
+        } else {
+            setAgreements((prev) => ({
+                ...prev,
+                firstTerm: false,
+                secondTerm: false,
+                thirdTerm: false,
+                fourthTerm: false,
+                fifthTerm: false,
+                sixthTerm: false,
+            }))
+        }
+    }
+
     const report = async () => {
         if (await $confirm('해킹신고 게시글을 작성합니다.')) {
             // console.log(123)
@@ -173,7 +248,6 @@ export default function ReportContainer(props: IReportContainerProps) {
     }
 
     const test = async () => {
-        console.log(123)
         const nfts = await getAllNfts()
         const arr = new Array(10000)
 
@@ -238,26 +312,101 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     return (
         <>
-            <div className="flex flex-col justify-start items-start h-full px-20 min-h-[calc(100vh-176px)] gap-20">
-                <div>
-                    <div>QUADHASH</div>
-                    <div>
-                        해킹 신고 센터(우철이와 함께하는 광화문 해킹 투어) 1차 돈돈정 방문 2차 흡연
-                        구역(필수) 3차 닭발과 한잔
-                    </div>
+            <div className="flex flex-col justify-start items-start h-full px-20 min-h-[calc(100vh-176px)] gap-20 pt-20">
+                <div className="w-full ">
+                    <Stepper
+                        activeStep={activeStep}
+                        isLastStep={(value) => setIsLastStep(value)}
+                        isFirstStep={(value) => setIsFirstStep(value)}
+                        placeholder={undefined}
+                        activeLineClassName="bg-[#F46221]"
+                        lineClassName="bg-gray-300">
+                        <Step
+                            onClick={() => setActiveStep(0)}
+                            placeholder={undefined}
+                            className={
+                                activeStep === 0 || activeStep === 1 || activeStep === 2
+                                    ? '!bg-[#F46221]'
+                                    : '!bg-gray-300'
+                            }>
+                            <div className="absolute -bottom-[4.5rem] w-max text-center">
+                                <Typography
+                                    variant="h6"
+                                    color={activeStep === 0 ? 'blue-gray' : 'gray'}
+                                    placeholder={undefined}>
+                                    약관 동의
+                                </Typography>
+                            </div>
+                        </Step>
+                        <Step
+                            onClick={() => setActiveStep(1)}
+                            placeholder={undefined}
+                            className={
+                                activeStep === 1 || activeStep === 2
+                                    ? '!bg-[#F46221]'
+                                    : '!bg-gray-300'
+                            }>
+                            <div className="absolute -bottom-[4.5rem] w-max text-center">
+                                <Typography
+                                    variant="h6"
+                                    color={activeStep === 1 ? 'blue-gray' : 'gray'}
+                                    placeholder={undefined}>
+                                    NFT 선택
+                                </Typography>
+                            </div>
+                        </Step>
+                        <Step
+                            onClick={() => setActiveStep(2)}
+                            placeholder={undefined}
+                            className={activeStep === 2 ? '!bg-[#F46221]' : '!bg-gray-300'}>
+                            <div className="absolute -bottom-[4.5rem] w-max text-center">
+                                <Typography
+                                    variant="h6"
+                                    color={activeStep === 2 ? 'blue-gray' : 'gray'}
+                                    placeholder={undefined}>
+                                    폼 작성
+                                </Typography>
+                            </div>
+                        </Step>
+                    </Stepper>
+                    {/* <div className="mt-32 flex justify-between">
+                        <Button onClick={handlePrev} disabled={isFirstStep} placeholder={undefined}>
+                            Prev
+                        </Button>
+                        <Button onClick={handleNext} disabled={isLastStep} placeholder={undefined}>
+                            Next
+                        </Button>
+                    </div> */}
                 </div>
-                <div className="flex flex-col gap-3">
-                    <div>주의사항 및 신고 안내 가이드</div>
+                <div>
+                    <div className="text-[#F46221] text-sm  font-black">QUADHASH</div>
+                    <div className="text-xl lg:text-3xl font-black">해킹 신고 센터</div>
+                </div>
+                <div className="flex flex-col gap-5">
+                    <div className="text-xl lg:text-3xl font-black flex flex-row justify-start items-center gap-3">
+                        <div>주의사항 및 신고 안내 가이드</div>
+                        <div>
+                            <Checkbox
+                                label="전체동의"
+                                ripple={false}
+                                name="allAgreed"
+                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
+                                crossOrigin={undefined}
+                                checked={allAgreed}
+                                onChange={handleAllAgreementChange}
+                            />
+                        </div>
+                    </div>
                     <div>
                         <Checkbox
                             label="해킹 피해 신고를 한 계정에 등록된 개인정보가 허위이거나 부정확하게 기입되어
                         발생하는 모든 문제는 사용자 본인의 책임으로 간주하며, 이에 대해 동의합니다."
                             ripple={false}
-                            // name="allAgreed"
-                            className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
+                            name="firstTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
-                            // checked={allAgreed}
-                            // onChange={handleAllAgreementChange}
+                            checked={agreements.firstTerm}
+                            onChange={handleAgreementChange}
                         />
                     </div>
                     <div>
@@ -265,11 +414,11 @@ export default function ReportContainer(props: IReportContainerProps) {
                             label="신고된 계정에서 일어난 피해가 본인의 개인정보 유출이나 개인정보 관리 부실
                         등으로 인해 발생하지 않았음을 확인합니다"
                             ripple={false}
-                            // name="allAgreed"
-                            className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
+                            name="secondTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
-                            // checked={allAgreed}
-                            // onChange={handleAllAgreementChange}
+                            checked={agreements.secondTerm}
+                            onChange={handleAgreementChange}
                         />
                     </div>
                     <div>
@@ -277,11 +426,11 @@ export default function ReportContainer(props: IReportContainerProps) {
                             label="사용자는 토큰 구매와 서비스 이용에 필요한 모든 조건을 충분히 이해하고, 이에
                         동의합니다."
                             ripple={false}
-                            // name="allAgreed"
-                            className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
+                            name="thirdTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
-                            // checked={allAgreed}
-                            // onChange={handleAllAgreementChange}
+                            checked={agreements.thirdTerm}
+                            onChange={handleAgreementChange}
                         />
                     </div>
                     <div>
@@ -291,48 +440,52 @@ export default function ReportContainer(props: IReportContainerProps) {
                         본인이 지게 됨을 약속합니다. (이 내용 및 신고 내용은 사법기관[사이버 수사대
                         등]의 공식 요청이 있을 경우 제공될 수 있습니다.)"
                             ripple={false}
-                            // name="allAgreed"
-                            className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
+                            name="fourthTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
-                            // checked={allAgreed}
-                            // onChange={handleAllAgreementChange}
+                            checked={agreements.fourthTerm}
+                            onChange={handleAgreementChange}
                         />
                     </div>
                     <div>
                         <Checkbox
-                            label="해킹 신고에 대해 정상적으로 신고 접수가 완료된 계정은 조사 및 복구를 위해 일시적으로 이용이 제한될 수 있음을 이해하고 동의합니다. 
-복구가 완료될 때까지 이용이 제한될 수 있습니다."
+                            label="해킹 신고에 대해 정상적으로 신고 접수가 완료된 계정은 조사 및 복구를 위해 일시적으로 이용이 제한될 수 있음을 이해하고 동의합니다. 복구가 완료될 때까지 이용이 제한될 수 있습니다."
                             ripple={false}
-                            // name="allAgreed"
-                            className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
+                            name="fifthTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
-                            // checked={allAgreed}
-                            // onChange={handleAllAgreementChange}
+                            checked={agreements.fifthTerm}
+                            onChange={handleAgreementChange}
                         />
                     </div>
-                    <Checkbox
-                        label="이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다."
-                        ripple={false}
-                        // name="allAgreed"
-                        className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"
-                        crossOrigin={undefined}
-                        // checked={allAgreed}
-                        // onChange={handleAllAgreementChange}
-                    />
+                    <div>
+                        <Checkbox
+                            label="이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다."
+                            ripple={false}
+                            name="sixthTerm"
+                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
+                            crossOrigin={undefined}
+                            checked={agreements.sixthTerm}
+                            onChange={handleAgreementChange}
+                        />
+                    </div>
                 </div>
 
                 <div className="w-full flex flex-row justify-end items-center gap-3 text-white">
-                    <Button
+                    {/* <Button
                         variant="outlined"
                         className="rounded-lg border-[#F46221] text-[#F46221]  px-10 shadow-lg"
                         // disabled={isConnecting}
                         placeholder={undefined}>
                         <span>취소</span>
-                    </Button>
+                    </Button> */}
                     <Button
                         className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white"
-                        // disabled={isConnecting}
-                        placeholder={undefined}>
+                        disabled={!allAgreed}
+                        placeholder={undefined}
+                        onClick={() => {
+                            router.push('/report/nft-list')
+                        }}>
                         <span>확인</span>
                     </Button>
                 </div>

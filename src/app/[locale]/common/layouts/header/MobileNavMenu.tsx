@@ -81,7 +81,7 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
 
                     <ListItem
                         placeholder={undefined}
-                        className="flex flex-row justify-between items-center">
+                        className="flex flex-row justify-between items-center relative">
                         {t('language')}
                         <LocaleSwitcher />
                     </ListItem>
