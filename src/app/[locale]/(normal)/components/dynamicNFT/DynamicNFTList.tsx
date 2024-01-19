@@ -7,7 +7,7 @@ import { getNftsForOwner } from '@/app/api/alchemy/api'
 
 export interface IDynamicNFTListProps {
     setSelectedNft?: React.Dispatch<any>
-    setCategoires: React.Dispatch<any>
+    setCategoires?: React.Dispatch<any>
     handleOpen?: () => void
     setMetaData?: React.Dispatch<any>
 }

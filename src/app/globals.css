@@ -61,7 +61,7 @@
   }
 
   .vibration {
-    animation: vibration .1s 1 
+    animation: vibration .1s 2
   }
 
   @keyframes vibration {

@@ -12,6 +12,7 @@ import MobileNavMenu from './MobileNavMenu'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
+import { ButtonGroup } from '@material-tailwind/react'
 
 export interface IHeaderProps {}
 const { usePathname } = createSharedPathnamesNavigation({ locales })
@@ -70,7 +71,7 @@ export default function Header(props: IHeaderProps) {
             <header
                 className={`${
                     pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
-                } flex flex-col justify-center items-center top-0 w-full z-50 h-[176px] text-black gap-6`}>
+                } flex flex-col justify-center sticky items-center top-0 w-full z-50 h-[176px] gap-6`}>
                 <div
                     className="lg:hidden cursor-pointer fixed left-4 top-4 bg-white p-3 rounded-full shadow-lg"
                     onClick={handleOpen}>
@@ -93,7 +94,7 @@ export default function Header(props: IHeaderProps) {
 
                 <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] px-10">
                     <Navbar />
-                    <div className="flex flex-row gap-3">
+                    <div className="flex flex-row">
                         <Setting />
                         <Connect />
                     </div>

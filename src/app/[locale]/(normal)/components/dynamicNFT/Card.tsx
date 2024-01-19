@@ -6,8 +6,8 @@ export interface ICardProps {
     nft: any
     onClick?: React.MouseEventHandler | undefined
     setSelectedNft?: React.Dispatch<any>
-    setCategoires: React.Dispatch<any>
-    setMetaData: React.Dispatch<any>
+    setCategoires?: React.Dispatch<any>
+    setMetaData?: React.Dispatch<any>
     handleOpen?: () => void
 }
 
