@@ -1,11 +1,20 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import ExcelJS from 'exceljs'
 import NftList from '../components/report/NftList'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getBlock, getTransfersForOwner } from '@/app/api/alchemy/api'
-import { Alchemy, GetTransfersForOwnerTransferType, Network, NftOrdering } from 'alchemy-sdk'
+import {
+    Alchemy,
+    AssetTransfersCategory,
+    GetTransfersForOwnerTransferType,
+    Network,
+    NftOrdering,
+    NftSaleMarketplace,
+    SortingOrder,
+    fromHex,
+} from 'alchemy-sdk'
 import React from 'react'
 import { Button, Checkbox, Stepper, Step, Typography } from '@material-tailwind/react'
 import { postReport } from '@/app/api/report/api'
@@ -13,15 +22,23 @@ import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
-import ReportAgreementComponent from '../components/report/ReportAgreement'
+import ReportAgreementComponent from '../components/report/ReportAgreementComponent'
+import SelectNFTComponent from '../components/report/SelectNFTComponent'
+import ReportFormComponent from '../components/report/ReportFormComponent'
+import { getUuidByAccount } from '@/app/api/auth/api'
+import { personalSign } from '@/app/api/wallet/api'
 
 export interface IReportContainerProps {}
 
 export interface IReportParameter {
     title: string
     content: string
+    user_name: string
+    user_phone: string
     user_email: string
-    post_nfts: nftArray[]
+    wallet_address: string
+    wallet_signature: string
+    post_nfts: nftArray[] | any
 }
 
 interface nftArray {
@@ -30,7 +47,7 @@ interface nftArray {
 }
 const config = {
     apiKey: '2jp0674GCJeIZW9qmM3WB92wslh1P8yM', // Replace with your API key
-    network: Network.ETH_MAINNET, // Replace with your network
+    network: Network.ETH_SEPOLIA, // Replace with your network
 }
 
 const alchemy = new Alchemy(config)
@@ -41,10 +58,13 @@ export default function ReportContainer(props: IReportContainerProps) {
     const [isLastStep, setIsLastStep] = React.useState(false)
     const [isFirstStep, setIsFirstStep] = React.useState(false)
 
-    const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1)
-    const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1)
+    const nameRef = useRef(null)
+    const titleRef = useRef(null)
+    const NFTListRef = useRef(null)
+    const emailRef = useRef(null)
+    const phoneRef = useRef(null)
+    const contentRef = useRef(null)
 
-    const router = useRouter()
     const [allAgreed, setAllAgreed] = React.useState(false)
     const [agreements, setAgreements] = React.useState({
         firstTerm: false,
@@ -54,19 +74,95 @@ export default function ReportContainer(props: IReportContainerProps) {
         fifthTerm: false,
         sixthTerm: false,
     })
-    const [isError, setIsError] = React.useState(false)
-    const { $confirm } = useContext(ConfirmContext)
-    const [sazaExNftList, setSazaExNftList] = useState([])
-    const [gazaExNftList, setGazaExNftList] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
 
-    const [input, setInput] = useState({
+    const [finalAgreement, setFinalAgreement] = React.useState(false)
+
+    const [inputs, setInputs] = useState({
+        user_name: '',
         title: '',
-        email: '',
+        post_nfts: [],
+        user_email: '',
+        user_phone: '',
         content: '',
+        checkbox: false,
     })
 
+    const [transactions, setTransactions] = React.useState([])
+    const [isLoading, setIsLoading] = React.useState(false)
     const { wallet } = useMetaMask()
+
+    React.useEffect(() => {
+        const getExNfts = async () => {
+            try {
+                setIsLoading(true)
+                if (wallet.accounts.length > 0) {
+                    const result = await alchemy.core.getAssetTransfers({
+                        // toAddress: '0x63120565a91C891920285bFc3781F56047d711b7',
+                        fromAddress: wallet.accounts[0],
+                        order: SortingOrder.DESCENDING,
+                        contractAddresses: [
+                            process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                            process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+                        ],
+                        category: [AssetTransfersCategory.ERC721],
+                        excludeZeroValue: false,
+                        withMetadata: true,
+                    })
+
+                    let filteredTransaction = []
+
+                    filteredTransaction = result.transfers.filter(
+                        (item) =>
+                            Math.floor(new Date(item.metadata.blockTimestamp).getTime() / 1000) +
+                                60 * 60 * 24 >
+                            Math.floor(new Date().getTime() / 1000),
+                    )
+
+                    for (let i = 0; i < filteredTransaction.length; i++) {
+                        let contractAddress = filteredTransaction[i].rawContract.address
+                        const hackerAddress = filteredTransaction[i].to?.toLowerCase()
+                        const tokenId = filteredTransaction[i].tokenId
+
+                        const result = await alchemy.nft.getOwnersForNft(contractAddress, tokenId)
+
+                        if (result.owners[0].toLowerCase() !== hackerAddress) {
+                            filteredTransaction[i].isDisabled = true
+                        } else {
+                            filteredTransaction[i].isDisabled = false
+                        }
+                        filteredTransaction[i].isChecked = false
+                        filteredTransaction[i].decimalTokenId = parseInt(
+                            filteredTransaction[i].tokenId,
+                            16,
+                        )
+                        if (
+                            filteredTransaction[i].rawContract.address.toLowerCase() ===
+                            process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS.toLowerCase()
+                        ) {
+                            filteredTransaction[i].tokenType = 'saza'
+                        } else if (
+                            filteredTransaction[i].rawContract.address.toLowerCase() ===
+                            process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS.toLowerCase()
+                        ) {
+                            filteredTransaction[i].tokenType = 'gaza'
+                        }
+                    }
+
+                    setTransactions(filteredTransaction)
+                    setIsLoading(false)
+                }
+            } catch (error) {
+                console.error(error)
+                setIsLoading(false)
+            }
+        }
+
+        getExNfts()
+    }, [wallet])
+
+    useEffect(() => {
+        console.log(isLoading)
+    }, [isLoading])
 
     React.useEffect(() => {
         return () => {
@@ -83,83 +179,86 @@ export default function ReportContainer(props: IReportContainerProps) {
         }
     }, [])
 
-    useEffect(() => {
-        const getExNfts = async () => {
-            if (wallet.accounts.length > 0) {
-                setIsLoading(true)
-                const result = await getTransfersForOwner(
-                    wallet.accounts[0],
-                    GetTransfersForOwnerTransferType.TO,
-                    {
-                        contractAddresses: [
-                            process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-                            process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-                        ],
-                        tokenType: 'ERC721',
-                        orderby: NftOrdering.TRANSFERTIME,
-                    },
-                )
+    // useEffect(() => {
+    //     const getExNfts = async () => {
+    //         if (wallet.accounts.length > 0) {
+    //             setIsLoading(true)
+    //             const result = await getTransfersForOwner(
+    //                 wallet.accounts[0],
+    //                 GetTransfersForOwnerTransferType.TO,
+    //                 {
+    //                     contractAddresses: [
+    //                         process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+    //                         process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+    //                     ],
+    //                     tokenType: 'ERC721',
+    //                     orderby: NftOrdering.TRANSFERTIME,
+    //                 },
+    //             )
 
-                const nfts = result.nfts
-                // console.log(nfts)
+    //             const nfts = result.nfts
+    //             // console.log(nfts)
 
-                let filteredTransaction = []
+    //             let filteredTransaction = []
 
-                for (let i = 0; i < nfts.length; i++) {
-                    const block = await getBlock(nfts[i].blockNumber)
-                    // if (block.timestamp + 60 * 60 * 24 > Math.floor(new Date().getTime() / 1000)) {
-                    filteredTransaction.push(nfts[i])
-                    // }
-                }
-                let sazaExNftList = []
-                let gazaExNftList = []
+    //             for (let i = 0; i < nfts.length; i++) {
+    //                 const block = await getBlock(nfts[i].blockNumber)
+    //                 // if (block.timestamp + 60 * 60 * 24 > Math.floor(new Date().getTime() / 1000)) {
+    //                 filteredTransaction.push(nfts[i])
+    //                 // }
+    //             }
+    //             let sazaExNftList = []
+    //             let gazaExNftList = []
 
-                filteredTransaction.forEach((transaction) => {
-                    if (
-                        transaction.contract.address ===
-                        process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
-                    ) {
-                        sazaExNftList.push(transaction)
-                    } else if (
-                        transaction.contract.address ===
-                        process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
-                    ) {
-                        gazaExNftList.push(transaction)
-                    }
-                })
+    //             filteredTransaction.forEach((transaction) => {
+    //                 if (
+    //                     transaction.contract.address ===
+    //                     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
+    //                 ) {
+    //                     sazaExNftList.push(transaction)
+    //                 } else if (
+    //                     transaction.contract.address ===
+    //                     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
+    //                 ) {
+    //                     gazaExNftList.push(transaction)
+    //                 }
+    //             })
 
-                setSazaExNftList(
-                    sazaExNftList.map((exNft) => ({
-                        ...exNft,
-                        ...{ isChecked: false },
-                    })),
-                )
-                setGazaExNftList(
-                    gazaExNftList.map((exNft) => ({
-                        ...exNft,
-                        ...{ isChecked: false },
-                    })),
-                )
-            }
-            setIsLoading(false)
-        }
+    //             setSazaExNftList(
+    //                 sazaExNftList.map((exNft) => ({
+    //                     ...exNft,
+    //                     ...{ isChecked: false },
+    //                 })),
+    //             )
+    //             setGazaExNftList(
+    //                 gazaExNftList.map((exNft) => ({
+    //                     ...exNft,
+    //                     ...{ isChecked: false },
+    //                 })),
+    //             )
+    //         }
+    //         setIsLoading(false)
+    //     }
 
-        getExNfts()
-    }, [wallet])
+    // getExNfts()
+    // }, [wallet])
 
-    const inputHandler = (e: React.ChangeEvent) => {
+    const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1)
+    const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1)
+
+    const inputsHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {
             const { value, name } = e.target
-            setInput({ ...input, [name]: value })
+            setInputs({ ...inputs, [name]: value })
         } else if (e.target instanceof HTMLTextAreaElement) {
             const { value, name } = e.target
-            setInput({ ...input, [name]: value })
+            setInputs({ ...inputs, [name]: value })
         }
     }
 
     const handleAgreementChange = (e: { target: { name: any; checked: any } }) => {
         const { name, checked } = e.target
-        setIsError(false)
+
         setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }))
         const allChecked = Object.values({ ...agreements, [name]: checked }).every(
             (value) => value === true,
@@ -167,9 +266,14 @@ export default function ReportContainer(props: IReportContainerProps) {
         setAllAgreed(allChecked)
     }
 
+    const handleFinalAgreementChange = (e: { target: { name: any; checked: any } }) => {
+        const { name, checked } = e.target
+        setFinalAgreement((prevAgreements) => !prevAgreements)
+    }
+
     const handleAllAgreementChange = (e: { target: { checked: any } }) => {
         const { checked } = e.target
-        setIsError(false)
+
         setAllAgreed(checked)
 
         if (e.target.checked) {
@@ -195,142 +299,183 @@ export default function ReportContainer(props: IReportContainerProps) {
         }
     }
 
-    const report = async () => {
-        if (await $confirm('해킹신고 게시글을 작성합니다.')) {
-            // console.log(123)
-            const sazaList = sazaExNftList
-                .filter((nft) => nft.isChecked === true)
-                .map((nft) => {
-                    return { token_id: nft.tokenId, token_type: 'saza' }
-                })
-            const gazaList = gazaExNftList
-                .filter((nft) => nft.isChecked === true)
-                .map((nft) => {
-                    return { token_id: nft.tokenId, token_type: 'gaza' }
-                })
+    const formValidation = () => {
+        let usernameValidation = true
+        let titleValidation = true
+        let walletAddressValidation = true
+        let nftListValidation = true
+        let userEmailValidation = true
+        let userPhoneValidation = true
+        let contentValidation = true
 
-            console.log('saza', sazaList)
-            console.log('gaza', gazaList)
-
-            const nfts = [...sazaList, ...gazaList]
-
-            const result = await postReport({
-                title: input.title,
-                content: input.content,
-                user_email: input.email,
-                post_nfts: nfts,
-            })
-
-            console.log('result', result)
+        if (inputs.user_name === '') {
+            nameRef?.current?.classList.remove('invisible')
+            usernameValidation = false
+        } else {
+            nameRef?.current?.classList.add('invisible')
         }
+
+        if (inputs.title === '') {
+            titleRef.current?.classList.remove('invisible')
+            titleValidation = false
+        } else {
+            titleRef.current?.classList.add('invisible')
+        }
+
+        if (inputs.post_nfts.length === 0) {
+            NFTListRef?.current?.classList.remove('invisible')
+            nftListValidation = false
+        } else {
+            NFTListRef?.current?.classList.add('invisible')
+        }
+
+        if (inputs.user_email === '') {
+            emailRef?.current?.classList.remove('invisible')
+            userEmailValidation = false
+        } else {
+            emailRef.current?.classList.add('invisible')
+        }
+
+        if (inputs.user_phone === '') {
+            phoneRef.current?.classList.remove('invisible')
+            userPhoneValidation = false
+        } else {
+            phoneRef.current?.classList.add('invisible')
+        }
+
+        if (inputs.content === '') {
+            contentRef.current?.classList.remove('invisible')
+            contentValidation = false
+        } else {
+            contentRef.current?.classList.add('invisible')
+        }
+
+        if (
+            usernameValidation &&
+            titleValidation &&
+            walletAddressValidation &&
+            nftListValidation &&
+            userEmailValidation &&
+            userPhoneValidation &&
+            contentValidation
+        ) {
+            return true
+        }
+        return false
     }
 
-    const getAllNfts = async () => {
-        try {
-            let nfts = []
-            // Get the async iterable for the contract's NFTs.
-            const nftsIterable = alchemy.nft.getNftsForContractIterator(
-                // '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
-                '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
-                // { pageKey: 99999 },
-            )
+    const submit = async () => {
+        if (formValidation() && finalAgreement && allAgreed) {
+            const signResult = await getUuidByAccount(wallet.accounts[0])
+            const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
 
-            // Iterate over the NFTs and add them to the nfts array.
-            for await (const nft of nftsIterable) {
-                nfts.push(nft)
+            const parameter = {
+                title: inputs.title,
+                content: inputs.content,
+                user_email: inputs.user_email,
+                user_name: inputs.user_name,
+                user_phone: inputs.user_phone,
+                wallet_address: wallet.accounts[0],
+                wallet_signature: signature,
+                post_nfts: inputs.post_nfts,
             }
 
-            console.log(nfts)
-
-            return nfts
-        } catch (error) {
-            console.log(error)
+            const result = await postReport(parameter)
         }
     }
 
-    const test = async () => {
-        const nfts = await getAllNfts()
-        const arr = new Array(10000)
+    /**
+     * 데이터 수집 Extra API : 다시 필요할지 몰라 일단 주석으로
+     * @returns
+     */
+    // const getAllNfts = async () => {
+    //     try {
+    //         let nfts = []
+    //         // Get the async iterable for the contract's NFTs.
+    //         const nftsIterable = alchemy.nft.getNftsForContractIterator(
+    //             // '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
+    //             '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
+    //             // { pageKey: 99999 },
+    //         )
 
-        console.log(arr.length)
-        for (let i = 0; i < arr.length; i++) {
-            arr[i] = `${i}`
-        }
+    //         // Iterate over the NFTs and add them to the nfts array.
+    //         for await (const nft of nftsIterable) {
+    //             nfts.push(nft)
+    //         }
 
-        console.log(arr)
+    //         console.log(nfts)
 
-        // nfts.forEach((item, index) => {
-        //     let tokenId = item.tokenId
-        //     let idx = arr.indexOf(tokenId)
-        //     console.log(idx)
-        //     arr.splice(idx, 1)
-        // })
-
-        for (let i = 0; i < nfts.length; i++) {
-            let tokenId = nfts[i].tokenId
-            let index = arr.indexOf(tokenId)
-
-            arr.splice(index, 1)
-        }
-        const result = arr.map((item) => {
-            return { id: item }
-        })
-
-        console.log(result)
-
-        // const arr2 = ['A', 'B', 'C']
-
-        // const a = arr2.map((item) => {
-        //     return { id: item }
-        // })
-
-        // console.log(a)
-        const workbook = new ExcelJS.Workbook()
-        const worksheet = workbook.addWorksheet('test')
-        worksheet.columns = [{ header: 'Token ID', key: 'id' }]
-        const arr1 = [{ id: 'A' }, { id: 'A' }, { id: 'A' }, { id: 'A' }]
-        worksheet.insertRows(2, result)
-        const buffer = await workbook.xlsx.writeBuffer()
-        const blob = new Blob([buffer], {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        })
-        const url = window.URL.createObjectURL(blob) // blob으로 객체 URL 생성
-        const anchor = document.createElement('a')
-        anchor.href = url
-        anchor.download = 'test1.xlsx'
-        anchor.click() // anchor를 다운로드 링크로 만들고 강제로 클릭 이벤트 발생
-        window.URL.revokeObjectURL(url) // 메모리에서 해제
-
-        // console.log(arr)
-
-        //
-    }
-    // const report = async () => {
-    //     // await $alert('123123123')
-    //     await $confirm('1232123123')
-    //     console.log(123)
+    //         return nfts
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
     // }
+
+    // const test = async () => {
+    //     const nfts = await getAllNfts()
+    //     const arr = new Array(10000)
+
+    //     console.log(arr.length)
+    //     for (let i = 0; i < arr.length; i++) {
+    //         arr[i] = `${i}`
+    //     }
+
+    //     console.log(arr)
+
+    //     for (let i = 0; i < nfts.length; i++) {
+    //         let tokenId = nfts[i].tokenId
+    //         let index = arr.indexOf(tokenId)
+
+    //         arr.splice(index, 1)
+    //     }
+    //     const result = arr.map((item) => {
+    //         return { id: item }
+    //     })
+
+    //     console.log(result)
+
+    //     const workbook = new ExcelJS.Workbook()
+    //     const worksheet = workbook.addWorksheet('test')
+    //     worksheet.columns = [{ header: 'Token ID', key: 'id' }]
+    //     const arr1 = [{ id: 'A' }, { id: 'A' }, { id: 'A' }, { id: 'A' }]
+    //     worksheet.insertRows(2, result)
+    //     const buffer = await workbook.xlsx.writeBuffer()
+    //     const blob = new Blob([buffer], {
+    //         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    //     })
+    //     const url = window.URL.createObjectURL(blob) // blob으로 객체 URL 생성
+    //     const anchor = document.createElement('a')
+    //     anchor.href = url
+    //     anchor.download = 'test1.xlsx'
+    //     anchor.click() // anchor를 다운로드 링크로 만들고 강제로 클릭 이벤트 발생
+    //     window.URL.revokeObjectURL(url) // 메모리에서 해제
+
+    //     // console.log(arr)
+
+    //     //
 
     return (
         <>
-            <div className="flex flex-col justify-start items-start h-full px-20 min-h-[calc(100vh-176px)] gap-20 pt-20">
+            <div className="flex flex-col justify-start items-start h-full px-10 min-h-[calc(100vh-176px)] gap-16 pt-20 w-full max-w-[1440px]">
                 <div className="w-full px-3 ">
                     <Stepper
                         activeStep={activeStep}
                         isLastStep={(value) => setIsLastStep(value)}
                         isFirstStep={(value) => setIsFirstStep(value)}
                         placeholder={undefined}
-                        activeLineClassName="bg-[#F46221]"
+                        activeLineClassName={`bg-[#F46221] ${activeStep === 0 && !'!w-0'} ${
+                            activeStep === 1 && '!w-1/2'
+                        } ${activeStep === 2 && '!w-full'}`}
                         lineClassName="bg-gray-300">
                         <Step
-                            onClick={() => setActiveStep(0)}
+                            // onClick={() => setActiveStep(0)}
                             placeholder={undefined}
                             className={
                                 activeStep === 0 || activeStep === 1 || activeStep === 2
                                     ? '!bg-[#F46221]'
                                     : '!bg-gray-300'
                             }>
-                            <div className="absolute -bottom-[2.5rem] w-max text-center">
+                            <div className="absolute -top-[2.5rem] w-max text-center">
                                 <Typography
                                     variant="h6"
                                     color={activeStep === 0 ? 'blue-gray' : 'gray'}
@@ -340,14 +485,14 @@ export default function ReportContainer(props: IReportContainerProps) {
                             </div>
                         </Step>
                         <Step
-                            onClick={() => setActiveStep(1)}
+                            // onClick={() => setActiveStep(1)}
                             placeholder={undefined}
                             className={
                                 activeStep === 1 || activeStep === 2
                                     ? '!bg-[#F46221]'
                                     : '!bg-gray-300'
                             }>
-                            <div className="absolute -bottom-[2.5rem] w-max text-center">
+                            <div className="absolute -top-[2.5rem] w-max text-center">
                                 <Typography
                                     variant="h6"
                                     color={activeStep === 1 ? 'blue-gray' : 'gray'}
@@ -357,10 +502,10 @@ export default function ReportContainer(props: IReportContainerProps) {
                             </div>
                         </Step>
                         <Step
-                            onClick={() => setActiveStep(2)}
+                            // onClick={() => setActiveStep(2)}
                             placeholder={undefined}
                             className={activeStep === 2 ? '!bg-[#F46221]' : '!bg-gray-300'}>
-                            <div className="absolute -bottom-[2.5rem] w-max text-center">
+                            <div className="absolute -top-[2.5rem] w-max text-center">
                                 <Typography
                                     variant="h6"
                                     color={activeStep === 2 ? 'blue-gray' : 'gray'}
@@ -370,65 +515,99 @@ export default function ReportContainer(props: IReportContainerProps) {
                             </div>
                         </Step>
                     </Stepper>
-                    {/* <div className="mt-32 flex justify-between">
-                        <Button onClick={handlePrev} disabled={isFirstStep} placeholder={undefined}>
-                            Prev
-                        </Button>
-                        <Button onClick={handleNext} disabled={isLastStep} placeholder={undefined}>
-                            Next
-                        </Button>
-                    </div> */}
                 </div>
 
-                <ReportAgreementComponent
-                    allAgreed={allAgreed}
-                    setAllAgreed={setAllAgreed}
-                    agreements={agreements}
-                    setAgreements={setAgreements}
-                    handleAgreementChange={handleAgreementChange}
-                    handleAllAgreementChange={handleAllAgreementChange}
-                />
-            </div>
-
-            {/* <div className=" flex flex-row justify-start items-start w-full h-full">
-                    <div className="w-[60%] h-full m-3">
-                        <NftList
-                            type="saza"
-                            exNftList={sazaExNftList}
-                            setExNftList={setSazaExNftList}
-                            isLoading={isLoading}
+                {activeStep === 0 && (
+                    <>
+                        <ReportAgreementComponent
+                            allAgreed={allAgreed}
+                            setAllAgreed={setAllAgreed}
+                            agreements={agreements}
+                            setAgreements={setAgreements}
+                            handleAgreementChange={handleAgreementChange}
+                            handleAllAgreementChange={handleAllAgreementChange}
                         />
-                        <NftList
-                            type="gaza"
-                            exNftList={gazaExNftList}
-                            setExNftList={setGazaExNftList}
-                            isLoading={isLoading}
-                        />
-                    </div>
-                    <div className="w-[40%] h-full p-3 flex flex-col justify-center items-center gap-8">
-                        <Input
-                            label="Title"
-                            name="title"
-                            crossOrigin={undefined}
-                            onChange={inputHandler}
-                        />
-                        <Input
-                            label="Email"
-                            name="email"
-                            crossOrigin={undefined}
-                            onChange={inputHandler}
-                        />
-                        <Textarea label="Content" name="content" onChange={inputHandler} />
-                        <div className="flex justify-end">
-                            <Button onClick={test} placeholder={undefined}>
-                                Report
+                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                            <Button
+                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                disabled={!allAgreed}
+                                placeholder={undefined}
+                                onClick={handleNext}>
+                                <span>확인</span>
                             </Button>
                         </div>
-                    </div>
-                </div> */}
-            {/* <NftList type="saza" exNftList={sazaExNftList} setExNftList={setSazaExNftList} />
-                <NftList type="gaza" exNftList={gazaExNftList} setExNftList={setGazaExNftList} /> */}
-            {/* </div> */}
+                    </>
+                )}
+
+                {activeStep === 1 && (
+                    <>
+                        <SelectNFTComponent
+                            isLoading={isLoading}
+                            transactions={transactions}
+                            setTransactions={setTransactions}
+                            setInputs={setInputs}
+                        />
+
+                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                            <Button
+                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                placeholder={undefined}
+                                onClick={handlePrev}>
+                                <span>뒤로</span>
+                            </Button>
+                            <Button
+                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                disabled={inputs.post_nfts.length === 0}
+                                placeholder={undefined}
+                                onClick={handleNext}>
+                                <span>선택완료</span>
+                            </Button>
+                        </div>
+                    </>
+                )}
+
+                {activeStep === 2 && (
+                    <>
+                        <ReportFormComponent
+                            targetList={inputs.post_nfts}
+                            inputsHandler={inputsHandler}
+                            finalAgreement={finalAgreement}
+                            nameRef={nameRef}
+                            titleRef={titleRef}
+                            // walletAddressRef={walletAddressRef}
+                            NFTListRef={NFTListRef}
+                            emailRef={emailRef}
+                            phoneRef={phoneRef}
+                            contentRef={contentRef}
+                            handleFinalAgreementChange={handleFinalAgreementChange}
+                        />
+
+                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                            <Button
+                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                placeholder={undefined}
+                                onClick={handlePrev}>
+                                <span>뒤로</span>
+                            </Button>
+                            <Button
+                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                disabled={
+                                    inputs.user_name === '' ||
+                                    inputs.title === '' ||
+                                    inputs.post_nfts.length === 0 ||
+                                    inputs.user_email === '' ||
+                                    inputs.user_phone === '' ||
+                                    inputs.content === '' ||
+                                    !finalAgreement
+                                }
+                                placeholder={undefined}
+                                onClick={submit}>
+                                <span>제출하기</span>
+                            </Button>
+                        </div>
+                    </>
+                )}
+            </div>
         </>
     )
 }

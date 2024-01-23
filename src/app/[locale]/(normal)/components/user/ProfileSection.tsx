@@ -4,14 +4,15 @@ export interface IProfileSectionProps {}
 
 export default function ProfileSection(props: IProfileSectionProps) {
     return (
-        <div className="w-full px-5">
-            <div className="flex flex-row justify-center items-center w-full">
-                <div className="bg-green-300 flex-[1_0_auto]">asdf</div>
-                <div className="bg-blue-300 flex-[3_0_auto]">asdf</div>
-            </div>
-            <div className="flex flex-col lg:flex-row justify-stretch items-stretch w-full text-white rounded-lg overflow-hidden">
-                <img className="flex-[1_0_auto] object-contain max-w-[40%]" src="/1.png" alt="" />
-                <div className="flex flex-col justify-center items-center bg-[#C6251B] flex-[4_0_auto]">
+        <div className="w-full px-5 lg:px-28">
+            <div className="flex flex-col lg:flex-row justify-stretch items-stretch w-full text-white rounded-lg flex-nowrap">
+                {/* <div className="flex-[1_1_auto] w-full">
+                    afdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsfafdadsf
+                </div> */}
+                <div className="flex-[1_1_0] w-full  p-10 bg-[#C6251B] flex flex-col justify-center items-center">
+                    <img className="w-full max-w-[588px] object-cover" src="/1.png" alt="" />
+                </div>
+                <div className="flex flex-col justify-center items-center bg-[#C6251B] flex-[2_1_0] w-full">
                     <div className="flex flex-col justify-center items-start w-full p-3">
                         <div>QUADHASH</div>
                         <div className="text-2xl font-bold">SAZA #3910</div>

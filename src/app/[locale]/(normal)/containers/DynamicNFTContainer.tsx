@@ -32,22 +32,6 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
     const handleOpen = () => {
         setOpen(!open)
     }
-    // const test = () => {
-    //     // console.log(sazaCategoryValidation(200, 'background'))
-    //     console.log(
-    //         gazaCategoryValidation(5000, 'Bottoms', [
-    //             { trait_type: 'Background', value: 'Night' },
-    //             { trait_type: 'Body', value: 'Body' },
-    //             { trait_type: 'Top', value: 'None' },
-    //             { trait_type: 'Bottoms', value: 'None' },
-    //             { trait_type: 'Onesie', value: 'Rainbow' },
-    //             { trait_type: 'Eyes', value: 'Lasers' },
-    //             { trait_type: 'Mouth', value: 'NonChalant' },
-    //             { trait_type: 'Headwear', value: 'Halo' },
-    //             { trait_type: 'Extras', value: 'Snail' },
-    //         ]),
-    //     )
-    // }
 
     React.useEffect(() => {
         setCategoires(null)
@@ -67,14 +51,6 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
             setIsLocked(false)
         }
     }, [selectedNft])
-
-    React.useEffect(() => {
-        console.log(isLocked)
-    }, [isLocked])
-
-    React.useEffect(() => {
-        console.log('selectedCategory', selectedCategory)
-    }, [selectedCategory])
 
     const startDynamicNFT = async () => {
         try {

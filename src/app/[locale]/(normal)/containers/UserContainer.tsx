@@ -7,7 +7,7 @@ export interface IUserContainerProps {}
 export default function UserContainer(props: IUserContainerProps) {
     return (
         <>
-            <div>
+            <div className="max-w-[1296px]">
                 <ProfileSection />
                 <NFTSection />
             </div>
