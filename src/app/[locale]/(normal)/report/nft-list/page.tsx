@@ -94,7 +94,7 @@ export default function NftListPage(props: INftListProps) {
                         </>
                     )}
 
-                    {!isLoading && transactions && transactions.length > 0 && (
+                    {/* {!isLoading && transactions && transactions.length > 0 && (
                         <CardList>
                             {transactions?.map((item, index) => (
                                 <Card
@@ -104,7 +104,7 @@ export default function NftListPage(props: INftListProps) {
                                 />
                             ))}
                         </CardList>
-                    )}
+                    )} */}
                     {!isLoading && transactions && transactions.length === 0 && (
                         <div className="relative flex flex-row w-full justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
                             <div>You dont have any NFT Transaction in your account.</div>
