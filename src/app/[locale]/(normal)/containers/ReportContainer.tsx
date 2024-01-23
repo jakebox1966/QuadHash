@@ -118,7 +118,17 @@ export default function ReportContainer(props: IReportContainerProps) {
                             Math.floor(new Date().getTime() / 1000),
                     )
 
+                    let sortingArray = []
                     for (let i = 0; i < filteredTransaction.length; i++) {
+                        if (
+                            sortingArray.find(
+                                (item) => item.tokenId === filteredTransaction[i].tokenId,
+                            )
+                        ) {
+                            console.log('A')
+                            continue
+                        }
+
                         let contractAddress = filteredTransaction[i].rawContract.address
                         const hackerAddress = filteredTransaction[i].to?.toLowerCase()
                         const tokenId = filteredTransaction[i].tokenId
@@ -146,9 +156,10 @@ export default function ReportContainer(props: IReportContainerProps) {
                         ) {
                             filteredTransaction[i].tokenType = 'gaza'
                         }
+                        sortingArray.push(filteredTransaction[i])
                     }
 
-                    setTransactions(filteredTransaction)
+                    setTransactions(sortingArray)
                     setIsLoading(false)
                 }
             } catch (error) {
@@ -160,9 +171,9 @@ export default function ReportContainer(props: IReportContainerProps) {
         getExNfts()
     }, [wallet])
 
-    useEffect(() => {
-        console.log(isLoading)
-    }, [isLoading])
+    // useEffect(() => {
+    //     console.log(isLoading)
+    // }, [isLoading])
 
     React.useEffect(() => {
         return () => {

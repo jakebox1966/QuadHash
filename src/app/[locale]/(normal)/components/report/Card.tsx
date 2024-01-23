@@ -11,7 +11,7 @@ export default function Card({ nft, onClick }: ICardProps) {
     return (
         <>
             <div
-                className={`relative overflow-hidden rounded-lg group w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/3-10px)+(7px/3))] p-10 ${
+                className={`relative overflow-hidden rounded-lg group w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/3-10px)+(7px/3))] ${
                     nft.isChecked ? 'border-8 border-red-300' : ''
                 }`}>
                 <div
