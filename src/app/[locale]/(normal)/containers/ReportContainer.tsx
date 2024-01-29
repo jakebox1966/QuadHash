@@ -27,6 +27,8 @@ import SelectNFTComponent from '../components/report/SelectNFTComponent'
 import ReportFormComponent from '../components/report/ReportFormComponent'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
+import Loading from '../../common/components/Loading'
+import ReportSuccessComponent from '../components/report/ReportSuccess'
 
 export interface IReportContainerProps {}
 
@@ -89,6 +91,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     const [transactions, setTransactions] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(false)
+    const { $confirm } = React.useContext(ConfirmContext)
     const { wallet } = useMetaMask()
 
     React.useEffect(() => {
@@ -171,10 +174,6 @@ export default function ReportContainer(props: IReportContainerProps) {
         getExNfts()
     }, [wallet])
 
-    // useEffect(() => {
-    //     console.log(isLoading)
-    // }, [isLoading])
-
     React.useEffect(() => {
         return () => {
             setAllAgreed(false)
@@ -189,70 +188,6 @@ export default function ReportContainer(props: IReportContainerProps) {
             }))
         }
     }, [])
-
-    // useEffect(() => {
-    //     const getExNfts = async () => {
-    //         if (wallet.accounts.length > 0) {
-    //             setIsLoading(true)
-    //             const result = await getTransfersForOwner(
-    //                 wallet.accounts[0],
-    //                 GetTransfersForOwnerTransferType.TO,
-    //                 {
-    //                     contractAddresses: [
-    //                         process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-    //                         process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-    //                     ],
-    //                     tokenType: 'ERC721',
-    //                     orderby: NftOrdering.TRANSFERTIME,
-    //                 },
-    //             )
-
-    //             const nfts = result.nfts
-    //             // console.log(nfts)
-
-    //             let filteredTransaction = []
-
-    //             for (let i = 0; i < nfts.length; i++) {
-    //                 const block = await getBlock(nfts[i].blockNumber)
-    //                 // if (block.timestamp + 60 * 60 * 24 > Math.floor(new Date().getTime() / 1000)) {
-    //                 filteredTransaction.push(nfts[i])
-    //                 // }
-    //             }
-    //             let sazaExNftList = []
-    //             let gazaExNftList = []
-
-    //             filteredTransaction.forEach((transaction) => {
-    //                 if (
-    //                     transaction.contract.address ===
-    //                     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
-    //                 ) {
-    //                     sazaExNftList.push(transaction)
-    //                 } else if (
-    //                     transaction.contract.address ===
-    //                     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
-    //                 ) {
-    //                     gazaExNftList.push(transaction)
-    //                 }
-    //             })
-
-    //             setSazaExNftList(
-    //                 sazaExNftList.map((exNft) => ({
-    //                     ...exNft,
-    //                     ...{ isChecked: false },
-    //                 })),
-    //             )
-    //             setGazaExNftList(
-    //                 gazaExNftList.map((exNft) => ({
-    //                     ...exNft,
-    //                     ...{ isChecked: false },
-    //                 })),
-    //             )
-    //         }
-    //         setIsLoading(false)
-    //     }
-
-    // getExNfts()
-    // }, [wallet])
 
     const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1)
     const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1)
@@ -376,22 +311,24 @@ export default function ReportContainer(props: IReportContainerProps) {
     }
 
     const submit = async () => {
-        if (formValidation() && finalAgreement && allAgreed) {
-            const signResult = await getUuidByAccount(wallet.accounts[0])
-            const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+        if (await $confirm('제출하시겠습니까?')) {
+            if (formValidation() && finalAgreement && allAgreed) {
+                const signResult = await getUuidByAccount(wallet.accounts[0])
+                const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
 
-            const parameter = {
-                title: inputs.title,
-                content: inputs.content,
-                user_email: inputs.user_email,
-                user_name: inputs.user_name,
-                user_phone: inputs.user_phone,
-                wallet_address: wallet.accounts[0],
-                wallet_signature: signature,
-                post_nfts: inputs.post_nfts,
+                const parameter = {
+                    title: inputs.title,
+                    content: inputs.content,
+                    user_email: inputs.user_email,
+                    user_name: inputs.user_name,
+                    user_phone: inputs.user_phone,
+                    wallet_address: wallet.accounts[0],
+                    wallet_signature: signature,
+                    post_nfts: inputs.post_nfts,
+                }
+
+                const result = await postReport(parameter)
             }
-
-            const result = await postReport(parameter)
         }
     }
 
@@ -399,28 +336,28 @@ export default function ReportContainer(props: IReportContainerProps) {
      * 데이터 수집 Extra API : 다시 필요할지 몰라 일단 주석으로
      * @returns
      */
-    // const getAllNfts = async () => {
-    //     try {
-    //         let nfts = []
-    //         // Get the async iterable for the contract's NFTs.
-    //         const nftsIterable = alchemy.nft.getNftsForContractIterator(
-    //             // '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
-    //             '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
-    //             // { pageKey: 99999 },
-    //         )
+    const getAllNfts = async () => {
+        try {
+            let nfts = []
+            // Get the async iterable for the contract's NFTs.
+            const nftsIterable = alchemy.nft.getNftsForContractIterator(
+                // '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
+                '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
+                // { pageKey: 99999 },
+            )
 
-    //         // Iterate over the NFTs and add them to the nfts array.
-    //         for await (const nft of nftsIterable) {
-    //             nfts.push(nft)
-    //         }
+            // Iterate over the NFTs and add them to the nfts array.
+            for await (const nft of nftsIterable) {
+                nfts.push(nft)
+            }
 
-    //         console.log(nfts)
+            console.log(nfts)
 
-    //         return nfts
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+            return nfts
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     // const test = async () => {
     //     const nfts = await getAllNfts()
@@ -464,7 +401,7 @@ export default function ReportContainer(props: IReportContainerProps) {
     //     // console.log(arr)
 
     //     //
-
+    // }
     return (
         <>
             <div className="flex flex-col justify-start items-start h-full px-10 min-h-[calc(100vh-176px)] gap-16 pt-20 w-full max-w-[1440px]">
@@ -475,8 +412,8 @@ export default function ReportContainer(props: IReportContainerProps) {
                         isFirstStep={(value) => setIsFirstStep(value)}
                         placeholder={undefined}
                         activeLineClassName={`bg-[#F46221] ${activeStep === 0 && !'!w-0'} ${
-                            activeStep === 1 && '!w-1/2'
-                        } ${activeStep === 2 && '!w-full'}`}
+                            activeStep === 1 && '!w-1/3'
+                        } ${activeStep === 2 && '!w-2/3'} ${activeStep === 3} '!w-full`}
                         lineClassName="bg-gray-300">
                         <Step
                             // onClick={() => setActiveStep(0)}
@@ -522,6 +459,19 @@ export default function ReportContainer(props: IReportContainerProps) {
                                     color={activeStep === 2 ? 'blue-gray' : 'gray'}
                                     placeholder={undefined}>
                                     폼 작성
+                                </Typography>
+                            </div>
+                        </Step>
+                        <Step
+                            // onClick={() => setActiveStep(2)}
+                            placeholder={undefined}
+                            className={activeStep === 3 ? '!bg-[#F46221]' : '!bg-gray-300'}>
+                            <div className="absolute -top-[2.5rem] w-max text-center">
+                                <Typography
+                                    variant="h6"
+                                    color={activeStep === 3 ? 'blue-gray' : 'gray'}
+                                    placeholder={undefined}>
+                                    완료
                                 </Typography>
                             </div>
                         </Step>
@@ -618,7 +568,10 @@ export default function ReportContainer(props: IReportContainerProps) {
                         </div>
                     </>
                 )}
+
+                {activeStep === 3 && <ReportSuccessComponent />}
             </div>
+            {isLoading && <Loading />}
         </>
     )
 }

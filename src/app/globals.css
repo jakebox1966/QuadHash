@@ -43,16 +43,7 @@
     transition: 0.5s;
   }
 
-  @keyframes scroll-animation {
-    0% {
-      left: 0;
-    }
-
-    100% {
-      left: -150px;
-      /* 텍스트 width와 동일 */
-    }
-  }
+  œ
 
   .scroll-text {
     width: 100%;

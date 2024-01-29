@@ -15,6 +15,7 @@ export interface IConnectProps {}
 export default function Connect(props: IConnectProps) {
     const headerColorRef = useRef<HTMLInputElement>(null)
     const { data: session } = useSession()
+
     const { wallet, hasProvider, isConnecting, connectMetaMask } = useMetaMask()
     const t = useTranslations('Layout.header.connect')
     const { handleSignInModalOpen } = useSignInModal()
@@ -32,6 +33,10 @@ export default function Connect(props: IConnectProps) {
     //         window.removeEventListener('scroll', handleScroll) //clean up
     //     }
     // }, [])
+
+    useEffect(() => {
+        console.log(session)
+    }, [session])
 
     return (
         <>

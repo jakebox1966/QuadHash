@@ -246,7 +246,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
             </div>
 
             <Dialog open={open} handler={handleOpen} placeholder={undefined}>
-                <DialogHeader placeholder={undefined}>SELECT YOUR NFT</DialogHeader>
+                {/* <DialogHeader placeholder={undefined}>SELECT YOUR NFT</DialogHeader> */}
                 <DialogBody className="h-[42rem] overflow-scroll" placeholder={undefined}>
                     <DynamicNFTList
                         setSelectedNft={setSelectedNft}
@@ -255,7 +255,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                         handleOpen={handleOpen}
                     />
                 </DialogBody>
-                <DialogFooter className="space-x-2" placeholder={undefined}>
+                {/* <DialogFooter className="space-x-2" placeholder={undefined}>
                     <Button
                         variant="text"
                         color="blue-gray"
@@ -263,7 +263,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                         placeholder={undefined}>
                         cancel
                     </Button>
-                </DialogFooter>
+                </DialogFooter> */}
             </Dialog>
 
             {isDynamicNFTLoading && <Loading />}
