@@ -13,6 +13,7 @@ import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import DynamicNFTPolicy from '../components/dynamicNFT/DynamicNFTAgreement'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
+import { getNFTMetadata } from '@/app/api/alchemy/api'
 // import { gazaCategoryValidation, sazaCategoryValidation } from '@/app/utils/partsUtils'
 
 export interface IDynamicNFTContainerProps {}
@@ -99,10 +100,15 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
             console.error(error)
         }
     }
+    const test = async () => {
+        const result = await getNFTMetadata('0xEEb1BC51De14a4555925e3D8ca563EF5Eaf65949', 7997)
+        console.log(result)
+    }
 
     return (
         <>
             <div className="flex flex-col justify-center items-center w-full px-10 mt-3 rounded-l">
+                <div onClick={test}>asdfasdfasd</div>
                 <div className="flex flex-col justify-center items-center border-4 w-full rounded-2xl p-5 gap-5">
                     <div className="w-full">
                         {categories ? (

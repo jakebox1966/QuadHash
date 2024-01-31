@@ -16,7 +16,9 @@ import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { updateUserProfileTokenId } from '@/app/api/user/api'
 
-export interface INFTSectionProps {}
+export interface INFTSectionProps {
+    updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
+}
 
 const tabData = [
     {
@@ -51,7 +53,7 @@ const backgroundPallete = {
     dots: '#d490aa',
 }
 
-export default function NFTSection(props: INFTSectionProps) {
+export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
     const [sazaNfts, setSazaNfts] = React.useState(null)
     const [gazaNfts, setGazaNfts] = React.useState(null)
     const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
@@ -69,42 +71,25 @@ export default function NFTSection(props: INFTSectionProps) {
 
     const openDetailModal = async (nft) => {
         setActiveNFT(nft)
-        console.log('ActiveNFT', nft)
-        const nftType = nft.contract.symbol.toLowerCase()
-        const tokenId = nft.tokenId
+        // console.log('ActiveNFT', nft)
+        // const nftType = nft.contract.symbol.toLowerCase()
+        // const tokenId = nft.tokenId
 
-        const metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
-        console.log(metadata)
-        setMetadata(metadata)
-        setImageUrl(metadata.image)
-        const backgroundColor = metadata.attributes.find((item) => {
-            return item.trait_type === 'Background'
-        })
-        console.log(backgroundColor)
-        setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
+        // const metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
+        // console.log(metadata)
+        // setMetadata(metadata)
+        // setImageUrl(metadata.image)
+        // const backgroundColor = metadata.attributes.find((item) => {
+        //     return item.trait_type === 'Background'
+        // })
+        // console.log(backgroundColor)
+        // setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
 
         handleOpen()
     }
 
     const handleOpen = () => {
         setOpen(!open)
-    }
-
-    const updateUserProfile = async () => {
-        const accounts = await getAccounts()
-
-        let signResult = await getUuidByAccount(accounts[0])
-        const signature = await personalSign(accounts[0], signResult.eth_nonce)
-
-        const parameter = {
-            token_id: activeNFT.tokenId,
-            token_type: activeTab.toLowerCase(),
-            wallet_signature: signature,
-            wallet_address: wallet.accounts[0],
-        }
-        const response = await updateUserProfileTokenId(parameter)
-
-        console.log(response)
     }
 
     React.useEffect(() => {
@@ -283,14 +268,14 @@ export default function NFTSection(props: INFTSectionProps) {
                     </TabsBody>
                 </Tabs>
             </div>
-            <NFTDetailModalComponent
-                open={open}
-                metadata={metadata}
-                imageUrl={imageUrl}
-                handleOpen={handleOpen}
-                backgroundColor={backgroundColor as string}
-                updateUserProfile={updateUserProfile}
-            />
+            {activeNFT && (
+                <NFTDetailModalComponent
+                    open={open}
+                    activeNFT={activeNFT}
+                    handleOpen={handleOpen}
+                    updateUserProfile={updateUserProfile}
+                />
+            )}
         </>
     )
 }

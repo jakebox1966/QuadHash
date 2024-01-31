@@ -22,6 +22,7 @@ const nextConfig = {
         },
     },
     images: {
+        minimumCacheTTL: 5,
         remotePatterns: [{ protocol: 'https', hostname: '**' }],
     },
 }

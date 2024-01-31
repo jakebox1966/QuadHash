@@ -1,0 +1,17 @@
+export const backgroundPallete = {
+    white: '#FFFFFF',
+    sky: '#a5ddec',
+    mint: '#abc178',
+    jungle: '#3d6229',
+    red: '#c5251b',
+    blue: '#0074ae',
+    pink: '#d490aa',
+    storm: '#5d7784',
+    night: '#143e47',
+    lemon: '#ffd488',
+    desert: '#c95128',
+    spots: '#ffffff',
+    grid: '#648d3c',
+    stripes: '#0074ae',
+    dots: '#d490aa',
+}

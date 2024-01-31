@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import {
-    Button,
     Dialog,
     DialogHeader,
     DialogBody,
@@ -15,9 +14,11 @@ import ProfileSection from './ProfileSection'
 import Image from 'next/image'
 import PartTooltipComponent from './PartTooltipComponent'
 import { customTheme } from '@/app/[locale]/common/materialUI/theme'
+import NFTSetting from './NFTSetting'
+import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
 
 export interface INFTDetailModalComponentProps {
-    // activeNFT: any
+    activeNFT: any
     metadata?: any
     imageUrl?: string
     backgroundColor?: string
@@ -27,14 +28,22 @@ export interface INFTDetailModalComponentProps {
 }
 
 export default function NFTDetailModalComponent({
-    // activeNFT,
-    metadata,
-    imageUrl,
-    backgroundColor,
+    activeNFT,
     open,
     handleOpen,
     updateUserProfile,
 }: INFTDetailModalComponentProps) {
+    console.log(activeNFT)
+
+    const metadata = activeNFT?.raw.metadata
+    const imageUrl = metadata.image
+    const backgroundData = metadata.attributes.find((item) => {
+        return item.trait_type === 'Background'
+    })
+
+    const backgroundColor = backgroundPallete[backgroundData.value.toLowerCase()]
+
+    console.log(backgroundColor)
     const checkPartIcon = (partKey) => {
         if (partKey === 'Ranking') {
             return '/mypage_square.svg'
@@ -58,8 +67,8 @@ export default function NFTDetailModalComponent({
     }
 
     React.useEffect(() => {
-        console.log(metadata)
-    }, [metadata])
+        console.log(activeNFT)
+    }, [activeNFT])
 
     return (
         <>
@@ -75,14 +84,14 @@ export default function NFTDetailModalComponent({
                         className="p-0 overflow-hidden flex lg:flex-row justify-center lg:justify-start"
                         placeholder={undefined}>
                         <div className="absolute flex flex-col gap-3 bg-opacity-20 bg-black rounded-lg p-4 top-0 left-0 lg:hidden z-10">
-                            {metadata?.attributes.map((item) => (
+                            {/* {metadata?.attributes.map((item) => (
                                 <PartTooltipComponent
                                     key={item.trait_type}
                                     partKey={item.trait_type}
                                     partValue={item.value}
                                     partIcon={checkPartIcon(item.trait_type)}
                                 />
-                            ))}
+                            ))} */}
                         </div>
                         {/* <div className="absolute bottom-0 text-white font-black right-0 z-30 bg-opacity-20 bg-black p-3 rounded-lg lg:hidden cursor-pointer">
                             메인 NFT로 설정하기
@@ -103,10 +112,11 @@ export default function NFTDetailModalComponent({
                                         {metadata?.attributes[0].value}
                                     </div>
                                 </div>
-                                <div
-                                    className="w-[calc(100%/2-4rem)] cursor-pointer p-3 bg-opacity-20 text-center bg-black rounded-lg"
-                                    onClick={updateUserProfile}>
-                                    메인 NFT로 설정하기
+                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
+                                    <NFTSetting
+                                        updateUserProfile={updateUserProfile}
+                                        profileNFT={activeNFT}
+                                    />
                                 </div>
                                 {metadata?.attributes
                                     .filter((item, index) => index !== 0)

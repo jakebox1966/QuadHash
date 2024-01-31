@@ -13,30 +13,9 @@ import { getNFTMetadata } from '@/app/api/alchemy/api'
 
 export interface IUserContainerProps {}
 
-const backgroundPallete = {
-    white: '#FFFFFF',
-    sky: '#a5ddec',
-    mint: '#abc178',
-    jungle: '#3d6229',
-    red: '#c5251b',
-    blue: '#0074ae',
-    pink: '#d490aa',
-    storm: '#5d7784',
-    night: '#143e47',
-    lemon: '#ffd488',
-    desert: '#c95128',
-    spots: '#ffffff',
-    grid: '#648d3c',
-    stripes: '#0074ae',
-    dots: '#d490aa',
-}
-
 export default function UserContainer(props: IUserContainerProps) {
-    // const [NFTType, setNFTType] = React.useState(null)
-    // const [tokenId, setTokenId] = React.useState(null)
     const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
-    const [backgroundColor, setBackgroundColor] = React.useState(null)
 
     const { wallet } = useMetaMask()
 
@@ -47,8 +26,6 @@ export default function UserContainer(props: IUserContainerProps) {
     }, [session])
 
     const init = async () => {
-        console.log('[][[][][][]', session)
-        console.log('wallet', wallet.accounts)
         // if (wallet.accounts[0]) {
         let NFTType = session?.user.user_info.token_type
         let tokenId = session?.user.user_info.token_id
@@ -59,14 +36,12 @@ export default function UserContainer(props: IUserContainerProps) {
             console.log('now setting profile')
 
             if (NFTType === 'saza') {
-                // metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
                 metadata = await getNFTMetadata(
                     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
                     tokenId,
                 )
                 setProfileNFT(metadata)
             } else if (NFTType === 'gaza') {
-                // metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
                 metadata = await getNFTMetadata(
                     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
                     tokenId,
@@ -80,28 +55,32 @@ export default function UserContainer(props: IUserContainerProps) {
         console.log(profileNFT)
     }, [profileNFT])
 
-    // const updateUserProfile = async () => {
-    //     const accounts = await getAccounts()
+    const updateUserProfile = async ({ tokenId, tokenType }) => {
+        try {
+            const accounts = await getAccounts()
 
-    //     let signResult = await getUuidByAccount(accounts[0])
-    //     const signature = await personalSign(accounts[0], signResult.eth_nonce)
+            let signResult = await getUuidByAccount(accounts[0])
+            const signature = await personalSign(accounts[0], signResult.eth_nonce)
 
-    //     const parameter = {
-    //         token_id: activeNFT.tokenId,
-    //         token_type: activeTab.toLowerCase(),
-    //         wallet_signature: signature,
-    //         wallet_address: wallet.accounts[0],
-    //     }
-    //     const response = await updateUserProfileTokenId(parameter)
+            const parameter = {
+                token_id: tokenId,
+                token_type: tokenType,
+                wallet_signature: signature,
+                wallet_address: wallet.accounts[0],
+            }
+            const response = await updateUserProfileTokenId(parameter)
 
-    //     console.log(response)
-    // }
+            console.log(response)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     return (
         <>
             <div className="max-w-[1296px] px-[24px]">
-                <ProfileSection profileNFT={profileNFT} />
-                <NFTSection />
+                <ProfileSection profileNFT={profileNFT} updateUserProfile={updateUserProfile} />
+                <NFTSection updateUserProfile={updateUserProfile} />
             </div>
         </>
     )

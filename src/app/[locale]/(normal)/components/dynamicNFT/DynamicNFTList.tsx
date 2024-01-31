@@ -45,9 +45,12 @@ export default function DynamicNFTList({
                     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                 })
 
+                console.log('saza => ', sazaNfts)
+
                 const gazaNfts = await getNftsForOwner(window.ethereum.selectedAddress, {
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                 })
+                console.log('gaza => ', gazaNfts)
 
                 setSazaNfts(sazaNfts.ownedNfts)
                 setGazaNfts(gazaNfts.ownedNfts)

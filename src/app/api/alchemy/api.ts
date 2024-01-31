@@ -7,6 +7,7 @@ const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
 const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
     network: Network.ETH_SEPOLIA, // Replace with your network
+    // network: Network.ETH_MAINNET, // Replace with your network
 }
 
 const alchemy = new Alchemy(config)
