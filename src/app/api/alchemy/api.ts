@@ -83,3 +83,9 @@ export const refreshMetadata = async ({ tokenId, contractAddress }) => {
     const response = await alchemy.nft.refreshNftMetadata(contractAddress, tokenId)
     console.log('refreshMetadata')
 }
+
+export const getNFTMetadata = async (contractAddress, tokenId) => {
+    const response = await alchemy.nft.getNftMetadata(contractAddress, tokenId)
+    console.log(response)
+    return response
+}

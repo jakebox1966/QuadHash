@@ -6,7 +6,6 @@ declare module 'next-auth' {
      */
     interface Session {
         user: {
-            /** The user's postal address. */
             access_token: string
             refresh_token: string
             // expired_at: number
@@ -17,6 +16,7 @@ declare module 'next-auth' {
             is_admin: number
             created_at: string
             updated_at: string
+            user_info: any
         } & DefaultSession['user']
     }
 }

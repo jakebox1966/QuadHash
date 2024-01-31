@@ -5,94 +5,102 @@ import ProfileSection from '../components/user/ProfileSection'
 import NFTSection from '../components/user/NFTSection'
 import { useSession } from 'next-auth/react'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
+import { updateUserProfileTokenId } from '@/app/api/user/api'
+import { useMetaMask } from '@/app/hooks/useMetaMask'
+import { getAccounts, personalSign } from '@/app/api/wallet/api'
+import { getUuidByAccount } from '@/app/api/auth/api'
+import { getNFTMetadata } from '@/app/api/alchemy/api'
 
 export interface IUserContainerProps {}
 
 const backgroundPallete = {
-    saza: {
-        white: '#FFFFFF',
-        sky: '#a5ddec',
-        mint: '#abc178',
-        jungle: '#3d6229',
-        red: '#c5251b',
-        blue: '#0074ae',
-        pink: '#d490aa',
-        storm: '#5d7784',
-        night: '#143e47',
-        lemon: '#ffd488',
-        desert: '#c95128',
-    },
-    gaza: {
-        spots: '#ffffff',
-        grid: '#648d3c',
-        stripes: '#0074ae',
-        dots: '#d490aa',
-        sky: '#a5ddec',
-        mint: '#abc178',
-        jungle: '#3d6229',
-        red: '#c5251b',
-        blue: '#0074ae',
-        pink: '#d490aa',
-        storm: '#5d7784',
-        night: '#143e47',
-        lemon: '#ffd488',
-        desert: '#c95128',
-    },
+    white: '#FFFFFF',
+    sky: '#a5ddec',
+    mint: '#abc178',
+    jungle: '#3d6229',
+    red: '#c5251b',
+    blue: '#0074ae',
+    pink: '#d490aa',
+    storm: '#5d7784',
+    night: '#143e47',
+    lemon: '#ffd488',
+    desert: '#c95128',
+    spots: '#ffffff',
+    grid: '#648d3c',
+    stripes: '#0074ae',
+    dots: '#d490aa',
 }
 
 export default function UserContainer(props: IUserContainerProps) {
+    // const [NFTType, setNFTType] = React.useState(null)
+    // const [tokenId, setTokenId] = React.useState(null)
+    const [activeNFT, setActiveNFT] = React.useState(null)
+    const [profileNFT, setProfileNFT] = React.useState(null)
     const [backgroundColor, setBackgroundColor] = React.useState(null)
-    const [metadata, setMetadata] = React.useState(null)
-    const [imageUrl, setImageUrl] = React.useState(null)
+
+    const { wallet } = useMetaMask()
 
     const { data: session } = useSession()
 
     React.useEffect(() => {
-        const init = async () => {
-            let nftType = session?.user.token_type
-            let tokenId = session?.user.token_id
-            let metadata = null
-            nftType = 'saza'
-            tokenId = 10
+        init()
+    }, [session])
 
-            if (tokenId && nftType) {
-                // console.log('nftType => ', nftType)
-                // console.log('tokenId => ', tokenId)
+    const init = async () => {
+        console.log('[][[][][][]', session)
+        console.log('wallet', wallet.accounts)
+        // if (wallet.accounts[0]) {
+        let NFTType = session?.user.user_info.token_type
+        let tokenId = session?.user.user_info.token_id
+        console.log('NFTType =>', NFTType)
+        console.log('tokenId =>', tokenId)
+        let metadata = null
+        if (tokenId && NFTType) {
+            console.log('now setting profile')
 
-                if (nftType === 'saza') {
-                    metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
-
-                    setMetadata(metadata)
-                    setImageUrl(metadata.image)
-                } else if (nftType === 'gaza') {
-                    metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
-
-                    setMetadata(metadata)
-                    setImageUrl(metadata.image)
-                }
-                const backgroundColor = metadata.attributes.find((item) => {
-                    return item.trait_type === 'Background'
-                })
-
-                setBackgroundColor(backgroundPallete[nftType][backgroundColor.value.toLowerCase()])
+            if (NFTType === 'saza') {
+                // metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+                metadata = await getNFTMetadata(
+                    process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                    tokenId,
+                )
+                setProfileNFT(metadata)
+            } else if (NFTType === 'gaza') {
+                // metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+                metadata = await getNFTMetadata(
+                    process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+                    tokenId,
+                )
+                setProfileNFT(metadata)
             }
         }
-        init()
-    }, [])
+    }
 
-    // React.useEffect(() => {
-    //     console.log(imageUrl)
-    //     console.log(metadata)
-    // }, [imageUrl, metadata])
+    React.useEffect(() => {
+        console.log(profileNFT)
+    }, [profileNFT])
+
+    // const updateUserProfile = async () => {
+    //     const accounts = await getAccounts()
+
+    //     let signResult = await getUuidByAccount(accounts[0])
+    //     const signature = await personalSign(accounts[0], signResult.eth_nonce)
+
+    //     const parameter = {
+    //         token_id: activeNFT.tokenId,
+    //         token_type: activeTab.toLowerCase(),
+    //         wallet_signature: signature,
+    //         wallet_address: wallet.accounts[0],
+    //     }
+    //     const response = await updateUserProfileTokenId(parameter)
+
+    //     console.log(response)
+    // }
 
     return (
         <>
             <div className="max-w-[1296px] px-[24px]">
-                <ProfileSection
-                    metadata={metadata}
-                    imageUrl={imageUrl}
-                    backgroundColor={backgroundColor as string}
-                />
+                <ProfileSection profileNFT={profileNFT} />
                 <NFTSection />
             </div>
         </>

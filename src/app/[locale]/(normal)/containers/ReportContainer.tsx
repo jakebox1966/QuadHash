@@ -256,6 +256,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.user_name === '') {
             nameRef?.current?.classList.remove('invisible')
+            nameRef.current.focus()
             usernameValidation = false
         } else {
             nameRef?.current?.classList.add('invisible')
@@ -263,6 +264,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.title === '') {
             titleRef.current?.classList.remove('invisible')
+            titleRef.current.focus()
             titleValidation = false
         } else {
             titleRef.current?.classList.add('invisible')
@@ -270,6 +272,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.post_nfts.length === 0) {
             NFTListRef?.current?.classList.remove('invisible')
+            NFTListRef.current.focus()
             nftListValidation = false
         } else {
             NFTListRef?.current?.classList.add('invisible')
@@ -277,6 +280,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.user_email === '') {
             emailRef?.current?.classList.remove('invisible')
+            emailRef.current.focus()
             userEmailValidation = false
         } else {
             emailRef.current?.classList.add('invisible')
@@ -284,13 +288,15 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.user_phone === '') {
             phoneRef.current?.classList.remove('invisible')
+            phoneRef.current.focus()
             userPhoneValidation = false
         } else {
             phoneRef.current?.classList.add('invisible')
         }
 
-        if (inputs.content === '') {
+        if (inputs.content === '' || inputs.content.length < 10) {
             contentRef.current?.classList.remove('invisible')
+            contentRef.current.focus()
             contentValidation = false
         } else {
             contentRef.current?.classList.add('invisible')
@@ -311,23 +317,34 @@ export default function ReportContainer(props: IReportContainerProps) {
     }
 
     const submit = async () => {
-        if (await $confirm('제출하시겠습니까?')) {
-            if (formValidation() && finalAgreement && allAgreed) {
-                const signResult = await getUuidByAccount(wallet.accounts[0])
-                const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+        if (formValidation() && finalAgreement && allAgreed) {
+            if (await $confirm('제출하시겠습니까?')) {
+                try {
+                    setIsLoading(true)
+                    const signResult = await getUuidByAccount(wallet.accounts[0])
+                    const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
 
-                const parameter = {
-                    title: inputs.title,
-                    content: inputs.content,
-                    user_email: inputs.user_email,
-                    user_name: inputs.user_name,
-                    user_phone: inputs.user_phone,
-                    wallet_address: wallet.accounts[0],
-                    wallet_signature: signature,
-                    post_nfts: inputs.post_nfts,
+                    const parameter = {
+                        title: inputs.title,
+                        content: inputs.content,
+                        user_email: inputs.user_email,
+                        user_name: inputs.user_name,
+                        user_phone: inputs.user_phone,
+                        wallet_address: wallet.accounts[0],
+                        wallet_signature: signature,
+                        post_nfts: inputs.post_nfts,
+                    }
+
+                    const result = await postReport(parameter)
+
+                    if (result.status === 'Success') {
+                        setActiveStep(3)
+                    }
+                    setIsLoading(false)
+                } catch (error) {
+                    setIsLoading(false)
+                    console.error(error)
                 }
-
-                const result = await postReport(parameter)
             }
         }
     }
@@ -419,7 +436,10 @@ export default function ReportContainer(props: IReportContainerProps) {
                             // onClick={() => setActiveStep(0)}
                             placeholder={undefined}
                             className={
-                                activeStep === 0 || activeStep === 1 || activeStep === 2
+                                activeStep === 0 ||
+                                activeStep === 1 ||
+                                activeStep === 2 ||
+                                activeStep === 3
                                     ? '!bg-[#F46221]'
                                     : '!bg-gray-300'
                             }>
@@ -436,7 +456,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                             // onClick={() => setActiveStep(1)}
                             placeholder={undefined}
                             className={
-                                activeStep === 1 || activeStep === 2
+                                activeStep === 1 || activeStep === 2 || activeStep === 3
                                     ? '!bg-[#F46221]'
                                     : '!bg-gray-300'
                             }>
@@ -452,7 +472,11 @@ export default function ReportContainer(props: IReportContainerProps) {
                         <Step
                             // onClick={() => setActiveStep(2)}
                             placeholder={undefined}
-                            className={activeStep === 2 ? '!bg-[#F46221]' : '!bg-gray-300'}>
+                            className={
+                                activeStep === 2 || activeStep === 3
+                                    ? '!bg-[#F46221]'
+                                    : '!bg-gray-300'
+                            }>
                             <div className="absolute -top-[2.5rem] w-max text-center">
                                 <Typography
                                     variant="h6"
@@ -553,12 +577,12 @@ export default function ReportContainer(props: IReportContainerProps) {
                             <Button
                                 className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
                                 disabled={
-                                    inputs.user_name === '' ||
-                                    inputs.title === '' ||
-                                    inputs.post_nfts.length === 0 ||
-                                    inputs.user_email === '' ||
-                                    inputs.user_phone === '' ||
-                                    inputs.content === '' ||
+                                    // inputs.user_name === '' ||
+                                    // inputs.title === '' ||
+                                    // inputs.post_nfts.length === 0 ||
+                                    // inputs.user_email === '' ||
+                                    // inputs.user_phone === '' ||
+                                    // inputs.content === '' ||
                                     !finalAgreement
                                 }
                                 placeholder={undefined}

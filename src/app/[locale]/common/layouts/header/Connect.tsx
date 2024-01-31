@@ -34,9 +34,9 @@ export default function Connect(props: IConnectProps) {
     //     }
     // }, [])
 
-    useEffect(() => {
-        console.log(session)
-    }, [session])
+    // useEffect(() => {
+    //     console.log(session)
+    // }, [session])
 
     return (
         <>

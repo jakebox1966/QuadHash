@@ -143,7 +143,7 @@ export default function ReportFormComponent({
                         <div className="flex flex-row items-center gap-5">
                             <p>신고 내용</p>
                             <p className="text-sm text-red-600 invisible" ref={contentRef}>
-                                * 내용은 필수 항목입니다.
+                                * 내용을 10글자 이상 입력해주세요.
                             </p>
                         </div>
                         <textarea

@@ -60,9 +60,9 @@ export const authOption: AuthOptions = {
     callbacks: {
         //jwt 콜백은 jwt기반 인증 process에서만 실행된다. 파라미터에 있는 user는 로그인 첫 시도에만 반환됨
         async jwt({ token, user }) {
-            // console.log('user', user)
+            console.log('user', user)
             // console.log('여기')
-            // console.log({ ...token, ...user })
+            console.log('123123123', { ...token, ...user })
 
             const nowTime = Date.now()
 
@@ -93,8 +93,12 @@ export const authOption: AuthOptions = {
         },
 
         async session({ session, token }) {
-            session.user = token as any
-            return session
+            console.log('ggggg')
+            console.log('session', session)
+            console.log('token', token)
+            return { ...session, ...{ user: token } }
+            // session.user = token as any
+            // return session
         },
     },
     // pages: {

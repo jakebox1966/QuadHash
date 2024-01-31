@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import DynamicNFTPolicy from '../components/dynamicNFT/DynamicNFTAgreement'
+import { useMetaMask } from '@/app/hooks/useMetaMask'
 // import { gazaCategoryValidation, sazaCategoryValidation } from '@/app/utils/partsUtils'
 
 export interface IDynamicNFTContainerProps {}
@@ -28,6 +29,8 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
     const [metaData, setMetaData] = React.useState(null)
 
     const [isLocked, setIsLocked] = React.useState(false)
+
+    const { wallet } = useMetaMask()
 
     const handleOpen = () => {
         setOpen(!open)
@@ -66,7 +69,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                 token_type: nftType,
                 category: selectedCategory.trait_type.toLowerCase(),
                 wallet_signature: signature,
-                wallet_address: window.ethereum.selectedAddress,
+                wallet_address: wallet.accounts[0],
             })
 
             console.log('result', result)

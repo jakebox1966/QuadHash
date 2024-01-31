@@ -12,6 +12,9 @@ import mypage_qbt_icon from '/public/mypage_qbt_icon.svg'
 import NFTDetailModalComponent from './NFTDetialModalComponent'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
+import { getAccounts, personalSign } from '@/app/api/wallet/api'
+import { getUuidByAccount } from '@/app/api/auth/api'
+import { updateUserProfileTokenId } from '@/app/api/user/api'
 
 export interface INFTSectionProps {}
 
@@ -31,35 +34,21 @@ const tabData = [
 ]
 
 const backgroundPallete = {
-    saza: {
-        white: '#FFFFFF',
-        sky: '#a5ddec',
-        mint: '#abc178',
-        jungle: '#3d6229',
-        red: '#c5251b',
-        blue: '#0074ae',
-        pink: '#d490aa',
-        storm: '#5d7784',
-        night: '#143e47',
-        lemon: '#ffd488',
-        desert: '#c95128',
-    },
-    gaza: {
-        spots: '#ffffff',
-        grid: '#648d3c',
-        stripes: '#0074ae',
-        dots: '#d490aa',
-        sky: '#a5ddec',
-        mint: '#abc178',
-        jungle: '#3d6229',
-        red: '#c5251b',
-        blue: '#0074ae',
-        pink: '#d490aa',
-        storm: '#5d7784',
-        night: '#143e47',
-        lemon: '#ffd488',
-        desert: '#c95128',
-    },
+    white: '#FFFFFF',
+    sky: '#a5ddec',
+    mint: '#abc178',
+    jungle: '#3d6229',
+    red: '#c5251b',
+    blue: '#0074ae',
+    pink: '#d490aa',
+    storm: '#5d7784',
+    night: '#143e47',
+    lemon: '#ffd488',
+    desert: '#c95128',
+    spots: '#ffffff',
+    grid: '#648d3c',
+    stripes: '#0074ae',
+    dots: '#d490aa',
 }
 
 export default function NFTSection(props: INFTSectionProps) {
@@ -68,6 +57,7 @@ export default function NFTSection(props: INFTSectionProps) {
     const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
     const [gazaIsLoading, setGazaIsLoading] = React.useState(false)
     const [activeTab, setActiveTab] = React.useState('SAZA')
+    const [activeNFT, setActiveNFT] = React.useState(null)
 
     const { wallet } = useMetaMask()
 
@@ -77,9 +67,11 @@ export default function NFTSection(props: INFTSectionProps) {
 
     const [open, setOpen] = React.useState(false)
 
-    const openDetailModal = async (tokenId) => {
-        console.log('tokenId', tokenId)
-        const nftType = activeTab.toLowerCase()
+    const openDetailModal = async (nft) => {
+        setActiveNFT(nft)
+        console.log('ActiveNFT', nft)
+        const nftType = nft.contract.symbol.toLowerCase()
+        const tokenId = nft.tokenId
 
         const metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
         console.log(metadata)
@@ -88,13 +80,31 @@ export default function NFTSection(props: INFTSectionProps) {
         const backgroundColor = metadata.attributes.find((item) => {
             return item.trait_type === 'Background'
         })
-        setBackgroundColor(backgroundPallete[nftType][backgroundColor.value.toLowerCase()])
+        console.log(backgroundColor)
+        setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
 
         handleOpen()
     }
 
     const handleOpen = () => {
         setOpen(!open)
+    }
+
+    const updateUserProfile = async () => {
+        const accounts = await getAccounts()
+
+        let signResult = await getUuidByAccount(accounts[0])
+        const signature = await personalSign(accounts[0], signResult.eth_nonce)
+
+        const parameter = {
+            token_id: activeNFT.tokenId,
+            token_type: activeTab.toLowerCase(),
+            wallet_signature: signature,
+            wallet_address: wallet.accounts[0],
+        }
+        const response = await updateUserProfileTokenId(parameter)
+
+        console.log(response)
     }
 
     React.useEffect(() => {
@@ -107,13 +117,13 @@ export default function NFTSection(props: INFTSectionProps) {
                     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                 })
 
-                // console.log(sazaNfts)
+                console.log(sazaNfts)
 
                 const gazaNfts = await getNftsForOwner(wallet.accounts[0], {
                     contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                 })
 
-                // console.log(gazaNfts)
+                console.log(gazaNfts)
 
                 setSazaNfts(sazaNfts.ownedNfts)
                 setGazaNfts(gazaNfts.ownedNfts)
@@ -203,7 +213,9 @@ export default function NFTSection(props: INFTSectionProps) {
                                         <Card
                                             nft={saza}
                                             key={saza.name}
-                                            onClick={openDetailModal}
+                                            onClick={() => {
+                                                openDetailModal(saza)
+                                            }}
                                         />
                                     ))}
                                 </CardList>
@@ -277,6 +289,7 @@ export default function NFTSection(props: INFTSectionProps) {
                 imageUrl={imageUrl}
                 handleOpen={handleOpen}
                 backgroundColor={backgroundColor as string}
+                updateUserProfile={updateUserProfile}
             />
         </>
     )
