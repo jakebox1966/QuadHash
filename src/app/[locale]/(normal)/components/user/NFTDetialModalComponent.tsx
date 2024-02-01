@@ -29,21 +29,13 @@ export interface INFTDetailModalComponentProps {
 
 export default function NFTDetailModalComponent({
     activeNFT,
+    metadata,
+    imageUrl,
+    backgroundColor,
     open,
     handleOpen,
     updateUserProfile,
 }: INFTDetailModalComponentProps) {
-    console.log(activeNFT)
-
-    const metadata = activeNFT?.raw.metadata
-    const imageUrl = metadata.image
-    const backgroundData = metadata.attributes.find((item) => {
-        return item.trait_type === 'Background'
-    })
-
-    const backgroundColor = backgroundPallete[backgroundData.value.toLowerCase()]
-
-    console.log(backgroundColor)
     const checkPartIcon = (partKey) => {
         if (partKey === 'Ranking') {
             return '/mypage_square.svg'
@@ -66,9 +58,9 @@ export default function NFTDetailModalComponent({
         }
     }
 
-    React.useEffect(() => {
-        console.log(activeNFT)
-    }, [activeNFT])
+    // React.useEffect(() => {
+    //     console.log(activeNFT)
+    // }, [activeNFT])
 
     return (
         <>
@@ -97,7 +89,8 @@ export default function NFTDetailModalComponent({
                             메인 NFT로 설정하기
                         </div> */}
                         <div className="lg:w-[530px] flex flex-col justify-end items-center lag:items-start relative overflow-hidden">
-                            <Image src={imageUrl} alt="profile_image" width={530} height={0} />
+                            {/* <Image src={imageUrl} alt="profile_image" width={530} height={0} /> */}
+                            <img src={imageUrl} alt="profile_image" width={530} height={0} />
                         </div>
                         <div
                             className={`text-white w-[calc(100%-530px)] lg:flex flex-col justify-center gap-5 hidden`}>

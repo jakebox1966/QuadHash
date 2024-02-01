@@ -1,11 +1,14 @@
 import { Menu, MenuHandler, MenuList, MenuItem } from '@material-tailwind/react'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import * as React from 'react'
+import { locales } from '@/i18nconfig'
 
 export interface INFTSettingProps {
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
     profileNFT: any
 }
 
+const { Link } = createSharedPathnamesNavigation({ locales })
 export default function NFTSetting({ updateUserProfile, profileNFT }: INFTSettingProps) {
     return (
         <>
@@ -34,7 +37,7 @@ export default function NFTSetting({ updateUserProfile, profileNFT }: INFTSettin
                         </svg>
                     </div>
                 </MenuHandler>
-                <MenuList placeholder={undefined}>
+                <MenuList placeholder={undefined} className="z-[9999]">
                     <MenuItem
                         placeholder={undefined}
                         onClick={() => {
@@ -45,7 +48,12 @@ export default function NFTSetting({ updateUserProfile, profileNFT }: INFTSettin
                         }}>
                         메인 NFT 해제하기
                     </MenuItem>
-                    <MenuItem placeholder={undefined}>Profile NFT 새로고침</MenuItem>
+                    <MenuItem placeholder={undefined}>
+                        <Link href={'/dynamicNFT'}>Dynamic NFT 바로 가기</Link>
+                    </MenuItem>
+                    <MenuItem placeholder={undefined}>
+                        <Link href={'/fractionalInvest'}>조각 투자 바로 가기</Link>
+                    </MenuItem>
                 </MenuList>
             </Menu>
         </>

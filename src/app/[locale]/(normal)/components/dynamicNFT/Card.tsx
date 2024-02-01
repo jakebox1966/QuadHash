@@ -37,16 +37,16 @@ export default function Card({
             onClick={selectNft}>
             <div className="cursor-pointer transition-all group-hover:opacity-75 group-hover:scale-110 overflow-hidden">
                 <div className="relative">
-                    <Image
-                        // src={`${nft?.image.originalUrl}?${new Date().getTime()}`}
-                        src={`${nft?.image.originalUrl}`}
+                    {/* <Image
+                        src={`${nft?.image.originalUrl}?${new Date().getTime()}`}
+                        // src={`${nft?.image.originalUrl}`}
                         alt="test"
                         width={200}
                         height={200}
                         sizes="100wv"
-                    />
+                    /> */}
+                    <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="" />
                 </div>
-                {/* <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="" /> */}
             </div>
             <div className="absolute bottom-0 w-full text-center bg-gray-300 opacity-0 group-hover:opacity-100 transition-all p-1 font-black cursor-pointer">
                 # {nft.tokenId}

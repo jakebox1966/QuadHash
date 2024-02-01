@@ -71,19 +71,18 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
 
     const openDetailModal = async (nft) => {
         setActiveNFT(nft)
-        // console.log('ActiveNFT', nft)
-        // const nftType = nft.contract.symbol.toLowerCase()
-        // const tokenId = nft.tokenId
-
-        // const metadata = await getMetadata({ nftType: nftType, tokenId: tokenId })
-        // console.log(metadata)
-        // setMetadata(metadata)
-        // setImageUrl(metadata.image)
-        // const backgroundColor = metadata.attributes.find((item) => {
-        //     return item.trait_type === 'Background'
-        // })
-        // console.log(backgroundColor)
-        // setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
+        const metadata = await getMetadata({
+            nftType: nft.contract.symbol.toLowerCase(),
+            tokenId: nft.tokenId,
+        })
+        console.log(metadata)
+        setMetadata(metadata)
+        setImageUrl(metadata.image)
+        const backgroundColor = metadata.attributes.find((item) => {
+            return item.trait_type === 'Background'
+        })
+        console.log(backgroundColor)
+        setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
 
         handleOpen()
     }
@@ -95,25 +94,27 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                setSazaIsLoading(true)
-                setGazaIsLoading(true)
-                // console.log('Start loading data')
-                const sazaNfts = await getNftsForOwner(wallet.accounts[0], {
-                    contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
-                })
+                if (wallet.accounts[0]) {
+                    setSazaIsLoading(true)
+                    setGazaIsLoading(true)
+                    // console.log('Start loading data')
+                    const sazaNfts = await getNftsForOwner(wallet.accounts[0], {
+                        contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
+                    })
 
-                console.log(sazaNfts)
+                    console.log(sazaNfts)
 
-                const gazaNfts = await getNftsForOwner(wallet.accounts[0], {
-                    contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
-                })
+                    const gazaNfts = await getNftsForOwner(wallet.accounts[0], {
+                        contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
+                    })
 
-                console.log(gazaNfts)
+                    console.log(gazaNfts)
 
-                setSazaNfts(sazaNfts.ownedNfts)
-                setGazaNfts(gazaNfts.ownedNfts)
-                setSazaIsLoading(false)
-                setGazaIsLoading(false)
+                    setSazaNfts(sazaNfts.ownedNfts)
+                    setGazaNfts(gazaNfts.ownedNfts)
+                    setSazaIsLoading(false)
+                    setGazaIsLoading(false)
+                }
             } catch (error) {
                 console.error(error)
                 setSazaIsLoading(false)
@@ -271,6 +272,9 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
             {activeNFT && (
                 <NFTDetailModalComponent
                     open={open}
+                    metadata={metadata}
+                    imageUrl={imageUrl}
+                    backgroundColor={backgroundColor}
                     activeNFT={activeNFT}
                     handleOpen={handleOpen}
                     updateUserProfile={updateUserProfile}
