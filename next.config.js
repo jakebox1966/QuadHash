@@ -16,14 +16,14 @@ const nextConfig = {
             // },
         ]
     },
+    images: {
+        minimumCacheTTL: 600,
+        remotePatterns: [{ protocol: 'https', hostname: '**' }],
+    },
     logging: {
         fetches: {
             fullUrl: true,
         },
-    },
-    images: {
-        minimumCacheTTL: 5,
-        remotePatterns: [{ protocol: 'https', hostname: '**' }],
     },
 }
 
