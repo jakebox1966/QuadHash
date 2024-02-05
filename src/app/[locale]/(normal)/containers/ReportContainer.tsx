@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext, useEffect, useRef, useState } from 'react'
-import ExcelJS from 'exceljs'
 import NftList from '../components/report/NftList'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getBlock, getTransfersForOwner } from '@/app/api/alchemy/api'
@@ -54,7 +53,6 @@ const config = {
 
 const alchemy = new Alchemy(config)
 
-const { useRouter } = createSharedPathnamesNavigation({ locales })
 export default function ReportContainer(props: IReportContainerProps) {
     const [activeStep, setActiveStep] = React.useState(0)
     const [isLastStep, setIsLastStep] = React.useState(false)
@@ -349,76 +347,6 @@ export default function ReportContainer(props: IReportContainerProps) {
         }
     }
 
-    /**
-     * 데이터 수집 Extra API : 다시 필요할지 몰라 일단 주석으로
-     * @returns
-     */
-    const getAllNfts = async () => {
-        try {
-            let nfts = []
-            // Get the async iterable for the contract's NFTs.
-            const nftsIterable = alchemy.nft.getNftsForContractIterator(
-                // '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
-                '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
-                // { pageKey: 99999 },
-            )
-
-            // Iterate over the NFTs and add them to the nfts array.
-            for await (const nft of nftsIterable) {
-                nfts.push(nft)
-            }
-
-            console.log(nfts)
-
-            return nfts
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    // const test = async () => {
-    //     const nfts = await getAllNfts()
-    //     const arr = new Array(10000)
-
-    //     console.log(arr.length)
-    //     for (let i = 0; i < arr.length; i++) {
-    //         arr[i] = `${i}`
-    //     }
-
-    //     console.log(arr)
-
-    //     for (let i = 0; i < nfts.length; i++) {
-    //         let tokenId = nfts[i].tokenId
-    //         let index = arr.indexOf(tokenId)
-
-    //         arr.splice(index, 1)
-    //     }
-    //     const result = arr.map((item) => {
-    //         return { id: item }
-    //     })
-
-    //     console.log(result)
-
-    //     const workbook = new ExcelJS.Workbook()
-    //     const worksheet = workbook.addWorksheet('test')
-    //     worksheet.columns = [{ header: 'Token ID', key: 'id' }]
-    //     const arr1 = [{ id: 'A' }, { id: 'A' }, { id: 'A' }, { id: 'A' }]
-    //     worksheet.insertRows(2, result)
-    //     const buffer = await workbook.xlsx.writeBuffer()
-    //     const blob = new Blob([buffer], {
-    //         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    //     })
-    //     const url = window.URL.createObjectURL(blob) // blob으로 객체 URL 생성
-    //     const anchor = document.createElement('a')
-    //     anchor.href = url
-    //     anchor.download = 'test1.xlsx'
-    //     anchor.click() // anchor를 다운로드 링크로 만들고 강제로 클릭 이벤트 발생
-    //     window.URL.revokeObjectURL(url) // 메모리에서 해제
-
-    //     // console.log(arr)
-
-    //     //
-    // }
     return (
         <>
             <div className="flex flex-col justify-start items-start h-full px-10 min-h-[calc(100vh-176px)] gap-16 pt-20 w-full max-w-[1440px]">
@@ -501,7 +429,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                         </Step>
                     </Stepper>
                 </div>
-
                 {activeStep === 0 && (
                     <>
                         <ReportAgreementComponent
@@ -523,7 +450,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                         </div>
                     </>
                 )}
-
                 {activeStep === 1 && (
                     <>
                         <SelectNFTComponent
@@ -550,7 +476,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                         </div>
                     </>
                 )}
-
                 {activeStep === 2 && (
                     <>
                         <ReportFormComponent
@@ -592,7 +517,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                         </div>
                     </>
                 )}
-
                 {activeStep === 3 && <ReportSuccessComponent />}
             </div>
             {isLoading && <Loading />}

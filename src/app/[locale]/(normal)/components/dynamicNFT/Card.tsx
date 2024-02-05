@@ -33,17 +33,16 @@ export default function Card({
 
     return (
         <div
-            className="relative overflow-hidden rounded-lg group w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]"
+            className="relative overflow-hidden rounded-lg group w-[580px] md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]"
             onClick={selectNft}>
             <div className="cursor-pointer transition-all group-hover:opacity-75 group-hover:scale-110 overflow-hidden">
-                <div className="relative">
+                <div className="relative w-full">
                     {/* <Image
-                        src={`${nft?.image.originalUrl}?${new Date().getTime()}`}
+                        src={`${nft?.image.originalUrl}`}
                         // src={`${nft?.image.originalUrl}`}
                         alt="test"
-                        width={200}
-                        height={200}
-                        sizes="100wv"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        fill={true}
                     /> */}
                     <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="" />
                 </div>

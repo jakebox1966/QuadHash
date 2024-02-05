@@ -6,10 +6,12 @@ import { locales } from '@/i18nconfig'
 export interface INFTSettingProps {
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
     profileNFT: any
+    isFrom: string
 }
 
 const { Link } = createSharedPathnamesNavigation({ locales })
-export default function NFTSetting({ updateUserProfile, profileNFT }: INFTSettingProps) {
+export default function NFTSetting({ updateUserProfile, profileNFT, isFrom }: INFTSettingProps) {
+    const tokenType = isFrom === 'profile' ? 'reset' : profileNFT.contract.symbol.toLowerCase()
     return (
         <>
             <Menu>
@@ -42,11 +44,20 @@ export default function NFTSetting({ updateUserProfile, profileNFT }: INFTSettin
                         placeholder={undefined}
                         onClick={() => {
                             updateUserProfile({
-                                tokenId: profileNFT.tokenId,
-                                tokenType: profileNFT.contract.symbol.toLowerCase(),
+                                tokenId: isFrom !== 'reset' ? profileNFT.tokenId : null,
+                                tokenType: tokenType,
                             })
                         }}>
-                        메인 NFT 해제하기
+                        {/* {tokenType !== 'rest' ? (
+                            <div>메인 NFT 설정하기</div>
+                        ) : ( */}
+                        {isFrom === 'profile' ? (
+                            <div>메인 NFT 해제하기</div>
+                        ) : (
+                            <div>메인 NFT 설정하기</div>
+                        )}
+
+                        {/* )} */}
                     </MenuItem>
                     <MenuItem placeholder={undefined}>
                         <Link href={'/dynamicNFT'}>Dynamic NFT 바로 가기</Link>

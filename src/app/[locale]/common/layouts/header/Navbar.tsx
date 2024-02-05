@@ -11,7 +11,7 @@ const localePrefix = 'always' // Default
 const { Link } = createSharedPathnamesNavigation({ locales, localePrefix })
 export default function Navbar(props: INavbarProps) {
     const t = useTranslations('Layout.header.nav_bar')
-    const menuList = ['about', 'gallery', 'dynamicNFT', 'fractionalInvest']
+    const menuList = ['about', 'saza&gaza', 'gallery', 'qh_token', 'dynamicNFT', 'fractionalInvest']
     return (
         <div className="relative flex items-center gap-12 pr-4 font-bold">
             {menuList.map((menu) => (

@@ -66,35 +66,42 @@ export default function NFTDetailModalComponent({
         <>
             <ThemeProvider value={customTheme}>
                 <Dialog
-                    className="rounded-lg overflow-hidden"
+                    className="rounded-lg overflow-hidden !max-h-fit !max-w-fit"
                     size="lg"
                     open={open}
                     handler={handleOpen}
                     placeholder={undefined}
                     style={{ backgroundColor: backgroundColor }}>
                     <DialogBody
-                        className="p-0 overflow-hidden flex lg:flex-row justify-center lg:justify-start"
+                        className="p-0 overflow-hidden flex lg:flex-row justify-center"
                         placeholder={undefined}>
-                        <div className="absolute flex flex-col gap-3 bg-opacity-20 bg-black rounded-lg p-4 top-0 left-0 lg:hidden z-10">
-                            {/* {metadata?.attributes.map((item) => (
+                        {/* <div className="absolute flex flex-col gap-3 bg-opacity-20 bg-black rounded-lg p-4 top-0 left-0 lg:hidden z-10">
+                            {metadata?.attributes.map((item) => (
                                 <PartTooltipComponent
                                     key={item.trait_type}
                                     partKey={item.trait_type}
                                     partValue={item.value}
                                     partIcon={checkPartIcon(item.trait_type)}
                                 />
-                            ))} */}
-                        </div>
+                            ))}
+                        </div> */}
                         {/* <div className="absolute bottom-0 text-white font-black right-0 z-30 bg-opacity-20 bg-black p-3 rounded-lg lg:hidden cursor-pointer">
                             메인 NFT로 설정하기
                         </div> */}
-                        <div className="lg:w-[530px] flex flex-col justify-end items-center lag:items-start relative overflow-hidden">
-                            {/* <Image src={imageUrl} alt="profile_image" width={530} height={0} /> */}
-                            <img src={imageUrl} alt="profile_image" width={530} height={0} />
+                        <div className="lg:w-[650px] flex flex-col justify-end items-center lag:items-start relative overflow-hidden">
+                            <Image
+                                src={imageUrl}
+                                alt="profile_image"
+                                width={650}
+                                height={650}
+                                quality={100}
+                            />
+
+                            {/* <img src={imageUrl} alt="profile_image" width={530} height={0} /> */}
                         </div>
                         <div
-                            className={`text-white w-[calc(100%-530px)] lg:flex flex-col justify-center gap-5 hidden`}>
-                            <div className="flex flex-row flex-wrap gap-6 justify-center items-center ">
+                            className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center gap-5 hidden`}>
+                            <div className="flex flex-row flex-wrap gap-6 pl-10 justify-start items-center">
                                 <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center">
                                     <div>{metadata?.name.split(':')[0].trim()}</div>
                                     <div className="text-2xl font-bold">
@@ -109,6 +116,7 @@ export default function NFTDetailModalComponent({
                                     <NFTSetting
                                         updateUserProfile={updateUserProfile}
                                         profileNFT={activeNFT}
+                                        isFrom={'list'}
                                     />
                                 </div>
                                 {metadata?.attributes

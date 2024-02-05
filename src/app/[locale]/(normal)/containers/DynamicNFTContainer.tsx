@@ -56,6 +56,10 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         }
     }, [selectedNft])
 
+    React.useEffect(() => {
+        console.log('123123', metaData)
+    }, [metaData])
+
     const startDynamicNFT = async () => {
         try {
             setIsDynamicNFTLoading(true)

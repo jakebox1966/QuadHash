@@ -14,46 +14,73 @@ import { getNFTMetadata } from '@/app/api/alchemy/api'
 export interface IUserContainerProps {}
 
 export default function UserContainer(props: IUserContainerProps) {
-    const [activeNFT, setActiveNFT] = React.useState(null)
+    // const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
 
     const { wallet } = useMetaMask()
 
-    const { data: session } = useSession()
+    const { data: session, update } = useSession()
+
+    const updateSession = async (tokenId, tokenType) => {
+        console.log(tokenId)
+        await update({
+            ...session,
+            user: {
+                ...session?.user,
+                token_id: tokenId,
+                token_type: tokenType,
+            },
+        })
+    }
 
     React.useEffect(() => {
         init()
     }, [session])
 
     const init = async () => {
+        console.log('start init')
         // if (wallet.accounts[0]) {
-        let NFTType = session?.user.user_info.token_type
-        let tokenId = session?.user.user_info.token_id
-        console.log('NFTType =>', NFTType)
-        console.log('tokenId =>', tokenId)
-        let metadata = null
-        if (tokenId && NFTType) {
-            console.log('now setting profile')
+        if (session?.user?.token_type && session?.user?.token_id) {
+            console.log('여기')
+            let NFTType = session?.user.token_type
+            let tokenId = session?.user.token_id
+            console.log('NFTType =>', NFTType)
+            console.log('tokenId =>', tokenId)
+            let metadata = null
+            if (tokenId && NFTType) {
+                console.log('now setting profile')
 
-            if (NFTType === 'saza') {
-                metadata = await getNFTMetadata(
-                    process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-                    tokenId,
-                )
-                setProfileNFT(metadata)
-            } else if (NFTType === 'gaza') {
-                metadata = await getNFTMetadata(
-                    process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-                    tokenId,
-                )
-                setProfileNFT(metadata)
+                if (NFTType === 'saza') {
+                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+
+                    console.log(metadata)
+                    // metadata = await getNFTMetadata(
+                    //     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                    //     tokenId,
+                    // )
+                    setProfileNFT(metadata)
+                } else if (NFTType === 'gaza') {
+                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+
+                    // metadata = await getNFTMetadata(
+                    //     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+                    //     tokenId,
+                    // )
+                    setProfileNFT(metadata)
+                } else if (NFTType === 'reset') {
+                    setProfileNFT(null)
+                }
             }
         }
     }
 
-    React.useEffect(() => {
-        console.log(profileNFT)
-    }, [profileNFT])
+    // React.useEffect(() => {
+    //     console.log(profileNFT)
+    // }, [profileNFT])
+
+    // React.useEffect(() => {
+    //     console.log('sessionsessionsession===>', session)
+    // }, [session])
 
     const updateUserProfile = async ({ tokenId, tokenType }) => {
         try {
@@ -70,6 +97,9 @@ export default function UserContainer(props: IUserContainerProps) {
             }
             const response = await updateUserProfileTokenId(parameter)
 
+            const updateSessionResponse = await updateSession(tokenId, tokenType)
+            console.log(updateSessionResponse)
+
             console.log(response)
         } catch (error) {
             console.error(error)
@@ -78,8 +108,9 @@ export default function UserContainer(props: IUserContainerProps) {
 
     return (
         <>
-            <div className="max-w-[1296px] px-[24px]">
+            <div className="max-w-[1296px] w-full px-[24px]">
                 <ProfileSection profileNFT={profileNFT} updateUserProfile={updateUserProfile} />
+
                 <NFTSection updateUserProfile={updateUserProfile} />
             </div>
         </>

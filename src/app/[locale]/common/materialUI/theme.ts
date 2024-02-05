@@ -42,19 +42,19 @@ export const customTheme = {
             },
             sizes: {
                 sm: {
-                    width: 'w-full md:w-2/3 lg:w-2/4',
-                    minWidth: 'min-w-[70%] md:min-w-[66.666667%] lg:min-w-[50%]',
-                    maxWidth: 'max-w-[70%] md:max-w-[66.666667%] lg:max-w-[1200px]',
+                    width: 'w-fit md:w-2/3 lg:w-2/4',
+                    minWidth: 'min-w-fit md:min-w-fit lg:min-w-[50%]',
+                    maxWidth: 'max-w-fit md:max-w-fit lg:max-w-[1200px]',
                 },
                 md: {
-                    width: 'w-full md:w-3/4 lg:w-3/5',
-                    minWidth: 'min-w-[80%] md:min-w-[75%] lg:min-w-[60%]',
-                    maxWidth: 'max-w-[80%] md:max-w-[75%] lg:max-w-[1200px]',
+                    width: 'w-fit md:w-3/4 lg:w-3/5',
+                    minWidth: 'min-w-fit md:min-w-fit lg:min-w-[60%]',
+                    maxWidth: 'max-w-fit md:max-w-fit lg:max-w-[1200px]',
                 },
                 lg: {
-                    width: 'w-full md:w-5/6 lg:w-3/4',
-                    minWidth: 'min-w-[90%] md:min-w-[700px] lg:min-w-[1200px]',
-                    maxWidth: 'max-w-[90%] md:max-w-[700px] lg:max-w-[1200px] ',
+                    width: 'w-fit md:w-fit lg:w-[1200px]',
+                    minWidth: 'min-w-fit md:min-w-fit lg:min-w-[1200px]',
+                    maxWidth: 'max-w-fit md:max-[700px] lg:max-w-[1200px] ',
                 },
             },
         },

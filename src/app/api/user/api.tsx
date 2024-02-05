@@ -16,7 +16,7 @@ export const updateUserProfileTokenId = async (parameter: {
     const session = await getSession()
 
     const result = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${session.user.user_info.id}`,
+        `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${session.user.id}`,
         {
             method: 'PATCH',
             cache: 'no-store',

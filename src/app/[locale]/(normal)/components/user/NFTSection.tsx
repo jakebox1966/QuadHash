@@ -15,6 +15,8 @@ import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { updateUserProfileTokenId } from '@/app/api/user/api'
+import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
+import Link from 'next/link'
 
 export interface INFTSectionProps {
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
@@ -35,29 +37,13 @@ const tabData = [
     },
 ]
 
-const backgroundPallete = {
-    white: '#FFFFFF',
-    sky: '#a5ddec',
-    mint: '#abc178',
-    jungle: '#3d6229',
-    red: '#c5251b',
-    blue: '#0074ae',
-    pink: '#d490aa',
-    storm: '#5d7784',
-    night: '#143e47',
-    lemon: '#ffd488',
-    desert: '#c95128',
-    spots: '#ffffff',
-    grid: '#648d3c',
-    stripes: '#0074ae',
-    dots: '#d490aa',
-}
-
 export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
     const [sazaNfts, setSazaNfts] = React.useState(null)
     const [gazaNfts, setGazaNfts] = React.useState(null)
+    const [qbtNfts, setQbtNfts] = React.useState([])
     const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
     const [gazaIsLoading, setGazaIsLoading] = React.useState(false)
+    const [qbtIsLoading, setQbtIsLoading] = React.useState(false)
     const [activeTab, setActiveTab] = React.useState('SAZA')
     const [activeNFT, setActiveNFT] = React.useState(null)
 
@@ -75,21 +61,21 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
             nftType: nft.contract.symbol.toLowerCase(),
             tokenId: nft.tokenId,
         })
-        console.log(metadata)
+
         setMetadata(metadata)
         setImageUrl(metadata.image)
         const backgroundColor = metadata.attributes.find((item) => {
             return item.trait_type === 'Background'
         })
-        console.log(backgroundColor)
+
         setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
 
         handleOpen()
     }
 
-    const handleOpen = () => {
+    const handleOpen = React.useCallback(() => {
         setOpen(!open)
-    }
+    }, [open])
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -97,28 +83,38 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
                 if (wallet.accounts[0]) {
                     setSazaIsLoading(true)
                     setGazaIsLoading(true)
+                    setQbtIsLoading(true)
                     // console.log('Start loading data')
                     const sazaNfts = await getNftsForOwner(wallet.accounts[0], {
                         contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                     })
 
-                    console.log(sazaNfts)
+                    // console.log(sazaNfts)
 
                     const gazaNfts = await getNftsForOwner(wallet.accounts[0], {
                         contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                     })
 
-                    console.log(gazaNfts)
+                    // const qbtNfts = await getNftsForOwner(wallet.accounts[0], {
+                    //     contractAddresses: [process.env.NEXT_PUBLIC_QBT_CONTRACT_ADDRESS]
+                    // })
+
+                    // console.log(gazaNfts)
 
                     setSazaNfts(sazaNfts.ownedNfts)
                     setGazaNfts(gazaNfts.ownedNfts)
+
+                    setQbtNfts([])
+
                     setSazaIsLoading(false)
                     setGazaIsLoading(false)
+                    setQbtIsLoading(false)
                 }
             } catch (error) {
                 console.error(error)
                 setSazaIsLoading(false)
                 setGazaIsLoading(false)
+                setQbtIsLoading(false)
             }
         }
         fetchData()
@@ -130,20 +126,20 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
 
                 <Tabs value="SAZA" className="w-full mt-6">
                     <TabsHeader
-                        className="bg-transparent"
+                        className="bg-transparent p-0 !gap-3"
                         indicatorProps={{
-                            className: 'bg-gray-900/10 shadow-none !text-gray-900',
+                            className: 'bg-gray-900/10 shadow-none !text-gray-900 w-full p-0 ',
                         }}
                         placeholder={undefined}>
                         {tabData.map((item, index) => (
                             <Tab
                                 key={item.label}
-                                className="!justify-center !w-full border-2 border-black ml-2 rounded-lg"
+                                className="!justify-center !w-full border-2 border-black rounded-lg"
                                 value={item.value}
                                 onClick={() => setActiveTab(item.value)}
                                 placeholder={undefined}>
                                 <div className="flex flex-row justify-center items-center gap-2 w-full rounded-md">
-                                    <div className="w-[2.5rem] lg:w-[5rem]">
+                                    <div className="w-[2.5rem] lg:w-[5rem] relative">
                                         {item.value === 'SAZA' && (
                                             <Image
                                                 src={mypage_saza_icon}
@@ -181,9 +177,9 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
                         ))}
                     </TabsHeader>
                     <TabsBody placeholder={undefined}>
-                        <TabPanel key={'SAZA'} value={'SAZA'} className="p-1 pt-3">
+                        <TabPanel key={'SAZA'} value={'SAZA'} className="pt-3 px-0">
                             {sazaIsLoading && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
+                                <div className="relative flex flex-row justify-center items-center gap-[10px] rounded-2xl flex-wrap">
                                     <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
                                         <div className="bg-gray-400">
                                             <img src="/1.png" alt="" />
@@ -206,16 +202,50 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
                                     ))}
                                 </CardList>
                             )}
+
                             {!sazaIsLoading && sazaNfts && sazaNfts.length === 0 && (
-                                <div className="relative flex flex-row justify-center items-center p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div>You dont have any NFT in your account.</div>
+                                <div className="relative flex flex-row justify-start items-center p-10 gap-[10px] rounded-2xl flex-wrap bg-[#131313] text-[#FFFFFF]">
+                                    <div className="flex flex-col justify-center items-start gap-2">
+                                        <div className="text-4xl font-bold">
+                                            YOU DON'T HAVE ANY SAZA.
+                                        </div>
+                                        <div className="font-bold">
+                                            Head over to OPENSEA or KONKRIT to join the QUADHASH
+                                        </div>
+                                        <div className="flex flex-row gap-3 font-bold">
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/opensea.png" alt="" />
+                                                </div>
+                                                <div>
+                                                    <Link
+                                                        href={`https://opensea.io/collection/qh-saza`}
+                                                        target="_blank">
+                                                        OPENSEA
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/konkrit.png" alt="" />
+                                                </div>
+                                                <div>
+                                                    <Link
+                                                        href={`https://opensea.io/collection/qh-saza`}
+                                                        target="_blank">
+                                                        KONKRIT
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </TabPanel>
 
-                        <TabPanel key={'GAZA'} value={'GAZA'} className="p-1 pt-3">
+                        <TabPanel key={'GAZA'} value={'GAZA'} className="pt-3 px-0">
                             {gazaIsLoading && (
-                                <div className="relative flex flex-row justify-center items-center p-5 gap-[10px] rounded-2xl flex-wrap">
+                                <div className="relative flex flex-row justify-center items-center gap-[10px] rounded-2xl flex-wrap">
                                     <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
                                         <div className="bg-gray-400">
                                             <img src="/1.png" alt="" />
@@ -228,21 +258,52 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
                             {!gazaIsLoading && gazaNfts && gazaNfts.length > 0 && (
                                 <CardList>
                                     {gazaNfts?.map((gaza) => (
-                                        <Card nft={gaza} key={gaza.name} onClick={handleOpen} />
+                                        <Card
+                                            nft={gaza}
+                                            key={gaza.name}
+                                            onClick={() => {
+                                                openDetailModal(gaza)
+                                            }}
+                                        />
                                     ))}
                                 </CardList>
                             )}
 
                             {!gazaIsLoading && gazaNfts && gazaNfts.length === 0 && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div>You dont have any NFT in your account.</div>
+                                <div className="relative flex flex-row justify-start items-center p-10 gap-[10px] rounded-2xl flex-wrap bg-[#131313] text-[#FFFFFF]">
+                                    <div className="flex flex-col justify-center items-start gap-2">
+                                        <div className="text-4xl font-bold">
+                                            YOU DON'T HAVE ANY GAZA.
+                                        </div>
+                                        <div className="font-bold">
+                                            Head over to OPENSEA or KONKRIT to join the QUADHASH
+                                        </div>
+                                        <div className="flex flex-row gap-3 font-bold">
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/opensea.png" alt="" />
+                                                </div>
+                                                <Link
+                                                    href={`https://opensea.io/collection/qh-gaza`}
+                                                    target="_blank">
+                                                    OPENSEA
+                                                </Link>
+                                            </div>
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/konkrit.png" alt="" />
+                                                </div>
+                                                <div>KONKRIT</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </TabPanel>
 
-                        <TabPanel key={'QBT'} value={'QBT'} className="p-1 pt-3">
-                            {gazaIsLoading && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
+                        <TabPanel key={'QBT'} value={'QBT'} className="pt-3 px-0">
+                            {qbtIsLoading && (
+                                <div className="relative flex flex-row justify-center items-center gap-[10px] rounded-2xl flex-wrap">
                                     <div className="rounded-lg blur-md w-full md:w-[calc(100%/2-6px)] lg:w-[calc((100%/4-10px)+(7px/3))]">
                                         <div className="bg-gray-400">
                                             <img src="/1.png" alt="" />
@@ -252,17 +313,42 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
                                 </div>
                             )}
 
-                            {!gazaIsLoading && gazaNfts && gazaNfts.length > 0 && (
+                            {!qbtIsLoading && qbtNfts && qbtNfts.length > 0 && (
                                 <CardList>
-                                    {gazaNfts?.map((gaza) => (
+                                    {qbtNfts?.map((gaza) => (
                                         <Card nft={gaza} key={gaza.name} onClick={handleOpen} />
                                     ))}
                                 </CardList>
                             )}
 
-                            {!gazaIsLoading && gazaNfts && gazaNfts.length === 0 && (
-                                <div className="relative flex flex-row justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                                    <div>You dont have any NFT in your account.</div>
+                            {!qbtIsLoading && qbtNfts && qbtNfts.length === 0 && (
+                                <div className="relative flex flex-row justify-start items-center p-10 gap-[10px] rounded-2xl flex-wrap bg-[#131313] text-[#FFFFFF]">
+                                    <div className="flex flex-col justify-center items-start gap-2">
+                                        <div className="text-4xl font-bold">
+                                            YOU DON'T HAVE ANY QBT.
+                                        </div>
+                                        <div className="font-bold">
+                                            Head over to OPENSEA or KONKRIT to join the QUADHASH
+                                        </div>
+                                        <div className="flex flex-row gap-3 font-bold">
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/opensea.png" alt="" />
+                                                </div>
+                                                <Link
+                                                    href={`https://opensea.io/collection/qh-saza`}
+                                                    target="_blank">
+                                                    OPENSEA
+                                                </Link>
+                                            </div>
+                                            <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
+                                                <div>
+                                                    <img src="/konkrit.png" alt="" />
+                                                </div>
+                                                <div>KONKRIT</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </TabPanel>

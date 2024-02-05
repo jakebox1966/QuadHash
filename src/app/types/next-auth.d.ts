@@ -16,7 +16,7 @@ declare module 'next-auth' {
             is_admin: number
             created_at: string
             updated_at: string
-            user_info: any
+            ticket_num: number
         } & DefaultSession['user']
     }
 }

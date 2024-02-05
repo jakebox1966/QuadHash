@@ -71,9 +71,9 @@ export default function Header(props: IHeaderProps) {
             <header
                 className={`${
                     pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
-                } flex flex-col justify-center sticky items-center top-0 w-full z-50 h-[176px] gap-6`}>
+                } flex flex-row justify-center sticky top-0 items-center w-full z-50 h-[130px]`}>
                 <div
-                    className="lg:hidden cursor-pointer fixed left-4 top-4 bg-white p-3 rounded-full shadow-lg"
+                    className="lg:hidden cursor-pointer absolute left-4 bg-white p-3 rounded-full shadow-lg"
                     onClick={handleOpen}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -90,14 +90,15 @@ export default function Header(props: IHeaderProps) {
                     </svg>
                 </div>
 
-                <Logo />
-
-                <div className="hidden lg:flex lg:flex-row justify-between items-center gap-x-1 w-full max-w-[1296px] px-10">
+                <div className="hidden lg:flex lg:flex-row justify-around items-center w-[1300px]">
+                    <Logo />
                     <Navbar />
-                    <div className="flex flex-row">
-                        <Setting />
-                        <Connect />
-                    </div>
+                    {/* <Setting /> */}
+                    <Connect />
+                </div>
+
+                <div className="lg:hidden">
+                    <Logo />
                 </div>
             </header>
             <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />

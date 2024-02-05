@@ -43,8 +43,6 @@
     transition: 0.5s;
   }
 
-  œ
-
   .scroll-text {
     width: 100%;
     overflow: hidden;
@@ -67,7 +65,7 @@
 
   .track {
     position: relative;
-    width: 2800px;
+    width: 3000px;
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -76,7 +74,7 @@
 
   .track p {
     text-align: center;
-    width: 150px;
+    width: 200px;
   }
 
   .mobile_nav_bar {
