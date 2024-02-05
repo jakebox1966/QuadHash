@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  /* body {
     background-color: #FEFAE0;
-
-  }
+  } */
 }
 
 @layer components {

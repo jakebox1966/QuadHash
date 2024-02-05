@@ -9,7 +9,7 @@ export interface IMainThirdComponentProps {}
 export default function MainThirdComponent(props: IMainThirdComponentProps) {
     return (
         <>
-            <div className="w-full flex flex-col justify-center items-center mt-28">
+            <div className="w-full flex flex-col justify-center items-center pt-28 bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1296px] w-full px-10 lg:px-28 text-black font-black gap-10">
                     <div className="text-xs md:text-xl lg:text-5xl text-center">
                         <div>START YOUR JOUNEY IN</div>

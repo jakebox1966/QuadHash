@@ -12,7 +12,7 @@ export interface IMainSecondComponentProps {}
 export default function MainSecondComponent(props: IMainSecondComponentProps) {
     return (
         <>
-            <div className="bg-[#236DF6] flex flex-col justify-end items-center w-full text-[#FFFFFF] font-black mt-80 overflow-hidden relative lg:min-h-[700px]">
+            <div className="bg-[#236DF6] flex flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative lg:min-h-[700px]">
                 <div className="lg:w-[1200px] flex flex-col justify-end items-around py-20 lg:pt-20 px-2 lg:py-0">
                     <div className="hidden lg:flex flex-row justify-end items-end z-20">
                         <div className="w-[200px] h-[200px] relative">
@@ -43,7 +43,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                 />
             </div>
             {/* <MainBottomTextSlider /> */}
-            <MarQueeTextComponent />
+            <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} />
             <div className="bg-[#FFAE35] flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
                 <div className="max-w-[1162px] flex flex-row justify-center items-center gap-20 py-20">
                     <div className="hidden lg:block">

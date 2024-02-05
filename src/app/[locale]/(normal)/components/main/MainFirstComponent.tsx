@@ -30,7 +30,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
 
             <div className="w-full bg-[#FFCD19] lg:flex flex-col justify-center items-center relative pt-10 min-h-[400px] lg:min-h-[650px] hidden">
                 <div className="absolute bottom-0">
-                    <img className="w-screen" src="/homepage_1.png" alt="homepage_1.png" />
+                    <img className="w-full" src="/homepage_1.png" alt="homepage_1.png" />
                 </div>
 
                 <Image
@@ -42,6 +42,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                     className="z-[10] absolute -bottom-[250px]"
                 />
             </div>
+            <div className="min-h-[300px] w-full bg-[#FEFAE0]"></div>
         </>
     )
 }

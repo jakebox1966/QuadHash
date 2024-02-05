@@ -1,14 +1,16 @@
 import * as React from 'react'
 import Marquee from 'react-fast-marquee'
 
-export interface IMarQueeTextComponentProps {}
+export interface IMarQueeTextComponentProps {
+    text: string
+}
 
-export default function MarQueeTextComponent(props: IMarQueeTextComponentProps) {
+export default function MarQueeTextComponent({text}: IMarQueeTextComponentProps) {
     return (
         <>
             <div className="py-4 bg-[#FFCD19] font-black w-full">
                 <Marquee autoFill>
-                    <div>A NEW ERA OF CREATIVITY # </div>
+                    <div>{text}</div>
                 </Marquee>
             </div>
         </>
