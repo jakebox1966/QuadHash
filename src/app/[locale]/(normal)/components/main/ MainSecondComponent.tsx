@@ -39,26 +39,32 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                 <Image src={background} alt="background" className="absolute w-screen bottom-0" />
             </div>
 
-            <div className="flex lg:hidden bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative lg:min-h-[700px]">
-                <div className="w-[330px] flex flex-col justify-end items-around py-20 ">
-                    <div className="flex flex-row justify-end items-end z-20">
-                        <div className="w-[200px] h-[200px] relative">
-                            <Image src={gazaImage} alt="gaza" className="absolute -bottom-10" />
+            <div className="flex lg:hidden bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative ">
+                <div className="w-[330px] flex flex-col justify-end items-start relative">
+                    <div className="flex flex-col justify-center items-start gap-5 min-h-[430px]">
+                        <div className="text-3xl">
+                            <div>OUR</div>
+                            <div>COLLECTION</div>
                         </div>
-                        <div className="w-[500px] h-[500px] relative">
-                            <Image src={sazaImage} alt="saza" className="absolute -bottom-10" />
-                        </div>
-                    </div>
-                    <div className="flex flex-col justify-center items-start gap-5">
-                        <div className="text-4xl">OUR COLLECTION</div>
                         <div>
-                            <div>Vibrant colors, captivating characters. Explore the</div>
-                            <div>Authentic digital art crafted by renowned pop Artists</div>
+                            <div>Vibrant colors, captivating characters.</div>
+                            <div>Explore the authentic digital art</div>
+                            <div> crafted by renowned pop Artists</div>
                             <div>‘Crack & Carl’ and ‘Button Morris’</div>
                         </div>
 
-                        <div className="bg-[#FFFFFF] text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
+                        <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             VIEW COLLECTIBLES
+                        </div>
+                    </div>
+                    <div className="min-h-[280px] relative">
+                        <div className="flex flex-row justify-end items-end z-20 absolute -bottom-3">
+                            <div className="w-[100px] h-[100px]">
+                                <Image src={gazaImage} alt="gaza" />
+                            </div>
+                            <div className="w-[250px] h-[250px]">
+                                <Image src={sazaImage} alt="saza" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,9 +93,9 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
             {/* <MainBottomTextSlider /> */}
             <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} />
-            <div className="bg-[#FFAE35] flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
+            <div className="hidden bg-[#FFAE35] lg:flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
                 <div className="max-w-[1162px] flex flex-row justify-center items-center gap-20 py-20">
-                    <div className="hidden lg:block">
+                    <div className="block">
                         <Image src={saza_gaza_together} alt="saza_gaza_together" />
                     </div>
                     <div className="flex flex-col justify-center items-start gap-5">
@@ -99,6 +105,32 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             SHOP NOW
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-end items-center w-full text-[#FFFFFF] font-black">
+                <div className="w-[330px] flex flex-col justify-end items-start">
+                    <div className="flex flex-col justify-center items-start gap-5 min-h-[330px]">
+                        <div className="text-3xl">
+                            <div>NEW</div>
+                            <div>COLLECTION</div>
+                        </div>
+                        <div>
+                            <div>"Dive into the dynamic world of Quadhash.”</div>
+                        </div>
+
+                        <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            SHOP NOW
+                        </div>
+                    </div>
+                    <div className="w-[350px] h-[350px] flex justify-center items-center">
+                        <Image
+                            src={saza_gaza_together}
+                            width={350}
+                            height={350}
+                            alt="saza_gaza_together"
+                        />
                     </div>
                 </div>
             </div>
