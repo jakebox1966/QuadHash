@@ -20,8 +20,8 @@ export default function Main(props: IMainProps) {
             <div className="flex flex-col justify-center items-center w-full">
                 <MainFirstComponent />
                 <MainSecondComponent />
-                <MainThirdComponent />
-                <MainFourthComponent />
+                {/* <MainThirdComponent /> */}
+                {/* <MainFourthComponent /> */}
             </div>
         </>
     )

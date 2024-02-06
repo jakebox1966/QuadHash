@@ -41,12 +41,20 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
                 nfts.push(nft)
             }
 
-            console.log(nfts)
+            console.log(nfts.length)
 
             return nfts
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const refreshContract = async () => {
+        console.log('start refresh contract')
+        const response = await alchemy.nft.refreshContract(
+            '0x75e46bdc52d4A2064dc8850EE0f52EE93BFe337c',
+        )
+        console.log(response)
     }
 
     const test = async () => {
@@ -85,7 +93,7 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
         const url = window.URL.createObjectURL(blob) // blob으로 객체 URL 생성
         const anchor = document.createElement('a')
         anchor.href = url
-        anchor.download = 'test1.xlsx'
+        anchor.download = 'test1.csv'
         anchor.click() // anchor를 다운로드 링크로 만들고 강제로 클릭 이벤트 발생
         window.URL.revokeObjectURL(url) // 메모리에서 해제
 
@@ -93,10 +101,19 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
 
         //
     }
+    const getNfts = async () => {
+        const nfts = await alchemy.nft.getNftsForContract(
+            '0x3d049aDb773fADDeF681FbE565466C4F9736A009',
+        )
+        console.log(nfts)
+        console.log()
+    }
     return (
         <div>
             Fractioal Investing
             <div onClick={test}>test</div>
+            <div onClick={getNfts}>getAllNfts</div>
+            <div onClick={refreshContract}>refreshContract</div>
         </div>
     )
 }

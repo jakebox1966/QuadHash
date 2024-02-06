@@ -17,6 +17,11 @@ import { useTranslations } from 'next-intl'
 import { locales } from '@/i18nconfig'
 import LocaleSwitcher from './LocaleSwitcher'
 
+import mobileWhiteLogo from '/public/mobile_white_logo.png'
+import mobileMenuIcon from '/public/mobile_menu_icon.png'
+import logout from '/public/logout.png'
+import Image from 'next/image'
+
 export interface IMobileNavMenuProps {
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -43,9 +48,10 @@ const customTheme = {
                     position: 'fixed',
                     zIndex: 'z-[9999]',
                     pointerEvents: 'pointer-events-auto',
-                    backgroundColor: 'bg-white',
+                    backgroundColor: 'bg-none',
                     boxSizing: 'box-border',
                     width: '!w-full',
+                    height: '!h-full',
                     boxShadow: 'shadow-2xl shadow-blue-gray-900/10',
                 },
                 overlay: {
@@ -70,10 +76,10 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
     const menuList = [
         'about',
         'collectable',
-        'saza&gaza',
+        'saza_gaza',
         'qh_token',
         'dynamicNFT',
-        'fractionalInvest',
+        'fractionalInvestment',
     ]
 
     const closeDrawer = () => setOpen(false)
@@ -82,55 +88,61 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
         // <React.Fragment>
 
         <ThemeProvider value={customTheme}>
-            <Drawer open={open} onClose={closeDrawer} placeholder={undefined}>
-                <div className="mb-2 flex items-center justify-between p-4 w-full">
-                    <Typography variant="h5" placeholder={undefined}>
-                        QUADHASH MENU
-                    </Typography>
-                    <IconButton
-                        variant="text"
-                        color="blue-gray"
-                        onClick={closeDrawer}
-                        placeholder={undefined}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="h-5 w-5">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </IconButton>
+            <Drawer
+                open={open}
+                onClose={closeDrawer}
+                placeholder={undefined}
+                className="overflow-y-auto pb-10">
+                <div
+                    className="text-[#FFFFFF] px-3 pt-3 flex flex-row justify-end"
+                    onClick={closeDrawer}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        className="h-10 w-10">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
                 </div>
-                <List placeholder={undefined}>
+                <div className="px-10 flex flex-col justify-center items-start gap-10 text-white font-black">
+                    <div className="flex flex-row justify-start w-full">
+                        <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
+                    </div>
+                    <div className="flex flex-row justify-center items-center gap-14">
+                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                        Connect Wallet
+                    </div>
                     {menuList.map((item) => (
-                        <Link key={item} href={`/${item}`}>
-                            <ListItem placeholder={undefined}>{t(item)}</ListItem>
+                        <Link
+                            href={item}
+                            className="flex flex-row justify-center items-center gap-14">
+                            {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                            {t(item)}
                         </Link>
                     ))}
-                    <hr />
+                    <div className="flex flex-row justify-center items-center gap-14">
+                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                        DISCORD
+                    </div>
+                    <div className="flex flex-row justify-center items-center gap-14">
+                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                        TWITTER
+                    </div>
+                    <div className="flex flex-row justify-center items-center gap-14">
+                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                        Saza&Gaza Instagram
+                    </div>
 
-                    <Link href={'/user'}>
-                        <ListItem placeholder={undefined}>{t('mypage')}</ListItem>
-                    </Link>
-
-                    <Link href={'/report'}>
-                        <ListItem placeholder={undefined}>{t('report')}</ListItem>
-                    </Link>
-                    <hr />
-
-                    <ListItem
-                        placeholder={undefined}
-                        className="flex flex-row justify-between items-center relative">
-                        {t('language')}
-                        <LocaleSwitcher />
-                    </ListItem>
-                </List>
+                    <div className="bg-[#FFFFFF] font-medium text-xs text-[#F46221] py-3 px-4 rounded-lg flex flex-row items-center justify-center gap-3">
+                        <Image src={logout} alt={'logout_icon'} />
+                        Logout
+                    </div>
+                </div>
             </Drawer>
         </ThemeProvider>
         // </React.Fragment>
