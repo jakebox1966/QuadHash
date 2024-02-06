@@ -12,7 +12,9 @@ import MobileNavMenu from './MobileNavMenu'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
-import { ButtonGroup } from '@material-tailwind/react'
+
+import mobileLogo from '/public/mobile_logo.png'
+import Image from 'next/image'
 
 export interface IHeaderProps {}
 const { usePathname } = createSharedPathnamesNavigation({ locales })
@@ -71,34 +73,57 @@ export default function Header(props: IHeaderProps) {
             <header
                 className={`${
                     pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
-                } flex flex-row justify-center sticky top-0 items-center w-full z-50 h-[130px]`}>
-                <div
-                    className="lg:hidden cursor-pointer absolute left-4 bg-white p-3 rounded-full shadow-lg"
-                    onClick={handleOpen}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-                        />
-                    </svg>
+                } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[130px] px-5`}>
+                <div className="lg:hidden flex flex-row justify-between w-full">
+                    <div
+                        className=" cursor-pointer rounded-full flex flex-row gap-2 items-center"
+                        onClick={handleOpen}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                            />
+                        </svg>
+                        <Image src={mobileLogo} alt={'mobile_logo'} />
+                    </div>
+                    <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
+                        Connect Wallet
+                    </div>
                 </div>
 
-                <div className="hidden lg:flex lg:flex-row justify-around items-center w-[1300px]">
+                {/* <div className="flex flex-row justify-between">
+                    <div
+                        className="lg:hidden cursor-pointer absolute left-4 rounded-full flex flex-row gap-2 items-center"
+                        onClick={handleOpen}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                            />
+                        </svg>
+                        <Image src={mobileLogo} alt={'mobile_logo'} />
+                    </div>
+                    
+                </div> */}
+
+                <div className="hidden lg:flex lg:flex-row justify-around items-center lg:w-[1300px]">
                     <Logo />
                     <Navbar />
-                    {/* <Setting /> */}
                     <Connect />
-                </div>
-
-                <div className="lg:hidden">
-                    <Logo />
                 </div>
             </header>
             <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />

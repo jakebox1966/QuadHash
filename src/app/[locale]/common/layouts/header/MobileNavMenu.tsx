@@ -10,6 +10,7 @@ import {
     ListItemPrefix,
     ListItemSuffix,
     Chip,
+    ThemeProvider,
 } from '@material-tailwind/react'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { useTranslations } from 'next-intl'
@@ -19,6 +20,48 @@ import LocaleSwitcher from './LocaleSwitcher'
 export interface IMobileNavMenuProps {
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const customTheme = {
+    drawer: {
+        defaultProps: {
+            size: 2000,
+            overlay: true,
+            placement: 'left',
+            overlayProps: undefined,
+            className: '',
+            dismiss: undefined,
+            onClose: undefined,
+            transition: {
+                type: 'tween',
+                duration: 0.3,
+            },
+        },
+        styles: {
+            base: {
+                drawer: {
+                    position: 'fixed',
+                    zIndex: 'z-[9999]',
+                    pointerEvents: 'pointer-events-auto',
+                    backgroundColor: 'bg-white',
+                    boxSizing: 'box-border',
+                    width: '!w-full',
+                    boxShadow: 'shadow-2xl shadow-blue-gray-900/10',
+                },
+                overlay: {
+                    position: 'absolute',
+                    inset: 'inset-0',
+                    width: 'w-full',
+                    height: 'h-full',
+                    pointerEvents: 'pointer-events-auto',
+                    zIndex: 'z-[9995]',
+                    backgroundColor: 'bg-black',
+                    backgroundOpacity: 'bg-opacity-60',
+                    backdropBlur: 'backdrop-blur-sm',
+                },
+            },
+        },
+    },
 }
 
 const { Link } = createSharedPathnamesNavigation({ locales })
@@ -36,10 +79,12 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
     const closeDrawer = () => setOpen(false)
 
     return (
-        <React.Fragment>
+        // <React.Fragment>
+
+        <ThemeProvider value={customTheme}>
             <Drawer open={open} onClose={closeDrawer} placeholder={undefined}>
-                <div className="mb-2 flex items-center justify-between p-4">
-                    <Typography variant="h5" color="blue-gray" placeholder={undefined}>
+                <div className="mb-2 flex items-center justify-between p-4 w-full">
+                    <Typography variant="h5" placeholder={undefined}>
                         QUADHASH MENU
                     </Typography>
                     <IconButton
@@ -87,6 +132,7 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
                     </ListItem>
                 </List>
             </Drawer>
-        </React.Fragment>
+        </ThemeProvider>
+        // </React.Fragment>
     )
 }
