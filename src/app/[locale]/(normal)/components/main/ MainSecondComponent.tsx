@@ -57,12 +57,12 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             VIEW COLLECTIBLES
                         </div>
                     </div>
-                    <div className="min-h-[280px] relative">
-                        <div className="flex flex-row justify-end items-end z-20 absolute -bottom-3">
-                            <div className="w-[100px] h-[100px]">
+                    <div className="min-h-[200px] relative flex flex-col justify-center items-center">
+                        <div className="flex flex-row justify-end items-end z-20 absolute left-10 -bottom-3">
+                            <div className="w-[70px] h-[70px]">
                                 <Image src={gazaImage} alt="gaza" />
                             </div>
-                            <div className="w-[250px] h-[250px]">
+                            <div className="w-[200px] h-[200px]">
                                 <Image src={sazaImage} alt="saza" />
                             </div>
                         </div>
@@ -109,8 +109,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                 </div>
             </div>
 
-            <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-end items-center w-full text-[#FFFFFF] font-black">
-                <div className="w-[330px] flex flex-col justify-end items-start">
+            <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-center items-center w-full text-[#FFFFFF] font-black">
+                <div className="w-[330px] flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-start gap-5 min-h-[330px]">
                         <div className="text-3xl">
                             <div>NEW</div>
@@ -124,11 +124,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             SHOP NOW
                         </div>
                     </div>
-                    <div className="w-[350px] h-[350px] flex justify-center items-center">
+                    <div className=" flex flex-col justify-center items-center">
                         <Image
                             src={saza_gaza_together}
-                            width={350}
-                            height={350}
+                            width={280}
+                            height={280}
                             alt="saza_gaza_together"
                         />
                     </div>

@@ -44,7 +44,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                     </div>
                 </div>
             </div>
-            <div className="min-h-[300px] lg:min-h-[700px] w-full bg-[#FFCD19] relative flex flex-col items-center">
+            <div className="min-h-[200px] lg:min-h-[700px] w-full bg-[#FFCD19] relative flex flex-col items-center">
                 <img
                     className="w-full absolute bottom-0"
                     src="/homepage_1.png"
