@@ -34,8 +34,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
 
                         <Link
-                            href={'/collectible'}
-                            className="bg-[#FFFFFF] z-20 text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
+                            href={'/collection'}
+                            className="bg-[#FFFFFF] z-30 text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
                             VIEW COLLECTIBLES
                         </Link>
                     </div>
@@ -59,8 +59,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
 
                         <Link
-                            href={'/collectible'}
-                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            href={'/collection'}
+                            className="bg-[#FFFFFF] text-black py-2 z-20 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             VIEW COLLECTIBLES
                         </Link>
                     </div>
@@ -110,7 +110,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <div>"Dive into the dynamic world of Quadhash.”</div>
 
                         <Link
-                            href={'#'}
+                            href={'https://www.sazagaza.co.kr/'}
+                            target={'_blank'}
                             className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             SHOP NOW
                         </Link>
@@ -123,14 +124,15 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     <div className="flex flex-col justify-center items-start gap-5 min-h-[330px]">
                         <div className="text-3xl">
                             <div>NEW</div>
-                            <div>COLLECTION</div>
+                            <div>MERCHANDISE!</div>
                         </div>
                         <div>
                             <div>"Dive into the dynamic world of Quadhash.”</div>
                         </div>
 
                         <Link
-                            href={'#'}
+                            href={'https://www.sazagaza.co.kr/'}
+                            target={'_blank'}
                             className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             SHOP NOW
                         </Link>

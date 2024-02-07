@@ -14,10 +14,10 @@ export default function Navbar(props: INavbarProps) {
     const menuList = [
         'about',
         'saza_gaza',
-        'gallery',
+        'collection',
         'qh_token',
         'dynamicNFT',
-        'fractionalInvestment',
+        'fractional_investment',
     ]
     return (
         <div className="relative flex items-center gap-12 pr-4 font-bold">

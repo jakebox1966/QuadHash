@@ -34,7 +34,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                             <div className="lg:text-2xl">Our Journey</div>
                             <Link
-                                href={'#'}
+                                href={'/about'}
                                 className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                 DISCOVER OUR WORLD
                             </Link>
@@ -58,11 +58,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="flex-1 relative">
                             <Image src={main_image3} alt="main_middle_image3" sizes="100vw" />
                             <Link
-                                href={'/dynamicNFT'}
+                                href={'/white_paper'}
                                 className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
-                                <div className="lg:text-2xl">Dynamic NFT</div>
+                                <div className="lg:text-2xl">WHITE PAPER</div>
                                 <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
-                                    PLAY NOW
+                                    SEE
                                 </div>
                             </Link>
                         </div>
@@ -91,7 +91,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
                                 <div className="lg:text-2xl">Our Journey</div>
                                 <Link
-                                    href={'#'}
+                                    href={'/about'}
                                     className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     DISCOVER OUR WORLD
                                 </Link>
@@ -112,11 +112,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="w-full relative">
                             <Image src={main_third_saza} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
-                                <div className="lg:text-2xl">Dynamic NFT</div>
+                                <div className="lg:text-2xl">WHITE PAPER</div>
                                 <Link
-                                    href={'/dynamicNFT'}
+                                    href={'/white_paper'}
                                     className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
-                                    PLAY NOW
+                                    SEE
                                 </Link>
                             </div>
                         </div>

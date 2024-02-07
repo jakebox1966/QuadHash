@@ -8,13 +8,13 @@
             },
             "nav_bar": {
                 "about": "About",
-                "collectable": "Collectable",
+                "collection": "Collection",
                 "gallery": "Gallery",
                 "saza_gaza": "Saza & Gaza",
                 "qh_token": "QH Token",
                 "admin": "Admin",
                 "dynamicNFT": "Dynamic NFT",
-                "fractionalInvestment": "Fractional Investment",
+                "fractional_investment": "Fractional Investment",
                 "mypage": "My Page",
                 "report": "Report",
                 "language": "Language"

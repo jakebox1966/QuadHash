@@ -19,8 +19,12 @@ import about_burton_morris from '/public/about_burton_morris.png'
 import januaryImage from '/public/saza_gaza_month1.png'
 import februaryImage from '/public/saza_gaza_month2.png'
 import marchImage from '/public/saza_gaza_month3.png'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface ISazaAndGazaPageProps {}
+
+const { Link } = createSharedPathnamesNavigation({ locales })
 
 export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
     return (
@@ -58,12 +62,15 @@ export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div>innovative and interactive storytelling."</div>
                     </div>
 
-                    <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
+                    <Link
+                        href={'https://www.instagram.com/saza.gaza/'}
+                        target="_blank"
+                        className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
                         <div>
                             <Image src={insta} alt="insta_icon" />
                         </div>
                         <div>Follow Us @saza.gaza</div>
-                    </div>
+                    </Link>
                 </div>
                 <div>
                     <Image src={sazagazaTogether} width={500} alt="sazagazaTogether " />
@@ -78,12 +85,15 @@ export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     <div className="text-5xl text-[#0065F2]">SAZA&GAZA STORE</div>
                     <div>A More Fun Way to Express Feelings, with Saza&Gaza.</div>
 
-                    <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
+                    <Link
+                        href={'https://www.sazagaza.co.kr/'}
+                        target="_blank"
+                        className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
                         <div>
                             <Image src={saza} alt="saza_icon" />
                         </div>
                         <div>Go to Saza&Gaza Store</div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="mt-20">
                     <Image src={saza_gazaCase} width={1250} alt="sazagazaTogether " />
@@ -96,12 +106,13 @@ export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div>CONVEY EMOTIONS</div>
                         </div>
                         <div>A More Fun Way to Express Feelings, with Saza&Gaza.</div>
-                        <div>
-                            <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
-                                <Image src={saza_gaza_giphy_frame} alt="saza_gaza_giphy_frame" />
-                                Explore the Collection
-                            </div>
-                        </div>
+
+                        <Link
+                            href={'#'}
+                            className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center gap-2">
+                            <Image src={saza_gaza_giphy_frame} alt="saza_gaza_giphy_frame" />
+                            Explore the Collection
+                        </Link>
                     </div>
                     <div>
                         <Image src={saza_gaza_giphy_image} alt="saza_gaza_giphy_image" />

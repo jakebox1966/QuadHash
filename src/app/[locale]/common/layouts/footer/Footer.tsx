@@ -15,12 +15,11 @@ export default function Footer(props: IFooterProps) {
                         <Logo />
                     </div>
                     <div className="hidden lg:flex flex-row gap-10 font-medium">
-                        <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
-
                         <Link href={'/report'} className="text-[#FF000F]">
                             Hacking Report
                         </Link>
-                        <Link href={'/termsOfUse'}>Terms of Use</Link>
+                        <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
+                        <Link href={'/terms_of_use'}>Terms of Use</Link>
                         <Link href={'/privacy'}>Privacy</Link>
                     </div>
                 </div>
@@ -93,12 +92,11 @@ export default function Footer(props: IFooterProps) {
                 </div>
 
                 <div className="flex flex-col gap-5 font-medium">
-                    <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
-
                     <Link href={'/report'} className="text-[#FF000F]">
                         Hacking Report
                     </Link>
-                    <Link href={'/termsOfUse'}>Terms of Use</Link>
+                    <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
+                    <Link href={'/terms_of_use'}>Terms of Use</Link>
                     <Link href={'/privacy'}>Privacy</Link>
                 </div>
 
