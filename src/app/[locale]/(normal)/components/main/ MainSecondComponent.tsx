@@ -6,9 +6,12 @@ import background from '/public/homepage_1.png'
 import saza_gaza_together from '/public/main_second_image.png'
 import MainBottomTextSlider from './MainBottomTextSlider'
 import MarQueeTextComponent from './MarqueeText'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface IMainSecondComponentProps {}
 
+const { usePathname, Link } = createSharedPathnamesNavigation({ locales })
 export default function MainSecondComponent(props: IMainSecondComponentProps) {
     return (
         <>
@@ -30,9 +33,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>‘Crack & Carl’ and ‘Button Morris’</div>
                         </div>
 
-                        <div className="bg-[#FFFFFF] text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
+                        <Link
+                            href={'/collectible'}
+                            className="bg-[#FFFFFF] z-20 text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
                             VIEW COLLECTIBLES
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -53,9 +58,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>‘Crack & Carl’ and ‘Button Morris’</div>
                         </div>
 
-                        <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                        <Link
+                            href={'/collectible'}
+                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             VIEW COLLECTIBLES
-                        </div>
+                        </Link>
                     </div>
                     <div className="min-h-[200px] relative flex flex-col justify-center items-center">
                         <div className="flex flex-row justify-end items-end z-20 absolute left-10 -bottom-3">
@@ -102,9 +109,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <div className="text-4xl">NEW MERCHANDISE!</div>
                         <div>"Dive into the dynamic world of Quadhash.”</div>
 
-                        <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                        <Link
+                            href={'#'}
+                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             SHOP NOW
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -120,9 +129,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>"Dive into the dynamic world of Quadhash.”</div>
                         </div>
 
-                        <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                        <Link
+                            href={'#'}
+                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                             SHOP NOW
-                        </div>
+                        </Link>
                     </div>
                     <div className=" flex flex-col justify-center items-center">
                         <Image

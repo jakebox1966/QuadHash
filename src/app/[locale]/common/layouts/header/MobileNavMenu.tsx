@@ -125,18 +125,27 @@ export default function MobileNavMenu({ open, setOpen }: IMobileNavMenuProps) {
                             {t(item)}
                         </Link>
                     ))}
-                    <div className="flex flex-row justify-center items-center gap-14">
+                    <Link
+                        href={'https://discord.gg/quadhash'}
+                        target={'_blank'}
+                        className="flex flex-row justify-center items-center gap-14">
                         {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                         DISCORD
-                    </div>
-                    <div className="flex flex-row justify-center items-center gap-14">
+                    </Link>
+                    <Link
+                        href={'https://twitter.com/QUADHASH'}
+                        target={'_blank'}
+                        className="flex flex-row justify-center items-center gap-14">
                         {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                         TWITTER
-                    </div>
-                    <div className="flex flex-row justify-center items-center gap-14">
+                    </Link>
+                    <Link
+                        href={'https://www.instagram.com/saza.gaza/'}
+                        target={'_blank'}
+                        className="flex flex-row justify-center items-center gap-14">
                         {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                         Saza&Gaza Instagram
-                    </div>
+                    </Link>
 
                     <div className="bg-[#FFFFFF] font-medium text-xs text-[#F46221] py-3 px-4 rounded-lg flex flex-row items-center justify-center gap-3">
                         <Image src={logout} alt={'logout_icon'} />

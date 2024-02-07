@@ -7,9 +7,12 @@ import main_image3 from '/public/main_middle_image3.png'
 import main_third_sazagaza from '/public/main_third_sazagaza.png'
 import main_third_saza from '/public/main_third_saza.png'
 import main_third_cute from '/public/main_third_cute.png'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface IMainThirdComponentProps {}
 
+const { Link } = createSharedPathnamesNavigation({ locales })
 export default function MainThirdComponent(props: IMainThirdComponentProps) {
     return (
         <>
@@ -30,9 +33,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <Image src={main_image1} alt="main_middle_image1" />
                         <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                             <div className="lg:text-2xl">Our Journey</div>
-                            <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            <Link
+                                href={'#'}
+                                className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                 DISCOVER OUR WORLD
-                            </div>
+                            </Link>
                         </div>
                     </div>
 
@@ -41,20 +46,25 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                             <Image src={main_image2} alt="main_middle_image2" sizes="100vw" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="lg:text-2xl">Saza&Gaza</div>
-                                <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                <Link
+                                    href={'https://www.instagram.com/saza.gaza/'}
+                                    target={'_blank'}
+                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     {/* FOLLOW US @SAZA&GAZA */}
                                     @SAZA&GAZA
-                                </div>
+                                </Link>
                             </div>
                         </div>
                         <div className="flex-1 relative">
                             <Image src={main_image3} alt="main_middle_image3" sizes="100vw" />
-                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
+                            <Link
+                                href={'/dynamicNFT'}
+                                className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="lg:text-2xl">Dynamic NFT</div>
                                 <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     PLAY NOW
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -80,27 +90,34 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                             />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
                                 <div className="lg:text-2xl">Our Journey</div>
-                                <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                <Link
+                                    href={'#'}
+                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     DISCOVER OUR WORLD
-                                </div>
+                                </Link>
                             </div>
                         </div>
                         <div className="w-full relative">
                             <Image src={main_third_cute} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
                                 <div className="lg:text-2xl">@SAZA&GAZA</div>
-                                <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                <Link
+                                    href={'https://www.instagram.com/saza.gaza/'}
+                                    target={'_blank'}
+                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     FOLLOW @SAZA&GAZA
-                                </div>
+                                </Link>
                             </div>
                         </div>
                         <div className="w-full relative">
                             <Image src={main_third_saza} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
                                 <div className="lg:text-2xl">Dynamic NFT</div>
-                                <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                <Link
+                                    href={'/dynamicNFT'}
+                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
                                     PLAY NOW
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
