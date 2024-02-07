@@ -15,6 +15,9 @@ import { locales } from '@/i18nconfig'
 
 import mobileLogo from '/public/mobile_logo.png'
 import Image from 'next/image'
+import { signOut, useSession } from 'next-auth/react'
+import { useMetaMask } from '@/app/hooks/useMetaMask'
+import { getMetadata } from '@/app/api/dynamicNFT/api'
 
 export interface IHeaderProps {}
 const { usePathname, Link } = createSharedPathnamesNavigation({ locales })
@@ -24,7 +27,11 @@ export default function Header(props: IHeaderProps) {
 
     const pathName = usePathname()
 
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
+    const { data: session } = useSession()
+    const { wallet } = useMetaMask()
+
+    const [profileNFT, setProfileNFT] = React.useState(null)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState<boolean>(false)
     const { signInModalopen, handleSignInModalOpen } = useSignInModal()
     const { lockScroll, openScroll } = useBodyScrollLock()
 
@@ -67,6 +74,58 @@ export default function Header(props: IHeaderProps) {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
+
+    React.useEffect(() => {
+        init()
+    }, [session])
+
+    const init = async () => {
+        console.log('start init')
+        // if (wallet.accounts[0]) {
+        if (session?.user?.token_type && session?.user?.token_id) {
+            let NFTType = session?.user.token_type
+            let tokenId = session?.user.token_id
+            console.log('NFTType =>', NFTType)
+            console.log('tokenId =>', tokenId)
+            let metadata = null
+            if (tokenId && NFTType) {
+                console.log('now setting profile')
+
+                if (NFTType === 'saza') {
+                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+
+                    console.log(metadata)
+                    // metadata = await getNFTMetadata(
+                    //     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                    //     tokenId,
+                    // )
+                    setProfileNFT(metadata)
+                } else if (NFTType === 'gaza') {
+                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
+
+                    // metadata = await getNFTMetadata(
+                    //     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+                    //     tokenId,
+                    // )
+                    setProfileNFT(metadata)
+                } else if (NFTType === 'reset') {
+                    setProfileNFT(null)
+                }
+            }
+        }
+    }
+
+    const disconnect = async () => {
+        await window.ethereum.request({
+            method: 'wallet_revokePermissions',
+            params: [
+                {
+                    eth_accounts: wallet.accounts[0],
+                },
+            ],
+        })
+        signOut({ redirect: true, callbackUrl: '/' })
+    }
 
     return (
         <>
@@ -130,7 +189,12 @@ export default function Header(props: IHeaderProps) {
                     <Connect />
                 </div>
             </header>
-            <MobileNavMenu open={isMobileMenuOpen} setOpen={setIsMobileMenuOpen} />
+            <MobileNavMenu
+                disconnect={disconnect}
+                profileNFT={profileNFT}
+                open={isMobileMenuOpen}
+                setOpen={setIsMobileMenuOpen}
+            />
 
             <SignInModal open={signInModalopen} handleOpen={handleSignInModalOpen} />
         </>

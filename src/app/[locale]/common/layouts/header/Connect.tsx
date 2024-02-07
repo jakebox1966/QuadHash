@@ -48,6 +48,18 @@ export default function Connect(props: IConnectProps) {
             headerColorRef.current!.className = `text-white transition duration-700`
         }
     }
+
+    const disconnect = async () => {
+        await window.ethereum.request({
+            method: 'wallet_revokePermissions',
+            params: [
+                {
+                    eth_accounts: wallet.accounts[0],
+                },
+            ],
+        })
+        signOut({ redirect: true, callbackUrl: '/' })
+    }
     // useEffect(() => {
     //     window.addEventListener('scroll', handleScroll)
     //     return () => {
@@ -176,7 +188,7 @@ export default function Connect(props: IConnectProps) {
                                 <hr className="my-3" />
                                 <MenuItem
                                     className="flex flex-row items-center justify-between"
-                                    onClick={() => signOut({ redirect: true, callbackUrl: '/' })}
+                                    onClick={disconnect}
                                     placeholder={undefined}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

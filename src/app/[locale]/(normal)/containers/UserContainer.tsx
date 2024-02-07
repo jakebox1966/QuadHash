@@ -41,7 +41,6 @@ export default function UserContainer(props: IUserContainerProps) {
         console.log('start init')
         // if (wallet.accounts[0]) {
         if (session?.user?.token_type && session?.user?.token_id) {
-            console.log('여기')
             let NFTType = session?.user.token_type
             let tokenId = session?.user.token_id
             console.log('NFTType =>', NFTType)
