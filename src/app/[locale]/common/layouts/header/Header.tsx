@@ -95,9 +95,9 @@ export default function Header(props: IHeaderProps) {
                             <Image src={mobileLogo} alt={'mobile_logo'} />
                         </Link>
                     </div>
-                    <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
+                    {/* <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
                         Connect Wallet
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* <div className="flex flex-row justify-between">
