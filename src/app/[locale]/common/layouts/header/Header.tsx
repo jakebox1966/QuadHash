@@ -72,7 +72,9 @@ export default function Header(props: IHeaderProps) {
         <>
             <header
                 className={`${
-                    pathName === '/' || pathName === '/about' ? 'bg-[#FFCD19]' : ''
+                    pathName === '/' || pathName === '/about' || pathName === '/saza_gaza'
+                        ? 'bg-[#FFCD19]'
+                        : ''
                 } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[130px] px-5`}>
                 <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className=" cursor-pointer rounded-full flex flex-row gap-2 items-center">
