@@ -147,7 +147,7 @@ export default function MobileNavMenu({
                                     src={imageUrl}
                                     width={77}
                                     height={77}
-                                    alt={'profile_image'}
+                                    alt="profile_image"
                                     className="rounded-full"
                                 />
                             </div>
@@ -165,13 +165,13 @@ export default function MobileNavMenu({
                             </div>
                         </PopoverHandler>
                         <PopoverContent
-                            className="z-[9999] flex flex-col justify-center items-center text-xl font-black text-black gap-7 p-0"
+                            className="z-[9999] flex flex-col justify-center items-center text-xl font-black text-black gap-7 p-0 overflow-hidden"
                             placeholder={undefined}>
                             <div>
-                                <div className="text-center py-5">Connect to a wallet</div>
-                                <div className="flex flex-col gap-2 w-full bg-[#FAFAFA] px-5 py-10 ">
+                                <div className="text-center py-4">Connect to a wallet</div>
+                                <div className="flex flex-col gap-2 w-full bg-[#FAFAFA] px-7 py-10 ">
                                     <div
-                                        className="flex flex-row border-2 py-2 px-10 gap-3 rounded-xl cursor-pointer hover:border-[#F46221]"
+                                        className="flex flex-row items-center justify-center border-2 py-2 px-10 gap-3 rounded-xl cursor-pointer hover:border-[#F46221]"
                                         onClick={handleSignInModalOpen}>
                                         <img
                                             src="https://docs.material-tailwind.com/icons/metamask.svg"

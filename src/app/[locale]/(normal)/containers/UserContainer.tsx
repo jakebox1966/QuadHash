@@ -109,7 +109,6 @@ export default function UserContainer(props: IUserContainerProps) {
         <>
             <div className="max-w-[1296px] w-full px-[24px]">
                 <ProfileSection profileNFT={profileNFT} updateUserProfile={updateUserProfile} />
-
                 <NFTSection updateUserProfile={updateUserProfile} />
             </div>
         </>
