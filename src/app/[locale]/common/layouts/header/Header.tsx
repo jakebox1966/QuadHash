@@ -80,21 +80,21 @@ export default function Header(props: IHeaderProps) {
     }, [session])
 
     const init = async () => {
-        console.log('start init')
+        // console.log('start init')
         // if (wallet.accounts[0]) {
         if (session?.user?.token_type && session?.user?.token_id) {
             let NFTType = session?.user.token_type
             let tokenId = session?.user.token_id
-            console.log('NFTType =>', NFTType)
-            console.log('tokenId =>', tokenId)
+            // console.log('NFTType =>', NFTType)
+            // console.log('tokenId =>', tokenId)
             let metadata = null
             if (tokenId && NFTType) {
-                console.log('now setting profile')
+                // console.log('now setting profile')
 
                 if (NFTType === 'saza') {
                     metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
 
-                    console.log(metadata)
+                    // console.log(metadata)
                     // metadata = await getNFTMetadata(
                     //     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
                     //     tokenId,

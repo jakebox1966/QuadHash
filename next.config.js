@@ -3,7 +3,7 @@ const withNextIntl = require('next-intl/plugin')('./i18n.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false,
+    reactStrictMode: true,
     async rewrites() {
         return [
             {
@@ -19,6 +19,8 @@ const nextConfig = {
     images: {
         minimumCacheTTL: 60,
         remotePatterns: [{ protocol: 'https', hostname: '**' }],
+        imageSizes: [16, 128],
+        deviceSizes: [640, 1215],
     },
     logging: {
         fetches: {

@@ -12,27 +12,33 @@ export interface ITabComponentProps {
     handleNftTypeParam: (nftType: any) => void
     handleOptionParam: (option: any) => void
     queryParam: IQueryParam
+    burtonMorris: boolean
 }
 
 export default function TabComponent({
     handleNftTypeParam,
     handleOptionParam,
     queryParam,
+    burtonMorris,
 }: ITabComponentProps) {
     return (
-        <div className="hidden lg:flex flex-row justify-center items-center gap-4 w-full max-w-[970px]">
+        <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full max-w-[970px]">
             <div
-                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
+                className={`${
+                    queryParam.token_type === 'saza' ? 'border-[#F46221]' : ''
+                } border-2 rounded-lg px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all`}
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
-                <div className="flex flex-row items-center gap-2">
+                <div className={`flex flex-row items-center gap-2`}>
                     <Image src={mypage_saza_icon} alt="saza_icon" width={30} height={30} />
                     <div>SAZA NFT</div>
                 </div>
             </div>
             <div
-                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
+                className={`${
+                    queryParam.token_type === 'gaza' ? 'border-[#F46221]' : ''
+                } border-2 rounded-lg px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all`}
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>
@@ -41,8 +47,10 @@ export default function TabComponent({
                     <div>GAZA NFT</div>
                 </div>
             </div>
-            <div
-                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
+            {/* <div
+                className={`${
+                    queryParam.token_type === 'qbt' ? 'border-[#F46221]' : ''
+                } border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer tansition-all`}
                 onClick={() => {
                     handleNftTypeParam('exclusive')
                 }}>
@@ -50,20 +58,26 @@ export default function TabComponent({
                     <Image src={mypage_qbt_icon} alt="qbt_icon" width={30} height={30} />
                     <div>QBT NFT</div>
                 </div>
-            </div>
-            <div className="w-[calc(100%/4)]">
-                <Select
-                    defaultValue={queryParam.sort_by}
-                    label="Option"
-                    placeholder={undefined}
-                    onChange={(value) => {
-                        console.log(value)
-                        handleOptionParam(value)
-                    }}>
-                    <Option value="ranking">Rank</Option>
-                    <Option value="number">Token ID</Option>
-                </Select>
-            </div>
+            </div> */}
+            {!burtonMorris && (
+                <div className="w-[calc(100%/3-7px)]">
+                    <Select
+                        variant="outlined"
+                        value={queryParam.sort_by}
+                        // defaultValue={queryParam.sort_by}
+                        label={'option'}
+                        placeholder={undefined}
+                        onChange={(value) => {
+                            console.log(value)
+                            handleOptionParam(value)
+                        }}>
+                        <Option color="" value="ranking">
+                            Rank
+                        </Option>
+                        <Option value="number">Token ID</Option>
+                    </Select>
+                </div>
+            )}
         </div>
     )
 }

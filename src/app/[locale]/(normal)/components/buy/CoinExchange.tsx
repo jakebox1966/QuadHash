@@ -32,7 +32,7 @@ export default function CoinExchange(props: ICoinExchangeProps) {
         if (await $confirm('구매하시겠습니까?')) {
             try {
                 const response = await getCoin(coinAmount)
-                console.log(response)
+                // console.log(response)
                 if (response) {
                     router.push('/buy/success')
                 }

@@ -17,11 +17,15 @@ import {
     select,
 } from '@material-tailwind/react'
 import { sazaPartList } from '@/app/[locale]/parts_data/parts'
+import { IQueryParam } from '../../containers/CollectionContainer'
 export interface IFilterComponentProps {
+    queryParam: IQueryParam
     handlePartParam: any
-    searchNFT: () => void
+    handleSearchParam: () => void
     searchInput: string
     setSearchInput: React.Dispatch<React.SetStateAction<string>>
+    handleBurtonMorris: () => void
+    burtonMorris: boolean
 }
 
 const theme = {
@@ -51,10 +55,13 @@ function Icon({ id, open }) {
     )
 }
 export default function FilterComponent({
-    searchNFT,
+    queryParam,
+    handleSearchParam,
     handlePartParam,
     searchInput,
     setSearchInput,
+    handleBurtonMorris,
+    burtonMorris,
 }: IFilterComponentProps) {
     const [sazaFilterOpen, setSazafilterOpen] = React.useState({
         background: false,
@@ -79,6 +86,30 @@ export default function FilterComponent({
         }))
     }
 
+    const checkSelected = React.useCallback(
+        (partCategory, partName) => {
+            // const { background, body, bottoms, extras, eyes, head, headwear, mane, mouth, onesie } =
+            //     queryParam
+
+            // console.log(background)
+            // console.log(body)
+            // console.log(bottoms)
+            // console.log(extras)
+            // console.log(eyes)
+            // console.log(head)
+            // console.log(headwear)
+            // console.log(mane)
+            // console.log(mouth)
+            // console.log(onesie)
+
+            if (queryParam[partCategory].includes(partName)) {
+                return true
+            }
+            return false
+        },
+        [queryParam],
+    )
+
     const onChange = ({ target }) => {
         setSearchInput(target.value)
     }
@@ -98,20 +129,22 @@ export default function FilterComponent({
                         onChange={onChange}
                     />
                     <Button
-                        onClick={searchNFT}
+                        onClick={handleSearchParam}
                         className="text-center p-2 rounded-lg w-full text-[#FFFFFF] bg-[#F46221]"
                         placeholder={undefined}>
                         SEARCH
                     </Button>
                 </div>
 
-                <div className="flex flex-row items-center gap-6 text-sm font-medium bg-[#FFCD19]/25 py-4 px-3 w-full">
+                <div className="flex flex-row items-center gap-3 text-sm font-medium bg-[#FFCD19]/25 py-4 px-3 w-full">
                     <div>
                         <Image src={logoShort} alt={'logo_short'} />
                     </div>
                     <div>BURTON MORRIS VER</div>
 
                     <Switch
+                        checked={burtonMorris}
+                        onChange={handleBurtonMorris}
                         crossOrigin={undefined}
                         className="h-full w-full checked:bg-[#F46221] bg-black"
                         containerProps={{
@@ -123,32 +156,56 @@ export default function FilterComponent({
                         }}
                     />
                 </div>
-                <div className="w-full">
-                    {sazaPartList.map((item, index) => (
-                        <Accordion
-                            open={sazaFilterOpen[item.part_category]}
-                            icon={<Icon id={index} open={sazaFilterOpen[item.part_category]} />}
-                            placeholder={undefined}>
-                            <AccordionHeader
-                                className="border-none !text-black px-6 cursor-pointer"
-                                onClick={() => handleSazaFilterOpen(item)}
+                {!burtonMorris && (
+                    <div className="w-full">
+                        {sazaPartList.map((item, index) => (
+                            <Accordion
+                                key={item.part_category}
+                                open={sazaFilterOpen[item.part_category]}
+                                icon={<Icon id={index} open={sazaFilterOpen[item.part_category]} />}
                                 placeholder={undefined}>
-                                {item.part_category.toUpperCase()}
-                            </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
-                                {item.part_name.map((partName) => (
-                                    <div
-                                        className="text-black font-medium py-3 px-10"
-                                        onClick={() =>
-                                            handlePartParam(item.part_category, partName)
-                                        }>
-                                        {partName.toUpperCase()}
-                                    </div>
-                                ))}
-                            </AccordionBody>
-                        </Accordion>
-                    ))}
-                </div>
+                                <AccordionHeader
+                                    className="border-none !text-black px-6 cursor-pointer"
+                                    onClick={() => handleSazaFilterOpen(item)}
+                                    placeholder={undefined}>
+                                    {item.part_category.toUpperCase()}
+                                </AccordionHeader>
+                                <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
+                                    {item.part_name.map((partName) => (
+                                        <div
+                                            key={partName}
+                                            className="text-black font-medium py-3 px-10"
+                                            onClick={() =>
+                                                handlePartParam(item.part_category, partName)
+                                            }>
+                                            <div
+                                                className={`${
+                                                    checkSelected(item.part_category, partName)
+                                                        ? 'text-[#F46221]'
+                                                        : 'text-black'
+                                                } flex flex-row items-center justify-between`}>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="w-6 h-6">
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                    />
+                                                </svg>
+                                                <div>{partName.toUpperCase()}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </AccordionBody>
+                            </Accordion>
+                        ))}
+                    </div>
+                )}
             </div>
             <div className="flex lg:hidden flex-col justify-center items-center w-full">
                 <div className="flex flex-row justify-center items-center w-full px-[16px] gap-2">

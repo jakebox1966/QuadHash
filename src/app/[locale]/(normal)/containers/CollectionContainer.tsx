@@ -12,6 +12,7 @@ import FilterComponent from '../components/collection/FiterComponent'
 import TabComponent from '../components/collection/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getCollectionList } from '@/app/api/collection/api'
+import { useInfiniteQuery } from 'react-query'
 
 export interface ICollectionContainerProps {}
 
@@ -33,7 +34,6 @@ export interface IQueryParam {
     token_type: string
     sort_by: string
     asc_desc: string
-    page: number | string
     token_id: null
     background: string[]
     body: string[]
@@ -52,7 +52,6 @@ const initialQueryParam = {
     token_type: 'saza',
     sort_by: 'ranking',
     asc_desc: 'desc',
-    page: '1',
     token_id: null,
     background: [],
     body: [],
@@ -69,66 +68,85 @@ const initialQueryParam = {
 export default function CollectionContainer(props: ICollectionContainerProps) {
     const [searchInput, setSearchInput] = React.useState('')
     const [queryParam, setQueryParam] = React.useState(initialQueryParam)
+    const [burtonMorris, setBurtonMorris] = React.useState(false)
 
-    const [collectionList, setCollectionList] = React.useState([])
-
-    const initPage = () => {
-        setQueryParam((prev) => ({
-            ...prev,
-            page: '1',
-        }))
+    const handleBurtonMorris = () => {
+        if (!burtonMorris) {
+            setQueryParam((prev) => ({
+                ...prev,
+                sort_by: 'ranking',
+                asc_desc: 'asc',
+                token_id: null,
+                background: [],
+                body: [],
+                extras: [],
+                eyes: [],
+                head: [],
+                headwear: [],
+                mane: [],
+                mouth: [],
+                top: [],
+                bottoms: [],
+                onesie: [],
+            }))
+        } else {
+            setQueryParam(initialQueryParam)
+        }
+        setSearchInput('')
+        setBurtonMorris((prev) => !prev)
     }
+
+    // React.useEffect(() => {
+    //     console.log(burtonMorris)
+    // }, [burtonMorris])
+
     const handlePartParam = (category, partName) => {
-        initPage()
-        setCollectionList([])
         if (queryParam[category].find((item) => item === partName)) {
             setQueryParam((prev) => ({
                 ...prev,
+                token_id: null,
                 [category]: prev[category].filter((item) => item !== partName),
             }))
         } else {
-            initPage()
             setQueryParam((prev) => ({
                 ...prev,
+                token_id: null,
                 [category]: [...prev[category], partName],
             }))
         }
+        setSearchInput('')
     }
 
     const handleNftTypeParam = (nftType) => {
-        initPage()
-        setCollectionList([])
-        setQueryParam({ ...queryParam, token_type: nftType })
+        setQueryParam({
+            ...queryParam,
+            token_id: null,
+            token_type: nftType,
+            background: [],
+            body: [],
+            extras: [],
+            eyes: [],
+            head: [],
+            headwear: [],
+            mane: [],
+            mouth: [],
+            top: [],
+            bottoms: [],
+            onesie: [],
+        })
+        setSearchInput('')
     }
 
     const handleOptionParam = (option) => {
-        initPage()
-        setCollectionList([])
-        setQueryParam({ ...queryParam, sort_by: option })
+        setQueryParam({ ...queryParam, sort_by: option, token_id: null })
+        setSearchInput('')
     }
 
-    const fetchData = async () => {
-        const process = Object.entries(queryParam)
-            .filter((item) => item[1] !== null)
-            .filter((item) => item[1].length !== 0)
-        console.log(process)
-
-        const query = Object.fromEntries(process)
-
-        console.log(query)
-
-        const result = await getCollectionList(new URLSearchParams(query).toString())
-        // Object.entries(queryParam).filter((item) => item[1] === null || item[1].length === 0)
-
-        console.log(result)
-        setCollectionList(result.data)
-    }
-
-    const searchNFT = () => {
-        initPage()
-        setCollectionList([])
+    const handleSearchParam = () => {
         setQueryParam((prev) => ({
             ...prev,
+            sort_by: 'ranking',
+            asc_desc: 'desc',
             token_id: searchInput,
             background: [],
             body: [],
@@ -142,38 +160,94 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             bottoms: [],
             onesie: [],
         }))
+        setBurtonMorris(false)
     }
 
-    React.useEffect(() => {
-        console.log(searchInput)
-    }, [searchInput])
+    const fetchData = async (pageParam) => {
+        const process = Object.entries(queryParam)
+            .filter((item) => item[1] !== null)
+            .filter((item) => item[1].length !== 0)
 
-    React.useEffect(() => {
-        fetchData()
-    }, [queryParam])
+        const query = Object.fromEntries(process)
+
+        query.page = pageParam
+
+        // const result = await getCollectionList(new URLSearchParams(query).toString())
+
+        const result = await getCollectionList(new URLSearchParams(query).toString())
+        // Object.entries(queryParam).filter((item) => item[1] === null || item[1].length === 0)
+
+        return result
+    }
+
+    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
+        queryKey: ['getCollection', queryParam, burtonMorris],
+        queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
+        getNextPageParam: (lastPage, allPages) => {
+            if (!burtonMorris) {
+                const currentPage = lastPage.paging.page
+                const totalPage = lastPage.paging.total_pages
+                console.log(currentPage)
+                console.log(totalPage)
+                if (currentPage === totalPage) {
+                    return false
+                }
+                return currentPage + 1
+            } else {
+                const currentPage = lastPage.paging.page
+                const totalPage = 5
+                console.log(currentPage)
+                console.log(totalPage)
+                if (currentPage === totalPage) {
+                    return false
+                }
+                return currentPage + 1
+            }
+        },
+    })
+
+    const { setTarget } = useIntersectionObserver({
+        hasNextPage,
+        fetchNextPage,
+    })
+
     return (
         <>
             <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">
                 <FilterComponent
-                    searchNFT={searchNFT}
+                    burtonMorris={burtonMorris}
+                    handleBurtonMorris={handleBurtonMorris}
+                    queryParam={queryParam}
+                    handleSearchParam={handleSearchParam}
                     handlePartParam={handlePartParam}
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
                 />
                 <div className="w-full px-[16px] lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
                     <TabComponent
+                        burtonMorris={burtonMorris}
                         handleNftTypeParam={handleNftTypeParam}
                         handleOptionParam={handleOptionParam}
                         queryParam={queryParam}
                     />
                     <CardListComponent>
-                        {collectionList.map((item) => (
+                        {/* {data.pages.map((item) => (
                             <CardComponent item={item} queryParam={queryParam} />
-                        ))}
+                        ))} */}
+                        {data?.pages.map((page) => {
+                            return page?.data.map((item, index) => (
+                                <CardComponent
+                                    burtonMorris={burtonMorris}
+                                    key={`${item}_${index}`}
+                                    item={item}
+                                    queryParam={queryParam}
+                                />
+                            ))
+                        })}
                     </CardListComponent>
-                    <div ref={setTarget} className="h-[1rem]" />
                 </div>
             </div>
+            <div ref={setTarget} className="h-[1rem]" />
         </>
     )
 }

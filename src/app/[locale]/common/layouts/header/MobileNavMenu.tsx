@@ -108,7 +108,7 @@ export default function MobileNavMenu({
     const { data: session } = useSession()
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
-    console.log(profileNFT)
+    // console.log(profileNFT)
 
     return (
         // <React.Fragment>
@@ -126,7 +126,7 @@ export default function MobileNavMenu({
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="2"
+                        strokeWidth="2"
                         stroke="currentColor"
                         className="h-10 w-10">
                         <path
@@ -143,13 +143,15 @@ export default function MobileNavMenu({
                     {wallet.accounts[0] && session && (
                         <div className="flex flex-col justify-center items-start">
                             <div>
-                                <Image
-                                    src={imageUrl}
-                                    width={77}
-                                    height={77}
-                                    alt="profile_image"
-                                    className="rounded-full"
-                                />
+                                {imageUrl && (
+                                    <Image
+                                        src={imageUrl}
+                                        width={77}
+                                        height={77}
+                                        alt="profile_image"
+                                        className="rounded-full"
+                                    />
+                                )}
                             </div>
                             <div className="mt-5">{profileNFT?.name.split(':')[1].trim()}</div>
                             <div className="font-normal text-gray-300">
@@ -187,6 +189,7 @@ export default function MobileNavMenu({
 
                     {menuList.map((item) => (
                         <Link
+                            key={item}
                             href={item}
                             className="flex flex-row justify-center items-center gap-14">
                             {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
