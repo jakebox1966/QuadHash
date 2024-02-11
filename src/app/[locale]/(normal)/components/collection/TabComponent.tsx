@@ -6,6 +6,7 @@ import mypage_gaza_icon from '/public/mypage_gaza_icon.svg'
 import mypage_qbt_icon from '/public/mypage_qbt_icon.svg'
 import { Select, Option } from '@material-tailwind/react'
 import { IQueryParam } from '../../containers/CollectionContainer'
+import logoShort from '/public/logo_short.png'
 
 export interface ITabComponentProps {
     handleNftTypeParam: (nftType: any) => void
@@ -19,9 +20,9 @@ export default function TabComponent({
     queryParam,
 }: ITabComponentProps) {
     return (
-        <div className="flex flex-row justify-start items-center gap-4 w-full">
+        <div className="hidden lg:flex flex-row justify-center items-center gap-4 w-full max-w-[970px]">
             <div
-                className="border-2 rounded-lg px-10 py-1 w-[calc(100%/4)] cursor-pointer"
+                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
@@ -31,7 +32,7 @@ export default function TabComponent({
                 </div>
             </div>
             <div
-                className="border-2 rounded-lg px-10 py-1 w-[calc(100%/4)] cursor-pointer"
+                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>
@@ -41,7 +42,7 @@ export default function TabComponent({
                 </div>
             </div>
             <div
-                className="border-2 rounded-lg px-10 py-1 w-[calc(100%/4)] cursor-pointer"
+                className="border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer"
                 onClick={() => {
                     handleNftTypeParam('exclusive')
                 }}>

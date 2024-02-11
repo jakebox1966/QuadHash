@@ -10,6 +10,12 @@
 
 @layer components {
 
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   .headerbackground {
     background:
       linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)35%, rgba(255, 255, 255, 0.7)50%, rgba(255, 255, 255, 1)100%),

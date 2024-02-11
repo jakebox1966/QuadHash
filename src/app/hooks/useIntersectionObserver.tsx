@@ -5,7 +5,7 @@ import { InfiniteQueryObserverResult } from 'react-query'
 interface IuseIntersectionObserverProps {
     threshold?: number
     hasNextPage: boolean | undefined
-    fetchNextPage: () => Promise<InfiniteQueryObserverResult>
+    fetchNextPage?: () => Promise<InfiniteQueryObserverResult>
 }
 
 export const useIntersectionObserver = ({
