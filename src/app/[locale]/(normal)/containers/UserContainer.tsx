@@ -11,9 +11,11 @@ import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { getNFTMetadata } from '@/app/api/alchemy/api'
 
-export interface IUserContainerProps {}
+export interface IUserContainerProps {
+    wallet_address: string
+}
 
-export default function UserContainer(props: IUserContainerProps) {
+export default function UserContainer({ wallet_address }: IUserContainerProps) {
     // const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
 
@@ -41,6 +43,7 @@ export default function UserContainer(props: IUserContainerProps) {
         console.log('start init')
         // if (wallet.accounts[0]) {
         if (session?.user?.token_type && session?.user?.token_id) {
+            console.log(session)
             let NFTType = session?.user.token_type
             let tokenId = session?.user.token_id
             console.log('NFTType =>', NFTType)
@@ -48,23 +51,9 @@ export default function UserContainer(props: IUserContainerProps) {
             let metadata = null
             if (tokenId && NFTType) {
                 console.log('now setting profile')
-
-                if (NFTType === 'saza') {
+                if (NFTType === 'saza' || NFTType === 'gaza') {
                     metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
-
                     console.log(metadata)
-                    // metadata = await getNFTMetadata(
-                    //     process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-                    //     tokenId,
-                    // )
-                    setProfileNFT(metadata)
-                } else if (NFTType === 'gaza') {
-                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
-
-                    // metadata = await getNFTMetadata(
-                    //     process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-                    //     tokenId,
-                    // )
                     setProfileNFT(metadata)
                 } else if (NFTType === 'reset') {
                     setProfileNFT(null)

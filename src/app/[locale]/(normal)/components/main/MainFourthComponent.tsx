@@ -6,8 +6,10 @@ export interface IMainFourthComponentProps {}
 
 export default function MainFourthComponent(props: IMainFourthComponentProps) {
     return (
-        <div className="max-w-[1600px] pt-20 lg:pt-80 bg-[#FEFAE0]">
-            <Image src={main_fourth_image} alt="saza&gaza" />
+        <div className="w-full flex flex-row justify-center bg-[#FEFAE0]">
+            <div className="max-w-[1600px] pt-20 lg:pt-80">
+                <Image src={main_fourth_image} alt="saza&gaza" />
+            </div>
         </div>
     )
 }

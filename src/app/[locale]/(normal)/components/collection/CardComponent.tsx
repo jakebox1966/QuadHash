@@ -8,9 +8,15 @@ export interface ICardComponentProps {
     item: number
     queryParam: IQueryParam
     burtonMorris: boolean
+    onClick?: (token_id: any, token_type: any) => Promise<void>
 }
 
-export default function CardComponent({ item, queryParam, burtonMorris }: ICardComponentProps) {
+export default function CardComponent({
+    item,
+    queryParam,
+    burtonMorris,
+    onClick,
+}: ICardComponentProps) {
     const tokenType = queryParam.token_type
     let imgUrl = ''
     if (!burtonMorris) {
@@ -28,7 +34,9 @@ export default function CardComponent({ item, queryParam, burtonMorris }: ICardC
     }
     return (
         <>
-            <div className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]">
+            <div
+                className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
+                onClick={() => onClick(item, queryParam.token_type)}>
                 <div className="overflow-hidden rounded-lg  aspect-square">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
                         <Image

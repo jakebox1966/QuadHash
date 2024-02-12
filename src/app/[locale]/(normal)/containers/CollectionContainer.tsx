@@ -13,6 +13,9 @@ import TabComponent from '../components/collection/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getCollectionList } from '@/app/api/collection/api'
 import { useInfiniteQuery } from 'react-query'
+import CollectionDetailModalComponent from '../components/collection/CollectionDetailModalComponent'
+import { backgroundPallete } from '../../common/color/colorPalette'
+import { getOwnerForNft } from '@/app/api/alchemy/api'
 
 export interface ICollectionContainerProps {}
 
@@ -65,10 +68,64 @@ const initialQueryParam = {
     bottoms: [],
     onesie: [],
 }
+
 export default function CollectionContainer(props: ICollectionContainerProps) {
     const [searchInput, setSearchInput] = React.useState('')
     const [queryParam, setQueryParam] = React.useState(initialQueryParam)
     const [burtonMorris, setBurtonMorris] = React.useState(false)
+
+    const [open, setOpen] = React.useState(false)
+    const [owner, setOwner] = React.useState(null)
+    const [backgroundColor, setBackgroundColor] = React.useState(null)
+    const [metadata, setMetadata] = React.useState(null)
+    const [imageUrl, setImageUrl] = React.useState(null)
+
+    /**
+     * 모달 Control
+     */
+
+    const handleOpen = React.useCallback(() => {
+        setOpen(!open)
+    }, [open])
+
+    const openDetailModal = async (token_id, token_type) => {
+        setOwner(null)
+        const metadata = await getMetadata({
+            nftType: token_type,
+            tokenId: token_id,
+        })
+
+        let contractAddress = ''
+        if (token_type === 'saza') {
+            contractAddress = process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
+        } else if (token_type === 'gaza') {
+            contractAddress = process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
+        }
+
+        console.log(token_id)
+        console.log(token_type)
+        console.log(contractAddress)
+        await getOwnerForNft(contractAddress, token_id)
+            .then((response) => {
+                console.log(response)
+                setOwner(response.owners[0])
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+
+        setMetadata(metadata)
+        setImageUrl(metadata.image)
+        const backgroundColor = metadata.attributes.find((item) => {
+            return item.trait_type === 'Background'
+        })
+        setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
+        handleOpen()
+    }
+
+    /**
+     * Filter Control
+     */
 
     const handleBurtonMorris = () => {
         if (!burtonMorris) {
@@ -90,7 +147,22 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                 onesie: [],
             }))
         } else {
-            setQueryParam(initialQueryParam)
+            setQueryParam((prev) => ({
+                ...prev,
+                asc_desc: 'desc',
+                token_id: null,
+                background: [],
+                body: [],
+                extras: [],
+                eyes: [],
+                head: [],
+                headwear: [],
+                mane: [],
+                mouth: [],
+                top: [],
+                bottoms: [],
+                onesie: [],
+            }))
         }
         setSearchInput('')
         setBurtonMorris((prev) => !prev)
@@ -172,10 +244,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
 
         query.page = pageParam
 
-        // const result = await getCollectionList(new URLSearchParams(query).toString())
-
         const result = await getCollectionList(new URLSearchParams(query).toString())
-        // Object.entries(queryParam).filter((item) => item[1] === null || item[1].length === 0)
 
         return result
     }
@@ -222,6 +291,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                     handlePartParam={handlePartParam}
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
+                    handleOptionParam={handleOptionParam}
+                    handleNftTypeParam={handleNftTypeParam}
                 />
                 <div className="w-full px-[16px] lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
                     <TabComponent
@@ -237,6 +308,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                         {data?.pages.map((page) => {
                             return page?.data.map((item, index) => (
                                 <CardComponent
+                                    onClick={openDetailModal}
                                     burtonMorris={burtonMorris}
                                     key={`${item}_${index}`}
                                     item={item}
@@ -248,6 +320,14 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                 </div>
             </div>
             <div ref={setTarget} className="h-[1rem]" />
+            <CollectionDetailModalComponent
+                open={open}
+                handleOpen={handleOpen}
+                owner={owner}
+                metadata={metadata}
+                imageUrl={imageUrl}
+                backgroundColor={backgroundColor}
+            />
         </>
     )
 }

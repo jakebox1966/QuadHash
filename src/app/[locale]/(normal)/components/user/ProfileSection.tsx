@@ -49,6 +49,10 @@ export default function ProfileSection({ profileNFT, updateUserProfile }: IProfi
             return '/mypage_headwear.svg'
         } else if (partKey === 'Extras') {
             return '/mypage_square.svg'
+        } else if (partKey === 'Dcount') {
+            return '/mypage_dcount.svg'
+        } else if (partKey === 'Rank') {
+            return '/mypage_rank.svg'
         }
     }
 
@@ -84,16 +88,16 @@ export default function ProfileSection({ profileNFT, updateUserProfile }: IProfi
                         {/* <img src={imageUrl} alt="profile_image" width={530} height={0} /> */}
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center gap-5 hidden`}>
-                            <div className="flex flex-row flex-wrap gap-6 pl-10 justify-start items-center">
+                            <div className="flex flex-row flex-wrap gap-3 pl-10 justify-start items-center">
                                 <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center">
                                     <div>{profileNFT?.name.split(':')[0].trim()}</div>
                                     <div className="text-2xl font-bold">
                                         {profileNFT?.name.split(':')[1].trim()}
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         {profileNFT?.attributes[0].trait_type} -{' '}
                                         {profileNFT?.attributes[0].value}
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
                                     <NFTSetting
@@ -145,13 +149,40 @@ export default function ProfileSection({ profileNFT, updateUserProfile }: IProfi
                                                         alt="mypage_square"
                                                     />
                                                 )}
+                                                {item.trait_type === 'Dcount' && (
+                                                    <img
+                                                        src="/mypage_dcount.svg"
+                                                        alt="mypage_dcount"
+                                                    />
+                                                )}
+                                                {item.trait_type === 'Ranking' && (
+                                                    <img
+                                                        src="/mypage_rank.svg"
+                                                        alt="mypage_ranking"
+                                                    />
+                                                )}
                                             </div>
                                             <div>
-                                                <div>{item.trait_type}</div>
+                                                <div className="font-medium">
+                                                    {item.trait_type !== 'Dcount'
+                                                        ? item.trait_type
+                                                        : 'Dynamic NFT'}
+                                                </div>
                                                 <div className="font-black">{item.value}</div>
                                             </div>
                                         </div>
                                     ))}
+                                <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-3 bg-opacity-20 bg-black rounded-lg">
+                                    <div>
+                                        <img src="/mypage_rank.svg" alt="mypage_rank" />
+                                    </div>
+                                    <div>
+                                        <div>{profileNFT?.attributes[0].trait_type}</div>
+                                        <div className="font-black">
+                                            {profileNFT?.attributes[0].value}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {/* </div> */}

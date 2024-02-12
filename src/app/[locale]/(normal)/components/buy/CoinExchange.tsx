@@ -11,8 +11,8 @@ import { getCoin } from '@/app/api/alchemy/api'
 
 export interface ICoinExchangeProps {}
 
+const { useRouter } = createSharedPathnamesNavigation({ locales })
 export default function CoinExchange(props: ICoinExchangeProps) {
-    const { useRouter } = createSharedPathnamesNavigation({ locales })
     // const { $alert } = React.useContext(AlertContext)
     const { $confirm } = React.useContext(ConfirmContext)
     const [coinAmount, setCoinAmount] = React.useState(0)

@@ -1,5 +1,4 @@
 'use client'
-
 import * as React from 'react'
 import {
     Dialog,
@@ -10,58 +9,32 @@ import {
     Typography,
     ThemeProvider,
 } from '@material-tailwind/react'
-import ProfileSection from './ProfileSection'
 import Image from 'next/image'
-import PartTooltipComponent from './PartTooltipComponent'
 import { customTheme } from '@/app/[locale]/common/materialUI/theme'
-import NFTSetting from './NFTSetting'
-import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
+import { formatAddress } from '@/app/utils/ethUtils'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
-export interface INFTDetailModalComponentProps {
-    activeNFT: any
+export interface ICollectionDetailModalComponentProps {
+    // activeNFT: any
+    owner: string
     metadata?: any
     imageUrl?: string
     backgroundColor?: string
     open?: boolean
     handleOpen?: () => void
-    updateUserProfile: (tokenId: any) => Promise<void>
 }
+const { Link } = createSharedPathnamesNavigation({ locales })
 
-export default function NFTDetailModalComponent({
-    activeNFT,
+export default function CollectionDetailModalComponent({
+    // activeNFT,
+    owner,
     metadata,
     imageUrl,
     backgroundColor,
     open,
     handleOpen,
-    updateUserProfile,
-}: INFTDetailModalComponentProps) {
-    const checkPartIcon = (partKey) => {
-        if (partKey === 'Ranking') {
-            return '/mypage_square.svg'
-        } else if (partKey === 'Background') {
-            return '/mypage_square.svg'
-        } else if (partKey === 'Mane') {
-            return '/mypage_mane.svg'
-        } else if (partKey === 'Body') {
-            return '/mypage_body.svg'
-        } else if (partKey === 'Head') {
-            return '/mypage_head.svg'
-        } else if (partKey === 'Eyes') {
-            return '/mypage_plus.svg'
-        } else if (partKey === 'Mouth') {
-            return '/mypage_mouth.svg'
-        } else if (partKey === 'Headwear') {
-            return '/mypage_headwear.svg'
-        } else if (partKey === 'Extras') {
-            return '/mypage_square.svg'
-        }
-    }
-
-    // React.useEffect(() => {
-    //     console.log(activeNFT)
-    // }, [activeNFT])
-
+}: ICollectionDetailModalComponentProps) {
     return (
         <>
             <ThemeProvider value={customTheme}>
@@ -101,28 +74,28 @@ export default function NFTDetailModalComponent({
                         </div>
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center hidden`}>
-                            <div className="flex flex-row flex-wrap gap-4 pl-10 justify-start items-start">
+                            <div className="flex flex-row flex-wrap gap-4 pl-10 justify-start items-center">
                                 <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center font-bold p-2 bg-opacity-20 bg-black rounded-lg">
                                     <div>{metadata?.name.split(':')[0].trim()}</div>
                                     <div className="text-2xl">
                                         {metadata?.name.split(':')[1].trim()}
                                     </div>
-                                    {/* {owner && (
+                                    {owner && (
                                         <Link
                                             href={`/user/${owner}`}
                                             className="hover:bg-opacity-20 hover:bg-black rounded-lg">
                                             {owner && formatAddress(owner)}
                                         </Link>
-                                    )} */}
+                                    )}
                                 </div>
-
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
+                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between"></div>
+                                {/* <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
                                     <NFTSetting
                                         updateUserProfile={updateUserProfile}
                                         profileNFT={activeNFT}
                                         isFrom={'list'}
                                     />
-                                </div>
+                                </div> */}
                                 {metadata?.attributes
                                     .filter((item, index) => index !== 0)
                                     .map((item) => (
@@ -180,7 +153,7 @@ export default function NFTDetailModalComponent({
                                                 )}
                                             </div>
                                             <div>
-                                                <div className="font-medium">
+                                                <div>
                                                     {item.trait_type !== 'Dcount'
                                                         ? item.trait_type
                                                         : 'Dynamic NFT'}
@@ -194,9 +167,7 @@ export default function NFTDetailModalComponent({
                                         <img src="/mypage_rank.svg" alt="mypage_rank" />
                                     </div>
                                     <div>
-                                        <div className="font-medium">
-                                            {metadata?.attributes[0].trait_type}
-                                        </div>
+                                        <div>{metadata?.attributes[0].trait_type}</div>
                                         <div className="font-black">
                                             {metadata?.attributes[0].value}
                                         </div>

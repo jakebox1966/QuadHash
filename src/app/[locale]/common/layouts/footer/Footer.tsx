@@ -18,7 +18,7 @@ export default function Footer(props: IFooterProps) {
                         <Link href={'/report'} className="text-[#FF000F]">
                             Hacking Report
                         </Link>
-                        <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
+                        <Link href={'/contact'}>Contact Us</Link>
                         <Link href={'/terms_of_use'}>Terms of Use</Link>
                         <Link href={'/privacy'}>Privacy</Link>
                     </div>
@@ -86,7 +86,7 @@ export default function Footer(props: IFooterProps) {
                 </div>
             </footer>
 
-            <footer className="min-h-[620px] px-10 bg-[#FEFAE0] lg:hidden w-full flex flex-col justify-center items-start gap-10">
+            <footer className="min-h-[620px] px-10 lg:hidden w-full flex flex-col justify-center items-start gap-10">
                 <div>
                     <Logo />
                 </div>
@@ -95,7 +95,7 @@ export default function Footer(props: IFooterProps) {
                     <Link href={'/report'} className="text-[#FF000F]">
                         Hacking Report
                     </Link>
-                    <Link href={'mailto:team_nft@likelion.net'}>Contact Us</Link>
+                    <Link href={'/contact'}>Contact Us</Link>
                     <Link href={'/terms_of_use'}>Terms of Use</Link>
                     <Link href={'/privacy'}>Privacy</Link>
                 </div>

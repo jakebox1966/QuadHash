@@ -25,6 +25,8 @@ export interface IFilterComponentProps {
     searchInput: string
     setSearchInput: React.Dispatch<React.SetStateAction<string>>
     handleBurtonMorris: () => void
+    handleOptionParam: (option: any) => void
+    handleNftTypeParam: (nftType: any) => void
     burtonMorris: boolean
 }
 
@@ -61,6 +63,8 @@ export default function FilterComponent({
     searchInput,
     setSearchInput,
     handleBurtonMorris,
+    handleOptionParam,
+    handleNftTypeParam,
     burtonMorris,
 }: IFilterComponentProps) {
     const [sazaFilterOpen, setSazafilterOpen] = React.useState({
@@ -73,6 +77,12 @@ export default function FilterComponent({
         mane: false,
         mouth: false,
     })
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearchParam()
+        }
+    }
 
     /**
      * Accordion 메뉴 컨트롤
@@ -126,6 +136,7 @@ export default function FilterComponent({
                         crossOrigin={undefined}
                         value={searchInput}
                         type="number"
+                        onKeyDown={handleKeyPress}
                         onChange={onChange}
                     />
                     <Button
@@ -211,26 +222,49 @@ export default function FilterComponent({
                 <div className="flex flex-row justify-center items-center w-full px-[16px] gap-2">
                     <ThemeProvider value={theme}>
                         <div className="!text-xs !min-w-[80px] w-full">
-                            <Select label="Type" placeholder={undefined}>
-                                <Option>SAZA</Option>
-                                <Option>GAZA</Option>
+                            <Select
+                                label="Type"
+                                placeholder={undefined}
+                                value={queryParam.token_type}
+                                onChange={(value) => {
+                                    console.log(value)
+                                    handleNftTypeParam(value)
+                                }}>
+                                <Option value="saza">SAZA</Option>
+                                <Option value="gaza">GAZA</Option>
                             </Select>
                         </div>
                     </ThemeProvider>
-                    <div className="flex flex-row text-[10px] justify-center items-center w-full">
+                    <div
+                        className={`flex flex-row text-[8px] md:text-sm justify-center items-center w-full border-2 py-2 rounded-lg ${
+                            burtonMorris && 'border-[#F46221] bg-[#FFCD19]/25'
+                        }`}
+                        onClick={handleBurtonMorris}>
                         <div className="flex flex-row items-center gap-2 w-full justify-center">
                             <Image src={logoShort} width={18} height={18} alt={'logo_short'} />
                             <div>BURTON MORRIS</div>
                         </div>
                     </div>
-                    <ThemeProvider value={theme}>
-                        <div className="!text-xs !min-w-[80px] w-full">
-                            <Select label="option" placeholder={undefined}>
-                                <Option>SAZA</Option>
-                                <Option>GAZA</Option>
-                            </Select>
-                        </div>
-                    </ThemeProvider>
+
+                    {!burtonMorris && (
+                        <ThemeProvider value={theme}>
+                            <div className="!text-xs !min-w-[80px] w-full">
+                                <Select
+                                    variant="outlined"
+                                    value={queryParam.sort_by}
+                                    // defaultValue={queryParam.sort_by}
+                                    label={'option'}
+                                    placeholder={undefined}
+                                    onChange={(value) => {
+                                        console.log(value)
+                                        handleOptionParam(value)
+                                    }}>
+                                    <Option value="ranking">Rank</Option>
+                                    <Option value="number">Token ID</Option>
+                                </Select>
+                            </div>
+                        </ThemeProvider>
+                    )}
                 </div>
 
                 <div className="w-full h-full relative mt-4 px-[16px]">
@@ -238,6 +272,9 @@ export default function FilterComponent({
                         type="text"
                         className="pl-7 w-full h-full border-2 p-2 rounded-lg"
                         placeholder="Search"
+                        value={searchInput}
+                        onKeyDown={handleKeyPress}
+                        onChange={onChange}
                     />
                     <img src="/search.svg" alt="search" className="absolute left-7 top-3" />
                 </div>

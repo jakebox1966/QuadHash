@@ -13,6 +13,18 @@ const config = {
 const alchemy = new Alchemy(config)
 
 /**
+ * Get Owner For NFT
+ *
+ * @param contractAddress
+ * @param token_id
+ * @returns
+ */
+export const getOwnerForNft = async (contractAddress: string, token_id: string) => {
+    const response = await alchemy.nft.getOwnersForNft(contractAddress, token_id)
+    return response
+}
+
+/**
  * Get All NFT List For A Given Owner Address.
  *
  * @param wallet_address
