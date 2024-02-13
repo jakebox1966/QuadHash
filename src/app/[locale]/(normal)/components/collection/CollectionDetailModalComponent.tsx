@@ -82,7 +82,7 @@ export default function CollectionDetailModalComponent({
                                     </div>
                                     {owner && (
                                         <Link
-                                            href={`/user/${owner}`}
+                                            href={`/collector/${owner}`}
                                             className="hover:bg-opacity-20 hover:bg-black rounded-lg">
                                             {owner && formatAddress(owner)}
                                         </Link>

@@ -44,7 +44,7 @@ export default function MobileNavMenu1({ isMobileMenuOpen }: IMobileNavMenu1Prop
                         <hr />
                         <div className="flex flex-col items-start justify-center px-10 py-7 gap-10">
                             <div className="flex flex-row justify-between items-center w-full hover:opacity-50">
-                                <Link href={'/user'}>{t('myprofile')}</Link>
+                                <Link href={'/collector'}>{t('myprofile')}</Link>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20"

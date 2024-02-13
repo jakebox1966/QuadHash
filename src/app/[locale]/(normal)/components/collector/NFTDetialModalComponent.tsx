@@ -1,21 +1,14 @@
 'use client'
 
 import * as React from 'react'
-import {
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
-    IconButton,
-    Typography,
-    ThemeProvider,
-} from '@material-tailwind/react'
-import ProfileSection from './ProfileSection'
+import { Dialog, DialogBody, ThemeProvider } from '@material-tailwind/react'
+
 import Image from 'next/image'
-import PartTooltipComponent from './PartTooltipComponent'
+
 import { customTheme } from '@/app/[locale]/common/materialUI/theme'
 import NFTSetting from './NFTSetting'
-import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
+import { useSession } from 'next-auth/react'
+import { useMetaMask } from '@/app/hooks/useMetaMask'
 
 export interface INFTDetailModalComponentProps {
     activeNFT: any
@@ -57,6 +50,9 @@ export default function NFTDetailModalComponent({
             return '/mypage_square.svg'
         }
     }
+
+    const { data: session } = useSession()
+    const { wallet } = useMetaMask()
 
     // React.useEffect(() => {
     //     console.log(activeNFT)
@@ -107,21 +103,17 @@ export default function NFTDetailModalComponent({
                                     <div className="text-2xl">
                                         {metadata?.name.split(':')[1].trim()}
                                     </div>
-                                    {/* {owner && (
-                                        <Link
-                                            href={`/user/${owner}`}
-                                            className="hover:bg-opacity-20 hover:bg-black rounded-lg">
-                                            {owner && formatAddress(owner)}
-                                        </Link>
-                                    )} */}
                                 </div>
 
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
-                                    <NFTSetting
-                                        updateUserProfile={updateUserProfile}
-                                        profileNFT={activeNFT}
-                                        isFrom={'list'}
-                                    />
+                                    {session &&
+                                        session.user.wallet_address === wallet?.accounts[0] && (
+                                            <NFTSetting
+                                                updateUserProfile={updateUserProfile}
+                                                profileNFT={activeNFT}
+                                                isFrom={'list'}
+                                            />
+                                        )}
                                 </div>
                                 {metadata?.attributes
                                     .filter((item, index) => index !== 0)

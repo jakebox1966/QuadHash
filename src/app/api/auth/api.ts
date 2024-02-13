@@ -8,8 +8,10 @@ import { JWT } from 'next-auth/jwt'
  * @param account
  * @returns string
  */
-export const getUuidByAccount = async (account: any | string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${account}`)
+export const getUuidByAccount = async (wallet_address: any | string) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${wallet_address}/nonce`,
+    )
     const result = await response.json()
     return result
 }
@@ -61,6 +63,24 @@ export const getUserInfo = async (access_token: string) => {
     const result = await response.json()
 
     return result
+}
+/**
+ *
+ * 회원정보 (collection 페이지 => collector 페이지 이동 시, wallet_address로 사용자 정보 받아오기 위한 API)
+ *
+ * @param wallet_address
+ * @returns
+ */
+export const getUserInfoByWalletAddress = async (wallet_address: string) => {
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/users/${wallet_address}/info`,
+        {
+            method: 'GET',
+        },
+    )
+
+    const result = await response.json()
+    return result.data
 }
 
 /**

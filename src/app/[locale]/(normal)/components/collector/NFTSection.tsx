@@ -13,13 +13,14 @@ import NFTDetailModalComponent from './NFTDetialModalComponent'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
-import { getUuidByAccount } from '@/app/api/auth/api'
-import { updateUserProfileTokenId } from '@/app/api/user/api'
+import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export interface INFTSectionProps {
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
+    wallet_address: string
 }
 
 const tabData = [
@@ -37,7 +38,7 @@ const tabData = [
     },
 ]
 
-export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
+export default function NFTSection({ updateUserProfile, wallet_address }: INFTSectionProps) {
     const [sazaNfts, setSazaNfts] = React.useState(null)
     const [gazaNfts, setGazaNfts] = React.useState(null)
     const [qbtNfts, setQbtNfts] = React.useState([])
@@ -46,6 +47,7 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
     const [qbtIsLoading, setQbtIsLoading] = React.useState(false)
     const [activeTab, setActiveTab] = React.useState('SAZA')
     const [activeNFT, setActiveNFT] = React.useState(null)
+    const { data: session } = useSession()
 
     const { wallet } = useMetaMask()
 
@@ -80,18 +82,18 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                if (wallet.accounts[0]) {
+                if (wallet_address) {
                     setSazaIsLoading(true)
                     setGazaIsLoading(true)
                     setQbtIsLoading(true)
                     // console.log('Start loading data')
-                    const sazaNfts = await getNftsForOwner(wallet.accounts[0], {
+                    const sazaNfts = await getNftsForOwner(wallet_address, {
                         contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                     })
 
                     // console.log(sazaNfts)
 
-                    const gazaNfts = await getNftsForOwner(wallet.accounts[0], {
+                    const gazaNfts = await getNftsForOwner(wallet_address, {
                         contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
                     })
 
@@ -118,7 +120,7 @@ export default function NFTSection({ updateUserProfile }: INFTSectionProps) {
             }
         }
         fetchData()
-    }, [wallet.accounts])
+    }, [wallet_address])
     return (
         <>
             <div className="mt-10">

@@ -1,21 +1,21 @@
 'use client'
 
 import * as React from 'react'
-import ProfileSection from '../components/user/ProfileSection'
-import NFTSection from '../components/user/NFTSection'
+import ProfileSection from '../components/collector/ProfileSection'
+import NFTSection from '../components/collector/NFTSection'
 import { useSession } from 'next-auth/react'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
-import { updateUserProfileTokenId } from '@/app/api/user/api'
+import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
-import { getUuidByAccount } from '@/app/api/auth/api'
+import { getUserInfoByWalletAddress, getUuidByAccount } from '@/app/api/auth/api'
 import { getNFTMetadata } from '@/app/api/alchemy/api'
 
-export interface IUserContainerProps {
-    // wallet_address: string
+export interface ICollectorContainerProps {
+    wallet_address: string
 }
 
-export default function UserContainer(props: IUserContainerProps) {
+export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
     // const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
 
@@ -23,8 +23,7 @@ export default function UserContainer(props: IUserContainerProps) {
 
     const { data: session, update } = useSession()
 
-    const updateSession = async (tokenId, tokenType) => {
-        console.log(tokenId)
+    const updateSession = async (tokenId: string, tokenType: string) => {
         await update({
             ...session,
             user: {
@@ -40,24 +39,25 @@ export default function UserContainer(props: IUserContainerProps) {
     }, [session])
 
     const init = async () => {
-        console.log('start init')
-        // if (wallet.accounts[0]) {
-        if (session?.user?.token_type && session?.user?.token_id) {
-            console.log(session)
-            let NFTType = session?.user.token_type
-            let tokenId = session?.user.token_id
-            console.log('NFTType =>', NFTType)
-            console.log('tokenId =>', tokenId)
-            let metadata = null
-            if (tokenId && NFTType) {
-                console.log('now setting profile')
-                if (NFTType === 'saza' || NFTType === 'gaza') {
-                    metadata = await getMetadata({ nftType: NFTType, tokenId: tokenId })
-                    console.log(metadata)
-                    setProfileNFT(metadata)
-                } else if (NFTType === 'reset') {
-                    setProfileNFT(null)
+        if (wallet_address) {
+            try {
+                const result = await getUserInfoByWalletAddress(wallet_address)
+                console.log(result)
+                const token_type = result.token_type
+                const token_id = result.token_id
+                let metadata = null
+
+                if (token_type && token_id) {
+                    console.log('now setting profile')
+                    if (token_type === 'saza' || token_type === 'gaza') {
+                        metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
+                        setProfileNFT(metadata)
+                    } else if (token_type === 'reset') {
+                        setProfileNFT(null)
+                    }
                 }
+            } catch (error) {
+                console.error(error)
             }
         }
     }
@@ -86,9 +86,9 @@ export default function UserContainer(props: IUserContainerProps) {
             const response = await updateUserProfileTokenId(parameter)
 
             const updateSessionResponse = await updateSession(tokenId, tokenType)
-            console.log(updateSessionResponse)
+            // console.log(updateSessionResponse)
 
-            console.log(response)
+            // console.log(response)
         } catch (error) {
             console.error(error)
         }
@@ -98,7 +98,7 @@ export default function UserContainer(props: IUserContainerProps) {
         <>
             <div className="max-w-[1296px] w-full px-[24px]">
                 <ProfileSection profileNFT={profileNFT} updateUserProfile={updateUserProfile} />
-                <NFTSection updateUserProfile={updateUserProfile} />
+                <NFTSection updateUserProfile={updateUserProfile} wallet_address={wallet_address} />
             </div>
         </>
     )

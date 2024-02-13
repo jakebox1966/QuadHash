@@ -95,7 +95,12 @@ export default function Connect(props: IConnectProps) {
                     <MenuList className="p-5 min-w-[300px]" placeholder={undefined}>
                         <MenuItem
                             className="flex flex-row items-center justify-between"
-                            onClick={() => moveToPage(true, '/user')}
+                            onClick={() =>
+                                moveToPage(
+                                    true,
+                                    `/collector/${wallet.accounts[0] ? wallet.accounts[0] : ''}`,
+                                )
+                            }
                             placeholder={undefined}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

@@ -91,7 +91,7 @@ export default function Setting(props: ISettingProps) {
                 <MenuList className="p-5 min-w-[300px]" placeholder={undefined}>
                     <MenuItem
                         className="flex flex-row items-center justify-between"
-                        onClick={() => moveToPage(true, '/user')}
+                        onClick={() => moveToPage(true, '/collector')}
                         placeholder={undefined}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
