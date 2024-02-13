@@ -1,10 +1,24 @@
 'use client'
+import { contactWithMail } from '@/app/api/common/api'
+import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import { Checkbox, input } from '@material-tailwind/react'
 import * as React from 'react'
 
-export interface IContactContainerProps {}
+export interface IContactContainerProps {
+    // inputs: {
+    //     purpose: string
+    //     partner: string
+    //     co_marketing: string
+    //     user_name: string
+    //     user_email: string
+    //     user_phone: string
+    //     content: string
+    // }
+}
 
-export default function ContactContainer(props: IContactContainerProps) {
+export default function ContactContainer() {
+    const { $confirm } = React.useContext(ConfirmContext)
+
     const [inputs, setInputs] = React.useState({
         purpose: '',
         partner: false,
@@ -31,8 +45,12 @@ export default function ContactContainer(props: IContactContainerProps) {
             setInputs({ ...inputs, [name]: checked })
         }
     }
-    const submit = () => {
-        console.log('submit')
+    const submit = async () => {
+        if (await $confirm('메일을 보내시겠습니까?')) {
+            console.log('submit')
+            console.log(inputs)
+            const result = await contactWithMail(inputs)
+        }
     }
 
     React.useEffect(() => {

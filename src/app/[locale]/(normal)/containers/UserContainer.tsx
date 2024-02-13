@@ -12,10 +12,10 @@ import { getUuidByAccount } from '@/app/api/auth/api'
 import { getNFTMetadata } from '@/app/api/alchemy/api'
 
 export interface IUserContainerProps {
-    wallet_address: string
+    // wallet_address: string
 }
 
-export default function UserContainer({ wallet_address }: IUserContainerProps) {
+export default function UserContainer(props: IUserContainerProps) {
     // const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
 
