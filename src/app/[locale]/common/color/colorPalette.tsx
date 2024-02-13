@@ -10,7 +10,7 @@ export const backgroundPallete = {
     night: '#143e47',
     lemon: '#ffd488',
     desert: '#c95128',
-    spots: '#ffffff',
+    spots: '#ffc233',
     grid: '#648d3c',
     stripes: '#0074ae',
     dots: '#d490aa',

@@ -18,6 +18,7 @@ import {
 } from '@material-tailwind/react'
 import { sazaPartList } from '@/app/[locale]/parts_data/parts'
 import { IQueryParam } from '../../containers/CollectionContainer'
+import { Listbox, Transition } from '@headlessui/react'
 export interface IFilterComponentProps {
     queryParam: IQueryParam
     handlePartParam: any
@@ -43,6 +44,19 @@ const theme = {
         },
     },
 }
+
+const typeList = [
+    { name: 'SAZA', value: 'saza' },
+    { name: 'GAZA', value: 'gaza' },
+]
+
+const optionList = [
+    { name: 'Rank: H To L', value: 'ranking/desc' },
+    { name: 'Rank: R To H', value: 'ranking/asc' },
+    { name: 'Token: H To L', value: 'number/desc' },
+    { name: 'Token: R To H', value: 'number/asc' },
+]
+
 function Icon({ id, open }) {
     return (
         <svg
@@ -77,6 +91,9 @@ export default function FilterComponent({
         mane: false,
         mouth: false,
     })
+
+    const [selectedType, setSelectedType] = React.useState(typeList[0])
+    const [selectedOption, setSelectedOption] = React.useState(optionList[0])
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -218,25 +235,60 @@ export default function FilterComponent({
                     </div>
                 )}
             </div>
-            <div className="flex lg:hidden flex-col justify-center items-center w-full">
-                <div className="flex flex-row justify-center items-center w-full px-[16px] gap-2">
-                    <ThemeProvider value={theme}>
-                        <div className="!text-xs !min-w-[80px] w-full">
-                            <Select
-                                label="Type"
-                                placeholder={undefined}
-                                value={queryParam.token_type}
-                                onChange={(value) => {
-                                    console.log(value)
-                                    handleNftTypeParam(value)
-                                }}>
-                                <Option value="saza">SAZA</Option>
-                                <Option value="gaza">GAZA</Option>
-                            </Select>
+            <div className="flex lg:hidden flex-col justify-center items-center w-full text-[10px] md:text-sm">
+                <div className="flex flex-row justify-left items-center w-full gap-2 z-20">
+                    <Listbox
+                        value={selectedType.value}
+                        onChange={(value) => {
+                            const selected = typeList.find((item) => {
+                                if (item.value === value) {
+                                    return true
+                                }
+                            })
+                            setSelectedType(selected)
+                            handleNftTypeParam(value)
+                        }}>
+                        <div className="relative max-w-[calc(25%-5px)] w-full">
+                            <Listbox.Button className="relative leading-[18px] w-full rounded-lg bg-white py-2 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:border-[#F46221]">
+                                <span className="block truncate font-medium">
+                                    {selectedType.name}
+                                </span>
+                            </Listbox.Button>
+                            <Transition
+                                as={React.Fragment}
+                                leave="transition ease-in duration-100"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0">
+                                <Listbox.Options className="absolute mt-1 max-h-60 w-full text-[10px] md:text-sm overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                    {typeList.map((item, index) => (
+                                        <Listbox.Option
+                                            key={item.value}
+                                            className={({ active }) =>
+                                                `relative cursor-default select-none py-2 text-center ${
+                                                    active
+                                                        ? 'bg-[#F46221] text-[#FFFFFF]'
+                                                        : 'text-gray-900'
+                                                }`
+                                            }
+                                            value={item.value}>
+                                            {({ selected }) => (
+                                                <>
+                                                    <span
+                                                        className={`block ${
+                                                            selected ? 'font-black ' : 'font-medium'
+                                                        }`}>
+                                                        {item.name}
+                                                    </span>
+                                                </>
+                                            )}
+                                        </Listbox.Option>
+                                    ))}
+                                </Listbox.Options>
+                            </Transition>
                         </div>
-                    </ThemeProvider>
+                    </Listbox>
                     <div
-                        className={`flex flex-row text-[8px] md:text-sm justify-center items-center w-full border-2 py-2 rounded-lg ${
+                        className={`max-w-[calc(50%-6px)] w-full flex flex-row text-[10px] md:text-sm justify-center items-center border-2 py-2 rounded-lg hover:border-[#F46221] ${
                             burtonMorris && 'border-[#F46221] bg-[#FFCD19]/25'
                         }`}
                         onClick={handleBurtonMorris}>
@@ -247,36 +299,71 @@ export default function FilterComponent({
                     </div>
 
                     {!burtonMorris && (
-                        <ThemeProvider value={theme}>
-                            <div className="!text-xs !min-w-[80px] w-full">
-                                <Select
-                                    variant="outlined"
-                                    value={queryParam.sort_by}
-                                    // defaultValue={queryParam.sort_by}
-                                    label={'option'}
-                                    placeholder={undefined}
-                                    onChange={(value) => {
-                                        console.log(value)
-                                        handleOptionParam(value)
-                                    }}>
-                                    <Option value="ranking">Rank</Option>
-                                    <Option value="number">Token ID</Option>
-                                </Select>
+                        <Listbox
+                            value={selectedOption.value}
+                            onChange={(value) => {
+                                const selected = optionList.find((item) => {
+                                    if (item.value === value) {
+                                        return true
+                                    }
+                                })
+                                setSelectedOption(selected)
+                                handleOptionParam(value)
+                            }}>
+                            <div className="relative max-w-[calc(25%-5px)] w-full">
+                                <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
+                                    <span className="block truncate font-medium">
+                                        {selectedOption.name}
+                                    </span>
+                                </Listbox.Button>
+                                <Transition
+                                    as={React.Fragment}
+                                    leave="transition ease-in duration-100"
+                                    leaveFrom="opacity-100"
+                                    leaveTo="opacity-0">
+                                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-2 text-[10px] md:text-sm shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                        {optionList.map((item, index) => (
+                                            <Listbox.Option
+                                                key={item.value}
+                                                className={({ active }) =>
+                                                    `relative cursor-default select-none py-2 text-center ${
+                                                        active
+                                                            ? 'bg-[#F46221] text-[#FFFFFF]'
+                                                            : 'text-gray-900'
+                                                    }`
+                                                }
+                                                value={item.value}>
+                                                {({ selected }) => (
+                                                    <>
+                                                        <span
+                                                            className={`block ${
+                                                                selected
+                                                                    ? 'font-black '
+                                                                    : 'font-medium'
+                                                            }`}>
+                                                            {item.name}
+                                                        </span>
+                                                    </>
+                                                )}
+                                            </Listbox.Option>
+                                        ))}
+                                    </Listbox.Options>
+                                </Transition>
                             </div>
-                        </ThemeProvider>
+                        </Listbox>
                     )}
                 </div>
 
-                <div className="w-full h-full relative mt-4 px-[16px]">
+                <div className="w-full h-full relative mt-3 leading-[18px]">
                     <input
                         type="text"
-                        className="pl-7 w-full h-full border-2 p-2 rounded-lg"
+                        className="w-full h-full border-2 rounded-lg px-[16px] pl-8  py-2.5"
                         placeholder="Search"
                         value={searchInput}
                         onKeyDown={handleKeyPress}
                         onChange={onChange}
                     />
-                    <img src="/search.svg" alt="search" className="absolute left-7 top-3" />
+                    <img src="/search.svg" alt="search" className="absolute left-3 top-2.5" />
                 </div>
             </div>
         </>

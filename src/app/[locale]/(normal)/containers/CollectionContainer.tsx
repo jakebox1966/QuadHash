@@ -115,7 +115,11 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             })
 
         setMetadata(metadata)
-        setImageUrl(metadata.image)
+        if (burtonMorris) {
+            setImageUrl(`https://${token_type}.quadhash.io/art/${token_id}.png`)
+        } else {
+            setImageUrl(metadata.image)
+        }
         const backgroundColor = metadata.attributes.find((item) => {
             return item.trait_type === 'Background'
         })
@@ -209,8 +213,10 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         setSearchInput('')
     }
 
-    const handleOptionParam = (option) => {
-        setQueryParam({ ...queryParam, sort_by: option, token_id: null })
+    const handleOptionParam = (option: string) => {
+        const sort_by = option.split('/')[0].trim().toLowerCase()
+        const asc_desc = option.split('/')[1].trim().toLowerCase()
+        setQueryParam({ ...queryParam, sort_by: sort_by, asc_desc: asc_desc, token_id: null })
         setSearchInput('')
     }
 
@@ -256,8 +262,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             if (!burtonMorris) {
                 const currentPage = lastPage.paging.page
                 const totalPage = lastPage.paging.total_pages
-                console.log(currentPage)
-                console.log(totalPage)
+
                 if (currentPage === totalPage) {
                     return false
                 }
@@ -265,8 +270,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             } else {
                 const currentPage = lastPage.paging.page
                 const totalPage = 5
-                console.log(currentPage)
-                console.log(totalPage)
+
                 if (currentPage === totalPage) {
                     return false
                 }
@@ -294,7 +298,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                     handleOptionParam={handleOptionParam}
                     handleNftTypeParam={handleNftTypeParam}
                 />
-                <div className="w-full px-[16px] lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
+                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
                     <TabComponent
                         burtonMorris={burtonMorris}
                         handleNftTypeParam={handleNftTypeParam}
