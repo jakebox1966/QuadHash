@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
 export interface INFTSectionProps {
+    collector_address: any
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
     wallet_address: string
 }
@@ -38,7 +39,11 @@ const tabData = [
     },
 ]
 
-export default function NFTSection({ updateUserProfile, wallet_address }: INFTSectionProps) {
+export default function NFTSection({
+    collector_address,
+    updateUserProfile,
+    wallet_address,
+}: INFTSectionProps) {
     const [sazaNfts, setSazaNfts] = React.useState(null)
     const [gazaNfts, setGazaNfts] = React.useState(null)
     const [qbtNfts, setQbtNfts] = React.useState([])
@@ -359,6 +364,7 @@ export default function NFTSection({ updateUserProfile, wallet_address }: INFTSe
             </div>
             {activeNFT && (
                 <NFTDetailModalComponent
+                    collector_address={collector_address}
                     open={open}
                     metadata={metadata}
                     imageUrl={imageUrl}

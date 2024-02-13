@@ -4,14 +4,19 @@ import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { decode, getToken } from 'next-auth/jwt'
 
-const publicPages = ['/', '/about', '/gallery', '/sns', '/signIn', 'admin']
-
-const privatePages = [
-    '/crew',
-    // '/admin',
-    '/buy',
-    '/dynamicNFT',
+const publicPages = [
+    '/',
+    '/about',
+    '/collector',
+    '/saza_gaza',
+    '/terms_of_use',
+    '/contact',
+    '/collection',
+    '/signIn',
+    '/white_paper',
 ]
+
+const privatePages = ['/admin', '/dynamicNFT']
 
 const intlMiddleware = createIntlMiddleware({
     locales,

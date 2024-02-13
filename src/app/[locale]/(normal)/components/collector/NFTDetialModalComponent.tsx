@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 
 export interface INFTDetailModalComponentProps {
+    collector_address: any
     activeNFT: any
     metadata?: any
     imageUrl?: string
@@ -21,6 +22,7 @@ export interface INFTDetailModalComponentProps {
 }
 
 export default function NFTDetailModalComponent({
+    collector_address,
     activeNFT,
     metadata,
     imageUrl,
@@ -106,14 +108,13 @@ export default function NFTDetailModalComponent({
                                 </div>
 
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
-                                    {session &&
-                                        session.user.wallet_address === wallet?.accounts[0] && (
-                                            <NFTSetting
-                                                updateUserProfile={updateUserProfile}
-                                                profileNFT={activeNFT}
-                                                isFrom={'list'}
-                                            />
-                                        )}
+                                    {session && collector_address === wallet?.accounts[0] && (
+                                        <NFTSetting
+                                            updateUserProfile={updateUserProfile}
+                                            profileNFT={activeNFT}
+                                            isFrom={'list'}
+                                        />
+                                    )}
                                 </div>
                                 {metadata?.attributes
                                     .filter((item, index) => index !== 0)

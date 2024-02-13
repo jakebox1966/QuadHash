@@ -19,6 +19,8 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     // const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
 
+    const [collector_address, setCollector_address] = React.useState(null)
+
     const { wallet } = useMetaMask()
 
     const { data: session, update } = useSession()
@@ -46,6 +48,8 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 const token_type = result.token_type
                 const token_id = result.token_id
                 let metadata = null
+
+                setCollector_address(result.wallet_address)
 
                 if (token_type && token_id) {
                     console.log('now setting profile')
@@ -97,8 +101,16 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     return (
         <>
             <div className="max-w-[1296px] w-full px-[24px]">
-                <ProfileSection profileNFT={profileNFT} updateUserProfile={updateUserProfile} />
-                <NFTSection updateUserProfile={updateUserProfile} wallet_address={wallet_address} />
+                <ProfileSection
+                    collector_address={collector_address}
+                    profileNFT={profileNFT}
+                    updateUserProfile={updateUserProfile}
+                />
+                <NFTSection
+                    collector_address={collector_address}
+                    updateUserProfile={updateUserProfile}
+                    wallet_address={wallet_address}
+                />
             </div>
         </>
     )

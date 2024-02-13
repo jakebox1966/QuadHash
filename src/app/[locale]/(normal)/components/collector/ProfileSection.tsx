@@ -14,11 +14,16 @@ import QuestionMark from '/public/mypage_profile_none.png'
 import PartTooltipComponent from './PartTooltipComponent'
 
 export interface IProfileSectionProps {
+    collector_address: any
     profileNFT: any
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
 }
 
-export default function ProfileSection({ profileNFT, updateUserProfile }: IProfileSectionProps) {
+export default function ProfileSection({
+    collector_address,
+    profileNFT,
+    updateUserProfile,
+}: IProfileSectionProps) {
     const { wallet } = useMetaMask()
 
     const { data: session } = useSession()
@@ -27,6 +32,11 @@ export default function ProfileSection({ profileNFT, updateUserProfile }: IProfi
         return item.trait_type === 'Background'
     })
 
+    React.useEffect(() => {
+        console.log(session)
+        console.log(session?.user.wallet_address)
+        console.log(wallet?.accounts[0])
+    }, [session, wallet])
     // console.log(profileNFT)
 
     const imageUrl = profileNFT?.image
@@ -101,14 +111,13 @@ export default function ProfileSection({ profileNFT, updateUserProfile }: IProfi
                                     </div> */}
                                 </div>
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
-                                    {session &&
-                                        session.user.wallet_address === wallet?.accounts[0] && (
-                                            <NFTSetting
-                                                updateUserProfile={updateUserProfile}
-                                                profileNFT={profileNFT}
-                                                isFrom={'profile'}
-                                            />
-                                        )}
+                                    {session && collector_address === wallet?.accounts[0] && (
+                                        <NFTSetting
+                                            updateUserProfile={updateUserProfile}
+                                            profileNFT={profileNFT}
+                                            isFrom={'profile'}
+                                        />
+                                    )}
                                 </div>
                                 {profileNFT?.attributes
                                     .filter((item, index) => index !== 0)
