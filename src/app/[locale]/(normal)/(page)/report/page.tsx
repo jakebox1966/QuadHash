@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ReportContainer from '../containers/ReportContainer'
+import ReportContainer from '../../containers/ReportContainer'
 import { Alchemy, Network } from 'alchemy-sdk'
 
 export interface IReportPageProps {}

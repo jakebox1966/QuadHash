@@ -1,5 +1,5 @@
 import * as React from 'react'
-import CollectorContainer from '../containers/CollectorContainer'
+import CollectorContainer from '../../containers/CollectorContainer'
 
 export interface ICollectorPageProps {}
 

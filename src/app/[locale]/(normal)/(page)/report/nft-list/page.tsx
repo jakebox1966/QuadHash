@@ -4,8 +4,8 @@ import { getBlock, getTransfersForOwner } from '@/app/api/alchemy/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { GetTransfersForOwnerTransferType, NftOrdering } from 'alchemy-sdk'
 import * as React from 'react'
-import CardList from '../../components/report/CardList'
-import Card from '../../components/report/Card'
+import CardList from '../../../components/report/CardList'
+import Card from '../../../components/report/Card'
 import { Button } from '@material-tailwind/react'
 
 export interface INftListProps {}

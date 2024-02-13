@@ -7,7 +7,7 @@ import { decode, getToken } from 'next-auth/jwt'
 const publicPages = [
     '/',
     '/about',
-    '/collector',
+
     '/saza_gaza',
     '/terms_of_use',
     '/contact',
@@ -16,7 +16,7 @@ const publicPages = [
     '/white_paper',
 ]
 
-const privatePages = ['/admin', '/dynamicNFT']
+const privatePages = ['/admin', '/dynamicNFT', '/collector']
 
 const intlMiddleware = createIntlMiddleware({
     locales,
@@ -27,6 +27,10 @@ const secret = process.env.NEXTAUTH_SECRET
 const authMiddleware = withAuth(
     async function onSuccess(req: NextRequestWithAuth) {
         const session = await getToken({ req })
+
+        if (req.nextUrl.pathname.includes('/collector') && !session.wallet_address) {
+            NextResponse.rewrite(new URL('/signIn', req.nextUrl))
+        }
 
         if (!session) {
             return NextResponse.rewrite(new URL('/signIn', req.nextUrl))
@@ -54,8 +58,11 @@ const authMiddleware = withAuth(
     },
 )
 
-export default async function middleware(request: NextRequestWithAuth) {
+export default async function middleware(req: NextRequestWithAuth) {
     console.log('A')
+    const session = await getToken({ req })
+    console.log(req.nextUrl.pathname)
+    console.log(session)
     const publicPathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${publicPages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
@@ -66,24 +73,27 @@ export default async function middleware(request: NextRequestWithAuth) {
     const privatePathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${privatePages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
-            .join('|')})/?$`,
+            .join('|')})/?/(\\w*)$`,
         'i',
     )
 
-    const isPublicPage = publicPathnameRegex.test(request.nextUrl.pathname)
+    console.log('publicPathnameRegex', publicPathnameRegex)
+    console.log('privatePathnameRegex', privatePathnameRegex)
 
-    const IsPrivatePages = privatePathnameRegex.test(request.nextUrl.pathname)
+    const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
+
+    const IsPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)
 
     if (isPublicPage) {
         console.log('public')
-        return intlMiddleware(request)
+        return intlMiddleware(req)
     } else if (IsPrivatePages) {
         console.log('private')
         // return intlMiddleware(request)
-        return (authMiddleware as any)(request)
+        return (authMiddleware as any)(req)
     } else {
         console.log('nothing')
-        return intlMiddleware(request)
+        return intlMiddleware(req)
     }
 }
 

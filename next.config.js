@@ -22,11 +22,11 @@ const nextConfig = {
         imageSizes: [16, 128],
         deviceSizes: [640, 1215],
     },
-    logging: {
-        fetches: {
-            fullUrl: true,
-        },
-    },
+    // logging: {
+    //     fetches: {
+    //         fullUrl: true,
+    //     },
+    // },
 }
 
 module.exports = withNextIntl(nextConfig)
