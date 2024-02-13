@@ -11,7 +11,7 @@ export default function UserDetailPage({ params: { wallet_address } }: IUserDeta
     console.log(wallet_address)
     return (
         <>
-            <UserContainer wallet_address={wallet_address} />
+            <UserContainer />
         </>
     )
 }

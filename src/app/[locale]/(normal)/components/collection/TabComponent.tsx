@@ -71,7 +71,9 @@ export default function TabComponent({
                             console.log(value)
                             handleOptionParam(value)
                         }}>
-                        <Option value="ranking">Rank</Option>
+                        <Option value="ranking">Rank: Descending</Option>
+                        <Option value="ranking">Rank: Ascending</Option>
+                        <Option value="number">Token ID</Option>
                         <Option value="number">Token ID</Option>
                     </Select>
                 </div>
