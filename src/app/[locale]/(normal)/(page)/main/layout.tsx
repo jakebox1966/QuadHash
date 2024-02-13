@@ -1,6 +1,6 @@
 import * as React from 'react'
-import MainWrapper from '../../common/layouts/MainWrapper'
-import Footer from '../../common/layouts/footer/Footer'
+import MainWrapper from '../../../common/layouts/MainWrapper'
+import Footer from '../../../common/layouts/footer/Footer'
 
 export interface IAboutLayoutProps {}
 

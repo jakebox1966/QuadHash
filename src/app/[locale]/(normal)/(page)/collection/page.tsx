@@ -1,5 +1,5 @@
 import * as React from 'react'
-import CollectionContainer from '../containers/CollectionContainer'
+import CollectionContainer from '../../containers/CollectionContainer'
 
 export interface ICollectionPageProps {}
 

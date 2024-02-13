@@ -1,5 +1,5 @@
 import * as React from 'react'
-import MainWrapper from '../../common/layouts/MainWrapper'
+import MainWrapper from '../../../common/layouts/MainWrapper'
 
 export interface IDefaultLayoutProps {}
 

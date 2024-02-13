@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ContactContainer from '../containers/ContactContainer'
+import ContactContainer from '../../containers/ContactContainer'
 
 export interface IContactPageProps {}
 

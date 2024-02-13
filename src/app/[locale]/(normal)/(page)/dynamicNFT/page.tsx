@@ -1,5 +1,5 @@
 import * as React from 'react'
-import DynamicNFTContainer from '../containers/DynamicNFTContainer'
+import DynamicNFTContainer from '../../containers/DynamicNFTContainer'
 import { Alchemy, Network } from 'alchemy-sdk'
 
 export interface IDynamicNFTPageProps {}

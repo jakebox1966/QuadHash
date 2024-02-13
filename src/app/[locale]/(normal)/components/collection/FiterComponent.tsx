@@ -16,7 +16,7 @@ import {
     ThemeProvider,
     select,
 } from '@material-tailwind/react'
-import { sazaPartList } from '@/app/[locale]/parts_data/parts'
+import { sazaPartList } from '@/app/[locale]/common/parts_data/parts'
 import { IQueryParam } from '../../containers/CollectionContainer'
 import { Listbox, Transition } from '@headlessui/react'
 export interface IFilterComponentProps {
