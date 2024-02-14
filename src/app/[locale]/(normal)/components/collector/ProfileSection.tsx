@@ -88,15 +88,15 @@ export default function ProfileSection({
                             ))}
                         </div> */}
                         {/* div className="lg:w-[650px] flex flex-col justify-end items-center lag:items-start relative overflow-hidden"> */}
-                        <Image
+                        {/* <Image
                             src={imageUrl}
                             alt="profile_image"
                             width={650}
                             height={650}
                             quality={100}
-                        />
+                        /> */}
 
-                        {/* <img src={imageUrl} alt="profile_image" width={530} height={0} /> */}
+                        <img src={imageUrl} alt="profile_image" width={650} height={0} />
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center gap-5 hidden`}>
                             <div className="flex flex-row flex-wrap gap-3 pl-10 justify-start items-center">

@@ -62,15 +62,15 @@ export default function CollectionDetailModalComponent({
                             메인 NFT로 설정하기
                         </div> */}
                         <div className="lg:w-[650px] flex flex-col justify-end items-center lg:items-start relative overflow-hidden">
-                            <Image
+                            {/* <Image
                                 src={imageUrl}
                                 alt="profile_image"
                                 width={650}
                                 height={650}
                                 quality={100}
-                            />
+                            /> */}
 
-                            {/* <img src={imageUrl} alt="profile_image" width={530} height={0} /> */}
+                            <img src={imageUrl} alt="profile_image" width="100%" height="auto" />
                         </div>
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center hidden`}>

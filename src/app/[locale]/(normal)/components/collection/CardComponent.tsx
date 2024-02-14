@@ -39,17 +39,15 @@ export default function CardComponent({
                 onClick={() => onClick(item, queryParam.token_type)}>
                 <div className="overflow-hidden rounded-lg  aspect-square">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
-                        <Image
-                            // src={`${
-                            //     queryParam.token_type === 'saza'
-                            //         ? `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/${item}.png`
-                            //         : `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/${item}.png`
-                            // }`}
-                            src={imgUrl}
+                        <img
+                            src={`${
+                                queryParam.token_type === 'saza'
+                                    ? `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/${item}.png`
+                                    : `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/${item}.png`
+                            }`}
+                            width="100%"
+                            height="auto"
                             alt="nft-image"
-                            quality={100}
-                            fill
-                            sizes="224px"
                         />
                     </div>
                 </div>
