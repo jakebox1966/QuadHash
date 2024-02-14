@@ -73,7 +73,7 @@ export default async function middleware(req: NextRequestWithAuth) {
     const privatePathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${privatePages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
-            .join('|')})/?/(\\w*)$`,
+            .join('|')})/?$`,
         'i',
     )
 
