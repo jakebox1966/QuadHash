@@ -96,7 +96,12 @@ export default function ProfileSection({
                             quality={100}
                         /> */}
 
-                        <img src={imageUrl} alt="profile_image" width={650} height={0} />
+                        <img
+                            src={`${imageUrl}?${new Date().getTime()}`}
+                            alt="profile_image"
+                            width={650}
+                            height={0}
+                        />
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center gap-5 hidden`}>
                             <div className="flex flex-row flex-wrap gap-3 pl-10 justify-start items-center">

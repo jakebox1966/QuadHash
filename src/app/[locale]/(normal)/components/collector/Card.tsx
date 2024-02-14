@@ -25,7 +25,7 @@ export default function Card({ nft, onClick }: ICardProps) {
                         quality={100}
                         className="object-contain"
                     /> */}
-                    <img src={`${nft?.image.originalUrl}`} alt="" />
+                    <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="" />
                 </div>
                 <div className="absolute bottom-0 w-full text-center bg-gray-300 opacity-0 group-hover:opacity-100 transition-all p-1 font-black cursor-pointer">
                     # {nft.tokenId}

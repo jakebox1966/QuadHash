@@ -46,6 +46,8 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
         ) {
             setNftType('gaza')
         }
+
+        console.log(metaData)
         setCategoires(metaData?.attributes)
         setSelectedCategory(metaData?.attributes[1])
 
@@ -131,6 +133,7 @@ export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
                             </div>
                         )}
                     </div>
+
                     <div className="w-full flex flex-row justify-between content-stretch gap-3 cursor-pointer flex-wrap">
                         <div
                             className="w-full md:w-[46%] border-4 rounded-2xl overflow-hidden relative"

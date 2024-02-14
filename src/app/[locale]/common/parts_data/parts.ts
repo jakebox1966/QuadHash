@@ -253,7 +253,7 @@ export const gazaPartList = [
         ],
     },
     {
-        part_category: 'bottom',
+        part_category: 'bottoms',
         part_name: [
             'None',
             'Chain',

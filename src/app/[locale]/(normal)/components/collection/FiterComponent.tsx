@@ -16,7 +16,7 @@ import {
     ThemeProvider,
     select,
 } from '@material-tailwind/react'
-import { sazaPartList } from '@/app/[locale]/common/parts_data/parts'
+import { gazaPartList, sazaPartList } from '@/app/[locale]/common/parts_data/parts'
 import { IQueryParam } from '../../containers/CollectionContainer'
 import { Listbox, Transition } from '@headlessui/react'
 export interface IFilterComponentProps {
@@ -81,7 +81,11 @@ export default function FilterComponent({
     handleNftTypeParam,
     burtonMorris,
 }: IFilterComponentProps) {
-    const [sazaFilterOpen, setSazafilterOpen] = React.useState({
+    const partFilterList = queryParam.token_type === 'saza' ? sazaPartList : gazaPartList
+
+    console.log(partFilterList)
+
+    const [filterOpen, setFilterOpen] = React.useState({
         background: false,
         body: false,
         extras: false,
@@ -90,7 +94,22 @@ export default function FilterComponent({
         headwear: false,
         mane: false,
         mouth: false,
+        top: false,
+        bottom: false,
+        onesie: false,
     })
+
+    // const [gazaFilterOpen, setGazaFilterOpen] = React.useState({
+    //     background: false,
+    //     body: false,
+    //     top: false,
+    //     bottom: false,
+    //     extras: false,
+    //     eyes: false,
+    //     headwear: false,
+    //     mouth: false,
+    //     onesie: false,
+    // })
 
     const [selectedType, setSelectedType] = React.useState(typeList[0])
     const [selectedOption, setSelectedOption] = React.useState(optionList[0])
@@ -105,30 +124,23 @@ export default function FilterComponent({
      * Accordion 메뉴 컨트롤
      * @param value
      */
-    const handleSazaFilterOpen = (value) => {
+    const handleFilterOpen = (value) => {
         console.log(value)
-        setSazafilterOpen((prev) => ({
-            ...prev,
-            [value.part_category]: !prev[value.part_category],
-        }))
+        if (queryParam.token_type === 'saza') {
+            setFilterOpen((prev) => ({
+                ...prev,
+                [value.part_category]: !prev[value.part_category],
+            }))
+        } else if (queryParam.token_type === 'gaza') {
+            setFilterOpen((prev) => ({
+                ...prev,
+                [value.part_category]: !prev[value.part_category],
+            }))
+        }
     }
 
     const checkSelected = React.useCallback(
         (partCategory, partName) => {
-            // const { background, body, bottoms, extras, eyes, head, headwear, mane, mouth, onesie } =
-            //     queryParam
-
-            // console.log(background)
-            // console.log(body)
-            // console.log(bottoms)
-            // console.log(extras)
-            // console.log(eyes)
-            // console.log(head)
-            // console.log(headwear)
-            // console.log(mane)
-            // console.log(mouth)
-            // console.log(onesie)
-
             if (queryParam[partCategory].includes(partName)) {
                 return true
             }
@@ -184,17 +196,18 @@ export default function FilterComponent({
                         }}
                     />
                 </div>
+
                 {!burtonMorris && (
                     <div className="w-full">
-                        {sazaPartList.map((item, index) => (
+                        {partFilterList.map((item, index) => (
                             <Accordion
                                 key={item.part_category}
-                                open={sazaFilterOpen[item.part_category]}
-                                icon={<Icon id={index} open={sazaFilterOpen[item.part_category]} />}
+                                open={filterOpen[item.part_category]}
+                                icon={<Icon id={index} open={filterOpen[item.part_category]} />}
                                 placeholder={undefined}>
                                 <AccordionHeader
                                     className="border-none !text-black px-6 cursor-pointer"
-                                    onClick={() => handleSazaFilterOpen(item)}
+                                    onClick={() => handleFilterOpen(item)}
                                     placeholder={undefined}>
                                     {item.part_category.toUpperCase()}
                                 </AccordionHeader>
