@@ -75,7 +75,9 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     const [burtonMorris, setBurtonMorris] = React.useState(false)
 
     const [open, setOpen] = React.useState(false)
-    const [owner, setOwner] = React.useState(null)
+
+    const [contractAddress, setContractAddress] = React.useState(null)
+    const [selectedTokenId, seSelectedTokenId] = React.useState(null)
     const [backgroundColor, setBackgroundColor] = React.useState(null)
     const [metadata, setMetadata] = React.useState(null)
     const [imageUrl, setImageUrl] = React.useState(null)
@@ -89,7 +91,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     }, [open])
 
     const openDetailModal = async (token_id, token_type) => {
-        setOwner(null)
         const metadata = await getMetadata({
             nftType: token_type,
             tokenId: token_id,
@@ -101,18 +102,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         } else if (token_type === 'gaza') {
             contractAddress = process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
         }
-
-        console.log(token_id)
-        console.log(token_type)
-        console.log(contractAddress)
-        await getOwnerForNft(contractAddress, token_id)
-            .then((response) => {
-                console.log(response)
-                setOwner(response.owners[0])
-            })
-            .catch((error) => {
-                console.error(error)
-            })
+        setContractAddress(contractAddress)
+        seSelectedTokenId(token_id)
 
         setMetadata(metadata)
         if (burtonMorris) {
@@ -325,9 +316,10 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             </div>
             <div ref={setTarget} className="h-[1rem]" />
             <CollectionDetailModalComponent
+                contractAddress={contractAddress}
+                selectedTokenId={selectedTokenId}
                 open={open}
                 handleOpen={handleOpen}
-                owner={owner}
                 metadata={metadata}
                 imageUrl={imageUrl}
                 backgroundColor={backgroundColor}

@@ -11,10 +11,6 @@ import {
     AccordionHeader,
     AccordionBody,
     Button,
-    Select,
-    Option,
-    ThemeProvider,
-    select,
 } from '@material-tailwind/react'
 import { gazaPartList, sazaPartList } from '@/app/[locale]/common/parts_data/parts'
 import { IQueryParam } from '../../containers/CollectionContainer'

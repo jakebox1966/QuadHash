@@ -14,10 +14,12 @@ import { customTheme } from '@/app/[locale]/common/materialUI/theme'
 import { formatAddress } from '@/app/utils/ethUtils'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
+import { getOwnerForNft } from '@/app/api/alchemy/api'
 
 export interface ICollectionDetailModalComponentProps {
     // activeNFT: any
-    owner: string
+    contractAddress: string
+    selectedTokenId: string
     metadata?: any
     imageUrl?: string
     backgroundColor?: string
@@ -28,13 +30,34 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 
 export default function CollectionDetailModalComponent({
     // activeNFT,
-    owner,
+    contractAddress,
+    selectedTokenId,
     metadata,
     imageUrl,
     backgroundColor,
     open,
     handleOpen,
 }: ICollectionDetailModalComponentProps) {
+    const [owner, setOwner] = React.useState(null)
+
+    const getOwner = async () => {
+        await getOwnerForNft(contractAddress, selectedTokenId)
+            .then((response) => {
+                console.log(response)
+                setOwner(response.owners[0])
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+    React.useEffect(() => {
+        if (contractAddress && selectedTokenId) {
+            getOwner()
+        }
+        return () => {
+            setOwner(null)
+        }
+    }, [contractAddress, selectedTokenId])
     return (
         <>
             <ThemeProvider value={customTheme}>
