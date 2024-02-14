@@ -251,6 +251,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
         getNextPageParam: (lastPage, allPages) => {
             if (!burtonMorris) {
+                console.log(lastPage)
+                console.log(allPages)
                 const currentPage = lastPage.paging.page
                 const totalPage = lastPage.paging.total_pages
 
@@ -297,9 +299,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                         queryParam={queryParam}
                     />
                     <CardListComponent>
-                        {/* {data.pages.map((item) => (
-                            <CardComponent item={item} queryParam={queryParam} />
-                        ))} */}
                         {data?.pages.map((page) => {
                             return page?.data.map((item, index) => (
                                 <CardComponent

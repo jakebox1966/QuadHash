@@ -32,6 +32,7 @@ export default function CardComponent({
             imgUrl = `https://gaza.quadhash.io/art/${item}.png`
         }
     }
+
     return (
         <>
             <div
@@ -39,16 +40,7 @@ export default function CardComponent({
                 onClick={() => onClick(item, queryParam.token_type)}>
                 <div className="overflow-hidden rounded-lg  aspect-square">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
-                        <img
-                            src={`${
-                                queryParam.token_type === 'saza'
-                                    ? `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/${item}.png`
-                                    : `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/${item}.png`
-                            }`}
-                            width="100%"
-                            height="auto"
-                            alt="nft-image"
-                        />
+                        <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">

@@ -17,10 +17,10 @@ export interface ITabComponentProps {
 }
 
 const optionList = [
-    { name: 'Rank: High To Low', value: 'ranking/desc' },
-    { name: 'Rank: Row To High', value: 'ranking/asc' },
+    { name: 'Rank: Low To High', value: 'ranking/desc' },
+    { name: 'Rank: High To Low', value: 'ranking/asc' },
     { name: 'Token: High To Low', value: 'number/desc' },
-    { name: 'Token: Row To High', value: 'number/asc' },
+    { name: 'Token: Low To High', value: 'number/asc' },
 ]
 
 export default function TabComponent({

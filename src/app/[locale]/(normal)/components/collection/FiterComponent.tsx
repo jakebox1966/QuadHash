@@ -79,8 +79,6 @@ export default function FilterComponent({
 }: IFilterComponentProps) {
     const partFilterList = queryParam.token_type === 'saza' ? sazaPartList : gazaPartList
 
-    console.log(partFilterList)
-
     const [filterOpen, setFilterOpen] = React.useState({
         background: false,
         body: false,
@@ -193,56 +191,55 @@ export default function FilterComponent({
                     />
                 </div>
 
-                {!burtonMorris && (
-                    <div className="w-full">
-                        {partFilterList.map((item, index) => (
-                            <Accordion
-                                key={item.part_category}
-                                open={filterOpen[item.part_category]}
-                                icon={<Icon id={index} open={filterOpen[item.part_category]} />}
+                <div className="w-full">
+                    {partFilterList.map((item, index) => (
+                        <Accordion
+                            disabled={burtonMorris ? true : false}
+                            key={item.part_category}
+                            open={filterOpen[item.part_category]}
+                            icon={<Icon id={index} open={filterOpen[item.part_category]} />}
+                            placeholder={undefined}>
+                            <AccordionHeader
+                                className="border-none !text-black px-6 cursor-pointer"
+                                onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
-                                <AccordionHeader
-                                    className="border-none !text-black px-6 cursor-pointer"
-                                    onClick={() => handleFilterOpen(item)}
-                                    placeholder={undefined}>
-                                    {item.part_category.toUpperCase()}
-                                </AccordionHeader>
-                                <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
-                                    {item.part_name.map((partName) => (
+                                {item.part_category.toUpperCase()}
+                            </AccordionHeader>
+                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
+                                {item.part_name.map((partName) => (
+                                    <div
+                                        key={partName}
+                                        className="text-black font-medium py-3 px-10"
+                                        onClick={() =>
+                                            handlePartParam(item.part_category, partName)
+                                        }>
                                         <div
-                                            key={partName}
-                                            className="text-black font-medium py-3 px-10"
-                                            onClick={() =>
-                                                handlePartParam(item.part_category, partName)
-                                            }>
-                                            <div
-                                                className={`${
-                                                    checkSelected(item.part_category, partName)
-                                                        ? 'text-[#F46221]'
-                                                        : 'text-black'
-                                                } flex flex-row items-center justify-between`}>
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                    className="w-6 h-6">
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                                    />
-                                                </svg>
-                                                <div>{partName.toUpperCase()}</div>
-                                            </div>
+                                            className={`${
+                                                checkSelected(item.part_category, partName)
+                                                    ? 'text-[#F46221]'
+                                                    : 'text-black'
+                                            } flex flex-row items-center justify-between`}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-6 h-6">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                />
+                                            </svg>
+                                            <div>{partName.toUpperCase()}</div>
                                         </div>
-                                    ))}
-                                </AccordionBody>
-                            </Accordion>
-                        ))}
-                    </div>
-                )}
+                                    </div>
+                                ))}
+                            </AccordionBody>
+                        </Accordion>
+                    ))}
+                </div>
             </div>
             <div className="flex lg:hidden flex-col justify-center items-center w-full text-[10px] md:text-sm">
                 <div className="flex flex-row justify-left items-center w-full gap-2 z-20">
