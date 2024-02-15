@@ -1,21 +1,17 @@
 'use client'
-import Image from 'next/image'
 import * as React from 'react'
-import logo from '/public/logo/logo.svg'
-import logoShort from '/public/logo_short.png'
-import { Input, Switch, Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react'
-import { sazaPartList } from '../../common/parts_data/parts'
-import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
-import CardListComponent from '../components/collection/CardListComponent'
-import CardComponent from '../components/collection/CardComponent'
 import FilterComponent from '../components/collection/FiterComponent'
 import TabComponent from '../components/collection/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getCollectionList } from '@/app/api/collection/api'
-import { useInfiniteQuery } from 'react-query'
+
 import CollectionDetailModalComponent from '../components/collection/CollectionDetailModalComponent'
 import { backgroundPallete } from '../../common/color/colorPalette'
-import { getOwnerForNft } from '@/app/api/alchemy/api'
+
+import BurtonMorrisComponent from '../components/collection/BurtonMorrisListComponent'
+
+import NormalCollectionListComponent from '../components/collection/NormalListComponent'
+import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
 
 export interface ICollectionContainerProps {}
 
@@ -53,8 +49,8 @@ export interface IQueryParam {
 
 const initialQueryParam = {
     token_type: 'saza',
-    sort_by: 'ranking',
-    asc_desc: 'desc',
+    sort_by: 'number',
+    asc_desc: 'asc',
     token_id: null,
     background: [],
     body: [],
@@ -73,6 +69,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     const [searchInput, setSearchInput] = React.useState('')
     const [queryParam, setQueryParam] = React.useState(initialQueryParam)
     const [burtonMorris, setBurtonMorris] = React.useState(false)
+    const [burtonMorrisData, setBurtonMorrisData] = React.useState(saza_morris)
 
     const [open, setOpen] = React.useState(false)
 
@@ -126,7 +123,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         if (!burtonMorris) {
             setQueryParam((prev) => ({
                 ...prev,
-                sort_by: 'ranking',
+                sort_by: 'number',
                 asc_desc: 'asc',
                 token_id: null,
                 background: [],
@@ -144,7 +141,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         } else {
             setQueryParam((prev) => ({
                 ...prev,
-                asc_desc: 'desc',
+                sort_by: 'number',
+                asc_desc: 'asc',
                 token_id: null,
                 background: [],
                 body: [],
@@ -162,10 +160,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         setSearchInput('')
         setBurtonMorris((prev) => !prev)
     }
-
-    // React.useEffect(() => {
-    //     console.log(burtonMorris)
-    // }, [burtonMorris])
 
     const handlePartParam = (category, partName) => {
         if (queryParam[category].find((item) => item === partName)) {
@@ -201,6 +195,12 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             bottoms: [],
             onesie: [],
         })
+
+        if (nftType === 'saza') {
+            setBurtonMorrisData(saza_morris)
+        } else if (nftType === 'gaza') {
+            setBurtonMorrisData(gaza_morris)
+        }
         setSearchInput('')
     }
 
@@ -214,8 +214,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     const handleSearchParam = () => {
         setQueryParam((prev) => ({
             ...prev,
-            sort_by: 'ranking',
-            asc_desc: 'desc',
+            sort_by: 'number',
+            asc_desc: 'asc',
             token_id: searchInput,
             background: [],
             body: [],
@@ -246,37 +246,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         return result
     }
 
-    const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getCollection', queryParam, burtonMorris],
-        queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
-        getNextPageParam: (lastPage, allPages) => {
-            if (!burtonMorris) {
-                console.log(lastPage)
-                console.log(allPages)
-                const currentPage = lastPage.paging.page
-                const totalPage = lastPage.paging.total_pages
-
-                if (currentPage === totalPage) {
-                    return false
-                }
-                return currentPage + 1
-            } else {
-                const currentPage = lastPage.paging.page
-                const totalPage = 5
-
-                if (currentPage === totalPage) {
-                    return false
-                }
-                return currentPage + 1
-            }
-        },
-    })
-
-    const { setTarget } = useIntersectionObserver({
-        hasNextPage,
-        fetchNextPage,
-    })
-
     return (
         <>
             <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">
@@ -298,22 +267,29 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                         handleOptionParam={handleOptionParam}
                         queryParam={queryParam}
                     />
-                    <CardListComponent>
-                        {data?.pages.map((page) => {
-                            return page?.data.map((item, index) => (
-                                <CardComponent
-                                    onClick={openDetailModal}
-                                    burtonMorris={burtonMorris}
-                                    key={`${item}_${index}`}
-                                    item={item}
-                                    queryParam={queryParam}
-                                />
-                            ))
-                        })}
-                    </CardListComponent>
+
+                    {!burtonMorris && (
+                        <>
+                            <NormalCollectionListComponent
+                                queryParam={queryParam}
+                                burtonMorris={burtonMorris}
+                                openDetailModal={openDetailModal}
+                            />
+                        </>
+                    )}
+
+                    {burtonMorris && (
+                        <>
+                            <BurtonMorrisComponent
+                                burtonMorrisData={burtonMorrisData}
+                                queryParam={queryParam}
+                                burtonMorris={burtonMorris}
+                                openDetailModal={openDetailModal}
+                            />
+                        </>
+                    )}
                 </div>
             </div>
-            <div ref={setTarget} className="h-[1rem]" />
             <CollectionDetailModalComponent
                 contractAddress={contractAddress}
                 selectedTokenId={selectedTokenId}

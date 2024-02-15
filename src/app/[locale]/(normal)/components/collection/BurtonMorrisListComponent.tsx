@@ -1,44 +1,42 @@
 import * as React from 'react'
+import { IQueryParam } from '../../containers/CollectionContainer'
+import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
 import CardListComponent from './CardListComponent'
 import CardComponent from './CardComponent'
-import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from 'react-query'
-import { getCollectionList } from '@/app/api/collection/api'
-import { IQueryParam } from '../../containers/CollectionContainer'
+import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
 
-export interface INormalCollectionListComponentProps {
+export interface IBurtonMorrisListComponentProps {
     queryParam: IQueryParam
     burtonMorris: boolean
+    burtonMorrisData: {
+        list: any[]
+        total_page: number
+    }
     openDetailModal: (token_id: any, token_type: any) => Promise<void>
 }
 
-export default function NormalCollectionListComponent({
+export default function BurtonMorrisListComponent({
     queryParam,
     burtonMorris,
     openDetailModal,
-}: INormalCollectionListComponentProps) {
+    burtonMorrisData,
+}: IBurtonMorrisListComponentProps) {
     const fetchData = async (pageParam) => {
-        const process = Object.entries(queryParam)
-            .filter((item) => item[1] !== null)
-            .filter((item) => item[1].length !== 0)
+        const startIndex = (pageParam - 1) * 20
+        const endIndex = startIndex + 20
 
-        const query = Object.fromEntries(process)
+        const data = burtonMorrisData.list.slice(startIndex, endIndex)
 
-        query.page = pageParam
-
-        const result = await getCollectionList(new URLSearchParams(query).toString())
-
-        return result
+        return { data: data, paging: { page: pageParam, total_pages: burtonMorrisData.total_page } }
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getCollection', queryParam, burtonMorris],
+        queryKey: ['getBurtonMorrisCollection', burtonMorris, queryParam.token_type],
         queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
         getNextPageParam: (lastPage, allPages) => {
-            // console.log(lastPage)
-            // console.log(allPages)
             const currentPage = lastPage.paging.page
-            // const currentPage = 500
+
             const totalPage = lastPage.paging.total_pages
 
             if (currentPage === totalPage) {
@@ -66,7 +64,7 @@ export default function NormalCollectionListComponent({
                         />
                     ))
                 })}
-                <div ref={setTarget} className="h-[1rem]" />
+                <div ref={setTarget} className="h-[1rem]"></div>
             </CardListComponent>
         </>
     )

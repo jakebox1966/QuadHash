@@ -47,10 +47,10 @@ const typeList = [
 ]
 
 const optionList = [
-    { name: 'Rank: H To L', value: 'ranking/desc' },
-    { name: 'Rank: R To H', value: 'ranking/asc' },
+    { name: 'Token: L To H', value: 'number/asc' },
     { name: 'Token: H To L', value: 'number/desc' },
-    { name: 'Token: R To H', value: 'number/asc' },
+    { name: 'Rank: T To B', value: 'ranking/asc' },
+    { name: 'Rank: B To T', value: 'ranking/desc' },
 ]
 
 function Icon({ id, open }) {
@@ -107,6 +107,10 @@ export default function FilterComponent({
 
     const [selectedType, setSelectedType] = React.useState(typeList[0])
     const [selectedOption, setSelectedOption] = React.useState(optionList[0])
+
+    React.useEffect(() => {
+        setSelectedOption(optionList[0])
+    }, [burtonMorris])
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -203,7 +207,7 @@ export default function FilterComponent({
                                 className="border-none !text-black px-6 cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
-                                {item.part_category.toUpperCase()}
+                                {item.part_category.toUpperCase()} ({item.part_name.length})
                             </AccordionHeader>
                             <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
                                 {item.part_name.map((partName) => (

@@ -17,10 +17,10 @@ export interface ITabComponentProps {
 }
 
 const optionList = [
-    { name: 'Rank: Low To High', value: 'ranking/desc' },
-    { name: 'Rank: High To Low', value: 'ranking/asc' },
-    { name: 'Token: High To Low', value: 'number/desc' },
     { name: 'Token: Low To High', value: 'number/asc' },
+    { name: 'Token: High To Low', value: 'number/desc' },
+    { name: 'Rank: Top To Bottom', value: 'ranking/asc' },
+    { name: 'Rank: Bottom To Top', value: 'ranking/desc' },
 ]
 
 export default function TabComponent({
@@ -30,6 +30,10 @@ export default function TabComponent({
     burtonMorris,
 }: ITabComponentProps) {
     const [selected, setSelected] = React.useState(optionList[0])
+
+    React.useEffect(() => {
+        setSelected(optionList[0])
+    }, [burtonMorris])
 
     return (
         <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full max-w-[970px]">
