@@ -3,33 +3,20 @@ import * as React from 'react'
 import {
     Drawer,
     Button,
-    Typography,
-    IconButton,
-    List,
-    ListItem,
-    ListItemPrefix,
-    ListItemSuffix,
-    Chip,
     ThemeProvider,
-    Menu,
-    MenuHandler,
-    MenuItem,
-    MenuList,
-    Input,
+    PopoverHandler,
     Popover,
     PopoverContent,
-    PopoverHandler,
 } from '@material-tailwind/react'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { useTranslations } from 'next-intl'
 import { locales } from '@/i18nconfig'
-import LocaleSwitcher from './LocaleSwitcher'
 
 import mobileWhiteLogo from '/public/mobile_white_logo.png'
-import mobileMenuIcon from '/public/mobile_menu_icon.png'
+
 import logout from '/public/logout.png'
 import Image from 'next/image'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { formatAddress } from '@/app/utils/ethUtils'
 import { useSignInModal } from '@/app/hooks/useSignInModal'
@@ -140,7 +127,7 @@ export default function MobileNavMenu({
                         <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
                     </div>
 
-                    {wallet.accounts[0] && session && (
+                    {/* {wallet.accounts[0] && session && (
                         <div className="flex flex-col justify-center items-start">
                             <div>
                                 {imageUrl && (
@@ -158,9 +145,9 @@ export default function MobileNavMenu({
                                 {formatAddress(wallet.accounts[0])}
                             </div>
                         </div>
-                    )}
+                    )} */}
 
-                    <Popover placement="bottom-end">
+                    {/* <Popover placement="bottom-end">
                         <PopoverHandler>
                             <div className="flex flex-row justify-center items-center gap-14 cursor-pointer">
                                 Connect Wallet
@@ -185,7 +172,7 @@ export default function MobileNavMenu({
                                 </div>
                             </div>
                         </PopoverContent>
-                    </Popover>
+                    </Popover> */}
 
                     {menuList.map((item) => (
                         <Link
@@ -217,7 +204,7 @@ export default function MobileNavMenu({
                         {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                         Saza&Gaza Instagram
                     </Link>
-                    {wallet.accounts[0] && session && (
+                    {/* {wallet.accounts[0] && session && (
                         <Button
                             className="bg-[#FFFFFF] font-medium text-xs text-[#F46221] py-3 px-4 rounded-lg flex flex-row items-center justify-center gap-3"
                             onClick={disconnect}
@@ -225,7 +212,7 @@ export default function MobileNavMenu({
                             <Image src={logout} alt={'logout_icon'} />
                             Logout
                         </Button>
-                    )}
+                    )} */}
                 </div>
             </Drawer>
         </ThemeProvider>

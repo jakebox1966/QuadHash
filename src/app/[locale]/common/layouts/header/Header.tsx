@@ -136,7 +136,7 @@ export default function Header(props: IHeaderProps) {
                         : 'bg-[#FFFFFF]'
                 } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[130px] px-5`}>
                 <div className="lg:hidden flex flex-row justify-between w-full">
-                    <div className=" cursor-pointer rounded-full flex flex-row gap-2 items-center">
+                    <div className=" cursor-pointer w-full rounded-full flex flex-row gap-2 items-center">
                         <div onClick={handleOpen}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +155,9 @@ export default function Header(props: IHeaderProps) {
                         <Link href={'/'}>
                             <Image src={mobileLogo} alt={'mobile_logo'} />
                         </Link>
+                        <div className="w-full flex flex-row justify-end">
+                            <Connect />
+                        </div>
                     </div>
                     {/* <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
                         Connect Wallet
