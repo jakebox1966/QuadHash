@@ -259,7 +259,7 @@ export default function FilterComponent({
                             handleNftTypeParam(value)
                         }}>
                         <div className="relative max-w-[calc(25%-5px)] w-full">
-                            <Listbox.Button className="relative leading-[18px] w-full rounded-lg bg-white py-2 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:border-[#F46221]">
+                            <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm md:text-sm">
                                 <span className="block truncate font-medium">
                                     {selectedType.name}
                                 </span>
@@ -321,7 +321,7 @@ export default function FilterComponent({
                                 handleOptionParam(value)
                             }}>
                             <div className="relative max-w-[calc(25%-5px)] w-full">
-                                <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
+                                <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 md:text-sm sm:text-sm">
                                     <span className="block truncate font-medium">
                                         {selectedOption.name}
                                     </span>
