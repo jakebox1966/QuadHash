@@ -1,14 +1,14 @@
 'use client'
 
-import Logo from './Logo'
+import Logo from '../../components/header/Logo'
 import React, { useState } from 'react'
-import Navbar from '@/app/[locale]/common/layouts/header/Navbar'
-import Setting from '@/app/[locale]/common/layouts/header/Setting'
-import Connect from '@/app/[locale]/common/layouts/header/Connect'
+import Navbar from '@/app/[locale]/common/components/header/Navbar'
+import Setting from '@/app/[locale]/common/components/header/Setting'
+import Connect from '@/app/[locale]/common/components/header/Connect'
 import { useEffect, useRef } from 'react'
-import { SignInModal } from './SignInModal'
+import { SignInModal } from '../../components/header/SignInModal'
 import { useSignInModal } from '@/app/hooks/useSignInModal'
-import MobileNavMenu from './MobileNavMenu'
+import MobileNavMenu from '../../components/header/MobileNavMenu'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
@@ -156,7 +156,7 @@ export default function Header(props: IHeaderProps) {
                             <Image src={mobileLogo} alt={'mobile_logo'} />
                         </Link>
                         <div className="w-full flex flex-row justify-end">
-                            <Connect />
+                            <Connect profileNFT={profileNFT} />
                         </div>
                     </div>
                     {/* <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
@@ -189,7 +189,7 @@ export default function Header(props: IHeaderProps) {
                 <div className="hidden lg:flex lg:flex-row justify-around items-center lg:w-[1300px]">
                     <Logo />
                     <Navbar />
-                    <Connect />
+                    <Connect profileNFT={profileNFT} />
                 </div>
             </header>
             <MobileNavMenu

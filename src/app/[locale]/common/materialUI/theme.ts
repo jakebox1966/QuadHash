@@ -10,7 +10,7 @@ export const customTheme = {
             className: '',
         },
         valid: {
-            sizes: ['sm', 'md', 'lg'],
+            sizes: ['sm', 'md', 'lg', 'xl'],
         },
         styles: {
             base: {
@@ -55,6 +55,59 @@ export const customTheme = {
                     width: 'w-fit md:w-fit lg:w-[1200px]',
                     minWidth: 'min-w-fit md:min-w-fit lg:min-w-[1200px]',
                     maxWidth: 'max-w-fit md:max-[700px] lg:max-w-[1200px] ',
+                },
+                xl: {
+                    width: 'w-fit w-screen lg:w-[700px]',
+                    minWidth: 'min-w-fit min-w-screen min-w-[700px]',
+                    maxWidth: 'max-w-fit max-w-screen',
+                },
+                // connect: {
+                //     width: 'w-fit lg:w-screen',
+                //     minWidth: 'min-w-fit lg:min-w-screen',
+                //     maxWidth: 'max-w-fit lg:max-w-screen ',
+                // },
+            },
+        },
+    },
+}
+
+export const drawerTheme = {
+    drawer: {
+        defaultProps: {
+            size: 3000,
+            overlay: true,
+            placement: 'left',
+            overlayProps: undefined,
+            className: '',
+            dismiss: undefined,
+            onClose: undefined,
+            transition: {
+                type: 'tween',
+                duration: 0.3,
+            },
+        },
+        styles: {
+            base: {
+                drawer: {
+                    position: 'fixed',
+                    zIndex: 'z-[9999]',
+                    pointerEvents: 'pointer-events-auto',
+                    backgroundColor: 'bg-white',
+                    boxSizing: 'box-border',
+                    width: 'w-full',
+                    height: 'h-1/2',
+                    boxShadow: 'shadow-2xl shadow-blue-gray-900/10',
+                },
+                overlay: {
+                    position: 'absolute',
+                    inset: 'inset-0',
+                    width: 'w-full',
+                    height: 'h-screen',
+                    pointerEvents: 'pointer-events-auto',
+                    zIndex: 'z-[9995]',
+                    backgroundColor: 'bg-black',
+                    backgroundOpacity: 'bg-opacity-60',
+                    backdropBlur: 'backdrop-blur-sm',
                 },
             },
         },

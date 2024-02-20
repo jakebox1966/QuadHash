@@ -8,6 +8,7 @@ import { SignInModalContextProvider } from './SignInModalProvider'
 import AlertProvider from './AlertProvider'
 import ConfirmProvider from './ConfirmProvider'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ToastProvider } from './ToastProvider'
 
 export default function CommonProvider({ children }: { children: React.ReactNode }) {
     const queryClient = new QueryClient()
@@ -19,7 +20,11 @@ export default function CommonProvider({ children }: { children: React.ReactNode
                     <MetaMaskContextProvider>
                         <ConfirmProvider>
                             <AlertProvider>
-                                <SignInModalContextProvider>{children}</SignInModalContextProvider>
+                                <ToastProvider>
+                                    <SignInModalContextProvider>
+                                        {children}
+                                    </SignInModalContextProvider>
+                                </ToastProvider>
                             </AlertProvider>
                         </ConfirmProvider>
                     </MetaMaskContextProvider>

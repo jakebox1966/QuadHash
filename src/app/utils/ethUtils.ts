@@ -11,7 +11,7 @@ export const formatChainAsNum = (chainIdHex: string) => {
 }
 
 export const formatAddress = (addr: string) => {
-    return `${addr.substring(0, 15)}...`
+    return `${addr.substring(0, 13)}...`
 }
 
 export const calcCoinPriceWithWei = (coinAmount: number, coinPriceInWei: number) => {

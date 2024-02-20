@@ -146,8 +146,8 @@ export default function MobileNavMenu({
                             </div>
                         </div>
                     )} */}
-
-                    {/* <Popover placement="bottom-end">
+                    {/* 
+                    <Popover placement="bottom-end">
                         <PopoverHandler>
                             <div className="flex flex-row justify-center items-center gap-14 cursor-pointer">
                                 Connect Wallet

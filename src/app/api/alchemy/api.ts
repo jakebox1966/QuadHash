@@ -1,6 +1,13 @@
-import { Alchemy, GetTransfersForOwnerTransferType, Network } from 'alchemy-sdk'
+import {
+    Alchemy,
+    AlchemySubscription,
+    GetTransfersForOwnerTransferType,
+    Network,
+    Utils,
+} from 'alchemy-sdk'
 import { createAlchemyWeb3 } from '@alch/alchemy-web3'
 import EtherToQHT_ContractABI from '@/app/abi/EtherToQHT.json'
+import ERC20Token_ContractABI from '@/app/abi/ERC20Token.json'
 import { calcCoinPriceWithWei } from '@/app/utils/ethUtils'
 
 const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
@@ -101,4 +108,70 @@ export const getNFTMetadata = async (contractAddress, tokenId) => {
     const response = await alchemy.nft.getNftMetadata(contractAddress, tokenId)
     console.log(response)
     return response
+}
+
+export const getQhTokenBalance = async (walletAddress) => {
+    const response = await alchemy.core.getTokenBalances(walletAddress, [
+        process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
+    ])
+
+    return response
+}
+
+export const checkQhTokenAllowance = async (walletAddress) => {
+    window.contract = new web3.eth.Contract(
+        ERC20Token_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
+    )
+
+    const allowance = await window.contract.methods
+        .allowance(walletAddress, process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS)
+        .call()
+    console.log(allowance)
+    return allowance
+
+    // window.contract = new web3.eth.Contract(
+    //     ERC20Token_ContractABI.abi as any,
+    //     '0xec1e45aDE3cADaCDAcEd90Bb6c4A7Bc30e274864',
+    // )
+}
+
+export const giveQhTokenContractPermission = async (walletAddress, value) => {
+    window.contract = new web3.eth.Contract(
+        ERC20Token_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
+    )
+
+    const transactionParameters = {
+        to: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
+        from: walletAddress,
+        data: window.contract.methods
+            .approve(process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS, value)
+            .encodeABI(),
+    }
+
+    const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+    })
+
+    return txHash
+}
+
+// export const transferQhToken = async (amount) => {
+//     window.cont
+// }
+
+/**
+ *
+ * Transaction 실행 후, Alchemy websocket으로 Transaction 상태 응답
+ *
+ * @param txHash
+ */
+export const asnycCreateBlock = (txHash: string) => {
+    alchemy.ws.on(txHash, (tx) => {
+        console.log(tx)
+        alchemy.ws.off(tx)
+        return tx
+    })
 }

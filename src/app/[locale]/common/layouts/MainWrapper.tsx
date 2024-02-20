@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import { SignInModal } from './header/SignInModal'
+import { SignInModal } from '../components/header/SignInModal'
 
 export interface IMainWrapperProps {}
 

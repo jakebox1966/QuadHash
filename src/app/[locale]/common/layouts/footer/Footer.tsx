@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Logo from '../header/Logo'
+import Logo from '../../components/header/Logo'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
 

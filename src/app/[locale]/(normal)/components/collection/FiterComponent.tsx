@@ -207,7 +207,7 @@ export default function FilterComponent({
                                 className="border-none !text-black px-6 cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
-                                {item.part_category.toUpperCase()} ({item.part_name.length})
+                                {item.part_category.toUpperCase()}
                             </AccordionHeader>
                             <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
                                 {item.part_name.map((partName) => (
