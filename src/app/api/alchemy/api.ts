@@ -8,6 +8,7 @@ import {
 import { createAlchemyWeb3 } from '@alch/alchemy-web3'
 import EtherToQHT_ContractABI from '@/app/abi/EtherToQHT.json'
 import ERC20Token_ContractABI from '@/app/abi/ERC20Token.json'
+import SendERC20Token_ContractABI from '@/app/abi/SendERC20Token.json'
 import { calcCoinPriceWithWei } from '@/app/utils/ethUtils'
 
 const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
@@ -142,6 +143,8 @@ export const giveQhTokenContractPermission = async (walletAddress, value) => {
         process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
     )
 
+    console.log(window.contract)
+
     const transactionParameters = {
         to: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
         from: walletAddress,
@@ -158,20 +161,63 @@ export const giveQhTokenContractPermission = async (walletAddress, value) => {
     return txHash
 }
 
-// export const transferQhToken = async (amount) => {
-//     window.cont
-// }
+export const transferQhToken = async (walletAddress: string, amount: string) => {
+    console.log(amount)
+    console.log(typeof amount)
+    // window.contract = new web3.eth.Contract(
+    //     SendERC20Token_ContractABI.abi as any,
+    //     process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+    // )
 
-/**
- *
- * Transaction 실행 후, Alchemy websocket으로 Transaction 상태 응답
- *
- * @param txHash
- */
-export const asnycCreateBlock = (txHash: string) => {
-    alchemy.ws.on(txHash, (tx) => {
-        console.log(tx)
-        alchemy.ws.off(tx)
-        return tx
+    window.contract = new web3.eth.Contract(
+        SendERC20Token_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+    )
+
+    const transactionParameters = {
+        to: process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+        from: walletAddress,
+        // value: amount,
+        data: window.contract.methods.sendERC20(amount).encodeABI(),
+    }
+
+    const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
     })
+
+    return txHash
 }
+
+export const getAssetTransfers = async ({
+    // fromBlock,
+    fromAddress,
+    toAddress,
+    category,
+    contractAddresses,
+}) => {
+    const response = await alchemy.core.getAssetTransfers({
+        // fromBlock: fromBlock,
+        fromAddress: fromAddress,
+        toAddress: toAddress,
+        category: category,
+        contractAddresses: contractAddresses,
+    })
+
+    console.log(response)
+    return response
+}
+
+// /**
+//  *
+//  * Transaction 실행 후, Alchemy websocket으로 Transaction 상태 응답
+//  *
+//  * @param txHash
+//  */
+// export const asnycCreateBlock = (txHash: string) => {
+//     alchemy.ws.on(txHash, (tx) => {
+//         console.log(tx)
+//         alchemy.ws.off(tx)
+//         return tx
+//     })
+// }

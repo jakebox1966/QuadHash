@@ -166,3 +166,33 @@
   }
 
 }
+
+.loader2 {
+  color: #FFF;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+}
+.loader2::after {
+  content: '';  
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  position: absolute;
+  bottom: 4px;
+  right: -12px;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: 10px 0 rgba(255, 255, 255, 0), 20px 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 10px 0 white, 20px 0 rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 10px 0 white, 20px 0 white;
+  }
+}

@@ -1,12 +1,20 @@
 'use client'
 
 import {
-    asnycCreateBlock,
     checkQhTokenAllowance,
+    getAssetTransfers,
     giveQhTokenContractPermission,
+    transferQhToken,
 } from '@/app/api/alchemy/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
-import { Button, Dialog, DialogBody, DialogHeader, ThemeProvider } from '@material-tailwind/react'
+import {
+    Button,
+    Dialog,
+    DialogBody,
+    DialogHeader,
+    Spinner,
+    ThemeProvider,
+} from '@material-tailwind/react'
 import { Wallet } from 'alchemy-sdk'
 import * as React from 'react'
 
@@ -19,6 +27,10 @@ import {
 } from 'alchemy-sdk'
 import { ToastContext } from '@/app/provider/ToastProvider'
 import { customTheme } from '../../materialUI/theme'
+import { AlertContext } from '@/app/provider/AlertProvider'
+import { getUuidByAccount } from '@/app/api/auth/api'
+import { personalSign } from '@/app/api/wallet/api'
+import { exchangeTicket } from '@/app/api/dynamicNFT/api'
 
 const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
@@ -52,7 +64,9 @@ export default function QhTokenModalComponent({
     QhTokenModalTap,
     handleQhTokenModalTap,
 }: IQhtokenModalComponentProps) {
-    const { showToast } = React.useContext(ToastContext)
+    const [isLoadingForApproved, setIsLoadingForApproved] = React.useState(false)
+    const [isLoadingForTransfer, setIsLoadingForTransfer] = React.useState(false)
+    const [isLoadingForExchangeTicket, setIsLoadingForExchangeTicket] = React.useState(false)
     const limit = qhTokenBalance
 
     const { wallet } = useMetaMask()
@@ -67,6 +81,18 @@ export default function QhTokenModalComponent({
         }
     }
 
+    React.useEffect(() => {
+        const test = async () => {
+            await getAssetTransfers({
+                fromAddress: wallet.accounts[0],
+                toAddress: '0x485fd663AF10F6Bd379D86494aD48E01531417F4',
+                category: ['erc20'],
+                contractAddresses: [process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS],
+            })
+        }
+        test()
+    }, [])
+
     // const setMaxQhBalance = () => {
     //     setTokenAmount(limit)
     // }
@@ -77,34 +103,74 @@ export default function QhTokenModalComponent({
 
     const sendTransactionForTicket = async () => {
         if (parseInt(tokenAmount) > limit) {
-            alert('보유하신 토큰이 부족합니다.')
             setTokenAmount('')
             return
         }
         const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
-        console.log('allowanceResponse', allowanceResponse)
 
         const realTokenAmount = parseInt(tokenAmount) * 10 ** 18
 
+        /**
+         * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
+         */
         if (parseInt(allowanceResponse) < realTokenAmount) {
-            console.log('토큰을 Transfer하기 위한 권한이 필요합니다. 권한 요청을 시도합니다.')
+            setIsLoadingForApproved(true)
+            console.log(
+                '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
+            )
             const txHash = await giveQhTokenContractPermission(
                 wallet.accounts[0],
                 realTokenAmount.toString(),
             )
 
-            alchemy.ws.on(txHash, (tx) => {
-                console.log(tx)
-                showToast('권한이 위임되었습니다.')
+            alchemy.ws.on(txHash, async (tx) => {
                 alchemy.ws.off(txHash)
+                setIsLoadingForApproved(false)
+                setIsLoadingForTransfer(true)
+                const txHashForTransfer = await transferQhToken(
+                    wallet.accounts[0],
+                    realTokenAmount.toString(),
+                )
+                await exchangeTokenToTicket(txHashForTransfer)
             })
+            return
         }
+
+        /**
+         *  입력한 수량에 대한 Transfer 권한을 가진 경우엔 권한 승인 없이 바로 Transfer(onChain) & Exchange(offChain) 메소드를 실행한다.
+         */
+
         console.log(
-            '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transaction을 실행합니다.',
+            '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
         )
+        setIsLoadingForTransfer(true)
+        const txHashForTransfer = await transferQhToken(
+            wallet.accounts[0],
+            realTokenAmount.toString(),
+        )
+        await exchangeTokenToTicket(txHashForTransfer)
     }
 
-    const checkAllowarance = async () => {
+    const exchangeTokenToTicket = async (txHash) => {
+        console.log('txHash', txHash)
+        alchemy.ws.on(txHash, async (tx) => {
+            alchemy.ws.off(txHash)
+            setIsLoadingForTransfer(false)
+            setIsLoadingForExchangeTicket(true)
+
+            let signResult = await getUuidByAccount(wallet.accounts[0])
+            const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+            const result = await exchangeTicket({
+                hash_tx: txHash,
+                wallet_signature: signature,
+                wallet_address: wallet.accounts[0],
+            })
+
+            setIsLoadingForExchangeTicket(false)
+        })
+    }
+
+    const checkAllowance = async () => {
         const response = await checkQhTokenAllowance(wallet.accounts[0])
         console.log('response', response)
     }
@@ -195,18 +261,30 @@ export default function QhTokenModalComponent({
                                         </div>
                                     </div>
                                 </div>
-                                <Button
-                                    onClick={sendTransactionForTicket}
-                                    className="w-full bg-[#F46221] mt-10 text-white font-black hover:opacity-80"
-                                    placeholder={undefined}>
-                                    CONFIRM
-                                </Button>
-                                {/* <Button
-                                    onClick={checkAllowarance}
-                                    className="w-full bg-[#F46221] mt-10 text-white font-black hover:opacity-80"
-                                    placeholder={undefined}>
-                                    CONFIRM
-                                </Button> */}
+                                {!isLoadingForApproved &&
+                                    !isLoadingForTransfer &&
+                                    !isLoadingForExchangeTicket && (
+                                        <Button
+                                            onClick={sendTransactionForTicket}
+                                            className="w-full bg-[#F46221] mt-10 text-white font-black hover:opacity-80"
+                                            placeholder={undefined}>
+                                            CONFIRM
+                                        </Button>
+                                    )}
+                                {(isLoadingForApproved ||
+                                    isLoadingForTransfer ||
+                                    isLoadingForExchangeTicket) && (
+                                    <Button
+                                        className="w-full bg-[#F46221] mt-10 text-white font-black"
+                                        placeholder={undefined}
+                                        disabled>
+                                        <span className="loader2">
+                                            {isLoadingForApproved && 'APPROVING'}
+                                            {isLoadingForTransfer && 'TRANSFERRING'}
+                                            {isLoadingForExchangeTicket && 'EXCHANGING'}
+                                        </span>
+                                    </Button>
+                                )}
                             </div>
                         )}
 
