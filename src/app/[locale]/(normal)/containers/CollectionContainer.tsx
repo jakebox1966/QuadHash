@@ -12,6 +12,7 @@ import BurtonMorrisComponent from '../components/collection/BurtonMorrisListComp
 
 import NormalCollectionListComponent from '../components/collection/NormalListComponent'
 import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
+import ActivePartFilterComponent from '../components/collection/ActivePartFilterComponent'
 
 export interface ICollectionContainerProps {}
 
@@ -46,25 +47,6 @@ export interface IQueryParam {
     bottoms: string[]
     onesie: string[]
 }
-
-interface ISelectedFilter {
-    trait_type: string
-    value: string
-}
-
-const trait_type = [
-    'background',
-    'body',
-    'extras',
-    'eyes',
-    'head',
-    'headwear',
-    'mane',
-    'mouth',
-    'top',
-    'bottoms',
-    'onesie',
-]
 
 const initialQueryParam = {
     token_type: 'saza',
@@ -251,34 +233,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         setBurtonMorris(false)
     }
 
-    const calcFilterCount = () => {
-        const backgroundCount = queryParam.background.length
-        const bodyCount = queryParam.body.length
-        const extrasCount = queryParam.extras.length
-        const eyesCount = queryParam.eyes.length
-        const headCount = queryParam.head.length
-        const headwearCount = queryParam.headwear.length
-        const maneCount = queryParam.mane.length
-        const mouthCount = queryParam.mouth.length
-        const topCount = queryParam.top.length
-        const bottomsCount = queryParam.bottoms.length
-        const onesieCount = queryParam.onesie.length
-
-        return (
-            backgroundCount +
-            bodyCount +
-            extrasCount +
-            eyesCount +
-            headCount +
-            headwearCount +
-            maneCount +
-            mouthCount +
-            topCount +
-            bottomsCount +
-            onesieCount
-        )
-    }
-
     const fetchData = async (pageParam) => {
         const process = Object.entries(queryParam)
             .filter((item) => item[1] !== null)
@@ -314,80 +268,11 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                         handleOptionParam={handleOptionParam}
                         queryParam={queryParam}
                     />
-                    <div className="flex flex-row items-center mt-3 gap-2 flex-wrap">
-                        <div className="bg-gray-300 px-2 rounded-lg">
-                            FILTERS ({calcFilterCount()})
-                        </div>
+                    <ActivePartFilterComponent
+                        queryParam={queryParam}
+                        handlePartParam={handlePartParam}
+                    />
 
-                        {trait_type.map((item) => {
-                            return queryParam[item].map((el) => (
-                                <div
-                                    className="border-2 border-black rounded-full px-3 flex flex-row items-center gap-3"
-                                    onClick={() => handlePartParam(item, el)}>
-                                    <span>
-                                        {item} : {el}
-                                    </span>
-                                    <span className="cursor-pointer">X</span>
-                                </div>
-                            ))
-                        })}
-                        {/* {queryParam.background.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Background: {item}
-                                <span className="cursor-pointer">X</span>
-                            </div>
-                        ))} */}
-                        {/* {queryParam.body.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Body: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.extras.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Extras: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.eyes.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Eyes: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.head.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Head: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.headwear.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                Headwear: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.mane.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                mane: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.mouth.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                mouth: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.top.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                top: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.bottoms.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                bottoms: {item} <span>X</span>
-                            </div>
-                        ))}
-                        {queryParam.onesie.map((item) => (
-                            <div className="border-2 border-black rounded-full px-3">
-                                onesie: {item} <span>X</span>
-                            </div>
-                        ))} */}
-                    </div>
                     {!burtonMorris && (
                         <>
                             <NormalCollectionListComponent
