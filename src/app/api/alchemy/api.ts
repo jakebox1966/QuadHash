@@ -119,6 +119,17 @@ export const getQhTokenBalance = async (walletAddress) => {
     return response
 }
 
+export const getTicketPrice = async () => {
+    window.contract = new web3.eth.Contract(
+        SendERC20Token_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+    )
+
+    const ticketPrice = await window.contract.methods.getTicketPrice().call()
+    console.log(ticketPrice)
+    return ticketPrice
+}
+
 export const checkQhTokenAllowance = async (walletAddress) => {
     window.contract = new web3.eth.Contract(
         ERC20Token_ContractABI.abi as any,
@@ -204,8 +215,21 @@ export const getAssetTransfers = async ({
         contractAddresses: contractAddresses,
     })
 
-    console.log(response)
+    // console.log(response)
     return response
+}
+
+export const getLogs = async (walletAddress: string) => {
+    console.log(Utils.hexZeroPad(walletAddress, 32).toString())
+    const response = await alchemy.core.getLogs({
+        address: process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+        topics: [
+            '0x11df6712959cc8f8aab17d311d8d23a055eb63beca3cf9428063485f8d8c181d',
+            Utils.hexZeroPad(walletAddress, 32).toString(),
+        ],
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+    })
 }
 
 // /**

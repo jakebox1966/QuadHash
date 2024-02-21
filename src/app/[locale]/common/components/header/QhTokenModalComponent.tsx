@@ -3,6 +3,8 @@
 import {
     checkQhTokenAllowance,
     getAssetTransfers,
+    getLogs,
+    getTicketPrice,
     giveQhTokenContractPermission,
     transferQhToken,
 } from '@/app/api/alchemy/api'
@@ -31,6 +33,7 @@ import { AlertContext } from '@/app/provider/AlertProvider'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
 import { exchangeTicket } from '@/app/api/dynamicNFT/api'
+import { formatToken } from '@/app/utils/ethUtils'
 
 const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
@@ -71,68 +74,124 @@ export default function QhTokenModalComponent({
 
     const { wallet } = useMetaMask()
 
-    const [tokenAmount, setTokenAmount] = React.useState('')
+    const [ticketPrice, setTicketPrice] = React.useState(0)
+    const [ticketAmount, setTicketAmount] = React.useState(0)
+    const [tokenAmount, setTokenAmount] = React.useState(0)
+
+    React.useEffect(() => {
+        console.log('ticketAmount', ticketAmount)
+    }, [ticketAmount])
 
     const inputHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {
             const { value } = e.target
+            // let targetValue = value.replace(/^0+/, '')
+
+            // 현재 보유한 Token Balance에 따라 MAX Token amount 변경
+            if (parseInt(value) * ticketPrice > limit) {
+                console.log('삑')
+                const maxTicket = limit / ticketPrice
+                setTicketAmount(maxTicket)
+                setTokenAmount(maxTicket * ticketPrice)
+                return
+            }
             console.log(value)
-            setTokenAmount(value)
+            setTicketAmount(parseInt(value))
+            setTokenAmount(parseInt(value) * ticketPrice)
         }
+    }
+
+    const clearLoading = () => {
+        setIsLoadingForApproved(false)
+        setIsLoadingForTransfer(false)
+        setIsLoadingForExchangeTicket(false)
     }
 
     React.useEffect(() => {
-        const test = async () => {
-            await getAssetTransfers({
-                fromAddress: wallet.accounts[0],
-                toAddress: '0x485fd663AF10F6Bd379D86494aD48E01531417F4',
-                category: ['erc20'],
-                contractAddresses: [process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS],
-            })
+        // console.log('lengtrh', '000000000000000000000000'.length)
+        // const getQhTokenTransactionFromChain = async () => {
+        //     const result = await getAssetTransfers({
+        //         fromAddress: wallet.accounts[0],
+        //         toAddress: process.env.NEXT_PUBLIC_TEAM_WALLET_ADDRESS,
+        //         category: ['erc20'],
+        //         contractAddresses: [process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS],
+        //     })
+        //     console.log(result)
+        //     const txHistory = result.transfers
+        // }
+
+        const getLogsFromChain = async () => {
+            const txListFromOnChain = await getLogs(wallet.accounts[0])
+            // const txListFromOffChain = await getTi
         }
-        test()
+
+        const getTicketPriceFromChain = async () => {
+            console.log('가격을 땡겨옵니ㅓ다.')
+            const ticketPrice = await getTicketPrice()
+            console.log('ticketPrice', ticketPrice / 10 ** 18)
+
+            setTicketPrice(ticketPrice / 10 ** 18)
+        }
+        // getQhTokenTransactionFromChain()
+        getTicketPriceFromChain()
+        getLogsFromChain()
     }, [])
 
-    // const setMaxQhBalance = () => {
-    //     setTokenAmount(limit)
-    // }
-
-    const calcTokenToTicket = (token) => {
-        return token
+    const setMaxTicketBalance = () => {
+        const maxTicket = limit / ticketPrice
+        setTicketAmount(maxTicket)
+        setTokenAmount(maxTicket * ticketPrice)
     }
 
     const sendTransactionForTicket = async () => {
-        if (parseInt(tokenAmount) > limit) {
-            setTokenAmount('')
+        console.log(tokenAmount)
+        console.log(limit)
+
+        if (tokenAmount > limit) {
+            setTokenAmount(0)
             return
         }
+
         const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
 
-        const realTokenAmount = parseInt(tokenAmount) * 10 ** 18
+        const realTokenAmount = tokenAmount * 10 ** 18
 
         /**
          * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
          */
-        if (parseInt(allowanceResponse) < realTokenAmount) {
-            setIsLoadingForApproved(true)
-            console.log(
-                '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
-            )
-            const txHash = await giveQhTokenContractPermission(
-                wallet.accounts[0],
-                realTokenAmount.toString(),
-            )
-
-            alchemy.ws.on(txHash, async (tx) => {
-                alchemy.ws.off(txHash)
-                setIsLoadingForApproved(false)
-                setIsLoadingForTransfer(true)
-                const txHashForTransfer = await transferQhToken(
+        try {
+            if (parseInt(allowanceResponse) < realTokenAmount) {
+                setIsLoadingForApproved(true)
+                console.log(
+                    '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
+                )
+                const txHash = await giveQhTokenContractPermission(
                     wallet.accounts[0],
                     realTokenAmount.toString(),
                 )
-                await exchangeTokenToTicket(txHashForTransfer)
-            })
+
+                alchemy.ws.on(txHash, async (tx) => {
+                    alchemy.ws.off(txHash)
+                    setIsLoadingForApproved(false)
+                    setIsLoadingForTransfer(true)
+                    try {
+                        const txHashForTransfer = await transferQhToken(
+                            wallet.accounts[0],
+                            realTokenAmount.toString(),
+                        )
+                        await exchangeTokenToTicket(txHashForTransfer)
+                    } catch (error) {
+                        console.log('Transfer Error')
+                        console.error(error)
+                        clearLoading()
+                    }
+                })
+                return
+            }
+        } catch (error) {
+            console.error(error)
+            console.log('Approve Error')
+            clearLoading()
             return
         }
 
@@ -144,29 +203,44 @@ export default function QhTokenModalComponent({
             '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
         )
         setIsLoadingForTransfer(true)
-        const txHashForTransfer = await transferQhToken(
-            wallet.accounts[0],
-            realTokenAmount.toString(),
-        )
-        await exchangeTokenToTicket(txHashForTransfer)
+        try {
+            const txHashForTransfer = await transferQhToken(
+                wallet.accounts[0],
+                realTokenAmount.toString(),
+            )
+            await exchangeTokenToTicket(txHashForTransfer)
+        } catch (error) {
+            console.log('Transfer Error')
+            console.error(error)
+            clearLoading()
+        }
     }
 
     const exchangeTokenToTicket = async (txHash) => {
         console.log('txHash', txHash)
         alchemy.ws.on(txHash, async (tx) => {
-            alchemy.ws.off(txHash)
-            setIsLoadingForTransfer(false)
-            setIsLoadingForExchangeTicket(true)
+            try {
+                console.log('tx', tx)
+                alchemy.ws.off(txHash)
+                setIsLoadingForTransfer(false)
+                setIsLoadingForExchangeTicket(true)
 
-            let signResult = await getUuidByAccount(wallet.accounts[0])
-            const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
-            const result = await exchangeTicket({
-                hash_tx: txHash,
-                wallet_signature: signature,
-                wallet_address: wallet.accounts[0],
-            })
+                let signResult = await getUuidByAccount(wallet.accounts[0])
+                const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+                const result = await exchangeTicket({
+                    hash_tx: txHash,
+                    wallet_signature: signature,
+                    wallet_address: wallet.accounts[0],
+                })
 
-            setIsLoadingForExchangeTicket(false)
+                setTokenAmount(0)
+                setTicketAmount(0)
+                setIsLoadingForExchangeTicket(false)
+            } catch (error) {
+                console.log('Ticket Error')
+                console.error(error)
+                clearLoading()
+            }
         })
     }
 
@@ -222,8 +296,7 @@ export default function QhTokenModalComponent({
                                     </div>
                                     <div className="flex flex-col justify-center items-center bg-gray-200 rounded-lg p-5 w-full">
                                         <div className="font-black">
-                                            {tokenAmount ? calcTokenToTicket(tokenAmount) : 0}{' '}
-                                            TICKET
+                                            {ticketAmount ? ticketAmount : 0} TICKET
                                         </div>
                                         <div className="font-medium">Dynamic NFT</div>
                                     </div>
@@ -245,18 +318,17 @@ export default function QhTokenModalComponent({
                                 </div>
                                 <div className="w-full relative mt-10">
                                     <input
-                                        value={tokenAmount}
+                                        value={ticketAmount}
                                         type="number"
                                         onChange={inputHandler}
                                         placeholder="Amount"
                                         className="p-2 border-2 rounded-lg w-full"
                                     />
                                     <div className="flex flex-row justify-center items-center gap-2 font-medium absolute right-3 top-1/2 -translate-y-1/2">
-                                        <div className="font-black">QH</div>
+                                        <div className="font-black">TICKET</div>
                                         <div
                                             className="px-2 bg-gray-200 rounded-full cursor-pointer"
-                                            // onClick={setMaxQhBalance}
-                                        >
+                                            onClick={setMaxTicketBalance}>
                                             Max
                                         </div>
                                     </div>
@@ -267,7 +339,8 @@ export default function QhTokenModalComponent({
                                         <Button
                                             onClick={sendTransactionForTicket}
                                             className="w-full bg-[#F46221] mt-10 text-white font-black hover:opacity-80"
-                                            placeholder={undefined}>
+                                            placeholder={undefined}
+                                            disabled={tokenAmount === 0 || !tokenAmount}>
                                             CONFIRM
                                         </Button>
                                     )}

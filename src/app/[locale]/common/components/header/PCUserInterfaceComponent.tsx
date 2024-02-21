@@ -1,8 +1,9 @@
 'use client'
 
 import { useMetaMask } from '@/app/hooks/useMetaMask'
-import { formatAddress } from '@/app/utils/ethUtils'
+import { formatAddress, formatToken } from '@/app/utils/ethUtils'
 import { Popover, PopoverHandler, Button, PopoverContent } from '@material-tailwind/react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import * as React from 'react'
 
@@ -31,6 +32,10 @@ export default function PCUserInterfaceComponent({
 }: IPCUserInterfaceComponentProps) {
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
+
+    const { data: session } = useSession()
+
+    console.log(session)
 
     return (
         <>
@@ -70,7 +75,10 @@ export default function PCUserInterfaceComponent({
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
                                     </div>
                                     <div className="font-medium text-base">
-                                        BALANCE: {qhTokenBalance} QH
+                                        QH BALANCE: {qhTokenBalance}
+                                    </div>
+                                    <div className="font-medium text-base">
+                                        TICKET BALANCE: {session.user.ticket_num}
                                     </div>
                                 </div>
                             </div>

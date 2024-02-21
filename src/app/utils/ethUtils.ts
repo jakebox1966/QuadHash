@@ -25,3 +25,7 @@ export const calcCoinPriceWithWei = (coinAmount: number, coinPriceInWei: number)
     const hexValue = Utils.hexlify(BigInt(value))
     return hexValue
 }
+
+export const formatToken = (token) => {
+    return token / 10 ** 18
+}
