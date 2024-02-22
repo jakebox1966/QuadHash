@@ -124,8 +124,8 @@ export default function CollectionDetailModalComponent({
                                     .map((item) => (
                                         <div
                                             key={item.trait_type}
-                                            className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 bg-opacity-20 bg-black rounded-lg">
-                                            <div>
+                                            className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
+                                            {/* <div>
                                                 {item.trait_type === 'Background' && (
                                                     <img
                                                         src="/mypage_square.svg"
@@ -174,7 +174,7 @@ export default function CollectionDetailModalComponent({
                                                         alt="mypage_ranking"
                                                     />
                                                 )}
-                                            </div>
+                                            </div> */}
                                             <div>
                                                 <div>
                                                     {item.trait_type !== 'Dcount'
@@ -185,10 +185,10 @@ export default function CollectionDetailModalComponent({
                                             </div>
                                         </div>
                                     ))}
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 bg-opacity-20 bg-black rounded-lg">
-                                    <div>
+                                <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
+                                    {/* <div>
                                         <img src="/mypage_rank.svg" alt="mypage_rank" />
-                                    </div>
+                                    </div> */}
                                     <div>
                                         <div>{metadata?.attributes[0].trait_type}</div>
                                         <div className="font-black">

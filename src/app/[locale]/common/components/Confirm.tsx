@@ -19,27 +19,37 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
     return (
         <>
             <div className="!z-[9999]">
-                <Dialog open={open} handler={onClickCancel} placeholder={undefined}>
-                    <DialogHeader className="flex flex-col items-start" placeholder={undefined}>
-                        <Typography className="mb-1" variant="h4" placeholder={undefined}>
-                            Confirm
-                        </Typography>
-                    </DialogHeader>
-                    <DialogBody placeholder={undefined}>{message ? message : ''}</DialogBody>
+                <Dialog
+                    open={open}
+                    handler={onClickCancel}
+                    placeholder={undefined}
+                    className="border-2 border-black">
+                    <DialogBody placeholder={undefined}>
+                        <div className="flex flex-row items-center gap-5">
+                            <div className="w-[72px] lg:w-[60px] h-auto">
+                                <img
+                                    src="/alert_icon.svg"
+                                    alt="alert_icon"
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                            <div className="flex flex-col text-black gap-2">
+                                <div className="font-black text-3xl">Confirm</div>
+                                <div className="font-medium">{message ? message : ''}</div>
+                            </div>
+                        </div>
+                    </DialogBody>
                     <DialogFooter placeholder={undefined}>
                         <Button
-                            variant="gradient"
-                            color="gray"
                             onClick={onClickCancel}
-                            className="mr-1"
-                            placeholder={undefined}>
+                            placeholder={undefined}
+                            className=" w-[128px] bg-[#FFFFFF] mr-2 border-2 border-[#F46221] text-black">
                             <span>CANCEL</span>
                         </Button>
                         <Button
-                            variant="gradient"
-                            color="gray"
                             onClick={onClickOK}
-                            placeholder={undefined}>
+                            placeholder={undefined}
+                            className=" w-[128px] bg-[#F46221] border-2 border-[#F46221] text-[#FFFFFF]">
                             <span>OK</span>
                         </Button>
                     </DialogFooter>

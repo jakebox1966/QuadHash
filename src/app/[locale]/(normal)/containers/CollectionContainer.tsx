@@ -162,6 +162,23 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         setBurtonMorris((prev) => !prev)
     }
 
+    const clearFilter = () => {
+        setQueryParam((prev) => ({
+            ...prev,
+            background: [],
+            body: [],
+            extras: [],
+            eyes: [],
+            head: [],
+            headwear: [],
+            mane: [],
+            mouth: [],
+            top: [],
+            bottoms: [],
+            onesie: [],
+        }))
+    }
+
     const handlePartParam = (category, partName) => {
         if (queryParam[category].find((item) => item === partName)) {
             setQueryParam((prev) => ({
@@ -269,6 +286,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                         queryParam={queryParam}
                     />
                     <ActivePartFilterComponent
+                        clearFilter={clearFilter}
                         queryParam={queryParam}
                         handlePartParam={handlePartParam}
                     />

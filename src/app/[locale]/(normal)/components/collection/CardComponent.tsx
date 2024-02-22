@@ -38,7 +38,7 @@ export default function CardComponent({
             <div
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
                 onClick={() => onClick(item, queryParam.token_type)}>
-                <div className="overflow-hidden rounded-lg  aspect-square">
+                <div className="overflow-hidden rounded-lg aspect-square">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>

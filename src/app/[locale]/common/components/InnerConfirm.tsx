@@ -17,7 +17,7 @@ export default function InnerConfirm({ confirmMessage, setConfirmMessage }: IInn
                 </div>
                 <div className="flex flex-row items-center gap-3 w-full">
                     <div className="w-[30px] lg:w-[60px] h-auto">
-                        <img src="alert_icon.svg" alt="alert_icon" className="w-full h-auto" />
+                        <img src="/alert_icon.svg" alt="alert_icon" className="w-full h-auto" />
                     </div>
                     <div className="flex flex-col justify-center">
                         <div className="font-black text-sm lg:text-3xl">CONFIRM</div>

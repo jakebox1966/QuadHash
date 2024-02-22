@@ -35,8 +35,6 @@ export default function PCUserInterfaceComponent({
 
     const { data: session } = useSession()
 
-    console.log(session)
-
     return (
         <>
             <Popover
@@ -54,19 +52,11 @@ export default function PCUserInterfaceComponent({
                 </PopoverHandler>
 
                 <PopoverContent
-                    className="max-w-[400px] w-max] !z-[9997] hidden lg:block"
+                    className="min-w-[517px] w-max !z-[9997] hidden lg:flex flex-row border-2 border-black"
                     placeholder={undefined}>
-                    <div className="flex flex-col items-center justify-start">
-                        <div className="flex flex-row justify-end items-end w-full">
-                            <img
-                                src="/exit.svg"
-                                alt="exit"
-                                onClick={closePCModal}
-                                className="cursor-pointer"
-                            />
-                        </div>
-                        <div className="flex flex-row just w-full pt-4">
-                            <div className="flex-[1_1_60%] flex flex-col justify-start items-start gap-3">
+                    <div className="flex flex-col items-center justify-start relative w-full">
+                        <div className="flex flex-row just w-full">
+                            <div className="flex flex-col justify-start items-start gap-3 text-black w-full">
                                 <div className="font-black text-2xl">
                                     {profileNFT?.name.split(':')[1].trim()}
                                 </div>
@@ -82,28 +72,37 @@ export default function PCUserInterfaceComponent({
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex-[1_1_40%] rounded-2xl overflow-hidden">
+                            <div className="rounded-2xl overflow-hidden max-w-[130px] w-full h-full">
                                 <img src={imageUrl} alt="profile_image" />
                             </div>
                         </div>
-                        <div className="flex flex-row justify-center text-xs items-center text-white w-full gap-3 pt-10 font-medium">
+                        <div className="flex flex-row justify-center text-xs items-center text-white w-full gap-3 mt-[15px] font-medium">
                             <Link
                                 href={`/collector/${wallet.accounts[0]}`}
-                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70">
-                                MY PAGE
+                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-lg flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70">
+                                My page
                             </Link>
                             <div
-                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
+                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-lg flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
                                 onClick={handleQhTokenModal}>
-                                MY ACTIVITY
+                                My Activity
                             </div>
 
                             <div
-                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
+                                className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-lg flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
                                 onClick={disconnect}>
-                                DISCONNECT
+                                Disconnect
                             </div>
                         </div>
+                    </div>
+
+                    <div className="flex flex-row justify-center items-start ml-3">
+                        <img
+                            src="/exit.svg"
+                            alt="exit"
+                            onClick={closePCModal}
+                            className="cursor-pointer"
+                        />
                     </div>
                 </PopoverContent>
             </Popover>

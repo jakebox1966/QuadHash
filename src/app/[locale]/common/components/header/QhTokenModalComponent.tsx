@@ -308,32 +308,30 @@ export default function QhTokenModalComponent({
                 ref={myElementRef}
                 dismiss={open ? { outsidePress: false } : { outsidePress: true }}
                 open={isQhTokenModalOpen}
-                className="min-h-[502px] relative"
+                className="!min-h-[305px] relative border-2"
                 handler={handleQhTokenModal}
                 placeholder={undefined}>
                 <DialogHeader placeholder={undefined}>
                     <div className="flex flex-row justify-center font-black items-center w-full relative">
-                        DYNAMIC NFT BUY
+                        Dynamic NFT Buy
                         <img
-                            src="/exit.svg"
-                            alt="exit"
+                            src="/close-button.svg"
+                            alt="close-button"
                             onClick={handleQhTokenModal}
                             className="cursor-pointer absolute right-0"
                         />
                     </div>
                 </DialogHeader>
                 <DialogBody placeholder={undefined}>
-                    <div className="w-full flex flex-col justify-center items-center gap-2">
-                        <div className="flex flex-row justify-center items-center font-black w-full text-center gap-2">
+                    <div className="w-full flex flex-col justify-center items-center gap-1">
+                        <div className="flex flex-row justify-center items-center font-black w-full text-center gap-1">
                             <div
-                                className={`w-full border-2 rounded-lg p-2 cursor-pointer hover:border-[#F46221] ${
-                                    QhTokenModalTap === 'ticket' && 'bg-[#FFCD19]/25'
-                                }`}
+                                className={`w-full border-2 rounded-l-xl p-2 cursor-pointer text-[#F46221] border-[#F46221] hover:border-[#F46221]`}
                                 onClick={() => handleQhTokenModalTap('ticket')}>
                                 TICKET
                             </div>
                             <div
-                                className={`w-full border-2 rounded-lg p-2 relative ${
+                                className={`w-full border-2 border-[#F46221] rounded-r-xl p-2 relative bg-[#F46221] text-[#FFFFFF] ${
                                     missingTransactionForTicket.length > 0 &&
                                     'hover:border-[#F46221] cursor-pointer'
                                 }  ${QhTokenModalTap === 'activity' && 'bg-[#FFCD19]/25'}`}
@@ -351,28 +349,28 @@ export default function QhTokenModalComponent({
                             </div>
                         </div>
                         {QhTokenModalTap === 'ticket' && (
-                            <div className="w-full">
-                                <div className="flex flex-row justify-center items-center w-full gap-2 relative">
-                                    <div className="flex flex-col justify-center items-center bg-gray-200 rounded-lg p-5 w-full">
+                            <div className="w-full mt-[47px]">
+                                <div className="flex flex-row justify-center items-center w-full gap-1 relative">
+                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] rounded-l-xl p-5 w-full text-[#F46221]">
                                         <div className="font-black">
                                             {tokenAmount ? tokenAmount : 0} QH
                                         </div>
                                         <div className="font-medium">QH balance</div>
                                     </div>
-                                    <div className="flex flex-col justify-center items-center bg-gray-200 rounded-lg p-5 w-full">
+                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] bg-[#F46221] text-[#FFFFFF] rounded-r-xl p-5 w-full">
                                         <div className="font-black">
                                             {ticketAmount ? ticketAmount : 0} TICKET
                                         </div>
                                         <div className="font-medium">Dynamic NFT</div>
                                     </div>
-                                    <div className="absolute bg-white rounded-full p-2">
+                                    <div className="absolute bg-white rounded-full border-2 p-2">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-6 h-6">
+                                            className="w-6 h-6 text-black">
                                             <path
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -381,7 +379,7 @@ export default function QhTokenModalComponent({
                                         </svg>
                                     </div>
                                 </div>
-                                <div className="w-full relative mt-10">
+                                <div className="w-full relative mt-[62px]">
                                     <input
                                         value={ticketAmount}
                                         disabled={
@@ -391,13 +389,12 @@ export default function QhTokenModalComponent({
                                         }
                                         type="number"
                                         onChange={inputHandler}
-                                        placeholder="Amount"
-                                        className="p-2 border-2 rounded-lg w-full"
+                                        placeholder="TICKET"
+                                        className="outline-none p-2 border-2 border-[#F46221] focus:border-[#F46221] bg-[#FFF5F0] rounded-lg w-full"
                                     />
                                     <div className="flex flex-row justify-center items-center gap-2 font-medium absolute right-3 top-1/2 -translate-y-1/2">
-                                        <div className="font-black">TICKET</div>
                                         <button
-                                            className="px-2 bg-gray-200 rounded-full cursor-pointer"
+                                            className="px-3 bg-gray-200 rounded-full cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
                                             disabled={
                                                 isLoadingForApproved ||
                                                 isLoadingForTransfer ||
@@ -413,10 +410,10 @@ export default function QhTokenModalComponent({
                                     !isLoadingForExchangeTicket && (
                                         <Button
                                             onClick={sendTransactionForTicket}
-                                            className="w-full bg-[#F46221] mt-10 text-white font-black hover:opacity-80"
+                                            className="w-full bg-[#F46221] mt-[62px] mb-[15px] text-white font-black hover:opacity-80"
                                             placeholder={undefined}
                                             disabled={tokenAmount === 0 || !tokenAmount}>
-                                            CONFIRM
+                                            Next
                                         </Button>
                                     )}
                                 {(isLoadingForApproved ||
