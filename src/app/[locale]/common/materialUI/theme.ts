@@ -19,6 +19,7 @@ export const customTheme = {
                     placeItems: 'place-items-center',
                     position: 'fixed',
                     top: 0,
+                    zIndex: 9998,
                     left: 0,
                     width: 'w-screen',
                     height: 'h-screen',
@@ -66,6 +67,51 @@ export const customTheme = {
                 //     minWidth: 'min-w-fit lg:min-w-screen',
                 //     maxWidth: 'max-w-fit lg:max-w-screen ',
                 // },
+            },
+        },
+    },
+}
+export const customTheme1 = {
+    dialog: {
+        defaultProps: {
+            size: 'md',
+            dismiss: {},
+            animate: {
+                unmount: {},
+                mount: {},
+            },
+            className: '',
+        },
+        valid: {
+            sizes: ['sm', 'md', 'lg', 'xl'],
+        },
+        styles: {
+            base: {
+                backdrop: {
+                    display: 'grid',
+                    placeItems: 'place-items-center',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: 'w-screen',
+                    height: 'h-screen',
+                    backgroundColor: 'bg-black',
+                    backgroundOpacity: 'bg-opacity-60',
+                    backdropFilter: 'backdrop-blur-sm',
+                },
+                container: {
+                    position: 'relative',
+                    bg: 'bg-white',
+                    m: 'm-4',
+                    borderRadius: 'rounded-lg',
+                    boxShadow: 'shadow-2xl',
+                    color: 'text-blue-gray-500',
+                    fontSmoothing: 'antialiased',
+                    fontFamily: 'font-sans',
+                    fontSize: 'text-base',
+                    fontWeight: 'font-light',
+                    lineHeight: 'leading-relaxed',
+                },
             },
         },
     },

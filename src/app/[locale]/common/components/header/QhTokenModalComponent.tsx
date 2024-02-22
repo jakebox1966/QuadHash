@@ -28,12 +28,17 @@ import {
     Utils,
 } from 'alchemy-sdk'
 import { ToastContext } from '@/app/provider/ToastProvider'
-import { customTheme } from '../../materialUI/theme'
+import { customTheme, customTheme1 } from '../../materialUI/theme'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
-import { exchangeTicket } from '@/app/api/dynamicNFT/api'
+import { exchangeTicket, getUsedTicketList } from '@/app/api/dynamicNFT/api'
 import { formatToken } from '@/app/utils/ethUtils'
+import { ConfirmContext } from '@/app/provider/ConfirmProvider'
+import InnerToast from '../InnerToast'
+import InnerConfirm from '../InnerConfirm'
+
+// import { Dialog } from '@headlessui/react'
 
 const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
@@ -52,13 +57,6 @@ export interface IQhtokenModalComponentProps {
 }
 
 const TABLE_HEAD = ['Hash', 'Ticket', 'Claim']
-const TABLE_ROWS = [
-    { hash: '234234ccc234', ticket: 2, claim: 123 },
-    { hash: '234234ccc234', ticket: 2, claim: 123 },
-    { hash: '234234ccc234', ticket: 2, claim: 123 },
-    { hash: '234234ccc234', ticket: 2, claim: 123 },
-    { hash: '234234ccc234', ticket: 2, claim: 123 },
-]
 
 export default function QhTokenModalComponent({
     qhTokenBalance,
@@ -70,17 +68,38 @@ export default function QhTokenModalComponent({
     const [isLoadingForApproved, setIsLoadingForApproved] = React.useState(false)
     const [isLoadingForTransfer, setIsLoadingForTransfer] = React.useState(false)
     const [isLoadingForExchangeTicket, setIsLoadingForExchangeTicket] = React.useState(false)
+
     const limit = qhTokenBalance
 
     const { wallet } = useMetaMask()
+
+    const toastTimer = React.useRef<NodeJS.Timeout>()
+
+    // const [toastMessage, setToastMessage] = React.useState(null)
+    // const [confirmMessage, setConfirmMessage] = React.useState(null)
+
+    const { $confirm, open } = React.useContext(ConfirmContext)
+    const { showToast } = React.useContext(ToastContext)
 
     const [ticketPrice, setTicketPrice] = React.useState(0)
     const [ticketAmount, setTicketAmount] = React.useState(0)
     const [tokenAmount, setTokenAmount] = React.useState(0)
 
-    React.useEffect(() => {
-        console.log('ticketAmount', ticketAmount)
-    }, [ticketAmount])
+    const myElementRef = React.useRef(null)
+
+    const [missingTransactionForTicket, setMissingTransactionForTicket] = React.useState<any>([])
+
+    // const showTaost = (message) => {
+    //     setToastMessage(message)
+
+    //     if (toastTimer.current) {
+    //         clearTimeout(toastTimer.current)
+    //     }
+    //     const timer = setTimeout(() => {
+    //         setToastMessage(null)
+    //     }, 3000)
+    //     toastTimer.current = timer
+    // }
 
     const inputHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {
@@ -107,35 +126,36 @@ export default function QhTokenModalComponent({
         setIsLoadingForExchangeTicket(false)
     }
 
-    React.useEffect(() => {
-        // console.log('lengtrh', '000000000000000000000000'.length)
-        // const getQhTokenTransactionFromChain = async () => {
-        //     const result = await getAssetTransfers({
-        //         fromAddress: wallet.accounts[0],
-        //         toAddress: process.env.NEXT_PUBLIC_TEAM_WALLET_ADDRESS,
-        //         category: ['erc20'],
-        //         contractAddresses: [process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS],
-        //     })
-        //     console.log(result)
-        //     const txHistory = result.transfers
-        // }
+    const exchangeHashToTicket = async (txHash) => {
+        let signResult = await getUuidByAccount(wallet.accounts[0])
+        const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+        const result = await exchangeTicket({
+            hash_tx: txHash,
+            wallet_signature: signature,
+            wallet_address: wallet.accounts[0],
+        })
 
-        const getLogsFromChain = async () => {
-            const txListFromOnChain = await getLogs(wallet.accounts[0])
-            // const txListFromOffChain = await getTi
-        }
+        setTokenAmount(0)
+        setTicketAmount(0)
+        setZindex()
+        showToast(`Dynamic NFT 티켓 연동을 완료하였습니다`)
+        getMissingTicketList()
+    }
 
-        const getTicketPriceFromChain = async () => {
-            console.log('가격을 땡겨옵니ㅓ다.')
-            const ticketPrice = await getTicketPrice()
-            console.log('ticketPrice', ticketPrice / 10 ** 18)
+    const getMissingTicketList = async () => {
+        const txListFromOnChain = await getLogs(wallet.accounts[0])
+        const txListFromOffChain = await getUsedTicketList()
 
-            setTicketPrice(ticketPrice / 10 ** 18)
-        }
-        // getQhTokenTransactionFromChain()
-        getTicketPriceFromChain()
-        getLogsFromChain()
-    }, [])
+        const processingList = txListFromOffChain?.data?.tickets.map((item) => {
+            return item.hash_tx
+        })
+
+        const missingTicketList = txListFromOnChain.filter(
+            (item) => !processingList.includes(item.transactionHash),
+        )
+
+        setMissingTransactionForTicket(missingTicketList)
+    }
 
     const setMaxTicketBalance = () => {
         const maxTicket = limit / ticketPrice
@@ -143,76 +163,89 @@ export default function QhTokenModalComponent({
         setTokenAmount(maxTicket * ticketPrice)
     }
 
-    const sendTransactionForTicket = async () => {
-        console.log(tokenAmount)
-        console.log(limit)
+    const setZindex = () => {
+        if (myElementRef.current) {
+            // 선택된 요소의 부모 노드에 접근
+            const parentElement = myElementRef.current.parentNode
 
+            // 부모 노드의 부모 노드에 클래스 추가
+            if (parentElement && parentElement.parentNode) {
+                parentElement.parentNode.classList.add('!z-[9998]')
+            }
+        }
+    }
+
+    const sendTransactionForTicket = async () => {
+        setZindex()
         if (tokenAmount > limit) {
             setTokenAmount(0)
             return
         }
 
-        const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
+        if (await $confirm('Ticket을 구매하시겠습니까?')) {
+            const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
 
-        const realTokenAmount = tokenAmount * 10 ** 18
+            const realTokenAmount = tokenAmount * 10 ** 18
 
-        /**
-         * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
-         */
-        try {
-            if (parseInt(allowanceResponse) < realTokenAmount) {
-                setIsLoadingForApproved(true)
-                console.log(
-                    '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
-                )
-                const txHash = await giveQhTokenContractPermission(
+            /**
+             * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
+             */
+            try {
+                if (parseInt(allowanceResponse) < realTokenAmount) {
+                    setIsLoadingForApproved(true)
+                    console.log(
+                        '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
+                    )
+                    const txHash = await giveQhTokenContractPermission(
+                        wallet.accounts[0],
+                        realTokenAmount.toString(),
+                    )
+
+                    alchemy.ws.on(txHash, async (tx) => {
+                        alchemy.ws.off(txHash)
+                        setIsLoadingForApproved(false)
+                        setIsLoadingForTransfer(true)
+                        try {
+                            const txHashForTransfer = await transferQhToken(
+                                wallet.accounts[0],
+                                realTokenAmount.toString(),
+                            )
+                            await exchangeTokenToTicket(txHashForTransfer)
+                        } catch (error) {
+                            console.log('Transfer Error')
+                            console.error(error)
+                            clearLoading()
+                        }
+                    })
+                    return
+                }
+            } catch (error) {
+                console.error(error)
+                console.log('Approve Error')
+                clearLoading()
+                return
+            }
+
+            /**
+             *  입력한 수량에 대한 Transfer 권한을 가진 경우엔 권한 승인 없이 바로 Transfer(onChain) & Exchange(offChain) 메소드를 실행한다.
+             */
+
+            console.log(
+                '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
+            )
+            setIsLoadingForTransfer(true)
+            try {
+                const txHashForTransfer = await transferQhToken(
                     wallet.accounts[0],
                     realTokenAmount.toString(),
                 )
-
-                alchemy.ws.on(txHash, async (tx) => {
-                    alchemy.ws.off(txHash)
-                    setIsLoadingForApproved(false)
-                    setIsLoadingForTransfer(true)
-                    try {
-                        const txHashForTransfer = await transferQhToken(
-                            wallet.accounts[0],
-                            realTokenAmount.toString(),
-                        )
-                        await exchangeTokenToTicket(txHashForTransfer)
-                    } catch (error) {
-                        console.log('Transfer Error')
-                        console.error(error)
-                        clearLoading()
-                    }
-                })
-                return
+                await exchangeTokenToTicket(txHashForTransfer)
+            } catch (error) {
+                console.log('Transfer Error')
+                console.error(error)
+                getMissingTicketList()
+                clearLoading()
             }
-        } catch (error) {
-            console.error(error)
-            console.log('Approve Error')
-            clearLoading()
-            return
-        }
-
-        /**
-         *  입력한 수량에 대한 Transfer 권한을 가진 경우엔 권한 승인 없이 바로 Transfer(onChain) & Exchange(offChain) 메소드를 실행한다.
-         */
-
-        console.log(
-            '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
-        )
-        setIsLoadingForTransfer(true)
-        try {
-            const txHashForTransfer = await transferQhToken(
-                wallet.accounts[0],
-                realTokenAmount.toString(),
-            )
-            await exchangeTokenToTicket(txHashForTransfer)
-        } catch (error) {
-            console.log('Transfer Error')
-            console.error(error)
-            clearLoading()
         }
     }
 
@@ -220,7 +253,7 @@ export default function QhTokenModalComponent({
         console.log('txHash', txHash)
         alchemy.ws.on(txHash, async (tx) => {
             try {
-                console.log('tx', tx)
+                // console.log('tx', tx)
                 alchemy.ws.off(txHash)
                 setIsLoadingForTransfer(false)
                 setIsLoadingForExchangeTicket(true)
@@ -233,12 +266,15 @@ export default function QhTokenModalComponent({
                     wallet_address: wallet.accounts[0],
                 })
 
+                setZindex()
+                showToast(`Dynamic NFT 티켓 연동을 완료하였습니다`)
                 setTokenAmount(0)
                 setTicketAmount(0)
                 setIsLoadingForExchangeTicket(false)
             } catch (error) {
                 console.log('Ticket Error')
                 console.error(error)
+                getMissingTicketList()
                 clearLoading()
             }
         })
@@ -248,12 +284,31 @@ export default function QhTokenModalComponent({
         const response = await checkQhTokenAllowance(wallet.accounts[0])
         console.log('response', response)
     }
+    React.useEffect(() => {
+        if (missingTransactionForTicket.length === 0) {
+            handleQhTokenModalTap('ticket')
+        }
+    }, [missingTransactionForTicket])
+
+    React.useEffect(() => {
+        const getTicketPriceFromChain = async () => {
+            const ticketPrice = await getTicketPrice()
+
+            setTicketPrice(ticketPrice / 10 ** 18)
+        }
+        setTokenAmount(0)
+        setTicketAmount(0)
+        getMissingTicketList()
+        getTicketPriceFromChain()
+    }, [])
 
     return (
         <>
             <Dialog
+                ref={myElementRef}
+                dismiss={open ? { outsidePress: false } : { outsidePress: true }}
                 open={isQhTokenModalOpen}
-                className="min-h-[502px]"
+                className="min-h-[502px] relative"
                 handler={handleQhTokenModal}
                 placeholder={undefined}>
                 <DialogHeader placeholder={undefined}>
@@ -278,11 +333,21 @@ export default function QhTokenModalComponent({
                                 TICKET
                             </div>
                             <div
-                                className={`w-full border-2 rounded-lg p-2 cursor-pointer hover:border-[#F46221] ${
-                                    QhTokenModalTap === 'activity' && 'bg-[#FFCD19]/25'
-                                }`}
-                                onClick={() => handleQhTokenModalTap('activity')}>
+                                className={`w-full border-2 rounded-lg p-2 relative ${
+                                    missingTransactionForTicket.length > 0 &&
+                                    'hover:border-[#F46221] cursor-pointer'
+                                }  ${QhTokenModalTap === 'activity' && 'bg-[#FFCD19]/25'}`}
+                                onClick={() =>
+                                    missingTransactionForTicket.length > 0 &&
+                                    handleQhTokenModalTap('activity')
+                                }>
                                 ACTIVITY
+                                <div
+                                    className={`${
+                                        missingTransactionForTicket.length > 0 ? 'block' : 'hidden'
+                                    } absolute text-red-700 text-2xl -translate-y-1/2 left-32 top-1/2`}>
+                                    !
+                                </div>
                             </div>
                         </div>
                         {QhTokenModalTap === 'ticket' && (
@@ -319,6 +384,11 @@ export default function QhTokenModalComponent({
                                 <div className="w-full relative mt-10">
                                     <input
                                         value={ticketAmount}
+                                        disabled={
+                                            isLoadingForApproved ||
+                                            isLoadingForTransfer ||
+                                            isLoadingForExchangeTicket
+                                        }
                                         type="number"
                                         onChange={inputHandler}
                                         placeholder="Amount"
@@ -326,11 +396,16 @@ export default function QhTokenModalComponent({
                                     />
                                     <div className="flex flex-row justify-center items-center gap-2 font-medium absolute right-3 top-1/2 -translate-y-1/2">
                                         <div className="font-black">TICKET</div>
-                                        <div
+                                        <button
                                             className="px-2 bg-gray-200 rounded-full cursor-pointer"
+                                            disabled={
+                                                isLoadingForApproved ||
+                                                isLoadingForTransfer ||
+                                                isLoadingForExchangeTicket
+                                            }
                                             onClick={setMaxTicketBalance}>
                                             Max
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                                 {!isLoadingForApproved &&
@@ -362,33 +437,54 @@ export default function QhTokenModalComponent({
                         )}
 
                         {QhTokenModalTap === 'activity' && (
-                            <div className="w-full mb-10">
-                                <table className="w-full rounded-lg min-w-max table-auto text-left overflow-hidden">
-                                    <thead className="text-[#FFFFFF] rounded-xl">
-                                        <tr>
-                                            {TABLE_HEAD.map((head) => (
-                                                <th key={head} className="bg-[#F46221] py-3 px-5 ">
-                                                    {head}
-                                                </th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {TABLE_ROWS.map(({ hash, ticket, claim }, index) => {
+                            <table className="w-full font-medium rounded-lg table-auto text-left">
+                                <thead className="text-[#FFFFFF] rounded-xl w-full">
+                                    <tr>
+                                        {TABLE_HEAD.map((head) => (
+                                            <th key={head} className="bg-[#F46221] py-3 px-5 ">
+                                                {head}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="w-full">
+                                    {missingTransactionForTicket.map(
+                                        ({ transactionHash, data, claim }, index) => {
                                             return (
-                                                <tr className="border-b-2 p-10" key={hash}>
-                                                    <td className="p-3 px-5">{hash}</td>
-                                                    <td className="p-3 px-5">{ticket}</td>
-                                                    <td className="p-3 px-5">{claim}</td>
+                                                <tr
+                                                    className="border-b-2 p-10 cursor-pointer hover:opacity-70"
+                                                    key={transactionHash}
+                                                    onClick={() =>
+                                                        exchangeHashToTicket(transactionHash)
+                                                    }>
+                                                    <td className="p-3 px-5 truncate max-w-[300px]">
+                                                        {transactionHash}
+                                                    </td>
+                                                    <td className="p-3 px-5">
+                                                        {parseInt(data, 16) / 10 ** 18 / 10}
+                                                    </td>
+                                                    <td className="p-3 px-5 text-[#FFFFFF]">
+                                                        <div className="flex flex-row justify-center items-center bg-[#18AB56] px-5 py-1 rounded-full gap-2 align-middle">
+                                                            <div>
+                                                                <img src="/dot.svg" alt="dot" />
+                                                            </div>
+                                                            <div>Available</div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        },
+                                    )}
+                                </tbody>
+                            </table>
                         )}
                     </div>
                 </DialogBody>
+                {/* <InnerConfirm
+                    confirmMessage={confirmMessage}
+                    setConfirmMessage={setConfirmMessage}
+                />
+                <InnerToast toastMessage={toastMessage} setToastMessage={setToastMessage} /> */}
             </Dialog>
         </>
     )

@@ -10,10 +10,12 @@ type ConfirmState = {
 }
 type Type = {
     $confirm: (message?: string) => Promise<boolean>
+    open: boolean
 }
 
 export const ConfirmContext = createContext<Type>({
     $confirm: () => new Promise((_, reject) => reject()),
+    open: false,
 })
 
 const ConfirmProvider = ({ children }: { children: React.ReactNode }) => {
@@ -40,7 +42,7 @@ const ConfirmProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <ConfirmContext.Provider value={{ $confirm }}>
+        <ConfirmContext.Provider value={{ $confirm, open }}>
             {children}
 
             <Confirm

@@ -230,6 +230,8 @@ export const getLogs = async (walletAddress: string) => {
         fromBlock: 'earliest',
         toBlock: 'latest',
     })
+
+    return response
 }
 
 // /**

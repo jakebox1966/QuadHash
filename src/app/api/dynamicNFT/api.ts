@@ -40,3 +40,18 @@ export const exchangeTicket = async (parameter) => {
 
     return result
 }
+
+export const getUsedTicketList = async () => {
+    const session = await getSession()
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/nfts/ticket`, {
+        method: 'GET',
+        headers: {
+            Authorization: session.user.access_token,
+            'Content-Type': 'application/json',
+        },
+    })
+
+    const result = await response.json()
+
+    return result
+}
