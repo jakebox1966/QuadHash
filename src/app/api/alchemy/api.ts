@@ -225,7 +225,7 @@ export const getLogs = async (walletAddress: string) => {
             '0x11df6712959cc8f8aab17d311d8d23a055eb63beca3cf9428063485f8d8c181d',
             Utils.hexZeroPad(walletAddress, 32).toString(),
         ],
-        fromBlock: 'earliest',
+        fromBlock: '0x00',
         toBlock: 'latest',
     })
 

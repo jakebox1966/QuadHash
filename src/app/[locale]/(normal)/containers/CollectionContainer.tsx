@@ -318,6 +318,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                 </div>
             </div>
             <CollectionDetailModalComponent
+                burtonMorris={burtonMorris}
                 contractAddress={contractAddress}
                 selectedTokenId={selectedTokenId}
                 open={open}

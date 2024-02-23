@@ -223,6 +223,10 @@ export default function FilterComponent({
         openScroll()
     }, [isMobileFilterOpen])
 
+    const clearFilterAll = () => {
+        clearFilter()
+        closeDrawer()
+    }
     const closeDrawer = () => setIsMobileFilterOpen(false)
     const openDrawer = () => setIsMobileFilterOpen(true)
 
@@ -636,7 +640,7 @@ export default function FilterComponent({
                                     </div>
                                     <div
                                         className="min-w-[110px] bg-[#FFFFFF] text-[#F46221] px-4 py-2 rounded-lg text-center hover:opacity-70 cursor-pointer"
-                                        onClick={clearFilter}>
+                                        onClick={clearFilterAll}>
                                         CLEAR ALL
                                     </div>
                                 </div>
