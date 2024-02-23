@@ -302,6 +302,11 @@ export default function QhTokenModalComponent({
         getTicketPriceFromChain()
     }, [])
 
+    React.useEffect(() => {
+        setTokenAmount(0)
+        setTicketAmount(0)
+    }, [isQhTokenModalOpen])
+
     return (
         <>
             <Dialog
@@ -381,7 +386,7 @@ export default function QhTokenModalComponent({
                                 </div>
                                 <div className="w-full relative mt-[62px]">
                                     <input
-                                        value={ticketAmount}
+                                        value={ticketAmount === 0 ? 'Ticket' : ticketAmount}
                                         disabled={
                                             isLoadingForApproved ||
                                             isLoadingForTransfer ||
@@ -394,7 +399,7 @@ export default function QhTokenModalComponent({
                                     />
                                     <div className="flex flex-row justify-center items-center gap-2 font-medium absolute right-3 top-1/2 -translate-y-1/2">
                                         <button
-                                            className="px-3 bg-gray-200 rounded-full cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
+                                            className="px-3 rounded-full cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
                                             disabled={
                                                 isLoadingForApproved ||
                                                 isLoadingForTransfer ||

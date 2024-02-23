@@ -84,7 +84,7 @@ export default function CollectionDetailModalComponent({
                         {/* <div className="absolute bottom-0 text-white font-black right-0 z-30 bg-opacity-20 bg-black p-3 rounded-lg lg:hidden cursor-pointer">
                             메인 NFT로 설정하기
                         </div> */}
-                        <div className="lg:w-[650px] flex flex-col justify-end items-center lg:items-start relative overflow-hidden">
+                        <div className="lg:w-[581px] flex flex-col justify-end items-center lg:items-start relative overflow-hidden">
                             {/* <Image
                                 src={imageUrl}
                                 alt="profile_image"
@@ -98,9 +98,11 @@ export default function CollectionDetailModalComponent({
                         <div
                             className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center hidden`}>
                             <div className="flex flex-row flex-wrap gap-4 pl-10 justify-start items-center">
-                                <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center font-bold p-2 bg-opacity-20 bg-black rounded-lg">
-                                    <div>{metadata?.name.split(':')[0].trim()}</div>
-                                    <div className="text-2xl">
+                                <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center font-bold p-2">
+                                    <div className="text-[11.81px]">
+                                        {metadata?.name.split(':')[0].trim()}
+                                    </div>
+                                    <div className="text-[25px]">
                                         {metadata?.name.split(':')[1].trim()}
                                     </div>
                                     {owner && (
@@ -176,12 +178,14 @@ export default function CollectionDetailModalComponent({
                                                 )}
                                             </div> */}
                                             <div>
-                                                <div>
+                                                <div className="text-[10.85px]">
                                                     {item.trait_type !== 'Dcount'
-                                                        ? item.trait_type
+                                                        ? item.trait_type.toUpperCase()
                                                         : 'Dynamic NFT'}
                                                 </div>
-                                                <div className="font-black">{item.value}</div>
+                                                <div className="font-black text-[11.81px]">
+                                                    {item.value}
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
@@ -190,8 +194,10 @@ export default function CollectionDetailModalComponent({
                                         <img src="/mypage_rank.svg" alt="mypage_rank" />
                                     </div> */}
                                     <div>
-                                        <div>{metadata?.attributes[0].trait_type}</div>
-                                        <div className="font-black">
+                                        <div className="text-[10.85px]">
+                                            {metadata?.attributes[0].trait_type}
+                                        </div>
+                                        <div className="font-black text-[11.81px]">
                                             {metadata?.attributes[0].value}
                                         </div>
                                     </div>

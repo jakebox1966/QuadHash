@@ -99,7 +99,7 @@ export default function ProfileSection({
                         <img
                             src={`${imageUrl}?${new Date().getTime()}`}
                             alt="profile_image"
-                            width={650}
+                            width={581}
                             height={0}
                         />
                         <div
@@ -117,11 +117,14 @@ export default function ProfileSection({
                                 </div>
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
                                     {session && collector_address === wallet?.accounts[0] && (
-                                        <NFTSetting
-                                            updateUserProfile={updateUserProfile}
-                                            profileNFT={profileNFT}
-                                            isFrom={'profile'}
-                                        />
+                                        // <NFTSetting
+                                        //     updateUserProfile={updateUserProfile}
+                                        //     profileNFT={profileNFT}
+                                        //     isFrom={'profile'}
+                                        // />
+                                        <div className="cursor-pointer text-right w-full flex flex-row justify-end">
+                                            <img src="/switch.svg" alt="switch" />
+                                        </div>
                                     )}
                                 </div>
                                 {profileNFT?.attributes
@@ -130,7 +133,7 @@ export default function ProfileSection({
                                         <div
                                             key={item.trait_type}
                                             className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-3 bg-opacity-20 bg-black rounded-lg">
-                                            <div>
+                                            {/* <div>
                                                 {item.trait_type === 'Background' && (
                                                     <img
                                                         src="/mypage_square.svg"
@@ -179,7 +182,7 @@ export default function ProfileSection({
                                                         alt="mypage_ranking"
                                                     />
                                                 )}
-                                            </div>
+                                            </div> */}
                                             <div>
                                                 <div className="font-medium">
                                                     {item.trait_type !== 'Dcount'
