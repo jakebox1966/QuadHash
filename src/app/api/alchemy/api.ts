@@ -173,8 +173,6 @@ export const giveQhTokenContractPermission = async (walletAddress, value) => {
 }
 
 export const transferQhToken = async (walletAddress: string, amount: string) => {
-    console.log(amount)
-    console.log(typeof amount)
     // window.contract = new web3.eth.Contract(
     //     SendERC20Token_ContractABI.abi as any,
     //     process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,

@@ -72,6 +72,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     const [burtonMorris, setBurtonMorris] = React.useState(false)
     const [burtonMorrisData, setBurtonMorrisData] = React.useState(saza_morris)
 
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = React.useState(false)
+
     const [open, setOpen] = React.useState(false)
 
     const [contractAddress, setContractAddress] = React.useState(null)
@@ -268,6 +270,8 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         <>
             <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">
                 <FilterComponent
+                    isMobileFilterOpen={isMobileFilterOpen}
+                    setIsMobileFilterOpen={setIsMobileFilterOpen}
                     burtonMorris={burtonMorris}
                     handleBurtonMorris={handleBurtonMorris}
                     queryParam={queryParam}
@@ -277,6 +281,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                     setSearchInput={setSearchInput}
                     handleOptionParam={handleOptionParam}
                     handleNftTypeParam={handleNftTypeParam}
+                    clearFilter={clearFilter}
                 />
                 <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
                     <TabComponent

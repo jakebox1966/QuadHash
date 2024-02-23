@@ -117,14 +117,14 @@ export default function ProfileSection({
                                 </div>
                                 <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
                                     {session && collector_address === wallet?.accounts[0] && (
-                                        // <NFTSetting
-                                        //     updateUserProfile={updateUserProfile}
-                                        //     profileNFT={profileNFT}
-                                        //     isFrom={'profile'}
-                                        // />
-                                        <div className="cursor-pointer text-right w-full flex flex-row justify-end">
-                                            <img src="/switch.svg" alt="switch" />
-                                        </div>
+                                        <NFTSetting
+                                            updateUserProfile={updateUserProfile}
+                                            profileNFT={profileNFT}
+                                            isFrom={'profile'}
+                                        />
+                                        // <div className="cursor-pointer text-right w-full flex flex-row justify-end">
+                                        //     <img src="/switch.svg" alt="switch" />
+                                        // </div>
                                     )}
                                 </div>
                                 {profileNFT?.attributes

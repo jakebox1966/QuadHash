@@ -40,7 +40,7 @@ export default function TabComponent({
             <div
                 className={`${
                     queryParam.token_type === 'saza' ? 'border-[#F46221]' : ''
-                } border-2 rounded-lg px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
+                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
@@ -52,7 +52,7 @@ export default function TabComponent({
             <div
                 className={`${
                     queryParam.token_type === 'gaza' ? 'border-[#F46221]' : ''
-                } border-2 rounded-lg px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
+                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>

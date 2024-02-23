@@ -11,11 +11,20 @@ import {
     AccordionHeader,
     AccordionBody,
     Button,
+    Checkbox,
+    Drawer,
+    ThemeProvider,
 } from '@material-tailwind/react'
 import { gazaPartList, sazaPartList } from '@/app/[locale]/common/parts_data/parts'
 import { IQueryParam } from '../../containers/CollectionContainer'
 import { Listbox, Transition } from '@headlessui/react'
+import mobileWhiteLogo from '/public/mobile_white_logo.png'
+
+import Link from 'next/link'
+import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
 export interface IFilterComponentProps {
+    isMobileFilterOpen: boolean
+    setIsMobileFilterOpen: React.Dispatch<React.SetStateAction<boolean>>
     queryParam: IQueryParam
     handlePartParam: any
     handleSearchParam: () => void
@@ -25,6 +34,49 @@ export interface IFilterComponentProps {
     handleOptionParam: (option: any) => void
     handleNftTypeParam: (nftType: any) => void
     burtonMorris: boolean
+    clearFilter: () => void
+}
+const customTheme = {
+    drawer: {
+        defaultProps: {
+            size: 2000,
+            overlay: true,
+            placement: 'bottom',
+            overlayProps: undefined,
+            className: '',
+            dismiss: undefined,
+            onClose: undefined,
+            transition: {
+                type: 'tween',
+                duration: 0.3,
+            },
+        },
+        styles: {
+            base: {
+                drawer: {
+                    position: 'fixed',
+                    zIndex: 'z-[9999]',
+                    pointerEvents: 'pointer-events-auto',
+                    backgroundColor: 'bg-none',
+                    boxSizing: 'box-border',
+                    width: '!w-screen',
+                    height: '!h-screen',
+                    boxShadow: 'shadow-2xl shadow-blue-gray-900/10',
+                },
+                overlay: {
+                    position: 'absolute',
+                    inset: 'inset-0',
+                    width: 'w-full',
+                    height: 'h-full',
+                    pointerEvents: 'pointer-events-auto',
+                    zIndex: 'z-[9995]',
+                    backgroundColor: 'bg-gray-500',
+                    backgroundOpacity: '',
+                    backdropBlur: 'backdrop-blur-sm',
+                },
+            },
+        },
+    },
 }
 
 const theme = {
@@ -40,6 +92,20 @@ const theme = {
         },
     },
 }
+
+const trait_type = [
+    'background',
+    'body',
+    'extras',
+    'eyes',
+    'head',
+    'headwear',
+    'mane',
+    'mouth',
+    'top',
+    'bottoms',
+    'onesie',
+]
 
 const typeList = [
     { name: 'SAZA', value: 'saza' },
@@ -67,6 +133,8 @@ function Icon({ id, open }) {
     )
 }
 export default function FilterComponent({
+    isMobileFilterOpen,
+    setIsMobileFilterOpen,
     queryParam,
     handleSearchParam,
     handlePartParam,
@@ -76,7 +144,36 @@ export default function FilterComponent({
     handleOptionParam,
     handleNftTypeParam,
     burtonMorris,
+    clearFilter,
 }: IFilterComponentProps) {
+    const { lockScroll, openScroll } = useBodyScrollLock()
+    const calcFilterCount = () => {
+        const backgroundCount = queryParam.background.length
+        const bodyCount = queryParam.body.length
+        const extrasCount = queryParam.extras.length
+        const eyesCount = queryParam.eyes.length
+        const headCount = queryParam.head.length
+        const headwearCount = queryParam.headwear.length
+        const maneCount = queryParam.mane.length
+        const mouthCount = queryParam.mouth.length
+        const topCount = queryParam.top.length
+        const bottomsCount = queryParam.bottoms.length
+        const onesieCount = queryParam.onesie.length
+
+        return (
+            backgroundCount +
+            bodyCount +
+            extrasCount +
+            eyesCount +
+            headCount +
+            headwearCount +
+            maneCount +
+            mouthCount +
+            topCount +
+            bottomsCount +
+            onesieCount
+        )
+    }
     const partFilterList = queryParam.token_type === 'saza' ? sazaPartList : gazaPartList
 
     const [filterOpen, setFilterOpen] = React.useState({
@@ -117,6 +214,17 @@ export default function FilterComponent({
             handleSearchParam()
         }
     }
+
+    React.useEffect(() => {
+        if (isMobileFilterOpen) {
+            lockScroll()
+            return
+        }
+        openScroll()
+    }, [isMobileFilterOpen])
+
+    const closeDrawer = () => setIsMobileFilterOpen(false)
+    const openDrawer = () => setIsMobileFilterOpen(true)
 
     /**
      * Accordion 메뉴 컨트롤
@@ -213,11 +321,33 @@ export default function FilterComponent({
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
-                                        className="text-black font-medium py-3 px-10"
+                                        className="text-black font-medium  px-10"
                                         onClick={() =>
                                             handlePartParam(item.part_category, partName)
                                         }>
                                         <div
+                                            className={`${
+                                                checkSelected(item.part_category, partName)
+                                                    ? 'text-[#F46221]'
+                                                    : 'text-black'
+                                            } flex flex-row items-center justify-between`}>
+                                            <Checkbox
+                                                readOnly
+                                                checked={
+                                                    checkSelected(item.part_category, partName)
+                                                        ? true
+                                                        : false
+                                                }
+                                                ripple={false}
+                                                iconProps={{
+                                                    className: 'text-black',
+                                                }}
+                                                className="checked:!border-black checked:!bg-[#FCB808] checked:border-none"
+                                                crossOrigin={undefined}
+                                            />
+                                            <div>{partName.toUpperCase()}</div>
+                                        </div>
+                                        {/* <div
                                             className={`${
                                                 checkSelected(item.part_category, partName)
                                                     ? 'text-[#F46221]'
@@ -237,7 +367,7 @@ export default function FilterComponent({
                                                 />
                                             </svg>
                                             <div>{partName.toUpperCase()}</div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 ))}
                             </AccordionBody>
@@ -364,16 +494,155 @@ export default function FilterComponent({
                     )}
                 </div>
 
-                <div className="w-full h-full relative mt-3 leading-[18px]">
-                    <input
-                        type="text"
-                        className="w-full h-full border-2 rounded-lg px-[16px] pl-8  py-2.5"
-                        placeholder="Search"
-                        value={searchInput}
-                        onKeyDown={handleKeyPress}
-                        onChange={onChange}
-                    />
-                    <img src="/search.svg" alt="search" className="absolute left-3 top-2.5" />
+                <div className="w-full flex flex-row items-center mt-3">
+                    <div className="w-full relative leading-[18px] pr-3">
+                        <input
+                            type="text"
+                            className="w-full h-full border-2 rounded-full px-[16px] pl-8 py-2.5"
+                            placeholder="Search"
+                            value={searchInput}
+                            onKeyDown={handleKeyPress}
+                            onChange={onChange}
+                        />
+                        <img src="/search.svg" alt="search" className="absolute left-3 top-3" />
+                    </div>
+                    <div className="flex flex-row items-center gap-1" onClick={openDrawer}>
+                        <img src="/filter.svg" alt="filter" className="max-w-[30px]" />
+                        <p className="font-medium text-[12px] rounded-full px-2 py-0.5 bg-[#F46221]/20">
+                            +{calcFilterCount()}
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <ThemeProvider value={customTheme}>
+                        <Drawer
+                            open={isMobileFilterOpen}
+                            onClose={closeDrawer}
+                            placeholder={undefined}
+                            className="overflow-y-auto pb-10">
+                            <div
+                                className="text-[#FFFFFF] px-3 pt-3 flex flex-row justify-end"
+                                onClick={closeDrawer}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="white"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    stroke="currentColor"
+                                    className="h-10 w-10">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                            <div className="px-10 flex flex-col justify-center items-start gap-10 text-white font-black">
+                                <div className="flex flex-row justify-start w-full">
+                                    <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
+                                </div>
+                                <div className="w-full relative">
+                                    {partFilterList.map((item, index) => (
+                                        <Accordion
+                                            disabled={burtonMorris ? true : false}
+                                            key={item.part_category}
+                                            open={filterOpen[item.part_category]}
+                                            icon={
+                                                <Icon
+                                                    id={index}
+                                                    open={filterOpen[item.part_category]}
+                                                />
+                                            }
+                                            placeholder={undefined}>
+                                            <AccordionHeader
+                                                className="border-none !font-black !text-[#FFFFFF] px-6 cursor-pointer"
+                                                onClick={() => handleFilterOpen(item)}
+                                                placeholder={undefined}>
+                                                {item.part_category.toUpperCase()}
+                                            </AccordionHeader>
+                                            <AccordionBody className="w-full cursor-pointer !font-black">
+                                                {item.part_name.map((partName) => (
+                                                    <div
+                                                        key={partName}
+                                                        className="text-white py-0 px-10"
+                                                        onClick={() =>
+                                                            handlePartParam(
+                                                                item.part_category,
+                                                                partName,
+                                                            )
+                                                        }>
+                                                        <div
+                                                            className={`${
+                                                                checkSelected(
+                                                                    item.part_category,
+                                                                    partName,
+                                                                )
+                                                                    ? 'text-[#F46221]'
+                                                                    : 'text-[#FFFFFF]'
+                                                            } flex flex-row items-center justify-between`}>
+                                                            <Checkbox
+                                                                readOnly
+                                                                checked={
+                                                                    checkSelected(
+                                                                        item.part_category,
+                                                                        partName,
+                                                                    )
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                                ripple={false}
+                                                                iconProps={{
+                                                                    className: 'text-black',
+                                                                }}
+                                                                className="checked:!border-black checked:!bg-[#FCB808] checked:border-none"
+                                                                crossOrigin={undefined}
+                                                            />
+                                                            <div>{partName.toUpperCase()}</div>
+                                                        </div>
+                                                        {/* <div
+                                            className={`${
+                                                checkSelected(item.part_category, partName)
+                                                    ? 'text-[#F46221]'
+                                                    : 'text-black'
+                                            } flex flex-row items-center justify-between`}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-6 h-6">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                                                />
+                                            </svg>
+                                            <div>{partName.toUpperCase()}</div>
+                                        </div> */}
+                                                    </div>
+                                                ))}
+                                            </AccordionBody>
+                                        </Accordion>
+                                    ))}
+                                </div>
+                            </div>
+                            {calcFilterCount() > 0 && (
+                                <div className="flex flex-row justify-center items-center gap-3 fixed bottom-0 h-[60px] bg-gradient-to-b from-white/20 via-gray-500/90 to-gray-500 font-black text-[14px] w-full bg-opacity-20 bg-black">
+                                    <div
+                                        className="min-w-[110px] bg-[#FFFFFF] text-[#F46221] px-4 py-2 rounded-lg text-center hover:opacity-70 cursor-pointer"
+                                        onClick={closeDrawer}>
+                                        DONE
+                                    </div>
+                                    <div
+                                        className="min-w-[110px] bg-[#FFFFFF] text-[#F46221] px-4 py-2 rounded-lg text-center hover:opacity-70 cursor-pointer"
+                                        onClick={clearFilter}>
+                                        CLEAR ALL
+                                    </div>
+                                </div>
+                            )}
+                        </Drawer>
+                    </ThemeProvider>
                 </div>
             </div>
         </>

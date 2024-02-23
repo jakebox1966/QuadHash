@@ -57,28 +57,47 @@ export default function ActivePartFilterComponent({
     }
     return (
         <>
-            <div className="flex flex-row items-center mt-3 gap-2 flex-wrap">
+            <div className="hidden lg:flex flex-row items-center mt-3 gap-2 flex-wrap  min-h-[32px]">
                 <div className="px-2 rounded-lg flex flex-row items-center gap-2">
                     <img src="/filter.svg" alt="filter" />
-                    <p className="font-medium text-[16px]">{calcFilterCount()}</p>
+                    <p className="font-medium text-[12px] rounded-full px-2 py-0.5 bg-[#F46221]/20">
+                        +{calcFilterCount()}
+                    </p>
                 </div>
 
                 {trait_type.map((item) => {
                     return queryParam[item].map((el) => (
                         <div
-                            className="bg-[#F26C25] text-[#FFFFFF] rounded-lg px-3 py-1 flex flex-row items-center gap-3 cursor-pointer"
+                            className=" text-black border-2 border-[#F46221]/20 rounded-full px-3 py-0.5 flex flex-row items-center gap-3 cursor-pointer"
                             onClick={() => handlePartParam(item, el)}>
                             <span>
                                 {item} : {el}
+                            </span>
+                            <span className="cursor-pointer text-[#F46221]/20">
+                                <svg
+                                    width="19"
+                                    height="18"
+                                    viewBox="0 0 19 18"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="trailing-icon">
+                                        <path
+                                            id="icon"
+                                            d="M14.896 4.8075L13.8385 3.75L9.646 7.9425L5.4535 3.75L4.396 4.8075L8.5885 9L4.396 13.1925L5.4535 14.25L9.646 10.0575L13.8385 14.25L14.896 13.1925L10.7035 9L14.896 4.8075Z"
+                                            fill="#F46221"
+                                            fill-opacity="0.5"
+                                        />
+                                    </g>
+                                </svg>
                             </span>
                         </div>
                     ))
                 })}
                 {calcFilterCount() > 0 && (
                     <div
-                        className="bg-[#F26C25] text-[#FFFFFF] rounded-lg px-3 py-1 flex flex-row items-center gap-3 cursor-pointer"
+                        className="bg-[#F26C25] ml-7 text-[#FFFFFF] rounded-full px-3 py-0.5 flex flex-row items-center gap-3 cursor-pointer"
                         onClick={clearFilter}>
-                        <span>CLEAR ALL</span>
+                        <span>Clear All</span>
                     </div>
                 )}
             </div>

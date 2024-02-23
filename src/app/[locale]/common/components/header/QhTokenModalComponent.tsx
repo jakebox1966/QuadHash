@@ -294,6 +294,8 @@ export default function QhTokenModalComponent({
         const getTicketPriceFromChain = async () => {
             const ticketPrice = await getTicketPrice()
 
+            console.log('ticketPrice', ticketPrice)
+
             setTicketPrice(ticketPrice / 10 ** 18)
         }
         setTokenAmount(0)

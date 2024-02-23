@@ -233,7 +233,7 @@ export default function ContactContainer() {
                                 onChange={inputsHandler}
                                 value={inputs.content}
                                 name="content"
-                                className="resiz-none w-full bg-[#F5F5F5] p-2 border-2 rounded-lg h-[100px]"></textarea>
+                                className="resize-none w-full bg-[#F5F5F5] p-2 border-2 rounded-lg h-[100px]"></textarea>
                             <div className="pt-2">
                                 <p className="text-sm text-red-600 invisible" ref={contentRef}>
                                     * Content는 필수 항목입니다.
