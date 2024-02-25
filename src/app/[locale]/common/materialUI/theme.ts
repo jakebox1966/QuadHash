@@ -53,9 +53,9 @@ export const customTheme = {
                     maxWidth: 'max-w-fit md:max-w-fit lg:max-w-[1200px]',
                 },
                 lg: {
-                    width: 'w-fit md:w-fit lg:w-[1200px]',
-                    minWidth: 'min-w-fit md:min-w-fit lg:min-w-[1200px]',
-                    maxWidth: 'max-w-fit md:max-[700px] lg:max-w-[1200px] ',
+                    width: 'w-fit md:w-fit lg:w-fit',
+                    minWidth: 'min-w-fit md:min-w-fit lg:min-w-fit',
+                    maxWidth: 'max-w-fit md:max-[700px] lg:max-w-[1300px] ',
                 },
                 xl: {
                     width: 'w-fit w-screen lg:w-[700px]',

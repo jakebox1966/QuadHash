@@ -177,7 +177,7 @@ export default function MobileNavMenu({
                     {menuList.map((item) => (
                         <Link
                             key={item}
-                            href={item}
+                            href={`/${item}`}
                             className="flex flex-row justify-center items-center gap-14">
                             {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                             {t(item)}

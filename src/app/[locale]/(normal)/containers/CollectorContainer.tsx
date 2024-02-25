@@ -10,20 +10,45 @@ import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUserInfoByWalletAddress, getUuidByAccount } from '@/app/api/auth/api'
 import { getNFTMetadata } from '@/app/api/alchemy/api'
+import TabComponent from '../components/collector/TabComponent'
+import NFTDetailModalComponent from '../components/collector/NFTDetialModalComponent'
+import NFTListComponent from '../components/collector/NFTListComponent'
+import { backgroundPallete } from '../../common/color/colorPalette'
+import { setActive } from '@material-tailwind/react/components/Tabs/TabsContext'
 
 export interface ICollectorContainerProps {
     wallet_address: string
 }
 
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
-    // const [activeNFT, setActiveNFT] = React.useState(null)
+    const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
+    const [tokenType, setTokenType] = React.useState('saza')
+    const [contractAddress, setContractAddress] = React.useState(null)
+    const [selectedTokenId, seSelectedTokenId] = React.useState(null)
+    const [backgroundColor, setBackgroundColor] = React.useState(null)
+    const [metadata, setMetadata] = React.useState(null)
+    const [imageUrl, setImageUrl] = React.useState(null)
+
+    const [open, setOpen] = React.useState(false)
 
     const [collector_address, setCollector_address] = React.useState(null)
 
     const { wallet } = useMetaMask()
 
     const { data: session, update } = useSession()
+
+    /**
+     * 모달 Control
+     */
+
+    const handleOpen = React.useCallback(() => {
+        setOpen(!open)
+    }, [open])
+
+    const handleNFTType = (type: string) => {
+        setTokenType(type)
+    }
 
     const updateSession = async (tokenId: string, tokenType: string) => {
         await update({
@@ -33,7 +58,32 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 token_id: tokenId,
                 token_type: tokenType,
             },
+        }).then(() => setProfileNFT(null))
+    }
+    const openDetailModal = async (token_id, token_type) => {
+        const metadata = await getMetadata({
+            nftType: token_type,
+            tokenId: token_id,
         })
+
+        let contractAddress = ''
+        if (token_type === 'saza') {
+            contractAddress = process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS
+        } else if (token_type === 'gaza') {
+            contractAddress = process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
+        }
+        setContractAddress(contractAddress)
+        seSelectedTokenId(token_id)
+
+        setMetadata(metadata)
+
+        setImageUrl(metadata.image)
+
+        const backgroundColor = metadata.attributes.find((item) => {
+            return item.trait_type === 'Background'
+        })
+        setBackgroundColor(backgroundPallete[backgroundColor.value.toLowerCase()])
+        handleOpen()
     }
 
     React.useEffect(() => {
@@ -106,12 +156,24 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                     profileNFT={profileNFT}
                     updateUserProfile={updateUserProfile}
                 />
-                <NFTSection
-                    collector_address={collector_address}
-                    updateUserProfile={updateUserProfile}
-                    wallet_address={wallet_address}
-                />
+                <div className="flex flex-col justify-center items-start w-full mt-10">
+                    <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
+                    <NFTListComponent
+                        wallet_address={wallet_address}
+                        tokenType={tokenType}
+                        openDetailModal={openDetailModal}
+                    />
+                </div>
             </div>
+            <NFTDetailModalComponent
+                collector_address={collector_address}
+                metadata={metadata}
+                imageUrl={imageUrl}
+                backgroundColor={backgroundColor}
+                open={open}
+                handleOpen={handleOpen}
+                updateUserProfile={updateUserProfile}
+            />
         </>
     )
 }

@@ -4,29 +4,37 @@ import * as React from 'react'
 import { locales } from '@/i18nconfig'
 
 export interface INFTSettingProps {
+    backgroundColor: string
     updateUserProfile: ({ tokenId, tokenType }: { tokenId: any; tokenType: any }) => Promise<void>
-    profileNFT: any
+    tokenId: string
+    tokenType: string
     isFrom: string
 }
-
-const { Link } = createSharedPathnamesNavigation({ locales })
-export default function NFTSetting({ updateUserProfile, profileNFT, isFrom }: INFTSettingProps) {
-    const tokenType = isFrom === 'profile' ? 'reset' : profileNFT.contract.symbol.toLowerCase()
+export default function NFTSetting({
+    backgroundColor,
+    updateUserProfile,
+    tokenId,
+    tokenType,
+    isFrom,
+}: INFTSettingProps) {
+    console.log(backgroundColor)
     return (
         <>
-            <Menu>
-                <MenuHandler>
-                    {/* <Button placeholder={undefined}>Menu</Button> */}
-
-                    <div className="flex flex-row w-full justify-end items-center gap-3  cursor-pointer">
-                        <div className="p-3 bg-opacity-20 bg-black rounded-lg">
+            <div className="flex flex-row justify-end items-center gap-3 w-full">
+                <Menu placement="bottom-end">
+                    <MenuHandler>
+                        <div className="p-3 bg-opacity-20 bg-black rounded-lg cursor-pointer">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
+                                fill={
+                                    backgroundColor === 'white' || backgroundColor === '#FFFFFF'
+                                        ? 'black'
+                                        : 'none'
+                                }
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="white"
-                                className="w-6 h-6 text-black">
+                                className={`w-6 h-6 !text-black`}>
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -39,36 +47,33 @@ export default function NFTSetting({ updateUserProfile, profileNFT, isFrom }: IN
                                 />
                             </svg>
                         </div>
-                    </div>
-                </MenuHandler>
-                <MenuList placeholder={undefined} className="z-[9999]">
-                    <MenuItem
-                        placeholder={undefined}
-                        onClick={() => {
-                            updateUserProfile({
-                                tokenId: isFrom !== 'reset' ? profileNFT.tokenId : null,
-                                tokenType: tokenType,
-                            })
-                        }}>
-                        {/* {tokenType !== 'rest' ? (
-                            <div>메인 NFT 설정하기</div>
-                        ) : ( */}
-                        {isFrom === 'profile' ? (
-                            <div>메인 NFT 해제하기</div>
-                        ) : (
-                            <div>메인 NFT 설정하기</div>
-                        )}
+                    </MenuHandler>
+                    <MenuList placeholder={undefined} className="z-[9999]">
+                        <MenuItem
+                            placeholder={undefined}
+                            onClick={() => {
+                                updateUserProfile({
+                                    tokenId: tokenId,
+                                    tokenType: isFrom === 'profile' ? 'reset' : tokenType,
+                                })
+                            }}>
+                            {isFrom === 'profile' ? (
+                                <div>메인 NFT 해제하기</div>
+                            ) : (
+                                <div>메인 NFT 설정하기</div>
+                            )}
 
-                        {/* )} */}
-                    </MenuItem>
-                    {/* <MenuItem placeholder={undefined}>
+                            {/* )} */}
+                        </MenuItem>
+                        {/* <MenuItem placeholder={undefined}>
                         <Link href={'/dynamicNFT'}>Dynamic NFT 바로 가기</Link>
                     </MenuItem>
                     <MenuItem placeholder={undefined}>
                         <Link href={'/fractionalInvest'}>조각 투자 바로 가기</Link>
                     </MenuItem> */}
-                </MenuList>
-            </Menu>
+                    </MenuList>
+                </Menu>
+            </div>
         </>
     )
 }

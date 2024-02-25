@@ -252,20 +252,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
         setBurtonMorris(false)
     }
 
-    const fetchData = async (pageParam) => {
-        const process = Object.entries(queryParam)
-            .filter((item) => item[1] !== null)
-            .filter((item) => item[1].length !== 0)
-
-        const query = Object.fromEntries(process)
-
-        query.page = pageParam
-
-        const result = await getCollectionList(new URLSearchParams(query).toString())
-
-        return result
-    }
-
     return (
         <>
             <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">

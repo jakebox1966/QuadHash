@@ -33,6 +33,8 @@ export default function PCUserInterfaceComponent({
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
 
+    console.log(profileNFT)
+
     const { data: session } = useSession()
 
     return (
@@ -57,9 +59,11 @@ export default function PCUserInterfaceComponent({
                     <div className="flex flex-col items-center justify-start relative w-full">
                         <div className="flex flex-row just w-full">
                             <div className="flex flex-col justify-start items-start gap-3 text-black w-full">
-                                <div className="font-black text-2xl">
-                                    {profileNFT?.name.split(':')[1].trim()}
-                                </div>
+                                {profileNFT && (
+                                    <div className="font-black text-2xl">
+                                        {profileNFT?.name.split(':')[1].trim()}
+                                    </div>
+                                )}
                                 <div>
                                     <div className="font-medium text-base">
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
@@ -73,7 +77,10 @@ export default function PCUserInterfaceComponent({
                                 </div>
                             </div>
                             <div className="rounded-2xl overflow-hidden max-w-[130px] w-full h-full">
-                                <img src={imageUrl} alt="profile_image" />
+                                <img
+                                    src={imageUrl ? imageUrl : '/silhouette.png'}
+                                    alt="profile_image"
+                                />
                             </div>
                         </div>
                         <div className="flex flex-row justify-center text-xs items-center text-white w-full gap-3 mt-[15px] font-medium">

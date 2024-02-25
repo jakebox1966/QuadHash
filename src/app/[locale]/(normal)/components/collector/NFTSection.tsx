@@ -17,6 +17,8 @@ import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import CardListComponent from './CardListComponent'
+import CardComponent from './CardComponent'
 
 export interface INFTSectionProps {
     collector_address: any
@@ -50,7 +52,7 @@ export default function NFTSection({
     const [sazaIsLoading, setSazaIsLoading] = React.useState(false)
     const [gazaIsLoading, setGazaIsLoading] = React.useState(false)
     const [qbtIsLoading, setQbtIsLoading] = React.useState(false)
-    const [activeTab, setActiveTab] = React.useState('SAZA')
+    const [activeTab, setActiveTab] = React.useState('saza')
     const [activeNFT, setActiveNFT] = React.useState(null)
     const { data: session } = useSession()
 
@@ -61,6 +63,10 @@ export default function NFTSection({
     const [imageUrl, setImageUrl] = React.useState(null)
 
     const [open, setOpen] = React.useState(false)
+
+    const handleNFTType = (type: string) => {
+        setActiveTab(type)
+    }
 
     const openDetailModal = async (nft) => {
         setActiveNFT(nft)
@@ -88,15 +94,13 @@ export default function NFTSection({
         const fetchData = async () => {
             try {
                 if (wallet_address) {
-                    setSazaIsLoading(true)
-                    setGazaIsLoading(true)
-                    setQbtIsLoading(true)
-                    // console.log('Start loading data')
+                    // setSazaIsLoading(true)
+                    // setGazaIsLoading(true)
+                    // setQbtIsLoading(true)
+
                     const sazaNfts = await getNftsForOwner(wallet_address, {
                         contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
                     })
-
-                    // console.log(sazaNfts)
 
                     const gazaNfts = await getNftsForOwner(wallet_address, {
                         contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
@@ -113,22 +117,62 @@ export default function NFTSection({
 
                     setQbtNfts([])
 
-                    setSazaIsLoading(false)
-                    setGazaIsLoading(false)
-                    setQbtIsLoading(false)
+                    // setSazaIsLoading(false)
+                    // setGazaIsLoading(false)
+                    // setQbtIsLoading(false)
                 }
             } catch (error) {
                 console.error(error)
-                setSazaIsLoading(false)
-                setGazaIsLoading(false)
-                setQbtIsLoading(false)
+                // setSazaIsLoading(false)
+                // setGazaIsLoading(false)
+                // setQbtIsLoading(false)
             }
         }
         fetchData()
     }, [wallet_address])
     return (
         <>
-            <div className="mt-10">
+            <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full mt-10">
+                <div
+                    className={`${
+                        activeTab === 'saza' ? 'border-[#F46221]' : ''
+                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:border-[#F46221]`}
+                    onClick={() => {
+                        handleNFTType('saza')
+                    }}>
+                    <div className={`flex flex-row items-center gap-2`}>
+                        <Image src={mypage_saza_icon} alt="saza_icon" width={72} height={72} />
+                        <div>SAZA NFT</div>
+                    </div>
+                </div>
+                <div
+                    className={`${
+                        activeTab === 'gaza' ? 'border-[#F46221]' : ''
+                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:border-[#F46221]`}
+                    onClick={() => {
+                        handleNFTType('gaza')
+                    }}>
+                    <div className="flex flex-row items-center gap-2">
+                        <Image src={mypage_gaza_icon} alt="gaza_icon" width={72} height={72} />
+                        <div>GAZA NFT</div>
+                    </div>
+                </div>
+
+                <div
+                    className={`${
+                        activeTab === 'qbt' ? 'border-[#F46221]' : ''
+                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:border-[#F46221]`}
+                    onClick={() => {
+                        handleNFTType('qbt')
+                    }}>
+                    <div className="flex flex-row items-center gap-2">
+                        <Image src={mypage_qbt_icon} alt="qbt_icon" width={72} height={72} />
+                        <div>QBT NFT</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* <div className="mt-10">
                 <div className="text-2xl font-black">Collection</div>
 
                 <Tabs value="SAZA" className="w-full mt-6">
@@ -361,7 +405,7 @@ export default function NFTSection({
                         </TabPanel>
                     </TabsBody>
                 </Tabs>
-            </div>
+            </div> */}
             {activeNFT && (
                 <NFTDetailModalComponent
                     collector_address={collector_address}

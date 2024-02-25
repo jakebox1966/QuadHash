@@ -196,3 +196,22 @@
     box-shadow: 10px 0 white, 20px 0 white;
   }
 }
+
+
+/* target the active bullet */
+span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: black;
+  width: 16px !important;
+  height: 2px;
+  border-radius: 0px;
+  opacity: 1 !important;
+}
+
+/* target all bullets */
+.swiper-pagination-bullet {
+  width: 16px !important;
+  height: 2px !important;
+  border-radius: 0px !important;
+  background-color: black !important;
+  opacity: 0.5 !important;
+}

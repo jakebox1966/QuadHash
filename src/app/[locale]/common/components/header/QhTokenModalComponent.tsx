@@ -322,8 +322,8 @@ export default function QhTokenModalComponent({
                     <div className="flex flex-row justify-center font-black items-center w-full relative">
                         Dynamic NFT Buy
                         <img
-                            src="/close-button.svg"
-                            alt="close-button"
+                            src="/exit.svg"
+                            alt="exit"
                             onClick={handleQhTokenModal}
                             className="cursor-pointer absolute right-0"
                         />
