@@ -17,7 +17,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
     return (
         <>
             <div className="hidden w-full lg:flex flex-col justify-center items-center pt-28 bg-[#FEFAE0]">
-                <div className="flex flex-col justify-center items-center max-w-[1296px] w-full px-10 lg:px-28 text-black font-black gap-10">
+                <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
                     <div className="text-xs md:text-xl lg:text-5xl text-center">
                         <div>START YOUR JOUNEY IN</div>
                         <div>QUADHASH.</div>
@@ -28,7 +28,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-stretch items-center max-w-[1296px] w-full px-10 lg:px-28 gap-4 mt-10 text-white">
+                <div className="flex flex-col justify-stretch items-center max-w-[1300px] w-full px-10 lg:px-28 gap-4 mt-10 text-white">
                     <div className="w-full relative">
                         <Image src={main_image1} alt="main_middle_image1" />
                         <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">

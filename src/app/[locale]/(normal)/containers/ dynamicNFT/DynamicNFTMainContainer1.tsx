@@ -1,24 +1,24 @@
 'use client'
 
 import * as React from 'react'
-import Category from '../components/dynamicNFT/Category'
+import Category from '../../components/dynamicNFT/Category'
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react'
-import DynamicNFTList from '../components/dynamicNFT/DynamicNFTList'
+import DynamicNFTList from '../../components/dynamicNFT/DynamicNFTList'
 import { getMetadata, postDynamicNFT } from '@/app/api/dynamicNFT/api'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
-import Loading from '../../common/components/Loading'
+import Loading from '../../../common/components/Loading'
 import Image from 'next/image'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
-import DynamicNFTPolicy from '../components/dynamicNFT/DynamicNFTAgreement'
+import DynamicNFTPolicy from '../../components/dynamicNFT/DynamicNFTAgreement'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getNFTMetadata } from '@/app/api/alchemy/api'
 // import { gazaCategoryValidation, sazaCategoryValidation } from '@/app/utils/partsUtils'
 
-export interface IDynamicNFTContainerProps {}
+export interface IDynamicNFTMainContainerProps {}
 
-export default function DynamicNFTContainer(props: IDynamicNFTContainerProps) {
+export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerProps) {
     const { $alert } = React.useContext(AlertContext)
     const [open, setOpen] = React.useState(false)
     const [policyOpen, setPolicyOpen] = React.useState(false)

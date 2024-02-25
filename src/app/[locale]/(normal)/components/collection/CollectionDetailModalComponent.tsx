@@ -95,15 +95,20 @@ export default function CollectionDetailModalComponent({
                                     alt="frame"
                                     className="absolute group-hover:z-[9999]"
                                 />
+
                                 <div className="absolute w-full group-hover:z-[9999] flex flex-col justify-center items-center text-black font-medium top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">
                                     <div className="font-black text-[36px]">BURTON MORRIS</div>
                                     <div className="text-[36px]">
                                         {metadata?.name.split(':')[1].trim()}
                                     </div>
-                                    <div className="font-black text-[25px]">OWNER</div>
-                                    <div className="text-[25px]">
-                                        {owner && formatAddress(owner)}
-                                    </div>
+                                    {owner && (
+                                        <>
+                                            <div className="font-black text-[25px]">OWNER</div>
+                                            <div className="text-[25px]">
+                                                {owner && formatAddress(owner)}
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </>
                         )}
@@ -187,11 +192,15 @@ export default function CollectionDetailModalComponent({
                                                     </div>
 
                                                     <div className="text-[9.4px]">
-                                                        <div>OWNER</div>
-                                                        <div className="text-[13px] font-black">
-                                                            {owner && formatAddress(owner)}
-                                                        </div>
-                                                        <div>CLICK TO DISCOVER</div>
+                                                        {owner && (
+                                                            <>
+                                                                <div>OWNER</div>
+                                                                <div className="text-[13px] font-black">
+                                                                    {formatAddress(owner)}
+                                                                </div>
+                                                                <div>CLICK TO DISCOVER</div>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </Link>
                                             </div>
@@ -333,7 +342,7 @@ export default function CollectionDetailModalComponent({
                                             <div className="text-[9.4px]">
                                                 <div>OWNER</div>
                                                 <div className="text-[13px] font-black">
-                                                    {owner && formatAddress(owner)}
+                                                    {formatAddress(owner)}
                                                 </div>
                                                 <div>CLICK TO DISCOVER</div>
                                             </div>

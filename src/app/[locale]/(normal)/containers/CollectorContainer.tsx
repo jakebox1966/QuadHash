@@ -21,11 +21,9 @@ export interface ICollectorContainerProps {
 }
 
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
-    const [activeNFT, setActiveNFT] = React.useState(null)
     const [profileNFT, setProfileNFT] = React.useState(null)
     const [tokenType, setTokenType] = React.useState('saza')
-    const [contractAddress, setContractAddress] = React.useState(null)
-    const [selectedTokenId, seSelectedTokenId] = React.useState(null)
+
     const [backgroundColor, setBackgroundColor] = React.useState(null)
     const [metadata, setMetadata] = React.useState(null)
     const [imageUrl, setImageUrl] = React.useState(null)
@@ -72,8 +70,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         } else if (token_type === 'gaza') {
             contractAddress = process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS
         }
-        setContractAddress(contractAddress)
-        seSelectedTokenId(token_id)
 
         setMetadata(metadata)
 
@@ -150,7 +146,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     return (
         <>
-            <div className="max-w-[1296px] w-full px-[24px]">
+            <div className="max-w-[1300px] w-full px-[24px]">
                 <ProfileSection
                     collector_address={collector_address}
                     profileNFT={profileNFT}
