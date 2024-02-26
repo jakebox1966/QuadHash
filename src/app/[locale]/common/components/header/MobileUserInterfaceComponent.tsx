@@ -9,6 +9,7 @@ import * as React from 'react'
 
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { drawerTheme } from '../../materialUI/theme'
+import { useSession } from 'next-auth/react'
 
 export interface IMobileUserInterfaceComponentProps {
     qhTokenBalance: number
@@ -33,6 +34,8 @@ export default function MobileUserInterfaceComponent({
 }: IMobileUserInterfaceComponentProps) {
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
+
+    const { data: session } = useSession()
     return (
         <>
             <Button
@@ -73,11 +76,16 @@ export default function MobileUserInterfaceComponent({
                                     <div className="font-medium text-sm md:text-3xl">
                                         BALANCE: {qhTokenBalance} QH
                                     </div>
+                                    <div className="font-medium text-sm md:text-3xl">
+                                        TICKET BALANCE: {session.user.ticket_num}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex-[1_1_40%] rounded-2xl overflow-hidden">
-                                <img src={imageUrl} alt="profile_image" />
-                            </div>
+                            {imageUrl && (
+                                <div className="flex-[1_1_40%] rounded-2xl overflow-hidden">
+                                    <img src={imageUrl} alt="profile_image" />
+                                </div>
+                            )}
                         </div>
                         <div className="flex flex-col justify-center text-lg items-center text-white w-full gap-3 pt-10 font-medium">
                             <Link

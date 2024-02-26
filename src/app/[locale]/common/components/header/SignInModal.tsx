@@ -18,6 +18,7 @@ import { useTranslations } from 'next-intl'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount, signUpUser } from '@/app/api/auth/api'
 import { useSearchParams } from 'next/navigation'
+import { AlertContext } from '@/app/provider/AlertProvider'
 
 export interface ISignInModalProps {
     open: boolean
@@ -25,6 +26,7 @@ export interface ISignInModalProps {
 }
 
 export function SignInModal({ open, handleOpen }: ISignInModalProps) {
+    const { $alert } = React.useContext(AlertContext)
     const [isConnecting, setIsConnecting] = useState(false)
     const callbackUrlParams = useSearchParams()
     let callbackUrl = '/'
@@ -37,53 +39,58 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
     // const router = useRouter()
     const t = useTranslations('Layout.header.connect')
 
-    const connect = async () => {
-        // 메타마스크가 설치안되어있으면 크롬 확장팩 메타마스크 설치페이지로 이동하게한다.
-        if (!hasProvider) {
-            window.open(
-                'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
-                '_blank',
-            )
+    const connect = async (walletType: string) => {
+        if (walletType === 'metamask') {
+            // 메타마스크가 설치안되어있으면 크롬 확장팩 메타마스크 설치페이지로 이동하게한다.
+            if (!hasProvider) {
+                window.open(
+                    'https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+                    '_blank',
+                )
+                return
+            }
+            try {
+                setIsConnecting(true)
+                await connectMetaMask()
+
+                const accounts = await getAccounts()
+
+                //TODO 기존 프로세스는 회원가입 이력을 확인하는 로직이 들어가있지만, 새로운 로직에서는 필요가 없으므로 nonce값을 통해 처리하는 로직이 없어야한다.
+
+                let result = await getUuidByAccount(accounts[0])
+                console.log('result', result)
+
+                if (result.status === 'NotFound') {
+                    const formData = new FormData()
+                    formData.append('wallet_address', accounts[0])
+
+                    const response = await signUpUser(formData)
+
+                    result = await getUuidByAccount(accounts[0])
+                }
+
+                const signature = await personalSign(accounts[0], result.eth_nonce)
+
+                console.log('signature', signature)
+
+                const signInResult = await signIn('Credentials', {
+                    wallet_address: accounts[0],
+                    wallet_signature: signature,
+                    redirect: true,
+                    // redirect: false,
+                    callbackUrl: callbackUrl,
+                })
+
+                console.log('signInResult', signInResult)
+            } catch (error) {
+                console.error(error)
+                throw new Error('Error occured.')
+            }
+            setIsConnecting(false)
+        } else if ('konkrit') {
+            await $alert('현재 서비스 준비중 입니다.')
             return
         }
-        try {
-            setIsConnecting(true)
-            await connectMetaMask()
-
-            const accounts = await getAccounts()
-
-            //TODO 기존 프로세스는 회원가입 이력을 확인하는 로직이 들어가있지만, 새로운 로직에서는 필요가 없으므로 nonce값을 통해 처리하는 로직이 없어야한다.
-
-            let result = await getUuidByAccount(accounts[0])
-            console.log('result', result)
-
-            if (result.status === 'NotFound') {
-                const formData = new FormData()
-                formData.append('wallet_address', accounts[0])
-
-                const response = await signUpUser(formData)
-
-                result = await getUuidByAccount(accounts[0])
-            }
-
-            const signature = await personalSign(accounts[0], result.eth_nonce)
-
-            console.log('signature', signature)
-
-            const signInResult = await signIn('Credentials', {
-                wallet_address: accounts[0],
-                wallet_signature: signature,
-                redirect: true,
-                // redirect: false,
-                callbackUrl: callbackUrl,
-            })
-
-            console.log('signInResult', signInResult)
-        } catch (error) {
-            console.error(error)
-            throw new Error('Error occured.')
-        }
-        setIsConnecting(false)
     }
     return (
         <>
@@ -130,11 +137,13 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                         <ul className="mt-3 -ml-2 flex flex-col">
                             <MenuItem
                                 className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
-                                onClick={connect}
+                                onClick={() => {
+                                    connect('metamask')
+                                }}
                                 placeholder={undefined}>
                                 <img
                                     src="https://docs.material-tailwind.com/icons/metamask.svg"
-                                    alt="metamast"
+                                    alt="metamask"
                                     className="h-6 w-6"
                                 />
                                 <Typography
@@ -145,6 +154,24 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                                     Connect with MetaMask
                                 </Typography>
                                 {isConnecting && <Spinner className="h-6 w-6" />}
+                            </MenuItem>
+                        </ul>
+                        <ul className="mt-3 -ml-2 flex flex-col">
+                            <MenuItem
+                                className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
+                                onClick={() => {
+                                    connect('konkrit')
+                                }}
+                                placeholder={undefined}>
+                                <img src="/konkrit.svg" alt="konkrit" className="h-6 w-6" />
+                                <Typography
+                                    className="uppercase"
+                                    color="blue-gray"
+                                    variant="h6"
+                                    placeholder={undefined}>
+                                    Connect with Konkrit
+                                </Typography>
+                                {/* {isConnecting && <Spinner className="h-6 w-6" />} */}
                             </MenuItem>
                         </ul>
                     </div>

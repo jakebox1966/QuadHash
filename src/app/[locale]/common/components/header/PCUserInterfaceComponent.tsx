@@ -33,8 +33,6 @@ export default function PCUserInterfaceComponent({
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
 
-    console.log(profileNFT)
-
     const { data: session } = useSession()
 
     return (
@@ -76,12 +74,11 @@ export default function PCUserInterfaceComponent({
                                     </div>
                                 </div>
                             </div>
-                            <div className="rounded-2xl overflow-hidden max-w-[130px] w-full h-full">
-                                <img
-                                    src={imageUrl ? imageUrl : '/silhouette.png'}
-                                    alt="profile_image"
-                                />
-                            </div>
+                            {imageUrl && (
+                                <div className="rounded-2xl overflow-hidden max-w-[130px] w-full h-full">
+                                    <img src={imageUrl} alt="profile_image" />
+                                </div>
+                            )}
                         </div>
                         <div className="flex flex-row justify-center text-xs items-center text-white w-full gap-3 mt-[15px] font-medium">
                             <Link
