@@ -18,7 +18,7 @@ import { getNFTMetadata } from '@/app/api/alchemy/api'
 
 export interface IDynamicNFTMainContainerProps {}
 
-export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerProps) {
+export default function DynamicNFTMainContainer1(props: IDynamicNFTMainContainerProps) {
     const { $alert } = React.useContext(AlertContext)
     const [open, setOpen] = React.useState(false)
     const [policyOpen, setPolicyOpen] = React.useState(false)
@@ -57,10 +57,6 @@ export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerP
             setIsLocked(false)
         }
     }, [selectedNft])
-
-    React.useEffect(() => {
-        console.log('123123', metaData)
-    }, [metaData])
 
     const startDynamicNFT = async () => {
         try {

@@ -14,11 +14,6 @@ export interface INFTListComponentProps {
     openDetailModal: (token_id: any, token_type: any) => Promise<void>
 }
 
-type lastpage = {
-    ownedNfts: any[]
-    totalCount: number
-}
-
 export default function NFTListComponent({
     wallet_address,
     tokenType,

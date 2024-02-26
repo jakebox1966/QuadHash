@@ -79,7 +79,6 @@ export const sazaCategoryValidation = (ranking: number, category: string) => {
                     ],
                 }
             } else if (ranking >= 5001 && ranking <= 10000) {
-                console.log(123123)
                 return {
                     availability: true,
                     pool: ['Brown', 'Blue', 'Red', 'Trippy', 'Stripe', 'Rainbow', 'Orange'],

@@ -1,24 +1,27 @@
-'use client'
-
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import * as React from 'react'
+import { locales } from '@/i18nconfig'
 
 export interface ICardComponentProps {
-    item: any
     tokenType: string
+    tokenId: string
 }
 
-export default function CardComponent({ item, tokenType }: ICardComponentProps) {
+const { Link } = createSharedPathnamesNavigation({ locales })
+
+export default function CardComponent({ tokenType, tokenId }: ICardComponentProps) {
     let imgUrl = ''
 
     if (tokenType === 'saza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${item.tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${tokenId}.png`
     } else if (tokenType === 'gaza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${item.tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${tokenId}.png`
     }
 
     return (
         <>
-            <div
+            <Link
+                href={`/dynamicNFT/${tokenType}/${tokenId}`}
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
@@ -29,9 +32,9 @@ export default function CardComponent({ item, tokenType }: ICardComponentProps) 
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
                     <div>{tokenType}</div>
-                    <div>No.{item?.tokenId}</div>
+                    <div>No.{tokenId}</div>
                 </div>
-            </div>
+            </Link>
         </>
     )
 }

@@ -32,13 +32,11 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
                 pageSize: 5,
                 pageKey: pageKey,
             })
-        } else if (tokenType === 'qbt') {
-            return []
         }
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getCollectionByOwner', tokenType],
+        queryKey: ['getCollectionByOwner', tokenType, wallet_address],
         queryFn: (query) => fetchData(query.pageParam),
         getNextPageParam: (lastPage: any, allPages) => {
             const pageKey = lastPage.pageKey
@@ -66,7 +64,7 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
                     return page?.ownedNfts.map((item, index) => (
                         <CardComponent
                             key={`${item.tokenId}_${index}`}
-                            item={item}
+                            tokenId={item.tokenId}
                             tokenType={tokenType}
                         />
                     ))
