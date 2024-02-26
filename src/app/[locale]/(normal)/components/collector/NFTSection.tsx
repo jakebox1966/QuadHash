@@ -406,7 +406,7 @@ export default function NFTSection({
                     </TabsBody>
                 </Tabs>
             </div> */}
-            {activeNFT && (
+            {/* {activeNFT && (
                 <NFTDetailModalComponent
                     collector_address={collector_address}
                     open={open}
@@ -417,7 +417,7 @@ export default function NFTSection({
                     handleOpen={handleOpen}
                     updateUserProfile={updateUserProfile}
                 />
-            )}
+            )} */}
         </>
     )
 }
