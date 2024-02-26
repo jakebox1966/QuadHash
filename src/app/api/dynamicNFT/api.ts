@@ -17,9 +17,13 @@ export const getMetadata = async ({ nftType, tokenId }) => {
     console.log('now refetch Data')
     let jsonUrl = ''
     if (nftType === 'saza') {
-        jsonUrl = `${process.env.NEXT_PUBLIC_SAZA_METADATA_URL}/${tokenId}.json`
+        jsonUrl = `${
+            process.env.NEXT_PUBLIC_SAZA_METADATA_URL
+        }/${tokenId}.json?${new Date().getTime()}`
     } else {
-        jsonUrl = `${process.env.NEXT_PUBLIC_GAZA_METADATA_URL}/${tokenId}.json`
+        jsonUrl = `${
+            process.env.NEXT_PUBLIC_GAZA_METADATA_URL
+        }/${tokenId}.json?${new Date().getTime()}`
     }
 
     const result = await fetch(jsonUrl)

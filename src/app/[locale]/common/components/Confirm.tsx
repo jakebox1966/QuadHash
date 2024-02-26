@@ -25,7 +25,7 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                     placeholder={undefined}
                     className="border-2 border-black">
                     <DialogBody placeholder={undefined}>
-                        <div className="flex flex-row items-center gap-5">
+                        <div className="flex flex-row items-start gap-5">
                             <div className="w-[72px] lg:w-[60px] h-auto">
                                 <img
                                     src="/alert_icon.svg"

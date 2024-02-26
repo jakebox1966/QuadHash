@@ -43,13 +43,6 @@ export default function ProfileSection({
     const tokenId = profileNFT?.name.split('#')[1]
     const tokenType = profileNFT?.name.split('#')[0].split(':')[1].trim().toLowerCase()
 
-    React.useEffect(() => {
-        console.log(session)
-        console.log(session?.user.wallet_address)
-        console.log(wallet?.accounts[0])
-    }, [session, wallet])
-    console.log(profileNFT)
-
     const imageUrl = profileNFT?.image
 
     return (
