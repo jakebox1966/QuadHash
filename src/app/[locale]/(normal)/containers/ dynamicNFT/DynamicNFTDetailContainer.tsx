@@ -285,10 +285,10 @@ export default function DynamicNFTDetailContainer({
                 className={`max-w-[1300px] px-5 w-full flex flex-col justify-center items-start gap-5 mt-[50px]`}>
                 {/* DynamicNFT Main */}
                 <div
-                    className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl bg-[${backgroundColor}]
+                    className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl relative bg-[${backgroundColor}]
                     `}
                     style={{ backgroundColor: backgroundColor }}>
-                    <div className="hidden lg:flex flex-col items-start gap-4 -translate-y-20 pl-3">
+                    <div className="absolute left-4 hidden lg:flex flex-col items-start gap-4 -translate-y-20 pl-3">
                         <div
                             className={`${
                                 backgroundColor === '#FFFFFF' ? 'text-black' : 'text-[#FFFFFF]'
@@ -372,7 +372,7 @@ export default function DynamicNFTDetailContainer({
                     </div>
 
                     <div
-                        className="bg-[#FFC947] hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full -translate-y-80  text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all "
+                        className="bg-[#FFC947] absolute hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all "
                         onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />
                         <div className="text-[25px] font-medium">START</div>
