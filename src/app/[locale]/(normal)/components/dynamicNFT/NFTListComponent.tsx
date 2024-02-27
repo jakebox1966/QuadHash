@@ -47,6 +47,10 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
 
             return pageKey
         },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     })
 
     const { setTarget } = useIntersectionObserver({

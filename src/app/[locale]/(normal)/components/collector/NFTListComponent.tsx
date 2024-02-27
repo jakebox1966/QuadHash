@@ -49,6 +49,10 @@ export default function NFTListComponent({
 
             return pageKey
         },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     })
 
     const { setTarget } = useIntersectionObserver({

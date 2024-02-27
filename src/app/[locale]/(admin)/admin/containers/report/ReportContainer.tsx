@@ -33,6 +33,10 @@ export default function ReportContainer(props: IReportContainerProps) {
             }
             return currentPage + 1
         },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     })
     const { setTarget } = useIntersectionObserver({
         hasNextPage,

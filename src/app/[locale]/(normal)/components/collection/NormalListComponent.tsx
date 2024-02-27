@@ -46,6 +46,10 @@ export default function NormalCollectionListComponent({
             }
             return currentPage + 1
         },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     })
 
     const { setTarget } = useIntersectionObserver({

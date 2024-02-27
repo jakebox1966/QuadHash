@@ -217,8 +217,8 @@ export default function CollectionDetailModalComponent({
                                             modules={[Pagination]}>
                                             {metadata?.attributes
                                                 .filter((item, index) => index !== 0)
-                                                .map((item) => (
-                                                    <SwiperSlide>
+                                                .map((item, index) => (
+                                                    <SwiperSlide key={`${item}_${index}`}>
                                                         <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
                                                             <div className="text-[10.85px]">
                                                                 {item.trait_type !== 'Dcount'

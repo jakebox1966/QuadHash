@@ -62,6 +62,10 @@ export default function BurtonMorrisListComponent({
             }
             return currentPage + 1
         },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     })
 
     const { setTarget } = useIntersectionObserver({
