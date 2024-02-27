@@ -92,15 +92,17 @@ export default function CollectionDetailModalComponent({
                             <>
                                 <img src="/frame.png" alt="frame" className="absolute z-[9999]" />
 
-                                <div className="absolute w-full group-hover:z-[9999] flex flex-col justify-start items-center text-black font-medium top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition ease-in duration-1000">
-                                    <div className="font-black text-[36px]">BURTON MORRIS</div>
-                                    <div className="text-[36px]">
+                                <div className="absolute group-hover:z-[9999] text-black font-medium top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition ease-in duration-1000">
+                                    <div className="font-black lg:text-[36px]">BURTON MORRIS</div>
+                                    <div className="lg:text-[36px] mt-4">
                                         {metadata?.name.split(':')[1].trim()}
                                     </div>
                                     {owner && (
                                         <>
-                                            <div className="font-black text-[25px]">OWNER</div>
-                                            <div className="text-[25px]">
+                                            <div className="font-black lg:text-[25px] mt-4">
+                                                OWNER
+                                            </div>
+                                            <div className="lg:text-[25px]">
                                                 {owner && formatAddress(owner)}
                                             </div>
                                         </>

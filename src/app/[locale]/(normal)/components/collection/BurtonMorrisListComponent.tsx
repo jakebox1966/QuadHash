@@ -23,9 +23,21 @@ export default function BurtonMorrisListComponent({
     burtonMorrisData,
 }: IBurtonMorrisListComponentProps) {
     const fetchData = async (pageParam) => {
-        console.log('gggg')
         const startIndex = (pageParam - 1) * 20
         const endIndex = startIndex + 20
+
+        if (queryParam.token_id) {
+            const data = burtonMorrisData.list.filter(
+                (item) => item === parseInt(queryParam.token_id),
+            )
+
+            if (data.length > 0) {
+                return {
+                    data: data,
+                    paging: { page: pageParam, total_pages: 1 },
+                }
+            }
+        }
 
         const data = burtonMorrisData.list.slice(startIndex, endIndex)
 

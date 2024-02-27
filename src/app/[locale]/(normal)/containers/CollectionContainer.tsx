@@ -232,7 +232,6 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     }
 
     const handleSearchParam = () => {
-        console.log(123)
         setQueryParam((prev) => ({
             ...prev,
             sort_by: 'number',

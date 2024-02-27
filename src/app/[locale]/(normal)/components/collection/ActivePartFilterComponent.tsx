@@ -68,6 +68,7 @@ export default function ActivePartFilterComponent({
                 {trait_type.map((item) => {
                     return queryParam[item].map((el) => (
                         <div
+                            key={`parts_${item}`}
                             className=" text-black border-2 border-[#F46221]/20 rounded-full px-3 py-0.5 flex flex-row items-center gap-3 cursor-pointer"
                             onClick={() => handlePartParam(item, el)}>
                             <span>
@@ -85,7 +86,7 @@ export default function ActivePartFilterComponent({
                                             id="icon"
                                             d="M14.896 4.8075L13.8385 3.75L9.646 7.9425L5.4535 3.75L4.396 4.8075L8.5885 9L4.396 13.1925L5.4535 14.25L9.646 10.0575L13.8385 14.25L14.896 13.1925L10.7035 9L14.896 4.8075Z"
                                             fill="#F46221"
-                                            fill-opacity="0.5"
+                                            fillOpacity="0.5"
                                         />
                                     </g>
                                 </svg>
