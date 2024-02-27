@@ -232,6 +232,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
     }
 
     const handleSearchParam = () => {
+        console.log(123)
         setQueryParam((prev) => ({
             ...prev,
             sort_by: 'number',
@@ -249,7 +250,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
             bottoms: [],
             onesie: [],
         }))
-        setBurtonMorris(false)
+        // setBurtonMorris(false)
     }
 
     return (

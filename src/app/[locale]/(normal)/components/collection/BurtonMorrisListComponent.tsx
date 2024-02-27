@@ -23,6 +23,7 @@ export default function BurtonMorrisListComponent({
     burtonMorrisData,
 }: IBurtonMorrisListComponentProps) {
     const fetchData = async (pageParam) => {
+        console.log('gggg')
         const startIndex = (pageParam - 1) * 20
         const endIndex = startIndex + 20
 
@@ -32,7 +33,12 @@ export default function BurtonMorrisListComponent({
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getBurtonMorrisCollection', burtonMorris, queryParam.token_type],
+        queryKey: [
+            'getBurtonMorrisCollection',
+            burtonMorris,
+            queryParam.token_type,
+            queryParam.token_id,
+        ],
         queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
         getNextPageParam: (lastPage, allPages) => {
             const currentPage = lastPage.paging.page
