@@ -31,11 +31,9 @@ export default function BurtonMorrisListComponent({
                 (item) => item === parseInt(queryParam.token_id),
             )
 
-            if (data.length > 0) {
-                return {
-                    data: data,
-                    paging: { page: pageParam, total_pages: 1 },
-                }
+            return {
+                data: data,
+                paging: { page: pageParam, total_pages: 1 },
             }
         }
 
