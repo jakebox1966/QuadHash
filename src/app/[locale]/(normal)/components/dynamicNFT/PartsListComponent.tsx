@@ -5,7 +5,10 @@ import PartCardComponent from './PartCardComponent'
 
 export interface IPartsListComponentProps {
     selectedPartsData: {
-        traitType: string
+        partsData: {
+            trait_type: string
+            value: string
+        }
         tokenType: string
         availability: boolean
         pool: string[]
@@ -13,7 +16,8 @@ export interface IPartsListComponentProps {
 }
 
 export default function PartsListComponent({ selectedPartsData }: IPartsListComponentProps) {
-    const { traitType, tokenType, availability, pool } = selectedPartsData
+    const { partsData, tokenType, availability, pool } = selectedPartsData
+    console.log(partsData)
     return (
         <>
             <CardListComponent>
@@ -21,7 +25,7 @@ export default function PartsListComponent({ selectedPartsData }: IPartsListComp
                     <PartCardComponent
                         key={item}
                         tokenType={tokenType}
-                        traitType={traitType}
+                        partsData={partsData}
                         item={item}
                     />
                 ))}

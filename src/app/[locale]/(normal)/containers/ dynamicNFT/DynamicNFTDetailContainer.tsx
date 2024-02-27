@@ -31,8 +31,15 @@ export default function DynamicNFTDetailContainer({
 
     const [disabledPartsCategory, setDisabledPartsCategory] = React.useState([])
 
+    // const [selectedPartsData, setSelectedPartsData] = React.useState({
+    //     traitType: 'Background',
+    //     tokenType: tokenType,
+    //     availability: false,
+    //     pool: [],
+    // })
+
     const [selectedPartsData, setSelectedPartsData] = React.useState({
-        traitType: 'Background',
+        partsData: { trait_type: 'Background', value: '' },
         tokenType: tokenType,
         availability: false,
         pool: [],
@@ -41,9 +48,9 @@ export default function DynamicNFTDetailContainer({
     const { $alert } = React.useContext(AlertContext)
     const { $confirm } = React.useContext(ConfirmContext)
 
-    const handleSelectedPartsTraitType = (parts: string) => {
+    const handleSelectedPartsTraitType = (parts: { trait_type: string; value: string }) => {
         console.log(parts)
-        if (disabledPartsCategory?.includes(parts)) {
+        if (disabledPartsCategory?.includes(parts.trait_type)) {
             setSelectedPartsData((prev) => ({
                 ...prev,
                 pool: [],
@@ -51,23 +58,26 @@ export default function DynamicNFTDetailContainer({
             return
         }
         if (tokenType === 'saza') {
-            const result = sazaCategoryValidation(NFTMetadata?.attributes[0].value, parts)
+            const result = sazaCategoryValidation(
+                NFTMetadata?.attributes[0].value,
+                parts.trait_type,
+            )
 
             setSelectedPartsData((prev) => ({
                 ...prev,
-                traitType: parts,
+                partsData: parts,
                 availability: result.availability,
                 pool: result.pool,
             }))
         } else if (tokenType === 'gaza') {
             const result = gazaCategoryValidation(
                 NFTMetadata?.attributes[0].value,
-                parts,
+                parts.trait_type,
                 NFTMetadata.attributes.filter((item, index) => index !== 0),
             )
             setSelectedPartsData((prev) => ({
                 ...prev,
-                traitType: parts,
+                partsData: parts,
                 availability: result.availability,
                 pool: result.pool,
             }))
@@ -138,7 +148,7 @@ export default function DynamicNFTDetailContainer({
                 const result = await postDynamicNFT({
                     token_id: tokenId,
                     token_type: tokenType,
-                    category: selectedPartsData.traitType.toLowerCase(),
+                    category: selectedPartsData.partsData.trait_type.toLowerCase(),
                     wallet_signature: signature,
                     wallet_address: accounts[0],
                 })
@@ -234,24 +244,24 @@ export default function DynamicNFTDetailContainer({
                 if (tokenType === 'saza') {
                     const result = sazaCategoryValidation(
                         NFTMetadata.attributes[0].value,
-                        selectedPartsData.traitType,
+                        selectedPartsData.partsData.trait_type,
                     )
 
                     setSelectedPartsData((prev) => ({
                         ...prev,
-                        traitType: NFTMetadata.attributes[1].trait_type,
+                        partsData: NFTMetadata.attributes[1],
                         availability: result.availability,
                         pool: result.pool,
                     }))
                 } else if (tokenType === 'gaza') {
                     const result = gazaCategoryValidation(
                         NFTMetadata.attributes[0].value,
-                        selectedPartsData.traitType,
+                        selectedPartsData.partsData.trait_type,
                         NFTMetadata.attributes.filter((item, index) => index !== 0),
                     )
                     setSelectedPartsData((prev) => ({
                         ...prev,
-                        traitType: NFTMetadata.attributes[1].trait_type,
+                        partsData: NFTMetadata.attributes[1],
                         availability: result.availability,
                         pool: result.pool,
                     }))
@@ -289,13 +299,14 @@ export default function DynamicNFTDetailContainer({
                                     item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
                             )
                             .map((item) => (
-                                <div
+                                <button
+                                    disabled={disabledPartsCategory?.includes(item.trait_type)}
                                     onClick={() => {
-                                        handleSelectedPartsTraitType(item.trait_type)
+                                        handleSelectedPartsTraitType(item)
                                     }}
                                     key={item.trait_type}
-                                    className={`min-w-[200px] w-full ${
-                                        selectedPartsData.traitType === item.trait_type
+                                    className={`min-w-[200px] w-full text-left ${
+                                        selectedPartsData.partsData.trait_type === item.trait_type
                                             ? 'shadow-[_5px_1px_40px_0px_white]'
                                             : 'shadow-[_5px_5px_black]'
                                     } ${
@@ -311,7 +322,7 @@ export default function DynamicNFTDetailContainer({
                                             {item.value}
                                         </div>
                                     </div>
-                                </div>
+                                </button>
                             ))}
                     </div>
                     <div className="w-full flex flex-col justify-center items-center">

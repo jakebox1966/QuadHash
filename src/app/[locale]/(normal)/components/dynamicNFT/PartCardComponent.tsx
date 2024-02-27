@@ -2,21 +2,24 @@ import * as React from 'react'
 
 export interface ICardComponentProps {
     tokenType: string
-    traitType: string
+    partsData: { trait_type: string; value: string }
     item: string
 }
 
-export default function CardComponent({ tokenType, traitType, item }: ICardComponentProps) {
+export default function CardComponent({ tokenType, partsData, item }: ICardComponentProps) {
+    console.log(partsData)
+    console.log(item)
+    console.log(partsData.value === item)
     return (
         <>
             <div
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
-                <div className="overflow-hidden aspect-square border-2 rounded-xl">
-                    <div className="relative w-full h-full">
+                <div className={`overflow-hidden aspect-square border-2 rounded-xl`}>
+                    <div className={`relative w-full h-full `}>
                         <img
-                            src={`/parts/${tokenType}/${traitType}/${item}.png`}
+                            src={`/parts/${tokenType}/${partsData.trait_type}/${item}.png`}
                             width="100%"
                             height="auto"
                             alt="parts-image"
