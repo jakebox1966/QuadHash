@@ -16,7 +16,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
-                <div className={`overflow-hidden aspect-square border-2 rounded-xl`}>
+                <div className={`overflow-hidden aspect-square rounded-xl shadow-xl`}>
                     <div className={`relative w-full h-full `}>
                         <img
                             src={`/parts/${tokenType}/${partsData.trait_type}/${item}.png`}
@@ -27,7 +27,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                     </div>
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
-                    <div>{item}</div>
+                    <div className="font-medium">{item}</div>
                 </div>
             </div>
         </>

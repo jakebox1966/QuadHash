@@ -804,11 +804,6 @@ const gazaOnesieValidation = (ranking: number) => {
                 'Racing',
                 'Rainbow',
                 'Stripes',
-                'Camo',
-                'Dots',
-                'Racing',
-                'Rainbow',
-                'Stripes',
             ],
         }
     } else {

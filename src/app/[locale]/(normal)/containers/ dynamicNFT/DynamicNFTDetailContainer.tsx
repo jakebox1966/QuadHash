@@ -285,12 +285,15 @@ export default function DynamicNFTDetailContainer({
                 className={`max-w-[1300px] px-5 w-full flex flex-col justify-center items-start gap-5 mt-[50px]`}>
                 {/* DynamicNFT Main */}
                 <div
-                    className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg bg-[${backgroundColor}]
+                    className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl bg-[${backgroundColor}]
                     `}
                     style={{ backgroundColor: backgroundColor }}>
                     <div className="hidden lg:flex flex-col items-start gap-4 -translate-y-20 pl-3">
-                        <div className="text-[#FFFFFF] text-[25px] font-medium">
-                            {tokenType} #{tokenId}
+                        <div
+                            className={`${
+                                backgroundColor === '#FFFFFF' ? 'text-black' : 'text-[#FFFFFF]'
+                            } text-[25px] font-medium`}>
+                            {tokenType.toUpperCase()} #{tokenId}
                         </div>
 
                         {NFTMetadata?.attributes

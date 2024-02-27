@@ -110,12 +110,15 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
         console.log()
     }
     return (
+        // <>
         // <div>
         //     Fractioal Investing
         //     <div onClick={test}>test</div>
         //     <div onClick={getNfts}>getAllNfts</div>
         //     <div onClick={refreshContract}>refreshContract</div>
         // </div>
+
+        // </>
         <>
             <CommingSoonComponent />
         </>
