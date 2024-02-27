@@ -11,6 +11,7 @@ import {
     SortingOrder,
     fromHex,
 } from 'alchemy-sdk'
+import CommingSoonComponent from '@/app/[locale]/common/components/ComingSoon'
 
 export interface IFractionalInvestPageProps {}
 
@@ -109,11 +110,14 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
         console.log()
     }
     return (
-        <div>
-            Fractioal Investing
-            <div onClick={test}>test</div>
-            <div onClick={getNfts}>getAllNfts</div>
-            <div onClick={refreshContract}>refreshContract</div>
-        </div>
+        // <div>
+        //     Fractioal Investing
+        //     <div onClick={test}>test</div>
+        //     <div onClick={getNfts}>getAllNfts</div>
+        //     <div onClick={refreshContract}>refreshContract</div>
+        // </div>
+        <>
+            <CommingSoonComponent />
+        </>
     )
 }
