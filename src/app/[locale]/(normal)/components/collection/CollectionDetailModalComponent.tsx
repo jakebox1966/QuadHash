@@ -90,13 +90,9 @@ export default function CollectionDetailModalComponent({
                         placeholder={undefined}>
                         {burtonMorris && (
                             <>
-                                <img
-                                    src="/frame.png"
-                                    alt="frame"
-                                    className="absolute group-hover:z-[9999]"
-                                />
+                                <img src="/frame.png" alt="frame" className="absolute z-[9999]" />
 
-                                <div className="absolute w-full group-hover:z-[9999] flex flex-col justify-center items-center text-black font-medium top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">
+                                <div className="absolute w-full group-hover:z-[9999] flex flex-col justify-start items-center text-black font-medium top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition ease-in duration-1000">
                                     <div className="font-black text-[36px]">BURTON MORRIS</div>
                                     <div className="text-[36px]">
                                         {metadata?.name.split(':')[1].trim()}
@@ -114,13 +110,15 @@ export default function CollectionDetailModalComponent({
                         )}
                         <div
                             className={`max-w-[350px] lg:max-w-[581px] ${
-                                burtonMorris && 'p-3 group-hover:blur-md'
+                                burtonMorris &&
+                                'p-3 group-hover:blur-md transition ease-in duration-1000'
                             } max-h-[581px] w-full h-full flex flex-col justify-end items-center lg:items-start overflow-hidden`}>
                             <img
                                 src={imageUrl}
                                 alt="profile_image"
                                 className={` ${
-                                    burtonMorris && 'group-hover:blur-sm group-hover:opacity-60'
+                                    burtonMorris &&
+                                    'group-hover:opacity-60 transition ease-in duration-1000'
                                 } max-w-[581px] w-full`}
                             />
                             {!burtonMorris && (

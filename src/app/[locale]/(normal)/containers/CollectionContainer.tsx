@@ -107,7 +107,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
 
         setMetadata(metadata)
         if (burtonMorris) {
-            setImageUrl(`https://${token_type}.quadhash.io/art/${token_id}.png`)
+            setImageUrl(`https://${token_type}.quadhash.kr/art/${token_id}.png`)
         } else {
             setImageUrl(metadata.image)
         }
