@@ -1,8 +1,8 @@
 import * as React from 'react'
-import MainWrapper from '../../common/layouts/MainWrapper'
+import MainWrapperNoFooter from '../../common/layouts/MainWrapperNoFooter'
 
 export interface IAboutLayoutProps {}
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
-    return <MainWrapper>{children}</MainWrapper>
+    return <MainWrapperNoFooter>{children}</MainWrapperNoFooter>
 }

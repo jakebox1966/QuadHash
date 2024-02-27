@@ -11,7 +11,7 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerProps) {
     return (
         <>
-            <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center gap-5 mt-[110px]">
+            <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center gap-10 mt-[110px]">
                 <div className="flex flex-col items-center text-[40px] lg:text-[70px]  font-black text-[#F46221]">
                     <div className="leading-tight">QUADHASH</div>
                     <div className="leading-tight">DYNAMIC NFT</div>
