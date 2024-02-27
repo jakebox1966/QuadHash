@@ -371,19 +371,19 @@ export default function DynamicNFTDetailContainer({
                         </div>
                     </div>
 
-                    <div className="bg-[#FFC947] hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full -translate-y-80  text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all">
+                    <div
+                        className="bg-[#FFC947] hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full -translate-y-80  text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all "
+                        onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />
-                        <div className="text-[25px] font-medium" onClick={startDynamicNFT}>
-                            START
-                        </div>
+                        <div className="text-[25px] font-medium">START</div>
                     </div>
                 </div>
-                <div className="w-full flex lg:hidden flex-col justify-center items-center">
-                    <div className="flex lg:hidden flex-row justify-center items-center gap-1 px-4 py-2 rounded-full border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all">
+                <div
+                    className="w-full flex lg:hidden flex-col justify-center items-center"
+                    onClick={startDynamicNFT}>
+                    <div className="bg-[#FFC947] flex lg:hidden flex-row justify-center items-center gap-1 px-4 py-2 rounded-full border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all">
                         <img src="/rotate.svg" alt="rotate" width={20} height={20} />
-                        <div className="text-[13px] font-medium" onClick={startDynamicNFT}>
-                            START
-                        </div>
+                        <div className="text-[13px] font-medium">START</div>
                     </div>
                 </div>
 

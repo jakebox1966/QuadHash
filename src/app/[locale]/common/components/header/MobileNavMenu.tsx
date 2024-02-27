@@ -183,27 +183,27 @@ export default function MobileNavMenu({
                             {t(item)}
                         </Link>
                     ))}
-                    <Link
+                    {/* <Link
                         href={'https://discord.gg/quadhash'}
                         target={'_blank'}
                         className="flex flex-row justify-center items-center gap-14">
-                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                      
                         DISCORD
                     </Link>
                     <Link
                         href={'https://twitter.com/QUADHASH'}
                         target={'_blank'}
                         className="flex flex-row justify-center items-center gap-14">
-                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                     
                         TWITTER
                     </Link>
                     <Link
                         href={'https://www.instagram.com/saza.gaza/'}
                         target={'_blank'}
                         className="flex flex-row justify-center items-center gap-14">
-                        {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
+                    
                         Saza&Gaza Instagram
-                    </Link>
+                    </Link> */}
                     {/* {wallet.accounts[0] && session && (
                         <Button
                             className="bg-[#FFFFFF] font-medium text-xs text-[#F46221] py-3 px-4 rounded-lg flex flex-row items-center justify-center gap-3"

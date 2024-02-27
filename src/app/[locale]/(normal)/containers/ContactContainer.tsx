@@ -145,7 +145,7 @@ export default function ContactContainer() {
                             <Checkbox
                                 ripple={false}
                                 name="partner"
-                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#FFD748] border-none hover:scale-105 hover:before:opacity-0"
+                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                                 crossOrigin={undefined}
                                 checked={inputs.partner === 'NO' ? false : true}
                                 // ref={partnerRef}
@@ -159,7 +159,7 @@ export default function ContactContainer() {
                             <Checkbox
                                 ripple={false}
                                 name="co_marketing"
-                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#FFD748] border-none hover:scale-105 hover:before:opacity-0"
+                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                                 crossOrigin={undefined}
                                 checked={inputs.co_marketing === 'NO' ? false : true}
                                 // ref={co_marketing}

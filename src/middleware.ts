@@ -16,7 +16,7 @@ const publicPages = [
     '/white_paper',
 ]
 
-const privatePages = ['/admin', '/dynamicNFT', '/collector']
+const privatePages = ['/admin', '/dynamicNFT']
 
 const intlMiddleware = createIntlMiddleware({
     locales,
@@ -28,9 +28,9 @@ const authMiddleware = withAuth(
     async function onSuccess(req: NextRequestWithAuth) {
         const session = await getToken({ req })
 
-        if (req.nextUrl.pathname.includes('/collector') && !session.wallet_address) {
-            NextResponse.rewrite(new URL('/signIn', req.nextUrl))
-        }
+        // if (req.nextUrl.pathname.includes('/collector') && !session.wallet_address) {
+        //     NextResponse.rewrite(new URL('/signIn', req.nextUrl))
+        // }
 
         if (!session) {
             return NextResponse.rewrite(new URL('/signIn', req.nextUrl))

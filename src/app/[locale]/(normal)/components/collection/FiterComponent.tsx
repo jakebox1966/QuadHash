@@ -119,19 +119,6 @@ const optionList = [
     { name: 'Rank: B To T', value: 'ranking/desc' },
 ]
 
-function Icon({ id, open }) {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className={`${id === open ? 'rotate-180' : ''} h-5 w-5 transition-transform`}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
-    )
-}
 export default function FilterComponent({
     isMobileFilterOpen,
     setIsMobileFilterOpen,
@@ -268,7 +255,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 overflow-y-auto max-h-[1200px] overflow-x-hidden">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -290,7 +277,7 @@ export default function FilterComponent({
                     </Button>
                 </div>
 
-                <div className="flex flex-row items-center gap-3 text-sm font-medium bg-[#FFCD19]/25 py-4 px-3 w-full">
+                <div className="flex flex-row items-center justify-between gap-3 text-sm font-medium bg-[#FFCD19]/25 py-4 px-3 w-full">
                     <div>
                         <Image src={logoShort} alt={'logo_short'} />
                     </div>
@@ -321,10 +308,26 @@ export default function FilterComponent({
                                     ? filterOpen[item.part_category]
                                     : false
                             }
-                            icon={<Icon id={index} open={filterOpen[item.part_category]} />}
+                            icon={
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={2}
+                                    stroke="currentColor"
+                                    className={`${
+                                        filterOpen[item.part_category] === true ? 'rotate-180' : ''
+                                    } h-5 w-5 transition-transform`}>
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                    />
+                                </svg>
+                            }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none !text-black px-6 cursor-pointer"
+                                className="border-none !text-black flex flex-row px-3 justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
@@ -333,7 +336,7 @@ export default function FilterComponent({
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
-                                        className="text-black font-medium  px-10"
+                                        className="text-black font-medium px-3 text-xs"
                                         onClick={() =>
                                             handlePartParam(item.part_category, partName)
                                         }>
@@ -359,27 +362,6 @@ export default function FilterComponent({
                                             />
                                             <div>{partName.toUpperCase()}</div>
                                         </div>
-                                        {/* <div
-                                            className={`${
-                                                checkSelected(item.part_category, partName)
-                                                    ? 'text-[#F46221]'
-                                                    : 'text-black'
-                                            } flex flex-row items-center justify-between`}>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                className="w-6 h-6">
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                                />
-                                            </svg>
-                                            <div>{partName.toUpperCase()}</div>
-                                        </div> */}
                                     </div>
                                 ))}
                             </AccordionBody>
@@ -564,10 +546,23 @@ export default function FilterComponent({
                                                     : false
                                             }
                                             icon={
-                                                <Icon
-                                                    id={index}
-                                                    open={filterOpen[item.part_category]}
-                                                />
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={2}
+                                                    stroke="currentColor"
+                                                    className={`${
+                                                        filterOpen[item.part_category] === true
+                                                            ? 'rotate-180'
+                                                            : ''
+                                                    } h-5 w-5 transition-transform`}>
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                                    />
+                                                </svg>
                                             }
                                             placeholder={undefined}>
                                             <AccordionHeader

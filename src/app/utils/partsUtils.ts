@@ -364,7 +364,7 @@ export const sazaCategoryValidation = (ranking: number, category: string) => {
                         'Charcoal-Cap',
                         'Newsboy',
                         'Camo-Cap',
-                        'Sheriff',
+                        'Sherrif',
                         'Pom-Pom',
                         'Star-Cap',
                         'Naval',
