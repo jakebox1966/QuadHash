@@ -125,9 +125,6 @@ export default function ContactContainer() {
         return false
     }
 
-    React.useEffect(() => {
-        console.log(inputs)
-    }, [inputs])
     return (
         <>
             <div className="max-w-[600px] w-full mt-16 font-medium p-[32px]">

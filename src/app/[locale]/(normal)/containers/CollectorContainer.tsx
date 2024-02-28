@@ -15,12 +15,14 @@ import NFTDetailModalComponent from '../components/collector/NFTDetialModalCompo
 import NFTListComponent from '../components/collector/NFTListComponent'
 import { backgroundPallete } from '../../common/color/colorPalette'
 import { setActive } from '@material-tailwind/react/components/Tabs/TabsContext'
+import CardLoading from '../../common/components/CardLoading'
 
 export interface ICollectorContainerProps {
     wallet_address: string
 }
 
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
+    const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
     const [tokenType, setTokenType] = React.useState('saza')
 
@@ -84,31 +86,37 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     React.useEffect(() => {
         init()
-    }, [session])
+    }, [])
+
+    React.useEffect(() => {
+        console.log('123123', profileNFT)
+    }, [profileNFT])
 
     const init = async () => {
-        if (wallet_address) {
-            try {
-                const result = await getUserInfoByWalletAddress(wallet_address)
-                console.log(result)
-                const token_type = result.token_type
-                const token_id = result.token_id
-                let metadata = null
+        try {
+            setIsLoading(true)
+            const result = await getUserInfoByWalletAddress(wallet_address)
+            console.log(result)
+            const token_type = result.token_type
+            const token_id = result.token_id
+            let metadata = null
 
-                setCollector_address(result.wallet_address)
+            setCollector_address(result.wallet_address)
 
-                if (token_type && token_id) {
-                    console.log('now setting profile')
-                    if (token_type === 'saza' || token_type === 'gaza') {
-                        metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
-                        setProfileNFT(metadata)
-                    } else if (token_type === 'reset') {
-                        setProfileNFT(null)
-                    }
-                }
-            } catch (error) {
-                console.error(error)
+            console.log('now setting profile', token_type)
+
+            if (token_type === 'saza' || token_type === 'gaza') {
+                metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
+                setProfileNFT(metadata)
+            } else if (!token_type) {
+                console.log(123)
+                setProfileNFT('none')
             }
+
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.error(error)
         }
     }
 
@@ -148,10 +156,12 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         <>
             <div className="max-w-[1300px] w-full px-[24px]">
                 <ProfileSection
+                    isLoading={isLoading}
                     collector_address={collector_address}
                     profileNFT={profileNFT}
                     updateUserProfile={updateUserProfile}
                 />
+
                 <div className="flex flex-col justify-center items-start w-full mt-10">
                     <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
                     <NFTListComponent

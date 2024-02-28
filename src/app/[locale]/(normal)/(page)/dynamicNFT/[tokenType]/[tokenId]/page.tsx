@@ -11,8 +11,6 @@ export interface IDynamicDetailPageNFTProps {
 export default function DynamicNFTDetailPage({
     params: { tokenType, tokenId },
 }: IDynamicDetailPageNFTProps) {
-    console.log('tokenType', tokenType)
-    console.log('tokenId', tokenId)
     return (
         <>
             <DynamicNFTDetailContainer tokenType={tokenType} tokenId={tokenId} />

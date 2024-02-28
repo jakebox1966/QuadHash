@@ -47,7 +47,7 @@ export default function DynamicNFTMainContainer1(props: IDynamicNFTMainContainer
             setNftType('gaza')
         }
 
-        console.log(metaData)
+        // console.log(metaData)
         setCategoires(metaData?.attributes)
         setSelectedCategory(metaData?.attributes[1])
 
@@ -75,7 +75,7 @@ export default function DynamicNFTMainContainer1(props: IDynamicNFTMainContainer
                 wallet_address: wallet.accounts[0],
             })
 
-            console.log('result', result)
+            // console.log('result', result)
 
             if (result.ok) {
                 const refreshResult = await getMetadata({
@@ -104,7 +104,7 @@ export default function DynamicNFTMainContainer1(props: IDynamicNFTMainContainer
     }
     const test = async () => {
         const result = await getNFTMetadata('0xEEb1BC51De14a4555925e3D8ca563EF5Eaf65949', 7997)
-        console.log(result)
+        // console.log(result)
     }
 
     return (

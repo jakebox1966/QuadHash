@@ -10,9 +10,6 @@ export interface IInputAreaProps {
 }
 
 export default function InputArea({ exNftList }: IInputAreaProps) {
-    React.useEffect(() => {
-        console.log('exNftList', exNftList)
-    }, [exNftList])
     return (
         <>
             <div className="flex justify-center items-center w-full">

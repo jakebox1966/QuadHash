@@ -31,7 +31,7 @@ export default function SelectNFTComponent({
     setInputs,
 }: ISelectNFTComponentProps) {
     const selectNFT = (targetIndex: number) => {
-        console.log(targetIndex)
+        // console.log(targetIndex)
         setTransactions(
             transactions.map((item, index) =>
                 index === targetIndex ? { ...item, isChecked: !item.isChecked } : item,

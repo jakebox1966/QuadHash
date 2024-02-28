@@ -43,10 +43,6 @@ export default function ReportContainer(props: IReportContainerProps) {
         fetchNextPage,
     })
 
-    React.useEffect(() => {
-        console.log(hasNextPage)
-    }, [hasNextPage])
-
     return (
         <div className="flex flex-col justify-center items-center mt-3">
             <div className="flex flex-row justify-start items-center w-full">

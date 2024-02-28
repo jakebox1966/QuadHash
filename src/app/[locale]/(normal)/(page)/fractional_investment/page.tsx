@@ -42,8 +42,6 @@ export default function FractionalInvestPage(props: IFractionalInvestPageProps) 
                 nfts.push(nft)
             }
 
-            console.log(nfts.length)
-
             return nfts
         } catch (error) {
             console.log(error)

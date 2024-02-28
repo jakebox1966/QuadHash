@@ -7,6 +7,8 @@ import CardComponent from './CardComponent'
 import { getNftsForOwner } from '@/app/api/alchemy/api'
 import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from 'react-query'
+import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardComponent'
+import { Transition } from '@headlessui/react'
 
 export interface INFTListComponentProps {
     wallet_address: string
@@ -64,6 +66,10 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
                 Select Your Collection
             </div>
             <CardListComponent>
+                {isLoading &&
+                    Array(20)
+                        .fill(0)
+                        .map((__, index) => <LoadingCardComponent tokenType={tokenType} />)}
                 {data?.pages.map((page) => {
                     return page?.ownedNfts.map((item, index) => (
                         <CardComponent

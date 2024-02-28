@@ -2,19 +2,7 @@ import createIntlMiddleware from 'next-intl/middleware'
 import { defaultLocale, locales } from './i18nconfig'
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
 import { NextRequest, NextResponse } from 'next/server'
-import { decode, getToken } from 'next-auth/jwt'
-import { createAlchemyWeb3 } from '@alch/alchemy-web3'
-import { Alchemy, Network } from 'alchemy-sdk'
-import { notFound } from 'next/navigation'
-
-const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
-const alchemyConfig = {
-    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
-    network: Network.ETH_SEPOLIA, // Replace with your network
-    // network: Network.ETH_MAINNET, // Replace with your network
-}
-
-const alchemy = new Alchemy(alchemyConfig)
+import { getToken } from 'next-auth/jwt'
 
 const publicPages = [
     '/',
@@ -40,10 +28,6 @@ const secret = process.env.NEXTAUTH_SECRET
 const authMiddleware = withAuth(
     async function onSuccess(req: NextRequestWithAuth) {
         const session = await getToken({ req })
-
-        // if (req.nextUrl.pathname.includes('/collector') && !session.wallet_address) {
-        //     NextResponse.rewrite(new URL('/signIn', req.nextUrl))
-        // }
 
         if (!session) {
             return NextResponse.rewrite(new URL('/signIn', req.nextUrl))
@@ -74,25 +58,6 @@ const authMiddleware = withAuth(
 export default async function middleware(req: NextRequestWithAuth) {
     console.log('A')
     const session = await getToken({ req })
-    console.log(req.nextUrl.pathname)
-    console.log(session)
-
-    console.log('checkcheck')
-    if (req.nextUrl.pathname.includes('/collector')) {
-        console.log('checkcheck=> collector')
-        const lastSlashIndex = req.nextUrl.href.lastIndexOf('/')
-
-        const walletAddress = req.nextUrl.href.slice(lastSlashIndex + 1)
-
-        // console.log('walletAddress')
-        // if (!web3.utils.isAddress(walletAddress)) {
-        //     console.log('error')
-        //     notFound()
-        //     // return NextResponse.error()
-        //     // return NextResponse.error()
-        //     // return NextResponse.error()
-        // }
-    }
 
     const publicPathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${publicPages
@@ -108,19 +73,15 @@ export default async function middleware(req: NextRequestWithAuth) {
         'i',
     )
 
-    console.log('publicPathnameRegex', publicPathnameRegex)
-    console.log('privatePathnameRegex', privatePathnameRegex)
-
     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
 
-    const IsPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)
+    const isPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)
 
     if (isPublicPage) {
         console.log('public')
         return intlMiddleware(req)
-    } else if (IsPrivatePages) {
+    } else if (isPrivatePages) {
         console.log('private')
-        // return intlMiddleware(request)
         return (authMiddleware as any)(req)
     } else {
         console.log('nothing')

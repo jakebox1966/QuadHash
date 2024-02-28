@@ -126,7 +126,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                                 (item) => item.tokenId === filteredTransaction[i].tokenId,
                             )
                         ) {
-                            console.log('A')
                             continue
                         }
 

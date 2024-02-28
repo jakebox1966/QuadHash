@@ -177,10 +177,6 @@ export default function FilterComponent({
         onesie: false,
     })
 
-    React.useEffect(() => {
-        console.log('filterOpen', filterOpen)
-    }, [filterOpen])
-
     // const [gazaFilterOpen, setGazaFilterOpen] = React.useState({
     //     background: false,
     //     body: false,
@@ -226,7 +222,6 @@ export default function FilterComponent({
      * @param value
      */
     const handleFilterOpen = (value) => {
-        console.log(value)
         if (queryParam.token_type === 'saza') {
             setFilterOpen((prev) => ({
                 ...prev,

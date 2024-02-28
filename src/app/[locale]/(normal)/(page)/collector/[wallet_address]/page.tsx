@@ -23,10 +23,10 @@ const alchemy = new Alchemy(alchemyConfig)
 export default function CollectorDetailPage({
     params: { wallet_address },
 }: ICollectorDetailPageProps) {
-    console.log(wallet_address)
+    // console.log(wallet_address)
 
     if (!web3.utils.isAddress(wallet_address)) {
-        console.log('error')
+        // console.log('error')
         return notFound()
     }
     return (

@@ -58,7 +58,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 //TODO 기존 프로세스는 회원가입 이력을 확인하는 로직이 들어가있지만, 새로운 로직에서는 필요가 없으므로 nonce값을 통해 처리하는 로직이 없어야한다.
 
                 let result = await getUuidByAccount(accounts[0])
-                console.log('result', result)
+                // console.log('result', result)
 
                 if (result.status === 'NotFound') {
                     const formData = new FormData()
@@ -71,7 +71,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
 
                 const signature = await personalSign(accounts[0], result.eth_nonce)
 
-                console.log('signature', signature)
+                // console.log('signature', signature)
 
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
@@ -81,7 +81,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                     callbackUrl: callbackUrl,
                 })
 
-                console.log('signInResult', signInResult)
+                // console.log('signInResult', signInResult)
             } catch (error) {
                 console.error(error)
                 throw new Error('Error occured.')

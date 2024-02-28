@@ -36,15 +36,11 @@ export default function NFTDetailModalComponent({
     handleOpen,
     updateUserProfile,
 }: INFTDetailModalComponentProps) {
-    console.log(metadata)
     const { data: session } = useSession()
     const { wallet } = useMetaMask()
 
     const tokenId = metadata?.name.split('#')[1]
     const tokenType = metadata?.name.split('#')[0].split(':')[1].trim().toLowerCase()
-
-    console.log(collector_address === wallet.accounts[0])
-    console.log(tokenType)
 
     // React.useEffect(() => {
     //     console.log(activeNFT)

@@ -17,7 +17,6 @@ export default function NFTSetting({
     tokenType,
     isFrom,
 }: INFTSettingProps) {
-    console.log(backgroundColor)
     return (
         <>
             <div className="flex flex-row justify-end items-center gap-3 w-full">

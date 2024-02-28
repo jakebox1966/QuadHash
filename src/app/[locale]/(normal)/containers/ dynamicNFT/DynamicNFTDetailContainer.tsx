@@ -90,9 +90,9 @@ export default function DynamicNFTDetailContainer({
 
     const checkDisabledPartsCategory = () => {
         if (tokenType && tokenId && NFTMetadata) {
-            console.log('tokenType', tokenType)
-            console.log('tokenId', tokenId)
-            console.log('NFTMetadata', NFTMetadata)
+            // console.log('tokenType', tokenType)
+            // console.log('tokenId', tokenId)
+            // console.log('NFTMetadata', NFTMetadata)
             const ranking = NFTMetadata.attributes[0].value
             if (tokenType === 'saza') {
                 const result = NFTMetadata.attributes.filter(
@@ -106,7 +106,7 @@ export default function DynamicNFTDetailContainer({
                     }
                     return false
                 })
-                console.log(validResult.map((item) => item.trait_type))
+                // console.log(validResult.map((item) => item.trait_type))
 
                 return validResult.map((item) => item.trait_type)
             } else if (tokenType === 'gaza') {
@@ -153,7 +153,7 @@ export default function DynamicNFTDetailContainer({
                     wallet_address: accounts[0],
                 })
 
-                console.log('result', result)
+                // console.log('result', result)
 
                 if (result.ok) {
                     // let refreshResult
@@ -207,7 +207,7 @@ export default function DynamicNFTDetailContainer({
 
     React.useEffect(() => {
         const disabledPartsResult = checkDisabledPartsCategory()
-        console.log('disabledPartsResult', disabledPartsResult)
+        // console.log('disabledPartsResult', disabledPartsResult)
         setDisabledPartsCategory(disabledPartsResult)
     }, [NFTMetadata])
 
@@ -267,7 +267,6 @@ export default function DynamicNFTDetailContainer({
                     }))
                 }
             }
-            console.log('done')
         }
         fetchData()
     }, [tokenType, tokenId])

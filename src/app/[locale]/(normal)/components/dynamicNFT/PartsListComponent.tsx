@@ -17,7 +17,6 @@ export interface IPartsListComponentProps {
 
 export default function PartsListComponent({ selectedPartsData }: IPartsListComponentProps) {
     const { partsData, tokenType, availability, pool } = selectedPartsData
-    console.log(partsData)
     return (
         <>
             <CardListComponent>

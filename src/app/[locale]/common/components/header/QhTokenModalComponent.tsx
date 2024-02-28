@@ -108,13 +108,12 @@ export default function QhTokenModalComponent({
 
             // 현재 보유한 Token Balance에 따라 MAX Token amount 변경
             if (parseInt(value) * ticketPrice > limit) {
-                console.log('삑')
                 const maxTicket = limit / ticketPrice
                 setTicketAmount(maxTicket)
                 setTokenAmount(maxTicket * ticketPrice)
                 return
             }
-            console.log(value)
+
             setTicketAmount(parseInt(value))
             setTokenAmount(parseInt(value) * ticketPrice)
         }
@@ -193,9 +192,9 @@ export default function QhTokenModalComponent({
             try {
                 if (parseInt(allowanceResponse) < realTokenAmount) {
                     setIsLoadingForApproved(true)
-                    console.log(
-                        '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
-                    )
+                    // console.log(
+                    //     '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
+                    // )
                     const txHash = await giveQhTokenContractPermission(
                         wallet.accounts[0],
                         realTokenAmount.toString(),
@@ -221,7 +220,7 @@ export default function QhTokenModalComponent({
                 }
             } catch (error) {
                 console.error(error)
-                console.log('Approve Error')
+                // console.log('Approve Error')
                 clearLoading()
                 return
             }
@@ -230,9 +229,9 @@ export default function QhTokenModalComponent({
              *  입력한 수량에 대한 Transfer 권한을 가진 경우엔 권한 승인 없이 바로 Transfer(onChain) & Exchange(offChain) 메소드를 실행한다.
              */
 
-            console.log(
-                '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
-            )
+            // console.log(
+            //     '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
+            // )
             setIsLoadingForTransfer(true)
             try {
                 const txHashForTransfer = await transferQhToken(
@@ -241,7 +240,7 @@ export default function QhTokenModalComponent({
                 )
                 await exchangeTokenToTicket(txHashForTransfer)
             } catch (error) {
-                console.log('Transfer Error')
+                // console.log('Transfer Error')
                 console.error(error)
                 getMissingTicketList()
                 clearLoading()
@@ -282,7 +281,7 @@ export default function QhTokenModalComponent({
 
     const checkAllowance = async () => {
         const response = await checkQhTokenAllowance(wallet.accounts[0])
-        console.log('response', response)
+        // console.log('response', response)
     }
     React.useEffect(() => {
         if (missingTransactionForTicket.length === 0) {
@@ -294,7 +293,7 @@ export default function QhTokenModalComponent({
         const getTicketPriceFromChain = async () => {
             const ticketPrice = await getTicketPrice()
 
-            console.log('ticketPrice', ticketPrice)
+            // console.log('ticketPrice', ticketPrice)
 
             setTicketPrice(ticketPrice / 10 ** 18)
         }

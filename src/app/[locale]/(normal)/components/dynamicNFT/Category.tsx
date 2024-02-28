@@ -40,8 +40,7 @@ export default function Category({
                                 metaData.attributes[0].value,
                                 selectedCategory?.trait_type,
                             )
-                            console.log(result)
-                            console.log({ ...selectedCategory, ...result })
+
                             setSelectedCategory({ ...selectedCategory, ...result })
                         } else if (nftType === 'gaza') {
                             const result = gazaCategoryValidation(

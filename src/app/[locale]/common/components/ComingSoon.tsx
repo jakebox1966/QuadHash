@@ -9,8 +9,6 @@ const { usePathname, Link } = createSharedPathnamesNavigation({ locales })
 export default function CommingSoonComponent(props: ICommingSoonComponentProps) {
     const pathName = usePathname()
 
-    console.log(pathName)
-
     return (
         <div className="w-full max-w-[1300px] flex flex-col justify-center items-center px-5 gap-10 pt-14 lg:pt-20">
             <div className="flex flex-col items-center justify-center gap-6 w-full">

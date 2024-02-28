@@ -17,10 +17,6 @@ export default function NftListPage(props: INftListProps) {
 
     const { wallet } = useMetaMask()
 
-    React.useEffect(() => {
-        console.log(selectedNft)
-    }, [selectedNft])
-
     // React.useEffect(() => {
     //     const getExNfts = async () => {
     //         if (wallet.accounts.length > 0) {

@@ -10,13 +10,13 @@ export interface INftListProps {
 }
 
 export default function NftList({ type, exNftList, setExNftList, isLoading }: INftListProps) {
-    useEffect(() => {
-        console.log(type)
-        console.log(exNftList)
-    }, [exNftList])
+    // useEffect(() => {
+    //     console.log(type)
+    //     console.log(exNftList)
+    // }, [exNftList])
 
     const selectNft = (targetIndex: number) => {
-        console.log(targetIndex)
+        // console.log(targetIndex)
         setExNftList(
             exNftList.map((nft, index) =>
                 index === targetIndex ? { ...nft, isChecked: !nft.isChecked } : nft,
