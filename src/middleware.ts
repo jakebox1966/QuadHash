@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { decode, getToken } from 'next-auth/jwt'
 import { createAlchemyWeb3 } from '@alch/alchemy-web3'
 import { Alchemy, Network } from 'alchemy-sdk'
+import { notFound } from 'next/navigation'
 
 const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
 const alchemyConfig = {
@@ -83,12 +84,14 @@ export default async function middleware(req: NextRequestWithAuth) {
 
         const walletAddress = req.nextUrl.href.slice(lastSlashIndex + 1)
 
-        console.log('walletAddress')
-        if (!web3.utils.isAddress(walletAddress)) {
-            console.log('error')
-            // return NextResponse.error()
-            return NextResponse.rewrite(new URL('/notFound', req.nextUrl))
-        }
+        // console.log('walletAddress')
+        // if (!web3.utils.isAddress(walletAddress)) {
+        //     console.log('error')
+        //     notFound()
+        //     // return NextResponse.error()
+        //     // return NextResponse.error()
+        //     // return NextResponse.error()
+        // }
     }
 
     const publicPathnameRegex = RegExp(

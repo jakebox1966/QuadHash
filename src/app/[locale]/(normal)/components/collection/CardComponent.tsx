@@ -27,7 +27,7 @@ export default function CardComponent({
         } else if (tokenType === 'gaza') {
             imgUrl = `${
                 process.env.NEXT_PUBLIC_GAZA_IMG_URL
-            }/images/${item}.png${new Date().getTime()}`
+            }/images/${item}.png?${new Date().getTime()}`
         }
     } else {
         if (tokenType === 'saza') {
