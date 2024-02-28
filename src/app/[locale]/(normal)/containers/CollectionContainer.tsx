@@ -269,7 +269,7 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
                     handleNftTypeParam={handleNftTypeParam}
                     clearFilter={clearFilter}
                 />
-                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap">
+                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap relative">
                     <TabComponent
                         burtonMorris={burtonMorris}
                         handleNftTypeParam={handleNftTypeParam}

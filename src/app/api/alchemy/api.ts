@@ -154,8 +154,6 @@ export const giveQhTokenContractPermission = async (walletAddress, value) => {
         process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
     )
 
-    console.log(window.contract)
-
     const transactionParameters = {
         to: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
         from: walletAddress,

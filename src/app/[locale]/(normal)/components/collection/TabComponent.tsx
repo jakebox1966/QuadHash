@@ -39,26 +39,26 @@ export default function TabComponent({
         <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full max-w-[970px]">
             <div
                 className={`${
-                    queryParam.token_type === 'saza' ? 'border-[#F46221]' : ''
-                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
+                    queryParam.token_type === 'saza' ? 'bg-[#FFCD19]' : ''
+                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
                 <div className={`flex flex-row items-center gap-2`}>
                     <Image src={mypage_saza_icon} alt="saza_icon" width={30} height={30} />
-                    <div>SAZA NFT</div>
+                    <div className="tracking-wider">SAZA</div>
                 </div>
             </div>
             <div
                 className={`${
-                    queryParam.token_type === 'gaza' ? 'border-[#F46221]' : ''
-                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:border-[#F46221]`}
+                    queryParam.token_type === 'gaza' ? 'bg-[#FFCD19]' : ''
+                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>
                 <div className="flex flex-row items-center gap-2">
                     <Image src={mypage_gaza_icon} alt="gaza_icon" width={30} height={30} />
-                    <div>GAZA NFT</div>
+                    <div className="tracking-wider">GAZA</div>
                 </div>
             </div>
             {/* <div
@@ -87,7 +87,7 @@ export default function TabComponent({
                             handleOptionParam(value)
                         }}>
                         <div className="relative">
-                            <Listbox.Button className="relative w-full rounded-lg bg-white py-1 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:border-[#F46221]">
+                            <Listbox.Button className="relative w-full rounded-lg bg-white py-1 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:bg-[#FFCD19]">
                                 <span className="block truncate font-medium leading-[30px] ">
                                     {selected.name}
                                 </span>

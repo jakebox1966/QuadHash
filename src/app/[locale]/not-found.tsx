@@ -7,7 +7,7 @@ export default function NotFoundPage(props: INotFoundPageProps) {
     const t = useTranslations('Error.not_found')
     return (
         <>
-            <div>{t('title')}</div>
+            <div>{t('title')}asdffasdfasdfasdfds</div>
         </>
     )
 }

@@ -3,17 +3,28 @@ import { defaultLocale, locales } from './i18nconfig'
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { decode, getToken } from 'next-auth/jwt'
+import { createAlchemyWeb3 } from '@alch/alchemy-web3'
+import { Alchemy, Network } from 'alchemy-sdk'
+
+const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
+const alchemyConfig = {
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
+    network: Network.ETH_SEPOLIA, // Replace with your network
+    // network: Network.ETH_MAINNET, // Replace with your network
+}
+
+const alchemy = new Alchemy(alchemyConfig)
 
 const publicPages = [
     '/',
     '/about',
-
     '/saza_gaza',
     '/terms_of_use',
     '/contact',
     '/collection',
     '/signIn',
     '/white_paper',
+    '/notFound',
 ]
 
 const privatePages = ['/admin', '/dynamicNFT']
@@ -24,6 +35,7 @@ const intlMiddleware = createIntlMiddleware({
     localePrefix: 'always',
 })
 const secret = process.env.NEXTAUTH_SECRET
+
 const authMiddleware = withAuth(
     async function onSuccess(req: NextRequestWithAuth) {
         const session = await getToken({ req })
@@ -63,6 +75,22 @@ export default async function middleware(req: NextRequestWithAuth) {
     const session = await getToken({ req })
     console.log(req.nextUrl.pathname)
     console.log(session)
+
+    console.log('checkcheck')
+    if (req.nextUrl.pathname.includes('/collector')) {
+        console.log('checkcheck=> collector')
+        const lastSlashIndex = req.nextUrl.href.lastIndexOf('/')
+
+        const walletAddress = req.nextUrl.href.slice(lastSlashIndex + 1)
+
+        console.log('walletAddress')
+        if (!web3.utils.isAddress(walletAddress)) {
+            console.log('error')
+            // return NextResponse.error()
+            return NextResponse.rewrite(new URL('/notFound', req.nextUrl))
+        }
+    }
+
     const publicPathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${publicPages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
@@ -73,7 +101,7 @@ export default async function middleware(req: NextRequestWithAuth) {
     const privatePathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${privatePages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
-            .join('|')})/?/(\\w*)$`,
+            .join('|')})/?$`,
         'i',
     )
 

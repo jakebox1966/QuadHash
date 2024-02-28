@@ -16,8 +16,8 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
             <div className="w-full flex flex-row justify-center items-center gap-3 text-[9px] lg:text-base">
                 <div
                     className={`${
-                        tokenType === 'saza' ? 'border-[#F46221]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:border-[#F46221] max-w-[408px]`}
+                        tokenType === 'saza' ? 'bg-[#FFCD19]' : ''
+                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
                     onClick={() => {
                         handleNFTType('saza')
                     }}>
@@ -25,13 +25,13 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_saza_icon} alt="saza_icon" fill />
                         </div>
-                        <div>SAZA NFT</div>
+                        <div>SAZA</div>
                     </div>
                 </div>
                 <div
                     className={`${
-                        tokenType === 'gaza' ? 'border-[#F46221]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:border-[#F46221] max-w-[408px]`}
+                        tokenType === 'gaza' ? 'bg-[#FFCD19]' : ''
+                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
                     onClick={() => {
                         handleNFTType('gaza')
                     }}>
@@ -39,7 +39,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_gaza_icon} alt="gaza_icon" fill />
                         </div>
-                        <div>GAZA NFT</div>
+                        <div>GAZA</div>
                     </div>
                 </div>
             </div>

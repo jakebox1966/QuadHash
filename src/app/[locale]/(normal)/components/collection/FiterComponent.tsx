@@ -255,7 +255,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 overflow-y-auto max-h-[1200px] overflow-x-hidden">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 max-h-[1200px] overflow-x-hidden sticky top-[130px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -277,11 +277,11 @@ export default function FilterComponent({
                     </Button>
                 </div>
 
-                <div className="flex flex-row items-center justify-between gap-3 text-sm font-medium bg-[#FFCD19]/25 py-4 px-3 w-full">
+                <div className="flex flex-row items-center justify-between gap-[15px] font-medium bg-[#FFCD19] py-4 pl-[30px] pr-[15px] w-full">
                     <div>
-                        <Image src={logoShort} alt={'logo_short'} />
+                        <Image src={logoShort} alt={'logo_short'} width={28} />
                     </div>
-                    <div>BURTON MORRIS VER</div>
+                    <div className="text-[16px]">BURTON MORRIS</div>
 
                     <Switch
                         checked={burtonMorris}
@@ -298,7 +298,7 @@ export default function FilterComponent({
                     />
                 </div>
 
-                <div className="w-full">
+                <div className="w-full overflow-y-auto">
                     {partFilterList.map((item, index) => (
                         <Accordion
                             disabled={burtonMorris ? true : false}
@@ -327,7 +327,7 @@ export default function FilterComponent({
                             }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none !text-black flex flex-row px-3 justify-between cursor-pointer"
+                                className="border-none !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
@@ -336,7 +336,7 @@ export default function FilterComponent({
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
-                                        className="text-black font-medium px-3 text-xs"
+                                        className="text-black font-medium pl-[30px] text-xs"
                                         onClick={() =>
                                             handlePartParam(item.part_category, partName)
                                         }>
@@ -345,7 +345,7 @@ export default function FilterComponent({
                                                 checkSelected(item.part_category, partName)
                                                     ? 'text-[#F46221]'
                                                     : 'text-black'
-                                            } flex flex-row items-center justify-between`}>
+                                            } flex flex-row items-center justify-start`}>
                                             <Checkbox
                                                 readOnly
                                                 checked={
@@ -422,8 +422,8 @@ export default function FilterComponent({
                         </div>
                     </Listbox>
                     <div
-                        className={`max-w-[calc(50%-6px)] w-full flex flex-row text-[10px] md:text-sm justify-center items-center border-2 py-2 rounded-lg hover:border-[#F46221] ${
-                            burtonMorris && 'border-[#F46221] bg-[#FFCD19]/25'
+                        className={`max-w-[calc(50%-6px)] w-full flex flex-row text-[10px] md:text-sm justify-center items-center border-2 py-2 rounded-lg hover:bg-[#FFCD19] ${
+                            burtonMorris && ' bg-[#FFCD19]'
                         }`}
                         onClick={handleBurtonMorris}>
                         <div className="flex flex-row items-center gap-2 w-full justify-center">

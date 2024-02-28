@@ -142,7 +142,7 @@ export default function NFTSection({
                     }}>
                     <div className={`flex flex-row items-center gap-2`}>
                         <Image src={mypage_saza_icon} alt="saza_icon" width={72} height={72} />
-                        <div>SAZA NFT</div>
+                        <div>SAZA</div>
                     </div>
                 </div>
                 <div
@@ -154,7 +154,7 @@ export default function NFTSection({
                     }}>
                     <div className="flex flex-row items-center gap-2">
                         <Image src={mypage_gaza_icon} alt="gaza_icon" width={72} height={72} />
-                        <div>GAZA NFT</div>
+                        <div>GAZA</div>
                     </div>
                 </div>
 

@@ -7,9 +7,6 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({ tokenType, partsData, item }: ICardComponentProps) {
-    console.log(partsData)
-    console.log(item)
-    console.log(partsData.value === item)
     return (
         <>
             <div
