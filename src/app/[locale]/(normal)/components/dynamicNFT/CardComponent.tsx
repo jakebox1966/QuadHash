@@ -31,7 +31,7 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
                     </div>
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
-                    <div>{tokenType}</div>
+                    <div className="text-[10.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
                     <div>No.{tokenId}</div>
                 </div>
             </Link>

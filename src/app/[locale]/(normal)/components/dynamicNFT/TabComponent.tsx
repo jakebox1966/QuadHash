@@ -13,7 +13,10 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
     // const [activeTab, setActiveTab] = React.useState('saza')
     return (
         <>
-            <div className="w-full flex flex-row justify-center items-center gap-3 text-[9px] lg:text-base">
+            <div className="text-[25px] font-medium w-full text-center mb-10">
+                Select Your Collection
+            </div>
+            <div className="w-full flex flex-row justify-center items-cnter gap-3 text-[9px] lg:text-base pb-[32px]">
                 <div
                     className={`${
                         tokenType === 'saza' ? 'bg-[#FFCD19]' : ''
@@ -25,7 +28,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_saza_icon} alt="saza_icon" fill />
                         </div>
-                        <div>SAZA</div>
+                        <div className="tracking-wider">SAZA</div>
                     </div>
                 </div>
                 <div
@@ -39,7 +42,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_gaza_icon} alt="gaza_icon" fill />
                         </div>
-                        <div>GAZA</div>
+                        <div className="tracking-wider">GAZA</div>
                     </div>
                 </div>
             </div>

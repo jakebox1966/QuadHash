@@ -21,12 +21,18 @@ import februaryImage from '/public/saza_gaza_month2.png'
 import marchImage from '/public/saza_gaza_month3.png'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
+import { getCalendars } from '@/app/api/calendar/api'
 
 export interface ISazaAndGazaPageProps {}
 
 const { Link } = createSharedPathnamesNavigation({ locales })
 
-export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
+export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
+    const result = await getCalendars(1)
+    console.log(result)
+
+    const dataForRender = result.data.filter((item, index) => index <= 2)
+
     return (
         <>
             <div className="w-full bg-[#FFCD19] hidden lg:flex flex-col justify-center items-center min-h-[500px] relative">
@@ -143,43 +149,68 @@ export default function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div>SAZA&GAZA TO YOUR SCREEN</div>
                     </div>
                     <div className="grid grid-cols-3 mt-10 gap-2">
-                        <div className="flex flex-col justify-center items-center overflow-hidden border-2">
-                            <Image src={januaryImage} alt="about_doo2" />
-                            <div className="text-center mt-3 text-[#0065F2]">
-                                <div className="font-black">2024 January</div>
-                                <div className="text-xs lg:text-sm font-normal">
-                                    <div>Winter Magic Captured by SAZA and </div>
-                                    <div>GAZA's Playful Spirits</div>
+                        {dataForRender &&
+                            dataForRender.map((item) => (
+                                <div className="flex flex-col justify-center items-center overflow-hidden border-2">
+                                    <Image src={januaryImage} alt="about_doo2" />
+                                    <div className="text-center mt-3 text-[#0065F2]">
+                                        <div className="font-black">{item.title}</div>
+                                        <div className="text-xs lg:text-sm font-normal max-w-[242px]">
+                                            <div>{item.content}</div>
+                                        </div>
+                                    </div>
+                                    <Link
+                                        href={item.download}
+                                        target="_blank"
+                                        className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </Link>
                                 </div>
-                            </div>
-                            <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-center items-center overflow-hidden border-2">
-                            <Image src={februaryImage} alt="about_doo2" />
-                            <div className="text-center mt-3 text-[#0065F2]">
-                                <div className="font-black">2024 February</div>
-                                <div className="text-xs lg:text-sm font-normal">
-                                    <div>"Embrace the Warmth of Lunar New Year</div>
-                                    <div>with SAZA and GAZA"</div>
+                            ))}
+
+                        {!dataForRender && (
+                            <>
+                                <div className="flex flex-col justify-center items-center overflow-hidden border-2">
+                                    <Image src={februaryImage} alt="about_doo2" />
+                                    <div className="text-center mt-3 text-[#0065F2]">
+                                        <div className="font-black">2024 February</div>
+                                        <div className="text-xs lg:text-sm font-normal">
+                                            <div>"Embrace the Warmth of Lunar New Year</div>
+                                            <div>with SAZA and GAZA"</div>
+                                        </div>
+                                    </div>
+                                    <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-center items-center overflow-hidden border-2 ">
-                            <Image src={marchImage} alt="about_doo2" />
-                            <div className="text-center mt-3 text-[#0065F2]">
-                                <div className="font-black">2024 March</div>
-                                <div className="text-xs lg:text-sm font-normal">Coming Soon!</div>
-                                <div className="invisible">/</div>
-                            </div>
-                            <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
+                                <div className="flex flex-col justify-center items-center overflow-hidden border-2">
+                                    <Image src={februaryImage} alt="about_doo2" />
+                                    <div className="text-center mt-3 text-[#0065F2]">
+                                        <div className="font-black">2024 February</div>
+                                        <div className="text-xs lg:text-sm font-normal">
+                                            <div>"Embrace the Warmth of Lunar New Year</div>
+                                            <div>with SAZA and GAZA"</div>
+                                        </div>
+                                    </div>
+                                    <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center overflow-hidden border-2 ">
+                                    <Image src={marchImage} alt="about_doo2" />
+                                    <div className="text-center mt-3 text-[#0065F2]">
+                                        <div className="font-black">2024 March</div>
+                                        <div className="text-xs lg:text-sm font-normal">
+                                            Coming Soon!
+                                        </div>
+                                        <div className="invisible">/</div>
+                                    </div>
+                                    <div className="bg-[#FFFFFF] border-black text-black my-20 py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

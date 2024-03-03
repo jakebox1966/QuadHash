@@ -1,19 +1,14 @@
 'use client'
 import * as React from 'react'
-import ReportList from '../../components/report/ReportList'
+import ReportList from '../components/report/ReportList'
 import { getReports } from '@/app/api/report/api'
 import { useInfiniteQuery } from 'react-query'
 import { Button, Spinner } from '@material-tailwind/react'
 import Image from 'next/image'
 import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
-import ReportDetail from '../../components/report/ReportDetail'
+import ReportDetail from '../components/report/ReportDetail'
 
 export interface IReportContainerProps {}
-
-type lastpage = {
-    page: number
-    total_pages: number
-}
 
 export default function ReportContainer(props: IReportContainerProps) {
     const fetchData = async (pageParam: number) => {
@@ -46,7 +41,7 @@ export default function ReportContainer(props: IReportContainerProps) {
     return (
         <div className="flex flex-col justify-center items-center mt-3">
             <div className="flex flex-row justify-start items-center w-full">
-                <span>해킹 신고 센터</span>
+                <div className="text-3xl text-medium">캘린더</div>
             </div>
 
             {isLoading && <Spinner className="h-12 w-12" />}

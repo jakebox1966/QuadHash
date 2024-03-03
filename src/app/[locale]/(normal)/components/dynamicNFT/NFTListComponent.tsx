@@ -62,14 +62,11 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
 
     return (
         <>
-            <div className="mt-[80px] text-[25px] font-medium w-full text-center lg:text-left">
-                Select Your Collection
-            </div>
             <CardListComponent>
                 {isLoading &&
                     Array(20)
                         .fill(0)
-                        .map((__, index) => <LoadingCardComponent tokenType={tokenType} />)}
+                        .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page) => {
                     return page?.ownedNfts.map((item, index) => (
                         <CardComponent

@@ -26,7 +26,7 @@ export const authOption: AuthOptions = {
 
                 const tokenResponse = await signInUser(formData)
 
-                // console.log('tokenResponse', tokenResponse)
+                console.log('tokenResponse', tokenResponse)
 
                 // 인증 API 요청 후 받아온 응답데이터를 user정보 API호출을 위해 destructuring 한다.
                 const { access_token } = tokenResponse
@@ -45,7 +45,7 @@ export const authOption: AuthOptions = {
                 // user 정보 조합
                 const user = { ...rest, ...userInfoResponse.data }
 
-                // console.log('authorized user', user)
+                console.log('authorized user', user)
 
                 if (user) {
                     // authorize 함수에서 user가 반환되면 이후의 모든 callback에서 인증이 되었다고 간주한다.
@@ -65,7 +65,7 @@ export const authOption: AuthOptions = {
                 console.log({ ...token, ...session.user })
                 return { ...token, ...session.user }
             }
-            // console.log('user', user)
+            console.log('user', user)
             // console.log('여기')
             // console.log('123123123', { ...token, ...user })
 
@@ -99,8 +99,8 @@ export const authOption: AuthOptions = {
 
         async session({ session, token }) {
             // console.log('ggggg')
-            // console.log('session', session)
-            // console.log('token', token)
+            console.log('session', session)
+            console.log('token', token)
             return { ...session, ...{ user: token } }
             // session.user = token as any
             // return session

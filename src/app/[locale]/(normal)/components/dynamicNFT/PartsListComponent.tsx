@@ -16,7 +16,12 @@ export interface IPartsListComponentProps {
 }
 
 export default function PartsListComponent({ selectedPartsData }: IPartsListComponentProps) {
-    const { partsData, tokenType, availability, pool } = selectedPartsData
+    const { partsData, tokenType, pool } = selectedPartsData
+
+    React.useEffect(() => {
+        console.log(pool)
+    }, [pool])
+
     return (
         <>
             <CardListComponent>

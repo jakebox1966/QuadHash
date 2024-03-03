@@ -3,7 +3,9 @@ export const sazaCategoryValidation = (ranking: number, category: string) => {
 
     switch (category) {
         case 'Background':
+            console.log('start')
             if (ranking >= 61 && ranking <= 1000) {
+                console.log(123)
                 return {
                     availability: true,
                     pool: [
@@ -37,7 +39,7 @@ export const sazaCategoryValidation = (ranking: number, category: string) => {
                         'Storm',
                     ],
                 }
-            } else if (5001 && ranking <= 10000) {
+            } else if (ranking >= 5001 && ranking <= 10000) {
                 return {
                     availability: true,
                     pool: [
@@ -380,6 +382,7 @@ export const sazaCategoryValidation = (ranking: number, category: string) => {
             }
 
         default:
+            console.log('1231232')
             return {
                 availability: false,
                 pool: [],
@@ -412,7 +415,7 @@ export const gazaCategoryValidation = (
             return backgroundValidationResult
 
         case 'Top':
-            console.log('Top validation start')
+            // console.log('Top validation start')
             let gazaTopValidationResult = gazaTopValidation(ranking, metadata)
             console.log('gazaTopValidationResult', gazaTopValidationResult)
             if (
@@ -449,6 +452,7 @@ export const gazaCategoryValidation = (
                     (item) => item !== 'Gold-Hoodie',
                 )
             }
+
             return gazaBottomsValidationResult
 
         case 'Onesie':
@@ -647,6 +651,10 @@ const gazaBackgroundValidation = (ranking: number) => {
             ],
         }
     }
+    return {
+        availability: true,
+        pool: [],
+    }
 }
 
 const gazaTopValidation = (ranking: number, metadata: { trait_type: string; value: string }[]) => {
@@ -719,6 +727,10 @@ const gazaTopValidation = (ranking: number, metadata: { trait_type: string; valu
             ],
         }
     }
+    return {
+        availability: true,
+        pool: [],
+    }
 }
 
 const gazaBottomsValidation = (
@@ -788,6 +800,10 @@ const gazaBottomsValidation = (
             ],
         }
     }
+    return {
+        availability: false,
+        pool: [],
+    }
 }
 
 const gazaOnesieValidation = (ranking: number) => {
@@ -816,6 +832,7 @@ const gazaOnesieValidation = (ranking: number) => {
 
 const gazaExtrasValidation = (ranking: number) => {
     if (ranking >= 1 && ranking <= 200) {
+        console.log(1)
         return {
             availability: true,
             pool: [
@@ -831,6 +848,7 @@ const gazaExtrasValidation = (ranking: number) => {
             ],
         }
     } else if (ranking >= 201 && ranking <= 300) {
+        console.log(2)
         return {
             availability: true,
             pool: [
@@ -845,6 +863,7 @@ const gazaExtrasValidation = (ranking: number) => {
             ],
         }
     } else if (ranking >= 301 && ranking <= 400) {
+        console.log(3)
         return {
             availability: true,
             pool: [
@@ -860,6 +879,7 @@ const gazaExtrasValidation = (ranking: number) => {
             ],
         }
     } else if (ranking >= 401 && ranking <= 500) {
+        console.log(4)
         return {
             availability: true,
             pool: [
@@ -874,6 +894,7 @@ const gazaExtrasValidation = (ranking: number) => {
             ],
         }
     } else if (ranking >= 501 && ranking <= 1500) {
+        console.log(5)
         return {
             availability: true,
             pool: [
@@ -889,6 +910,7 @@ const gazaExtrasValidation = (ranking: number) => {
             ],
         }
     } else if (ranking >= 1501 && ranking <= 4000) {
+        console.log(6)
         return {
             availability: true,
             pool: [
@@ -928,6 +950,10 @@ const gazaExtrasValidation = (ranking: number) => {
                 'Turtle',
             ],
         }
+    }
+    return {
+        availability: true,
+        pool: [],
     }
 }
 
@@ -1021,5 +1047,9 @@ const gazaHeadwearValidation = (ranking: number) => {
                 'Yellow-Cap',
             ],
         }
+    }
+    return {
+        availability: true,
+        pool: [],
     }
 }

@@ -26,7 +26,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_saza_icon} alt="saza_icon" fill />
                         </div>
-                        <div>SAZA</div>
+                        <div className="tracking-wider">SAZA</div>
                     </div>
                 </div>
                 <div
@@ -40,7 +40,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_gaza_icon} alt="gaza_icon" fill />
                         </div>
-                        <div>GAZA</div>
+                        <div className="tracking-wider">GAZA</div>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_qbt_icon} alt="qbt_icon" fill />
                         </div>
-                        <div>QBT NFT</div>
+                        <div className="tracking-wider">QBT</div>
                     </div>
                 </div>
             </div>

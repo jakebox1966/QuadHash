@@ -5,6 +5,7 @@ import CardListComponent from './CardListComponent'
 import CardComponent from './CardComponent'
 import { useInfiniteQuery } from 'react-query'
 import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
+import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardComponent'
 
 export interface IBurtonMorrisListComponentProps {
     queryParam: IQueryParam
@@ -73,6 +74,10 @@ export default function BurtonMorrisListComponent({
     return (
         <>
             <CardListComponent>
+                {isLoading &&
+                    Array(20)
+                        .fill(0)
+                        .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page) => {
                     return page?.data.map((item, index) => (
                         <CardComponent

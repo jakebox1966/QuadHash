@@ -22,7 +22,7 @@ export default function DynamicNFTListContainer(props: IDynamicNFTListContainerP
     return (
         <>
             <div className="max-w-[1300px] w-full px-[24px]">
-                <div className="flex flex-col justify-center items-start w-full mt-10">
+                <div className="flex flex-col justify-center items-center w-full mt-10">
                     <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
                     <NFTListComponent tokenType={tokenType} wallet_address={wallet.accounts[0]} />
                 </div>

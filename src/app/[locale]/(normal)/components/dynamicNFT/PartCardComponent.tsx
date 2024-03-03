@@ -13,17 +13,24 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
-                <div className={`overflow-hidden aspect-square rounded-xl shadow-xl`}>
-                    <div className={`relative w-full h-full `}>
+                <div
+                    className={`overflow-hidden aspect-square rounded-xl ${
+                        item === partsData.value ? 'shadow-[_5px_1px_40px_0px_blue]' : 'shadow-xl'
+                    }`}>
+                    <div
+                        className={`relative w-full h-full hover:opacity-75 transition-all hover:scale-110`}>
                         <img
-                            src={`/parts/${tokenType}/${partsData.trait_type}/${item}.png`}
+                            src={`/parts/${tokenType}/${partsData.trait_type}/${item.replaceAll(
+                                ' ',
+                                '-',
+                            )}.png`}
                             width="100%"
                             height="auto"
                             alt="parts-image"
                         />
                     </div>
                 </div>
-                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
+                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-2 font-medium cursor-pointer">
                     <div className="font-medium">{item}</div>
                 </div>
             </div>

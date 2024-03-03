@@ -82,6 +82,7 @@ export default function ContactContainer() {
             user_nameValidation = false
         } else {
             user_nameRef?.current?.classList.add('invisible')
+            user_nameValidation = true
         }
         if (inputs.user_email === '') {
             user_emailRef?.current?.classList.remove('invisible')
@@ -96,6 +97,7 @@ export default function ContactContainer() {
                 user_emailValidation = false
             } else {
                 user_emailRef?.current?.classList.add('invisible')
+                user_emailValidation = true
             }
         }
 
@@ -105,6 +107,7 @@ export default function ContactContainer() {
             user_phoneValidation = false
         } else {
             user_phoneRef?.current?.classList.add('invisible')
+            user_phoneValidation = true
         }
         if (inputs.content === '') {
             contentRef?.current?.classList.remove('invisible')
@@ -112,6 +115,7 @@ export default function ContactContainer() {
             contentValidation = false
         } else {
             contentRef?.current?.classList.add('invisible')
+            contentValidation = true
         }
 
         if (

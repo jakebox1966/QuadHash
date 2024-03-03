@@ -41,7 +41,7 @@ export default function Sidebar(props: ISidebarProps) {
                     </ListItem>
                 </Link>
 
-                <Link href="/admin/something-for-admin">
+                <Link href="/admin/calendar">
                     <ListItem placeholder={undefined}>
                         <ListItemPrefix placeholder={undefined}>
                             <svg
@@ -63,7 +63,7 @@ export default function Sidebar(props: ISidebarProps) {
                                 />
                             </svg>
                         </ListItemPrefix>
-                        어떤 메뉴 1
+                        캘린더
                     </ListItem>
                 </Link>
                 <Link href="/admin/something-for-admin">

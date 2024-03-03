@@ -73,7 +73,7 @@ export default function CollectionDetailModalComponent({
             {imageUrl && (
                 <ThemeProvider value={customTheme}>
                     <Dialog
-                        className={`!max-w-fit rounded-lg relative `}
+                        className={`!max-w-fit rounded-lg relative`}
                         size="lg"
                         open={open}
                         handler={handleOpen}
@@ -113,7 +113,7 @@ export default function CollectionDetailModalComponent({
                                 </>
                             )}
                             <div
-                                className={`max-w-[350px] lg:max-w-[581px] ${
+                                className={`min-w-[250px] max-w-[350px] lg:max-w-[581px] ${
                                     burtonMorris &&
                                     'p-3 group-hover:blur-md transition ease-in duration-1000'
                                 } max-h-[581px] w-full h-full flex flex-col justify-end items-center lg:items-start overflow-hidden`}>
@@ -197,15 +197,11 @@ export default function CollectionDetailModalComponent({
                                                         </div>
 
                                                         <div className="text-[9.4px]">
-                                                            {owner && (
-                                                                <>
-                                                                    <div>OWNER</div>
-                                                                    <div className="text-[13px] font-black">
-                                                                        {formatAddress(owner)}
-                                                                    </div>
-                                                                    <div>CLICK TO DISCOVER</div>
-                                                                </>
-                                                            )}
+                                                            <div>OWNER</div>
+                                                            <div className="text-[13px] font-black">
+                                                                {formatAddress(owner)}
+                                                            </div>
+                                                            <div>CLICK TO DISCOVER</div>
                                                         </div>
                                                     </Link>
                                                 </div>

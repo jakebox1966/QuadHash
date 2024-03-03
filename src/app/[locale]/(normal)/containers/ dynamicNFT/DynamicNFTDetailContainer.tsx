@@ -13,6 +13,8 @@ import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
+import { useSwiper } from 'swiper/react'
+import { useSession } from 'next-auth/react'
 
 export interface IDynamicNFTDetailContainerProps {
     tokenType: string
@@ -38,8 +40,12 @@ export default function DynamicNFTDetailContainer({
     //     pool: [],
     // })
 
+    const swiperRef = React.useRef(null)
+
+    const { data: session, update } = useSession()
+
     const [selectedPartsData, setSelectedPartsData] = React.useState({
-        partsData: { trait_type: 'Background', value: '' },
+        partsData: { trait_type: '', value: '' },
         tokenType: tokenType,
         availability: false,
         pool: [],
@@ -48,39 +54,35 @@ export default function DynamicNFTDetailContainer({
     const { $alert } = React.useContext(AlertContext)
     const { $confirm } = React.useContext(ConfirmContext)
 
-    const handleSelectedPartsTraitType = (parts: { trait_type: string; value: string }) => {
+    const handleSelectedPartsTraitType = (parts: {
+        trait_type: string
+        availability: boolean
+        pool: string[]
+        value: string
+    }) => {
+        console.log(tokenType)
         console.log(parts)
-        if (disabledPartsCategory?.includes(parts.trait_type)) {
-            setSelectedPartsData((prev) => ({
-                ...prev,
-                pool: [],
-            }))
-            return
-        }
-        if (tokenType === 'saza') {
-            const result = sazaCategoryValidation(
-                NFTMetadata?.attributes[0].value,
-                parts.trait_type,
-            )
+        // if (disabledPartsCategory?.includes(parts.trait_type)) {
+        //     setSelectedPartsData((prev) => ({
+        //         ...prev,
+        //         pool: [],
+        //     }))
+        // }
 
-            setSelectedPartsData((prev) => ({
-                ...prev,
+        if (tokenType === 'saza') {
+            setSelectedPartsData({
+                tokenType: tokenType,
                 partsData: parts,
-                availability: result.availability,
-                pool: result.pool,
-            }))
+                availability: parts.availability,
+                pool: parts.pool,
+            })
         } else if (tokenType === 'gaza') {
-            const result = gazaCategoryValidation(
-                NFTMetadata?.attributes[0].value,
-                parts.trait_type,
-                NFTMetadata.attributes.filter((item, index) => index !== 0),
-            )
-            setSelectedPartsData((prev) => ({
-                ...prev,
+            setSelectedPartsData({
+                tokenType: tokenType,
                 partsData: parts,
-                availability: result.availability,
-                pool: result.pool,
-            }))
+                availability: parts.availability,
+                pool: parts.pool,
+            })
         }
     }
 
@@ -101,6 +103,7 @@ export default function DynamicNFTDetailContainer({
 
                 const validResult = result.filter((item) => {
                     const result = sazaCategoryValidation(ranking, item.trait_type)
+                    console.log(result)
                     if (!result.availability) {
                         return true
                     }
@@ -131,6 +134,62 @@ export default function DynamicNFTDetailContainer({
         }
     }
 
+    const checkDisabledPartsCategory1 = (metadata) => {
+        if (tokenType && tokenId) {
+            // console.log('tokenType', tokenType)
+            // console.log('tokenId', tokenId)
+            // console.log('NFTMetadata', NFTMetadata)
+            const ranking = metadata.attributes[0].value
+            if (tokenType === 'saza') {
+                const result = metadata.attributes.filter(
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                )
+
+                const validAttributes = result.map((item) => {
+                    const result = sazaCategoryValidation(ranking, item.trait_type)
+
+                    return {
+                        trait_type: item.trait_type,
+                        value: item.value,
+                        availability: result.availability,
+                        pool: result.pool,
+                    }
+                })
+
+                const validMetadata = {
+                    ...metadata,
+                    attributes: validAttributes,
+                }
+                return validMetadata
+            } else if (tokenType === 'gaza') {
+                console.log('gazaVaildation')
+                const result = metadata.attributes.filter(
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                )
+
+                const validAttributes = result.map((item) => {
+                    const result = gazaCategoryValidation(
+                        ranking,
+                        item.trait_type,
+                        metadata.attributes,
+                    )
+
+                    return {
+                        trait_type: item.trait_type,
+                        value: item.value,
+                        availability: result.availability,
+                        pool: result.pool,
+                    }
+                })
+                const validMetadata = {
+                    ...metadata,
+                    attributes: validAttributes,
+                }
+                return validMetadata
+            }
+        }
+    }
+
     const startDynamicNFT = async () => {
         if (
             await $confirm(
@@ -156,36 +215,10 @@ export default function DynamicNFTDetailContainer({
                 // console.log('result', result)
 
                 if (result.ok) {
-                    // let refreshResult
-
-                    const refreshResult = await getMetadata({
-                        nftType: tokenType,
-                        tokenId: tokenId,
-                    })
-
-                    if (tokenType === 'saza') {
-                        setImageUrl(
-                            `${
-                                process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL
-                            }/${tokenId}.png?${new Date().getTime()}`,
-                        )
-                    } else if (tokenType === 'gaza') {
-                        setImageUrl(
-                            `${
-                                process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL
-                            }/${tokenId}.png?${new Date().getTime()}`,
-                        )
-                    }
-                    setNFTMetadata(refreshResult)
-
-                    setBackgroundColor(
-                        backgroundPallete[
-                            refreshResult?.attributes
-                                .find((item) => item.trait_type === 'Background')
-                                .value.toLowerCase()
-                        ],
-                    )
+                    fetchData()
+                    updateSession()
                     await $alert('Dynamic NFT 적용 완료되었습니다.')
+
                     // const keyChanged = selectedCategory?.trait_type
                     // const changedValue = refreshResult.attributes.find(
                     //     (item) => item.trait_type === keyChanged,
@@ -205,83 +238,132 @@ export default function DynamicNFTDetailContainer({
         }
     }
 
-    React.useEffect(() => {
-        const disabledPartsResult = checkDisabledPartsCategory()
-        // console.log('disabledPartsResult', disabledPartsResult)
-        setDisabledPartsCategory(disabledPartsResult)
-    }, [NFTMetadata])
+    const updateSession = async () => {
+        await update({
+            ...session,
+            user: {
+                ...session?.user,
+                ticket_num: session?.user.ticket_num - 1,
+            },
+        })
+    }
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            if (tokenType && tokenId) {
-                if (tokenType === 'saza') {
-                    setImageUrl(
-                        `${
-                            process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL
-                        }/${tokenId}.png?${new Date().getTime()}`,
-                    )
-                } else if (tokenType === 'gaza') {
-                    setImageUrl(
-                        `${
-                            process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL
-                        }/${tokenId}.png?${new Date().getTime()}`,
-                    )
+        // const disabledPartsResult = checkDisabledPartsCategory()
+        // console.log(disabledPartsResult)
+        // setDisabledPartsCategory(disabledPartsResult)
+
+        // if (disabledPartsResult?.length === NFTMetadata?.attributes.length - 1) {
+        //     setSelectedPartsData({
+        //         partsData: { trait_type: '', value: '' },
+        //         tokenType: tokenType,
+        //         availability: false,
+        //         pool: [],
+        //     })
+        //     return
+        // }
+
+        if (NFTMetadata) {
+            setBackgroundColor(
+                backgroundPallete[
+                    NFTMetadata?.attributes
+                        .find((item) => item.trait_type === 'Background')
+                        .value.toLowerCase()
+                ],
+            )
+
+            NFTMetadata?.attributes.forEach((item) => {
+                if (item.availability === true) {
+                    setSelectedPartsData((prev) => ({
+                        partsData: { trait_type: item.trait_type, value: item.value },
+                        tokenType: tokenType,
+                        availability: item.availability,
+                        pool: item.pool,
+                    }))
+                    return false
                 }
+            })
 
-                const NFTMetadata = await getMetadata({
-                    nftType: tokenType,
-                    tokenId: tokenId,
-                })
-
-                setNFTMetadata(NFTMetadata)
-                setBackgroundColor(
-                    backgroundPallete[
-                        NFTMetadata?.attributes
-                            .find((item) => item.trait_type === 'Background')
-                            .value.toLowerCase()
-                    ],
-                )
-                if (tokenType === 'saza') {
-                    const result = sazaCategoryValidation(
-                        NFTMetadata.attributes[0].value,
-                        selectedPartsData.partsData.trait_type,
-                    )
-
+            for (let i = 0; i < NFTMetadata?.attributes.length; i++) {
+                if (NFTMetadata?.attributes[i].availability === true) {
                     setSelectedPartsData((prev) => ({
-                        ...prev,
-                        partsData: NFTMetadata.attributes[1],
-                        availability: result.availability,
-                        pool: result.pool,
+                        partsData: {
+                            trait_type: NFTMetadata?.attributes[i].trait_type,
+                            value: NFTMetadata?.attributes[i].value,
+                        },
+                        tokenType: tokenType,
+                        availability: NFTMetadata?.attributes[i].availability,
+                        pool: NFTMetadata?.attributes[i].pool,
                     }))
-                } else if (tokenType === 'gaza') {
-                    const result = gazaCategoryValidation(
-                        NFTMetadata.attributes[0].value,
-                        selectedPartsData.partsData.trait_type,
-                        NFTMetadata.attributes.filter((item, index) => index !== 0),
-                    )
-                    setSelectedPartsData((prev) => ({
-                        ...prev,
-                        partsData: NFTMetadata.attributes[1],
-                        availability: result.availability,
-                        pool: result.pool,
-                    }))
+                    break
                 }
             }
+            // if (tokenType === 'saza') {
+            //     const result = sazaCategoryValidation(
+            //         NFTMetadata.attributes[0].value,
+            //         selectedPartsData.partsData.trait_type,
+            //     )
+            //     console.log(result)
+
+            // setSelectedPartsData((prev) => ({
+            //     ...prev,
+            //     partsData: NFTMetadata.attributes[0],
+            //     availability: result.availability,
+            //     pool: result.pool,
+            // }))
+            // } else if (tokenType === 'gaza') {
+            //     const result = gazaCategoryValidation(
+            //         NFTMetadata.attributes[0].value,
+            //         selectedPartsData.partsData.trait_type,
+            //         NFTMetadata.attributes.filter((item, index) => index !== 0),
+            //     )
+            //     console.log('result', result)
+            //     // setSelectedPartsData((prev) => ({
+            //     //     ...prev,
+            //     //     partsData: NFTMetadata.attributes[0],
+            //     //     availability: result.availability,
+            //     //     pool: result.pool,
+            //     // }))
+            // }
         }
+    }, [NFTMetadata])
+
+    const fetchData = async () => {
+        if (tokenType && tokenId) {
+            if (tokenType === 'saza') {
+                setImageUrl(
+                    `${
+                        process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL
+                    }/${tokenId}.png?${new Date().getTime()}`,
+                )
+            } else if (tokenType === 'gaza') {
+                setImageUrl(
+                    `${
+                        process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL
+                    }/${tokenId}.png?${new Date().getTime()}`,
+                )
+            }
+            const NFTMetadata = await getMetadata({
+                nftType: tokenType,
+                tokenId: tokenId,
+            })
+
+            console.log(NFTMetadata)
+
+            const validMetadata = checkDisabledPartsCategory1(NFTMetadata)
+
+            console.log(validMetadata)
+            setNFTMetadata(validMetadata)
+        }
+    }
+    React.useEffect(() => {
         fetchData()
     }, [tokenType, tokenId])
-
-    // React.useEffect(() => {
-    //     console.log(disabledPartsCategory)
-    // }, [disabledPartsCategory])
-    // React.useEffect(() => {
-    //     console.log(backgroundColor)
-    // }, [backgroundColor])
 
     return (
         <>
             <div
-                className={`max-w-[1300px] px-5 w-full flex flex-col justify-center items-start gap-5 mt-[50px]`}>
+                className={`max-w-[1300px] px-5 pb-10 w-full flex flex-col justify-center items-start gap-5 mt-[50px]`}>
                 {/* DynamicNFT Main */}
                 <div
                     className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl relative bg-[${backgroundColor}]
@@ -295,42 +377,37 @@ export default function DynamicNFTDetailContainer({
                             {tokenType.toUpperCase()} #{tokenId}
                         </div>
 
-                        {NFTMetadata?.attributes
-                            .filter(
-                                (item) =>
-                                    item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
-                            )
-                            .map((item) => (
-                                <button
-                                    disabled={disabledPartsCategory?.includes(item.trait_type)}
-                                    onClick={() => {
-                                        handleSelectedPartsTraitType(item)
-                                    }}
-                                    key={item.trait_type}
-                                    className={`min-w-[200px] w-full text-left ${
-                                        selectedPartsData.partsData.trait_type === item.trait_type
-                                            ? 'shadow-[_5px_1px_40px_0px_white]'
-                                            : 'shadow-[_5px_5px_black]'
-                                    } ${
-                                        disabledPartsCategory?.includes(item.trait_type)
-                                            ? 'bg-[#BDBDBD]'
-                                            : 'bg-[#FFC947] cursor-pointer'
-                                    } flex flex-row items-center gap-3 p-2 pl-4 rounded-lg transition-all`}>
-                                    <div>
-                                        <div className="text-[10.85px]">
-                                            {item.trait_type.toUpperCase()}
-                                        </div>
-                                        <div className="font-black text-[11.81px]">
-                                            {item.value}
-                                        </div>
+                        {NFTMetadata?.attributes.map((item) => (
+                            <button
+                                disabled={!item.availability}
+                                onClick={() => {
+                                    handleSelectedPartsTraitType(item)
+                                }}
+                                key={item.trait_type}
+                                className={`min-w-[200px] w-full text-left ${
+                                    selectedPartsData.partsData.trait_type === item.trait_type
+                                        ? 'shadow-[_5px_1px_40px_0px_white]'
+                                        : 'shadow-[_5px_5px_black]'
+                                } ${
+                                    !item.availability
+                                        ? 'bg-[#BDBDBD]'
+                                        : 'bg-[#FFC947] cursor-pointer'
+                                } flex flex-row items-center gap-3 p-2 pl-4 rounded-lg transition-all`}>
+                                <div>
+                                    <div className="text-[10.85px]">
+                                        {item.trait_type.toUpperCase()}
                                     </div>
-                                </button>
-                            ))}
+                                    <div className="font-black text-[11.81px]">{item.value}</div>
+                                </div>
+                            </button>
+                        ))}
                     </div>
+
                     <div className="w-full flex flex-col justify-center items-center">
                         <img src={imageUrl} alt="nft-image" width={677} height={677} />
                         <div className="lg:hidden w-full relative mt-4 px-5">
                             <Swiper
+                                ref={swiperRef}
                                 slidesPerView={1}
                                 spaceBetween={-30}
                                 pagination={{
@@ -338,9 +415,28 @@ export default function DynamicNFTDetailContainer({
                                 }}
                                 modules={[Pagination]}
                                 onSlideChange={(afterChangeValue) => {
-                                    handleSelectedPartsTraitType(
-                                        NFTMetadata.attributes[afterChangeValue.activeIndex + 1]
+                                    console.log(swiperRef?.current.swiper)
+                                    console.log(
+                                        'afterChangeValue',
+                                        NFTMetadata.attributes[afterChangeValue.activeIndex]
                                             .trait_type,
+                                    )
+
+                                    if (
+                                        !NFTMetadata.attributes[afterChangeValue.activeIndex]
+                                            .availability
+                                    ) {
+                                        if (swiperRef?.current.swiper.swipeDirection === 'next') {
+                                            swiperRef?.current.swiper.slideNext()
+                                        } else if (
+                                            swiperRef?.current.swiper.swipeDirection === 'prev'
+                                        ) {
+                                            swiperRef?.current.swiper.slidePrev()
+                                        }
+                                    }
+
+                                    handleSelectedPartsTraitType(
+                                        NFTMetadata.attributes[afterChangeValue.activeIndex],
                                     )
                                 }}>
                                 {NFTMetadata?.attributes
@@ -353,7 +449,7 @@ export default function DynamicNFTDetailContainer({
                                         <SwiperSlide key={`${item.trait_type}_${index}`}>
                                             <div
                                                 className={`w-[80%] px-2 py-1 pl-4 rounded-md ${
-                                                    disabledPartsCategory?.includes(item.trait_type)
+                                                    !item.availability
                                                         ? 'bg-[#BDBDBD]'
                                                         : 'bg-[#FFC947]'
                                                 }`}>
@@ -370,28 +466,58 @@ export default function DynamicNFTDetailContainer({
                         </div>
                     </div>
 
-                    <div
-                        className="bg-[#FFC947] absolute hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all "
+                    <button
+                        className={`${
+                            selectedPartsData.availability
+                                ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
+                                : 'bg-[#BDBDBD]'
+                        } absolute hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
+                        disabled={!selectedPartsData.availability}
                         onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />
                         <div className="text-[25px] font-medium">START</div>
-                    </div>
+                    </button>
                 </div>
-                <div
+                <button
                     className="w-full flex lg:hidden flex-col justify-center items-center"
-                    onClick={startDynamicNFT}>
-                    <div className="bg-[#FFC947] flex lg:hidden flex-row justify-center items-center gap-1 px-4 py-2 rounded-full border-black font-medium text-black border-2 shadow-[_5px_5px_black] cursor-pointer hover:opacity-60 transition-all">
+                    onClick={startDynamicNFT}
+                    disabled={!selectedPartsData.availability}>
+                    <div
+                        className={`${
+                            selectedPartsData.availability
+                                ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
+                                : 'bg-[#BDBDBD]'
+                        } flex lg:hidden flex-row justify-center items-center gap-1 px-4 py-2 rounded-full border-black font-medium text-black border-2 shadow-[_5px_5px_black]`}>
                         <img src="/rotate.svg" alt="rotate" width={20} height={20} />
                         <div className="text-[13px] font-medium">START</div>
                     </div>
-                </div>
+                </button>
 
-                {/* Part List */}
+                {!selectedPartsData.availability && selectedPartsData.pool.length === 0 && (
+                    <div className="flex flex-col justify-center items-start w-full">
+                        <div className="text-[25px] font-medium mb-5">Parts List</div>
+                        <div className="w-full bg-[#131313] text-[#FFFFFF] rounded-xl">
+                            <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] flex flex-row items-center">
+                                <div className="text-md md:text-2xl lg:text-4xl font-bold w-full text-center">
+                                    변경 가능한 파츠가 없습니다.
+                                </div>
 
-                <div className="flex flex-col justify-center items-start w-full mt-10">
-                    <div className="text-[25px] font-medium">Parts List</div>
-                    <PartsListComponent selectedPartsData={selectedPartsData} />
-                </div>
+                                {/* <div className="hidden lg:block">
+                                    <Image src={saza_super} alt="saza_super" />
+                                </div> */}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {selectedPartsData &&
+                    selectedPartsData.availability &&
+                    selectedPartsData.pool.length > 0 && (
+                        <div className="flex flex-col justify-center items-start w-full">
+                            <div className="text-[25px] mb-5 font-medium">Parts List</div>
+                            <PartsListComponent selectedPartsData={selectedPartsData} />
+                        </div>
+                    )}
             </div>
             {isDynamicNFTLoading && <Loading />}
         </>

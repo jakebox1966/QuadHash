@@ -246,7 +246,19 @@ export default function FilterComponent({
     )
 
     const onChange = ({ target }) => {
-        setSearchInput(target.value)
+        let value
+        if (target.value) {
+            value = target.value.replace(/[^0-9]/g, '')
+            setSearchInput(parseInt(value).toString())
+        }
+
+        if (target.value.startsWith('0') && target.value.length > 1) {
+            value = target.value.replace('0', '')
+        }
+
+        setSearchInput(value)
+
+        // target.value = target.value.replace(/[^0-9]/g, '')
     }
     return (
         <>
@@ -260,7 +272,7 @@ export default function FilterComponent({
                         label="Search ID"
                         crossOrigin={undefined}
                         value={searchInput}
-                        type="number"
+                        type="text"
                         onKeyDown={handleKeyPress}
                         onChange={onChange}
                     />

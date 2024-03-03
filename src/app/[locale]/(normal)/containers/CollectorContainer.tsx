@@ -58,7 +58,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 token_id: tokenId,
                 token_type: tokenType,
             },
-        }).then(() => setProfileNFT(null))
+        })
     }
     const openDetailModal = async (token_id, token_type) => {
         const metadata = await getMetadata({
@@ -86,7 +86,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     React.useEffect(() => {
         init()
-    }, [])
+    }, [session])
 
     React.useEffect(() => {
         console.log('123123', profileNFT)
@@ -112,7 +112,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 console.log(123)
                 setProfileNFT('none')
             }
-
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
@@ -120,15 +119,16 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         }
     }
 
-    // React.useEffect(() => {
-    //     console.log(profileNFT)
-    // }, [profileNFT])
+    React.useEffect(() => {
+        console.log(profileNFT)
+    }, [profileNFT])
 
     // React.useEffect(() => {
     //     console.log('sessionsessionsession===>', session)
     // }, [session])
 
     const updateUserProfile = async ({ tokenId, tokenType }) => {
+        setIsLoading(true)
         try {
             const accounts = await getAccounts()
 
@@ -144,10 +144,12 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             const response = await updateUserProfileTokenId(parameter)
 
             const updateSessionResponse = await updateSession(tokenId, tokenType)
+            setIsLoading(false)
             // console.log(updateSessionResponse)
 
             // console.log(response)
         } catch (error) {
+            setIsLoading(false)
             console.error(error)
         }
     }

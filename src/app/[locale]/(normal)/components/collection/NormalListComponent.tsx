@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from 'react-query'
 import { getCollectionList } from '@/app/api/collection/api'
 import { IQueryParam } from '../../containers/CollectionContainer'
+import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardComponent'
 
 export interface INormalCollectionListComponentProps {
     queryParam: IQueryParam
@@ -59,6 +60,10 @@ export default function NormalCollectionListComponent({
     return (
         <>
             <CardListComponent>
+                {isLoading &&
+                    Array(20)
+                        .fill(0)
+                        .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page) => {
                     return page?.data.map((item, index) => (
                         <CardComponent

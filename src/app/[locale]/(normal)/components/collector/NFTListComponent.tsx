@@ -10,6 +10,9 @@ import { useInfiniteQuery } from 'react-query'
 import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardComponent'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
+import Image from 'next/image'
+
+import saza_super from '/public/saza_super.png'
 
 export interface INFTListComponentProps {
     wallet_address: string
@@ -74,10 +77,8 @@ export default function NFTListComponent({
                 {isLoading &&
                     Array(20)
                         .fill(0)
-                        .map((__, index) => (
-                            <LoadingCardComponent key={index} tokenType={tokenType} />
-                        ))}
-                {data?.pages.map((page) => {
+                        .map((__, index) => <LoadingCardComponent key={index} />)}
+                {data?.pages.map((page, index) => {
                     if (page.totalCount > 0) {
                         return page?.ownedNfts.map((item, index) => (
                             <CardComponent
@@ -90,16 +91,19 @@ export default function NFTListComponent({
                     } else {
                         return (
                             <>
-                                <div className="w-full relative flex flex-row justify-start items-center p-10 gap-[10px] rounded-2xl flex-wrap bg-[#131313] text-[#FFFFFF]">
-                                    <div className="flex flex-col justify-center items-start gap-5">
-                                        <div className="text-4xl font-bold">
+                                <div
+                                    className="w-full bg-[#131313] text-[#FFFFFF] rounded-xl"
+                                    key={`${index}`}>
+                                    <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] flex flex-row items-center">
+                                        <div className="text-md md:text-2xl lg:text-4xl font-bold w-full text-center">
                                             YOU DON'T HAVE ANY QBT.
-                                        </div>
-                                        <div className="font-bold">
-                                            Head over to OPENSEA or KONKRIT to join the QUADHASH
                                         </div>
                                         {tokenType !== 'qbt' && (
                                             <>
+                                                <div className="font-bold">
+                                                    Head over to OPENSEA or KONKRIT to join the
+                                                    QUADHASH
+                                                </div>
                                                 <div className="flex flex-row gap-3 font-bold">
                                                     <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
                                                         <div>
@@ -121,6 +125,9 @@ export default function NFTListComponent({
                                                 </div>
                                             </>
                                         )}
+                                        <div className="hidden lg:block">
+                                            <Image src={saza_super} alt="saza_super" />
+                                        </div>
                                     </div>
                                 </div>
                             </>

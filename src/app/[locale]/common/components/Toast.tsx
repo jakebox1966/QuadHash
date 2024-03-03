@@ -16,9 +16,7 @@ export default function Toast({ message }: IToastProps) {
                     <div>
                         <img src="/check-one.svg" alt="check-one" />
                     </div>
-                    <p className="text-Body text-black">
-                        {message}dsfasdfdsfasdfdsfasdfdsfasdfdsfasdf dsfasdf dsfasdf dsfasdf
-                    </p>
+                    <p className="text-Body text-black">{message}</p>
                 </div>
                 <div className="flex flex-row justify-end items-end w-full mt-2">
                     <div className="bg-[#F46221] rounded-lg px-5 text-[#FFFFFF] min-w-[105px] text-center">
