@@ -189,6 +189,7 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
 
                     setFiles(null)
                     setInputs(refreshResult.data)
+                    validInit()
                     setMode('read')
                 } catch (error) {
                     console.error(error)

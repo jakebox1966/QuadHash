@@ -46,12 +46,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         </div>
                     </div>
                     <div>
-                        <Image
-                            src={sazagazaImage}
-                            alt="saza_gaza_together"
-                            quality={100}
-                            placeholder="blur"
-                        />
+                        <Image src={sazagazaImage} alt="saza_gaza_together" quality={100} />
                     </div>
                 </div>
             </div>
