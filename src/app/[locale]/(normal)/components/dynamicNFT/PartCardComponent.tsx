@@ -7,6 +7,7 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({ tokenType, partsData, item }: ICardComponentProps) {
+    console.log(item, partsData)
     return (
         <>
             <div
@@ -15,7 +16,9 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
             >
                 <div
                     className={`overflow-hidden aspect-square rounded-xl ${
-                        item === partsData.value ? 'shadow-[_5px_1px_40px_0px_blue]' : 'shadow-xl'
+                        item === partsData.value.replaceAll(' ', '-')
+                            ? 'shadow-[_5px_1px_40px_0px_blue]'
+                            : 'shadow-xl'
                     }`}>
                     <div
                         className={`relative w-full h-full hover:opacity-75 transition-all hover:scale-110`}>

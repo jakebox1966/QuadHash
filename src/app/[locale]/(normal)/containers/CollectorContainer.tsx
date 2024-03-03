@@ -88,15 +88,10 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         init()
     }, [session])
 
-    React.useEffect(() => {
-        console.log('123123', profileNFT)
-    }, [profileNFT])
-
     const init = async () => {
         try {
             setIsLoading(true)
             const result = await getUserInfoByWalletAddress(wallet_address)
-            console.log(result)
             const token_type = result.token_type
             const token_id = result.token_id
             let metadata = null

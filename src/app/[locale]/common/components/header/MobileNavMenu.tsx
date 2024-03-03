@@ -123,9 +123,9 @@ export default function MobileNavMenu({
                     </svg>
                 </div>
                 <div className="px-10 flex flex-col justify-center items-start gap-10 text-white font-black">
-                    <div className="flex flex-row justify-start w-full">
+                    <Link href={'/'} className="flex flex-row justify-start w-full">
                         <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
-                    </div>
+                    </Link>
 
                     {/* {wallet.accounts[0] && session && (
                         <div className="flex flex-col justify-center items-start">

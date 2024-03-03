@@ -53,7 +53,7 @@ export const customTheme = {
                     maxWidth: 'max-w-fit md:max-w-fit lg:max-w-[1200px]',
                 },
                 lg: {
-                    width: 'w-fit md:w-fit lg:w-fit',
+                    width: 'w-fit md:w-fit lg:w-[1300px]',
                     minWidth: 'min-w-fit md:min-w-fit lg:min-w-fit',
                     maxWidth: 'max-w-fit md:max-[700px] lg:max-w-[1300px] ',
                 },
@@ -120,7 +120,7 @@ export const customTheme1 = {
 export const drawerTheme = {
     drawer: {
         defaultProps: {
-            size: 3000,
+            size: 'calc(100vh / 2 + 200px)',
             overlay: true,
             placement: 'left',
             overlayProps: undefined,
@@ -141,7 +141,7 @@ export const drawerTheme = {
                     backgroundColor: 'bg-white',
                     boxSizing: 'box-border',
                     width: 'w-full',
-                    height: 'h-1/2',
+                    height: '!h-screen',
                     boxShadow: 'shadow-2xl shadow-blue-gray-900/10',
                 },
                 overlay: {

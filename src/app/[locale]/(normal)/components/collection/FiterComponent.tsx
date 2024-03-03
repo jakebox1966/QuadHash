@@ -262,7 +262,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 max-h-[1200px] overflow-x-hidden sticky top-[130px]">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 max-h-[1000px] overflow-x-hidden sticky top-[130px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -334,12 +334,12 @@ export default function FilterComponent({
                             }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
+                                className="border-none bg-[#FFFFFF] !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
                             </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
+                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer min-fit">
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}

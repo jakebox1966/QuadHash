@@ -57,11 +57,13 @@ export default function PCUserInterfaceComponent({
                     <div className="flex flex-col items-center justify-start relative w-full">
                         <div className="flex flex-row just w-full">
                             <div className="flex flex-col justify-start items-start gap-3 text-black w-full">
-                                {profileNFT && (
-                                    <div className="font-black text-2xl">
-                                        {profileNFT?.name.split(':')[1].trim()}
-                                    </div>
-                                )}
+                                <div className="font-black text-2xl">
+                                    <span className="mr-3">QUADHASH</span>
+                                    {profileNFT && (
+                                        <span>{profileNFT?.name.split(':')[1].trim()}</span>
+                                    )}
+                                </div>
+
                                 <div>
                                     <div className="font-medium text-base">
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
@@ -89,7 +91,7 @@ export default function PCUserInterfaceComponent({
                             <div
                                 className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-lg flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
                                 onClick={handleQhTokenModal}>
-                                My Activity
+                                Exchange
                             </div>
 
                             <div

@@ -135,9 +135,7 @@ export default function ContactContainer() {
                 <div className="text-center text-5xl font-medium w-full">CONTACT US</div>
                 <div className="flex flex-col items-center w-full gap-10 mt-[70px]">
                     <div className="flex flex-row w-full">
-                        <div>
-                            WHAT ARE YOU LOOKING TO DO? <span className="text-[#FF0000]">*</span>
-                        </div>
+                        <div>WHAT ARE YOU LOOKING TO DO?</div>
                     </div>
                     <div className="flex flex-row justify-between items-center w-full">
                         <div>PARTNER WITH QUADHASH</div>
@@ -168,8 +166,10 @@ export default function ContactContainer() {
                             />
                         </div>
                     </div>
-                    <div className="flex flex-col justify-start items-start w-full">
-                        <div>NAME</div>
+                    <div className="flex flex-col justify-start items-start w-full h-[85px]">
+                        <div>
+                            NAME<span className="text-[#FF0000]">*</span>
+                        </div>
 
                         <div className="w-full">
                             <input
@@ -187,8 +187,10 @@ export default function ContactContainer() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col justify-start items-start w-full">
-                        <div>EMAIL</div>
+                    <div className="flex flex-col justify-start items-start w-full h-[85px]">
+                        <div>
+                            EMAIL<span className="text-[#FF0000]">*</span>
+                        </div>
                         <div className="w-full">
                             <input
                                 value={inputs.user_email}
@@ -205,8 +207,10 @@ export default function ContactContainer() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col justify-start items-start w-full">
-                        <div>PHONE NUMBER</div>
+                    <div className="flex flex-col justify-start items-start w-full h-[85px]">
+                        <div>
+                            PHONE NUMBER<span className="text-[#FF0000]">*</span>
+                        </div>
                         <div className="w-full">
                             <input
                                 value={inputs.user_phone}

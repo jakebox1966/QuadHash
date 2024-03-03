@@ -36,6 +36,7 @@ export default function MobileUserInterfaceComponent({
     const imageUrl = profileNFT?.image
 
     const { data: session } = useSession()
+
     return (
         <>
             <Button
@@ -51,11 +52,12 @@ export default function MobileUserInterfaceComponent({
                     placement="bottom"
                     open={isOpenMobileModal}
                     onClose={closeMobileModal}
-                    // className="p-5 !max-h-[calc(100vh-78px)] rounded-t-xl"
-                    className="p-5 !max-h-fit rounded-t-xl"
-                    // style={{ maxWidth: '100vh' }}
+                    className="p-5 rounded-t-xl"
                     placeholder={undefined}>
-                    <div className="flex flex-col items-center justify-start w-full h-full">
+                    <div className="w-full flex flex-row justify-center">
+                        <div className="border-2 bg-gray-700 opacity-90 w-1/5"></div>
+                    </div>
+                    <div className="flex flex-col items-center justify-start w-full h-full pt-10">
                         <div className="flex flex-row justify-end items-end w-full">
                             <img
                                 src="/exit.svg"
@@ -65,9 +67,10 @@ export default function MobileUserInterfaceComponent({
                             />
                         </div>
                         <div className="flex flex-row just w-full pt-4">
-                            <div className="flex-[1_1_60%] flex flex-col justify-start items-start gap-3">
+                            <div className="flex flex-col justify-start items-start gap-3 w-[70%]">
                                 <div className="font-black text-xl md:text-4xl">
-                                    {profileNFT?.name.split(':')[1].trim()}
+                                    <span className="mr-3">QUADHASH</span>
+                                    <span>{profileNFT?.name.split(':')[1].trim()}</span>
                                 </div>
                                 <div>
                                     <div className="font-medium text-sm md:text-3xl">
@@ -82,27 +85,31 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                             </div>
                             {imageUrl && (
-                                <div className="flex-[1_1_40%] rounded-2xl overflow-hidden">
-                                    <img src={imageUrl} alt="profile_image" />
+                                <div className=" overflow-hidden aspect-square max-w-[30%]">
+                                    <img
+                                        src={imageUrl}
+                                        alt="profile_image"
+                                        className="rounded-2xl"
+                                    />
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-col justify-center text-lg items-center text-white w-full gap-3 pt-10 font-medium">
+                        <div className="flex flex-col justify-center text-sm lg:text-lg items-center text-white w-full gap-3 pt-10 font-medium">
                             <Link
                                 href={`/collector/${wallet.accounts[0]}`}
                                 className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70">
-                                MY PAGE
+                                My Page
                             </Link>
                             <div
                                 className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
                                 onClick={handleQhTokenModal}>
-                                MY ACTIVITY
+                                Exchange
                             </div>
 
                             <div
                                 className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
                                 onClick={disconnect}>
-                                DISCONNECT
+                                Disconnect
                             </div>
                         </div>
                     </div>

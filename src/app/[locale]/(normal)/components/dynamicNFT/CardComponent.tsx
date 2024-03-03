@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import * as React from 'react'
 import { locales } from '@/i18nconfig'
@@ -13,9 +15,9 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
     let imgUrl = ''
 
     if (tokenType === 'saza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${tokenId}.png`
     } else if (tokenType === 'gaza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL}/${tokenId}.png`
     }
 
     return (

@@ -36,7 +36,7 @@ export default function NFTListComponent({
         } else if (tokenType === 'gaza') {
             return await getNftsForOwner(wallet_address, {
                 contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
-                pageSize: 5,
+                pageSize: 20,
                 pageKey: pageKey,
             })
         } else if (tokenType === 'qbt') {

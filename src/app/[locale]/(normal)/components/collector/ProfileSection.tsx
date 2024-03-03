@@ -40,12 +40,13 @@ export default function ProfileSection({
 
     const { data: session } = useSession()
 
-    if (isLoading)
+    if (!profileNFT || isLoading) {
         return (
             <div className="flex flex-col justify-center items-center min-h-[716.12px] lg:min-h-[581px]">
                 <CardLoading />
             </div>
         )
+    }
     if (!isLoading && profileNFT && profileNFT === 'none') {
         profileNFT = {
             attributes: ['???', '???', '???', '???', '???', '???', '???', '???', '???', '???'],
@@ -198,7 +199,12 @@ export default function ProfileSection({
         const tokenId = profileNFT?.name.split('#')[1]
         const tokenType = profileNFT?.name.split('#')[0].split(':')[1].trim().toLowerCase()
 
-        const imageUrl = profileNFT?.image
+        let imageUrl
+        if (tokenType === 'saza') {
+            imageUrl = `${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${tokenId}.png`
+        } else if (tokenType === 'gaza') {
+            imageUrl = `${process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL}/${tokenId}.png`
+        }
 
         return (
             <div className="w-full shadow-xl rounded-lg">
@@ -265,30 +271,30 @@ export default function ProfileSection({
                                         </div>
                                     </div>
                                 </div>
-                                <div className="mt-4 font-medium">
-                                    <div className="flex gap-4 justify-start items-center">
-                                        <div className="">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                width={40}
-                                                height={40}
-                                                stroke="currentColor">
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-                                                />
-                                            </svg>
-                                        </div>
+                            </div>
+                            <div className="mt-4 font-medium pl-10">
+                                <div className="flex gap-4 justify-start items-center">
+                                    <div className="">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            width={40}
+                                            height={40}
+                                            stroke="currentColor">
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                                            />
+                                        </svg>
+                                    </div>
 
-                                        <div className="text-[9.4px]">
-                                            <div>OWNER</div>
-                                            <div className="text-[13px] font-black">
-                                                {formatAddress(collector_address)}
-                                            </div>
+                                    <div className="text-[9.4px]">
+                                        <div>OWNER</div>
+                                        <div className="text-[13px] font-black">
+                                            {formatAddress(collector_address)}
                                         </div>
                                     </div>
                                 </div>
