@@ -1,9 +1,16 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import * as React from 'react'
 import { locales } from '@/i18nconfig'
-import { deleteCalendar, getCalendar, putCalendar } from '@/app/api/calendar/api'
+import {
+    deleteCalendar,
+    getCalendar,
+    getCalendarFromClient,
+    putCalendar,
+} from '@/app/api/calendar/api'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import { AlertContext } from '@/app/provider/AlertProvider'
 
@@ -161,8 +168,11 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
     const deleteThisCalendar = async () => {
         if (await $confirm('삭제하시겠습니까?')) {
             try {
-                const result = await deleteCalendar(calendar.id)
+                await deleteCalendar(calendar.id).catch((error) => {
+                    alert(error)
+                })
                 await $alert('삭제되었습니다.')
+                router.refresh()
                 router.push('/admin/calendar')
             } catch (error) {
                 console.error(error)
@@ -176,16 +186,19 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                 try {
                     const formData = new FormData()
 
-                    formData.append('title', inputs.title)
-                    formData.append('content', inputs.content)
-                    formData.append('download', inputs.download)
-                    formData.append('image', files)
+                    formData.append('title', updateInputs.title)
+                    formData.append('content', updateInputs.content)
+                    formData.append('download', updateInputs.download)
+
+                    if (files) {
+                        formData.append('image', files)
+                    }
 
                     const result = await putCalendar(calendar.id, formData)
+                    console.log('result', result)
+                    // $alert('수정이 완료되었습니다.')
 
-                    $alert('수정이 완료되었습니다.')
-
-                    const refreshResult = await getCalendar(calendar.id)
+                    const refreshResult = await getCalendarFromClient(calendar.id)
 
                     setFiles(null)
                     setInputs(refreshResult.data)

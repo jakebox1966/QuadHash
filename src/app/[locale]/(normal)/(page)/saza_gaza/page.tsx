@@ -146,9 +146,15 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     <div className="grid grid-cols-3 mt-10 gap-2">
                         {dataForRender &&
                             dataForRender.map((item) => (
-                                <div className="flex flex-col justify-center items-center overflow-hidden border-2">
-                                    <Image src={januaryImage} alt="about_doo2" />
-                                    <div className="text-center mt-3 text-[#0065F2]">
+                                <div className="flex flex-col justify-start items-center overflow-hidden border-2">
+                                    <div className="relative  w-[394px] h-[436px]">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_STORE_IMAGE_URL}/${item.image}`}
+                                            fill
+                                            alt="about_doo2"
+                                        />
+                                    </div>
+                                    <div className="text-center mt-3 text-[#0065F2] min-h-[128px]">
                                         <div className="font-black">{item.title}</div>
                                         <div className="text-xs lg:text-sm font-normal max-w-[242px]">
                                             <div>{item.content}</div>
@@ -319,44 +325,79 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">YOUR SCREEN</div>
                         </div>
 
-                        <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
-                            <Image src={januaryImage} alt="januaryImage" />
+                        {dataForRender &&
+                            dataForRender.map((item) => (
+                                <div className="flex flex-col justify-start items-center overflow-hidden py-10 gap-4">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_STORE_IMAGE_URL}/${item.image}`}
+                                        alt="calendar_image"
+                                        width={394}
+                                        height={436}
+                                    />
 
-                            <div className="font-black text-center text-[#0065F2]">2024 March</div>
-                            <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
-                                <div>Winter Magic Captured by SAZA and </div>
-                                <div>GAZA's Playful Spirits</div>
-                            </div>
+                                    <div className="font-black text-center text-[#0065F2]">
+                                        {item.title}
+                                    </div>
+                                    <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2] min-h-[70px]">
+                                        <div>{item.content}</div>
+                                    </div>
 
-                            <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
-                            <Image src={februaryImage} alt="februaryImage" />
+                                    <Link
+                                        href={item.download}
+                                        target={'_blank'}
+                                        className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </Link>
+                                </div>
+                            ))}
 
-                            <div className="font-black text-center text-[#0065F2]">2024 March</div>
-                            <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
-                                <div>"Embrace the Warmth of Lunar New Year</div>
-                                <div>with SAZA and GAZA"</div>
-                            </div>
+                        {!dataForRender && (
+                            <>
+                                <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
+                                    <Image src={februaryImage} alt="februaryImage" />
 
-                            <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
-                            <Image src={marchImage} alt="marchImage" />
+                                    <div className="font-black text-center text-[#0065F2]">
+                                        2024 March
+                                    </div>
+                                    <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
+                                        <div>"Embrace the Warmth of Lunar New Year</div>
+                                        <div>with SAZA and GAZA"</div>
+                                    </div>
 
-                            <div className="font-black text-center text-[#0065F2]">2024 March</div>
-                            <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
-                                Coming Soon!
-                            </div>
+                                    <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
+                                    <Image src={marchImage} alt="marchImage" />
 
-                            <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
-                                DOWNLOAD NOW
-                            </div>
-                        </div>
+                                    <div className="font-black text-center text-[#0065F2]">
+                                        2024 March
+                                    </div>
+                                    <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
+                                        Coming Soon!
+                                    </div>
+
+                                    <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center overflow-hidden py-10 gap-4">
+                                    <Image src={marchImage} alt="marchImage" />
+
+                                    <div className="font-black text-center text-[#0065F2]">
+                                        2024 March
+                                    </div>
+                                    <div className="text-xs lg:text-sm font-normal text-center text-[#0065F2]">
+                                        Coming Soon!
+                                    </div>
+
+                                    <div className="bg-[#FFFFFF] border-black text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] flex flex-row justify-center items-center">
+                                        DOWNLOAD NOW
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

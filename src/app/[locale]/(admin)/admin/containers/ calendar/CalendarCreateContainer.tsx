@@ -1,4 +1,5 @@
 'use client'
+
 import * as React from 'react'
 import { locales } from '@/i18nconfig'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
@@ -153,6 +154,7 @@ export default function CalendarCreateContainer(props: ICalendarCreateContainerP
                     const result = await postCalendar(formData)
 
                     $alert('등록이 완료되었습니다.')
+                    router.refresh()
                     router.push('/admin/calendar')
                 } catch (error) {
                     console.error(error)
