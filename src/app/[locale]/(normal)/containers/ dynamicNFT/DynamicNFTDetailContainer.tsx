@@ -13,8 +13,9 @@ import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
-import { useSwiper } from 'swiper/react'
 import { useSession } from 'next-auth/react'
+import Image from 'next/image'
+import saza_super from '/public/saza_super.png'
 
 export interface IDynamicNFTDetailContainerProps {
     tokenType: string
@@ -60,15 +61,6 @@ export default function DynamicNFTDetailContainer({
         pool: string[]
         value: string
     }) => {
-        console.log(tokenType)
-        console.log(parts)
-        // if (disabledPartsCategory?.includes(parts.trait_type)) {
-        //     setSelectedPartsData((prev) => ({
-        //         ...prev,
-        //         pool: [],
-        //     }))
-        // }
-
         if (tokenType === 'saza') {
             setSelectedPartsData({
                 tokenType: tokenType,
@@ -86,15 +78,8 @@ export default function DynamicNFTDetailContainer({
         }
     }
 
-    // React.useEffect(() => {
-    //     console.log(selectedPartsData)
-    // }, [selectedPartsData])
-
     const checkDisabledPartsCategory = () => {
         if (tokenType && tokenId && NFTMetadata) {
-            // console.log('tokenType', tokenType)
-            // console.log('tokenId', tokenId)
-            // console.log('NFTMetadata', NFTMetadata)
             const ranking = NFTMetadata.attributes[0].value
             if (tokenType === 'saza') {
                 const result = NFTMetadata.attributes.filter(
@@ -109,7 +94,6 @@ export default function DynamicNFTDetailContainer({
                     }
                     return false
                 })
-                // console.log(validResult.map((item) => item.trait_type))
 
                 return validResult.map((item) => item.trait_type)
             } else if (tokenType === 'gaza') {
@@ -136,9 +120,6 @@ export default function DynamicNFTDetailContainer({
 
     const checkDisabledPartsCategory1 = (metadata) => {
         if (tokenType && tokenId) {
-            // console.log('tokenType', tokenType)
-            // console.log('tokenId', tokenId)
-            // console.log('NFTMetadata', NFTMetadata)
             const ranking = metadata.attributes[0].value
             if (tokenType === 'saza') {
                 const result = metadata.attributes.filter(
@@ -162,7 +143,6 @@ export default function DynamicNFTDetailContainer({
                 }
                 return validMetadata
             } else if (tokenType === 'gaza') {
-                console.log('gazaVaildation')
                 const result = metadata.attributes.filter(
                     (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
                 )
@@ -379,7 +359,6 @@ export default function DynamicNFTDetailContainer({
 
                         {NFTMetadata?.attributes.map((item) => (
                             <button
-                                disabled={!item.availability}
                                 onClick={() => {
                                     handleSelectedPartsTraitType(item)
                                 }}
@@ -415,25 +394,25 @@ export default function DynamicNFTDetailContainer({
                                 }}
                                 modules={[Pagination]}
                                 onSlideChange={(afterChangeValue) => {
-                                    console.log(swiperRef?.current.swiper)
-                                    console.log(
-                                        'afterChangeValue',
-                                        NFTMetadata.attributes[afterChangeValue.activeIndex]
-                                            .trait_type,
-                                    )
+                                    // console.log(swiperRef?.current.swiper)
+                                    // console.log(
+                                    //     'afterChangeValue',
+                                    //     NFTMetadata.attributes[afterChangeValue.activeIndex]
+                                    //         .trait_type,
+                                    // )
 
-                                    if (
-                                        !NFTMetadata.attributes[afterChangeValue.activeIndex]
-                                            .availability
-                                    ) {
-                                        if (swiperRef?.current.swiper.swipeDirection === 'next') {
-                                            swiperRef?.current.swiper.slideNext()
-                                        } else if (
-                                            swiperRef?.current.swiper.swipeDirection === 'prev'
-                                        ) {
-                                            swiperRef?.current.swiper.slidePrev()
-                                        }
-                                    }
+                                    // if (
+                                    //     !NFTMetadata.attributes[afterChangeValue.activeIndex]
+                                    //         .availability
+                                    // ) {
+                                    //     if (swiperRef?.current.swiper.swipeDirection === 'next') {
+                                    //         swiperRef?.current.swiper.slideNext()
+                                    //     } else if (
+                                    //         swiperRef?.current.swiper.swipeDirection === 'prev'
+                                    //     ) {
+                                    //         swiperRef?.current.swiper.slidePrev()
+                                    //     }
+                                    // }
 
                                     handleSelectedPartsTraitType(
                                         NFTMetadata.attributes[afterChangeValue.activeIndex],
@@ -502,9 +481,9 @@ export default function DynamicNFTDetailContainer({
                                     변경 가능한 파츠가 없습니다.
                                 </div>
 
-                                {/* <div className="hidden lg:block">
+                                <div className="hidden lg:block">
                                     <Image src={saza_super} alt="saza_super" />
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                     </div>
