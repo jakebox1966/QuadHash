@@ -57,15 +57,15 @@ export default function MobileUserInterfaceComponent({
                     <div className="w-full flex flex-row justify-center">
                         <div className="border-2 bg-gray-700 opacity-90 w-1/5"></div>
                     </div>
+                    <div className="flex flex-row justify-end items-end w-full">
+                        <img
+                            src="/exit.svg"
+                            alt="exit"
+                            onClick={closeMobileModal}
+                            className="cursor-pointer"
+                        />
+                    </div>
                     <div className="flex flex-col items-center justify-start w-full h-full pt-10">
-                        <div className="flex flex-row justify-end items-end w-full">
-                            <img
-                                src="/exit.svg"
-                                alt="exit"
-                                onClick={closeMobileModal}
-                                className="cursor-pointer"
-                            />
-                        </div>
                         <div className="flex flex-row just w-full pt-4">
                             <div className="flex flex-col justify-start items-start gap-3 w-[70%]">
                                 <div className="font-black text-xl md:text-4xl">
@@ -94,20 +94,20 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-col justify-center text-sm lg:text-lg items-center text-white w-full gap-3 pt-10 font-medium">
+                        <div className="flex flex-col border-[1px] border-[#F46221] justify-center text-sm lg:text-lg items-center text-white w-full mt-10 font-medium rounded-lg overflow-hidden">
                             <Link
                                 href={`/collector/${wallet.accounts[0]}`}
-                                className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70">
+                                className="bg-[#F46221] py-3 px-10 w-full border-b-[1px] border-[#F2F2F7] flex flex-row justify-center items-center gap-2 cursor-pointer hover:bg-white hover:text-[#F46221]">
                                 My Page
                             </Link>
                             <div
-                                className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
+                                className="bg-[#F46221] py-3 px-10 w-full border-b-[1px] border-[#F2F2F7]  flex flex-row justify-center items-center gap-2 cursor-pointer hover:bg-white hover:text-[#F46221]"
                                 onClick={handleQhTokenModal}>
                                 Exchange
                             </div>
 
                             <div
-                                className="bg-[#F46221] border-none py-3 px-10 w-full border-2 rounded-full flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70"
+                                className="bg-[#F46221] py-3 px-10 w-full border-[#F2F2F7] flex flex-row justify-center items-center gap-2 cursor-pointer hover:bg-white hover:text-[#F46221]"
                                 onClick={disconnect}>
                                 Disconnect
                             </div>

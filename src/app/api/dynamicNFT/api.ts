@@ -59,3 +59,18 @@ export const getUsedTicketList = async () => {
 
     return result
 }
+
+export const postEventTicket = async (formData) => {
+    const session = await getSession()
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/nfts/import`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Authorization: session.user.access_token,
+        },
+    })
+
+    const result = await response.json()
+
+    return result
+}

@@ -202,7 +202,7 @@ export default function NFTDetailModalComponent({
                         </div>
 
                         <div
-                            className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-3 items-start hidden`}>
+                            className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-10 items-start hidden`}>
                             <div className="flex flex-row flex-wrap gap-4 max-w-[550px] justify-start items-center pl-10">
                                 <div className="flex w-[calc(100%/2-4rem)] max-w-[250px] flex-col justify-center font-bold p-2">
                                     <div className="text-[11.81px]">

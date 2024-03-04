@@ -171,8 +171,9 @@ export default function CalendarCreateContainer(props: ICalendarCreateContainerP
                     <div className="flex flex-col justify-center items-start gap-3 mt-10 w-full">
                         <div className="flex flex-row items-start gap-2 w-full">
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
-                                TITLE
+                                <span className="">TITLE</span>
                             </div>
+                            <span className="text-[#FF0000]">*</span>
                             <div className="w-full">
                                 <input
                                     onChange={inputsHandler}
@@ -193,6 +194,7 @@ export default function CalendarCreateContainer(props: ICalendarCreateContainerP
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 CONTENT
                             </div>
+                            <span className="text-[#FF0000]">*</span>
                             <div className="w-full">
                                 <textarea
                                     onChange={inputsHandler}
@@ -211,6 +213,7 @@ export default function CalendarCreateContainer(props: ICalendarCreateContainerP
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 DOWNLOAD
                             </div>
+                            <span className="text-[#FF0000]">*</span>
                             <div className="w-full">
                                 <input
                                     onChange={inputsHandler}
@@ -231,10 +234,14 @@ export default function CalendarCreateContainer(props: ICalendarCreateContainerP
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 IMAGE
                             </div>
+                            <span className="text-[#FF0000]">*</span>
                             <div className="w-full">
                                 <div className={`border-2 rounded-lg p-2 w-full`}>
                                     <label className="w-full inline-block" htmlFor={'imageFile'}>
-                                        {!inputs.image ? 'Select Image File' : inputs.image}
+                                        <span className="mr-5 border-2 rounded-lg bg-black text-white p-1">
+                                            FILE
+                                        </span>
+                                        {inputs.image}
                                     </label>
                                 </div>
                                 <input

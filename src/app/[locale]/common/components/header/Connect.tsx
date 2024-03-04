@@ -101,7 +101,7 @@ export default function Connect({ profileNFT }: IConnectProps) {
     }
 
     React.useEffect(() => {
-        if (wallet.accounts[0]) {
+        if (session && wallet.accounts[0]) {
             getTokenBalance()
         }
     }, [wallet.accounts])

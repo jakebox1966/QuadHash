@@ -24,6 +24,7 @@ import CardLoading from '@/app/[locale]/common/components/CardLoading'
 import { formatAddress } from '@/app/utils/ethUtils'
 
 export interface IProfileSectionProps {
+    tokenType: string
     isLoading: boolean
     collector_address: any
     profileNFT: any
@@ -31,6 +32,7 @@ export interface IProfileSectionProps {
 }
 
 export default function ProfileSection({
+    tokenType,
     isLoading,
     collector_address,
     profileNFT,
@@ -48,49 +50,77 @@ export default function ProfileSection({
         )
     }
     if (!isLoading && profileNFT && profileNFT === 'none') {
-        profileNFT = {
-            attributes: ['???', '???', '???', '???', '???', '???', '???', '???', '???', '???'],
-            name: '???',
+        let profileNFT
+
+        if (tokenType === 'saza') {
+            profileNFT = {
+                attributes: [
+                    'BACKGROUND',
+                    'MANE',
+                    'BODY',
+                    'HEAD',
+                    'EYES',
+                    'MOUTH',
+                    'HEADWEAR',
+                    'EXTRAS',
+                ],
+                name: '',
+            }
+        } else if (tokenType === 'gaza') {
+            profileNFT = {
+                attributes: [
+                    'BACKGROUND',
+                    'BODY',
+                    'TOP',
+                    'BOTTOMS',
+                    'ONESIE',
+                    'EYES',
+                    'MOUTH',
+                    'HEADWEAR',
+                    'EXTRAS',
+                ],
+            }
         }
         return (
-            <div className="w-full shadow-xl rounded-lg">
+            <div className="w-full shadow-xl bg-[#C4CDE0] rounded-lg min-h-[582px]">
                 <>
                     <div
                         className={`rounded-lg flex lg:flex-row flex-col items-center justify-center lg:justify-normal overflow-hidden`}>
-                        <img src={'/silluet.png'} alt="profile_image" width={581} height={0} />
+                        {tokenType === 'saza' && (
+                            <img
+                                src={'/saza_none.png'}
+                                alt="profile_image"
+                                width={581}
+                                height={0}
+                            />
+                        )}
+                        {tokenType === 'gaza' && (
+                            <img
+                                src={'/gaza_none.png'}
+                                alt="profile_image"
+                                width={581}
+                                height={0}
+                            />
+                        )}
                         <div
-                            className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-3 items-start hidden`}>
-                            <div className="flex flex-row flex-wrap gap-4 max-w-full justify-start items-center pl-10">
+                            className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-10 items-start hidden h-[582px]`}>
+                            <div className="flex flex-row flex-wrap gap-4 max-w-full justify-start items-start pl-10">
                                 <div className="flex w-[calc(100%/2-4rem)] max-w-[250px] flex-col justify-center font-bold p-2">
-                                    <div className="text-[11.81px]">{profileNFT.name}</div>
-                                    <div className="text-[25px]">{profileNFT.name}</div>
+                                    <div className="text-[11.81px]">QUADHASH</div>
+                                    <div className="text-[25px]">{tokenType.toUpperCase()}</div>
                                 </div>
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-center">
-                                    {/* {session && collector_address === wallet?.accounts[0] && (
-                                            <NFTSetting
-                                                backgroundColor={backgroundColor?.value.toLowerCase()}
-                                                updateUserProfile={updateUserProfile}
-                                                tokenId={tokenId}
-                                                tokenType={tokenType}
-                                                isFrom={'profile'}
-                                            />
-                                        )} */}
-                                </div>
+                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-center"></div>
 
-                                {profileNFT?.attributes
-                                    .filter((item, index) => index !== 0)
-                                    .map((item) => (
-                                        <div
-                                            key={item}
-                                            className="w-[calc(100%/2-4rem)] max-w-[250px] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
-                                            <div>
-                                                <div className="text-[10.85px]">{item}</div>
-                                                <div className="font-black text-[11.81px]">
-                                                    {item}
-                                                </div>
-                                            </div>
+                                {profileNFT?.attributes.map((item) => (
+                                    <div
+                                        key={item}
+                                        className="w-[calc(100%/2-4rem)] max-w-[250px] flex flex-row items-start gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg min-h-[50px]">
+                                        <div>
+                                            <div className="text-[10.85px]">{item}</div>
+                                            <div className="font-black text-[11.81px]"></div>
                                         </div>
-                                    ))}
+                                    </div>
+                                ))}
                             </div>
                             <div className="mt-4 font-medium pl-10">
                                 <div className="flex gap-4 justify-start items-center">
@@ -110,7 +140,7 @@ export default function ProfileSection({
                                     </svg>
 
                                     <div className="text-[9.4px]">
-                                        <div>OWNER</div>
+                                        <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address)}
                                         </div>
@@ -137,7 +167,7 @@ export default function ProfileSection({
                                     </svg>
 
                                     <div className="text-[9.4px]">
-                                        <div>OWNER</div>
+                                        <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address)}
                                         </div>
@@ -147,7 +177,7 @@ export default function ProfileSection({
                             <div className="flex flex-row justify-between items-center max-h-[50px]">
                                 <div>
                                     <div className="text-[12px] font-medium">QUADHASH</div>
-                                    <div className="text-[24px] font-black">{profileNFT?.name}</div>
+                                    <div className="text-[24px] font-black"> </div>
                                 </div>
                                 <div className="text-[9.4px]">
                                     {/* {session && collector_address === wallet?.accounts[0] && (
@@ -292,7 +322,7 @@ export default function ProfileSection({
                                     </div>
 
                                     <div className="text-[9.4px]">
-                                        <div>OWNER</div>
+                                        <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address)}
                                         </div>
@@ -363,7 +393,7 @@ export default function ProfileSection({
                                     </svg>
 
                                     <div className="text-[9.4px]">
-                                        <div>OWNER</div>
+                                        <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address)}
                                         </div>

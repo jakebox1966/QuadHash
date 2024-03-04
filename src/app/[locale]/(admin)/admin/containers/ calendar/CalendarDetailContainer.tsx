@@ -226,6 +226,12 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 TITLE
                             </div>
+                            <span
+                                className={`text-[#FF0000] ${
+                                    mode === 'read' ? 'invisible' : 'visible'
+                                }`}>
+                                *
+                            </span>
                             <div className="w-full">
                                 <input
                                     onChange={inputsHandler}
@@ -249,6 +255,12 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 CONTENT
                             </div>
+                            <span
+                                className={`text-[#FF0000] ${
+                                    mode === 'read' ? 'invisible' : 'visible'
+                                }`}>
+                                *
+                            </span>
                             <div className="w-full">
                                 <textarea
                                     onChange={inputsHandler}
@@ -270,6 +282,12 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 DOWNLOAD
                             </div>
+                            <span
+                                className={`text-[#FF0000] ${
+                                    mode === 'read' ? 'invisible' : 'visible'
+                                }`}>
+                                *
+                            </span>
                             <div className="w-full">
                                 <input
                                     onChange={inputsHandler}
@@ -295,6 +313,12 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                             <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                 IMAGE
                             </div>
+                            <span
+                                className={`text-[#FF0000] ${
+                                    mode === 'read' ? 'invisible' : 'visible'
+                                }`}>
+                                *
+                            </span>
                             <div className="w-full">
                                 <div
                                     className={`border-2 rounded-lg p-2 w-full ${
@@ -333,6 +357,7 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                                     <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                         CREATED AT
                                     </div>
+                                    <span className={`text-[#FF0000] invisible`}>*</span>
                                     <div className="w-full">
                                         <input
                                             readOnly={mode === 'read'}
@@ -351,6 +376,7 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
                                     <div className="min-w-[120px] text-white bg-gray-500 p-2 rounded-lg border-2 text-center">
                                         UPDATED AT
                                     </div>
+                                    <span className={`text-[#FF0000] invisible`}>*</span>
                                     <div className="w-full">
                                         <input
                                             readOnly={mode === 'read'}

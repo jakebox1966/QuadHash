@@ -16,12 +16,14 @@ import NFTListComponent from '../components/collector/NFTListComponent'
 import { backgroundPallete } from '../../common/color/colorPalette'
 import { setActive } from '@material-tailwind/react/components/Tabs/TabsContext'
 import CardLoading from '../../common/components/CardLoading'
+import { AlertContext } from '@/app/provider/AlertProvider'
 
 export interface ICollectorContainerProps {
     wallet_address: string
 }
 
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
+    const { $alert } = React.useContext(AlertContext)
     const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
     const [tokenType, setTokenType] = React.useState('saza')
@@ -46,7 +48,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         setOpen(!open)
     }, [open])
 
-    const handleNFTType = (type: string) => {
+    const handleNFTType = async (type: string) => {
+        if (type === 'qbt') {
+            await $alert('현재 준비중 입니다.')
+            return
+        }
         setTokenType(type)
     }
 
@@ -114,14 +120,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         }
     }
 
-    React.useEffect(() => {
-        console.log(profileNFT)
-    }, [profileNFT])
-
-    // React.useEffect(() => {
-    //     console.log('sessionsessionsession===>', session)
-    // }, [session])
-
     const updateUserProfile = async ({ tokenId, tokenType }) => {
         setIsLoading(true)
         try {
@@ -153,6 +151,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         <>
             <div className="max-w-[1300px] w-full px-[24px]">
                 <ProfileSection
+                    tokenType={tokenType}
                     isLoading={isLoading}
                     collector_address={collector_address}
                     profileNFT={profileNFT}
