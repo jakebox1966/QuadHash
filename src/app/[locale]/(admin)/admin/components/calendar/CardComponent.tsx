@@ -17,11 +17,11 @@ export default function CardComponent({ item }: ICardComponentProps) {
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
                         <Link href={`/admin/calendar/${item.id}`}>
                             <img
-                                // src={`${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${item.image}`}
-                                src={`/1.png`}
+                                src={`${process.env.NEXT_PUBLIC_STORE_IMAGE_URL}/${item.image}`}
+                                // src={`/1.png`}
                                 width="100%"
                                 height="auto"
-                                alt="nft-image"
+                                alt="calendar_image"
                             />
                         </Link>
                     </div>

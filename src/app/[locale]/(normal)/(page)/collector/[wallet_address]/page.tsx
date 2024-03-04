@@ -25,7 +25,10 @@ export default function CollectorDetailPage({
 }: ICollectorDetailPageProps) {
     // console.log(wallet_address)
 
-    if (!web3.utils.isAddress(wallet_address)) {
+    if (
+        !web3.utils.isAddress(wallet_address) ||
+        wallet_address === '0x0000000000000000000000000000000000000000'
+    ) {
         // console.log('error')
         return notFound()
     }

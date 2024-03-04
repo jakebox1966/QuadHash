@@ -161,7 +161,7 @@ export default function CalendarDetailContainer({ calendar }: ICalendarDetailCon
     const deleteThisCalendar = async () => {
         if (await $confirm('삭제하시겠습니까?')) {
             try {
-                // const result = await deleteCalendar(calendar.id)
+                const result = await deleteCalendar(calendar.id)
                 await $alert('삭제되었습니다.')
                 router.push('/admin/calendar')
             } catch (error) {

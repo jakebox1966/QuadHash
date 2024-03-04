@@ -54,7 +54,7 @@ export const postCalendar = async (formData) => {
         body: formData,
         headers: {
             Authorization: session.user.access_token,
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
         },
     })
 
