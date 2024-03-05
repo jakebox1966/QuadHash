@@ -19,7 +19,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
             <div className="hidden w-full lg:flex flex-col justify-center items-center pt-[294px] bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
                     <div className="font-['#NeuePlak'] lg:text-[70px] text-center leading-[60px]">
-                        <div>START YOUR JOUNEY IN</div>
+                        <div>START YOUR JOURNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
                     <div className="text-[32px] text-center">
@@ -74,7 +74,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                 <div className="flex flex-col justify-center items-start w-[330px] text-black font-black gap-[27px]">
                     <div className="text-[35px] leading-[37px] font-[400px]">
                         <div>START YOUR </div>
-                        <div>JOUNEY IN</div>
+                        <div>JOURNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
                     <div className="text-[17px]">

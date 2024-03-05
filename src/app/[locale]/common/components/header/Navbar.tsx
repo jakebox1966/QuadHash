@@ -24,12 +24,12 @@ export default function Navbar(props: INavbarProps) {
         'fractional_investment',
     ]
     return (
-        <div className="relative flex items-center gap-[50px] text-[16px]">
+        <div className="relative flex items-center gap-[50px] text-[16px] mx-3">
             {menuList.map((menu) => (
                 <Link
                     key={menu}
                     href={`/${menu}`}
-                    className={`cursor-pointer hover:opacity-40 text-nowrap ${
+                    className={`cursor-pointer text-nowrap hover:text-[#F46221] ${
                         (pathname.includes(menu) || queryString?.includes(menu)) && 'text-[#F46221]'
                     }`}>
                     {t(menu)}

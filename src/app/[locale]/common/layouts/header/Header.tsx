@@ -134,7 +134,7 @@ export default function Header(props: IHeaderProps) {
                     pathName === '/' || pathName === '/about' || pathName === '/saza_gaza'
                         ? 'bg-[#FFCD19]'
                         : 'bg-[#FFFFFF]'
-                } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[140px] px-5`}>
+                } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[140px] px-5 lg:px-0`}>
                 <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className=" cursor-pointer w-full rounded-full flex flex-row gap-2 items-center">
                         <div onClick={handleOpen}>
@@ -161,8 +161,8 @@ export default function Header(props: IHeaderProps) {
                     </div>
                 </div>
 
-                <div className="hidden lg:flex lg:flex-row justify-around items-center max-w-[1400px] w-full px-[50px]">
-                    <div className="w-full flex flex-row justify-between items-center gap-[58px]">
+                <div className="hidden lg:flex lg:flex-row justify-between items-center max-w-[1400px] w-full px-[50px]">
+                    <div className="w-full flex flex-row justify-between items-center max-w-[1300px]">
                         <Logo />
                         <Navbar />
                         <Connect profileNFT={profileNFT} />

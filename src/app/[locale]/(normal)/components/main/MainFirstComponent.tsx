@@ -10,11 +10,11 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                 <div className="flex flex-col justify-center items-center max-w-[1000px] gap-[32px]">
                     <div className="hidden lg:flex font-['#NeuePlak'] font-black flex-col justify-center items-center gap-3 text-[70px] leading-[55px]">
                         <div>QUADHASH.</div>
-                        <div>A NEW AEA OF CREATIVITY</div>
+                        <div>A NEW ERA OF CREATIVITY</div>
                     </div>
                     <div className="flex lg:hidden flex-col justify-center items-center text-[35px] leading-[37px]">
                         <div>QUADHASH.</div>
-                        <div>A NEW AEA OF </div>
+                        <div>A NEW ERA OF </div>
                         <div>CREATIVITY</div>
                     </div>
                     <div className="hidden lg:flex flex-col justify-center items-center text-[19px] w-full">
@@ -38,7 +38,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                         <div>showcasing digital artworks encoded</div>
                         <div>as NFTS on the Ethereum blockchain,</div>
                         <div>while also branching into the realms</div>
-                        <div>of IP</div>
+                        <div>of IP.</div>
                     </div>
                 </div>
             </div>

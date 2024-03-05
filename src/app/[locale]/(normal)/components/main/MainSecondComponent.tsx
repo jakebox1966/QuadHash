@@ -30,7 +30,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <div className="text-[20px]">
                             <div>Vibrant colors, captivating characters. Explore the</div>
                             <div>Authentic digital art crafted by renowned pop Artists</div>
-                            <div>‘Crack & Carl’ and ‘Button Morris’</div>
+                            <div>‘Craig & Carl’ and ‘Burton Morris’</div>
                         </div>
 
                         <Link
@@ -57,7 +57,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>Vibrant colors, captivating characters.</div>
                             <div>Explore the authentic digital art</div>
                             <div> crafted by renowned pop Artists</div>
-                            <div>‘Crack & Carl’ and ‘Button Morris’</div>
+                            <div>‘Craig & Carl’ and ‘Burton Morris’</div>
                         </div>
 
                         <Link

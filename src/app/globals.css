@@ -8,6 +8,12 @@
   font-family: 'NeuePlak';
   src: url('/font/Neue Plak Black.ttf');
 }
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/font/PlusJakartaSans-Light.ttf');
+}
+
 @layer base {
  
   /* body {

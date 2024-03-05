@@ -44,7 +44,7 @@ export default function PCUserInterfaceComponent({
                 dismiss={isQhTokenModalOpen ? { outsidePress: false } : { outsidePress: true }}>
                 <PopoverHandler>
                     <button
-                        className="hidden lg:block rounded-full p-[16px] min-w-[170px] bg-[#F46221] text-[white] shadow-lg cursor-pointer hover:opacity-80 text-center"
+                        className="hidden lg:block rounded-full text-[15px] p-[16px] min-w-[170px] bg-[#F46221] text-[white] shadow-lg cursor-pointer hover:opacity-80 text-center"
                         onClick={openPCModal}>
                         {formatAddress(wallet.accounts[0])}
                     </button>
