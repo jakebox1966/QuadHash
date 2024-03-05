@@ -14,7 +14,7 @@ export interface ICollectorDetailPageProps {
 const web3 = createAlchemyWeb3(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)
 const alchemyConfig = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
-    network: process.env.NODE_ENV === 'development' ? Network.ETH_SEPOLIA : Network.ETH_MAINNET, // Replace with your network
+    network: Network.ETH_SEPOLIA, // Replace with your network
 }
 
 const alchemy = new Alchemy(alchemyConfig)
