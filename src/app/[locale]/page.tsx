@@ -5,6 +5,7 @@ export default function Home() {
     return (
         <>
             <MainWrapper>
+                {process.env.NODE_ENV}!!
                 <Main />
             </MainWrapper>
         </>
