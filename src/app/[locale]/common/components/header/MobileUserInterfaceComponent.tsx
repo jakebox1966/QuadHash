@@ -39,12 +39,11 @@ export default function MobileUserInterfaceComponent({
 
     return (
         <>
-            <Button
-                className="block lg:hidden rounded-full p-3 min-w-[170px] bg-[#F46221] cursor-pointer hover:opacity-80 text-center"
-                onClick={openMobileModal}
-                placeholder={undefined}>
+            <button
+                className="block lg:hidden rounded-full p-[7px] min-w-[100px] text-[10px] text-white bg-[#F46221] cursor-pointer hover:opacity-80 text-center"
+                onClick={openMobileModal}>
                 {formatAddress(wallet.accounts[0])}
-            </Button>
+            </button>
 
             <ThemeProvider value={drawerTheme}>
                 <Drawer

@@ -28,5 +28,6 @@ export const updateUserProfileTokenId = async (parameter: {
         },
     )
 
+    console.log(result)
     // return await result.json()
 }

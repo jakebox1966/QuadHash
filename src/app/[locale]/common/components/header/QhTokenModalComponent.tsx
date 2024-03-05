@@ -42,7 +42,7 @@ import InnerConfirm from '../InnerConfirm'
 
 const config = {
     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_RAW_API_KEY, // Replace with your API key
-    network: Network.ETH_SEPOLIA, // Replace with your network
+    network: Network[process.env.NEXT_PUBLIC_NETWORK], // Replace with your network
     // network: Network.ETH_MAINNET, // Replace with your network
 }
 

@@ -1,11 +1,16 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Poppins } from 'next/font/google'
 import '@/app/globals.css'
 import CommonProvider from '../provider/CommonProvider'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 import AuthProvider from '../provider/SessionProvider'
 
 const inter = Inter({ subsets: ['latin'] })
+
+const popins = Poppins({
+    subsets: ['latin'],
+    weight: '500',
+})
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -23,7 +28,7 @@ export default function RootLayout({
 
     return (
         <html lang={locale} className="light" suppressHydrationWarning>
-            <body className={`${inter.className}`}>
+            <body className={popins.className}>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <AuthProvider>
                         <CommonProvider>{children}</CommonProvider>

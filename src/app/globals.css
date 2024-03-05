@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+@font-face {
+  font-family: 'NeuePlak';
+  src: url('/font/Neue Plak Black.ttf');
+}
 @layer base {
+ 
   /* body {
     background-color: #FEFAE0;
   } */

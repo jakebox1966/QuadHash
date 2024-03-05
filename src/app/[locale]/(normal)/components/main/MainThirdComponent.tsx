@@ -16,42 +16,42 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 export default function MainThirdComponent(props: IMainThirdComponentProps) {
     return (
         <>
-            <div className="hidden w-full lg:flex flex-col justify-center items-center pt-28 bg-[#FEFAE0]">
+            <div className="hidden w-full lg:flex flex-col justify-center items-center pt-[294px] bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
-                    <div className="text-xs md:text-xl lg:text-5xl text-center">
+                    <div className="font-['#NeuePlak'] lg:text-[70px] text-center leading-[60px]">
                         <div>START YOUR JOUNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
-                    <div className="text-xs md:text-xl lg:text-2xl text-center">
+                    <div className="text-[32px] text-center">
                         <div>WE PRESENT A COLLECTION</div>
                         <div>OF EXCLUSIVE AND UNIQUE WORKS</div>
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-stretch items-center max-w-[1300px] w-full px-10 lg:px-28 gap-4 mt-10 text-white">
+                <div className="flex flex-col items-center max-w-[1300px] w-full gap-[40px] mt-[50px] text-white">
                     <div className="w-full relative">
                         <Image src={main_image1} alt="main_middle_image1" />
-                        <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
-                            <div className="lg:text-2xl">Our Journey</div>
+                        <div className="flex flex-col justify-center items-start absolute bottom-[95px] left-[82px] gap-1 font-black">
+                            <div className="text-[44.2px] drop-shadow-xl">Our Journey</div>
                             <Link
                                 href={'/about'}
-                                className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                 DISCOVER OUR WORLD
                             </Link>
                         </div>
                     </div>
 
-                    <div className="w-full flex flex-row justify-center items-center gap-4">
+                    <div className="w-full flex flex-row justify-center items-center gap-[40px]">
                         <div className="flex-1 relative">
                             <Image src={main_image2} alt="main_middle_image2" sizes="100vw" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
-                                <div className="lg:text-2xl">Saza&Gaza</div>
+                                <div className="text-[44.2px] drop-shadow-xl">Saza&Gaza</div>
                                 <Link
                                     href={'https://www.instagram.com/saza.gaza/'}
                                     target={'_blank'}
-                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                    className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     {/* FOLLOW US @SAZA&GAZA */}
-                                    @SAZA&GAZA
+                                    FOLLOW US @SAZA&GAZA
                                 </Link>
                             </div>
                         </div>
@@ -60,9 +60,9 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                             <Link
                                 href={'/white_paper'}
                                 className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
-                                <div className="lg:text-2xl">WHITE PAPER</div>
-                                <div className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
-                                    SEE
+                                <div className="text-[44.2px] drop-shadow-xl">Coming Soon</div>
+                                <div className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                    PLAY NOW
                                 </div>
                             </Link>
                         </div>
@@ -70,41 +70,41 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                 </div>
             </div>
 
-            <div className="lg:hidden w-full flex flex-col justify-center items-center bg-[#FEFAE0] py-14">
-                <div className="flex flex-col justify-center items-start w-[330px] text-black font-black gap-10">
-                    <div className="text-3xl">
+            <div className="lg:hidden w-full flex flex-col justify-center items-center bg-[#FEFAE0] py-[80px]">
+                <div className="flex flex-col justify-center items-start w-[330px] text-black font-black gap-[27px]">
+                    <div className="text-[35px] leading-[37px] font-[400px]">
                         <div>START YOUR </div>
                         <div>JOUNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
-                    <div className="text-xs lg:text-2xl">
+                    <div className="text-[17px]">
                         <div>WE PRESENT A COLLECTION</div>
                         <div>OF EXCLUSIVE AND UNIQUE WORKS</div>
                     </div>
-                    <div className="flex flex-col justify-stretch items-center w-full lg:px-28 gap-4 mt-10 text-white">
+                    <div className="flex flex-col justify-stretch items-center w-full lg:px-28 gap-[40px] mt-[30px] text-white">
                         <div className="w-full relative">
                             <Image
                                 src={main_third_sazagaza}
                                 quality={100}
                                 alt="main_middle_image1"
                             />
-                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
-                                <div className="lg:text-2xl">Our Journey</div>
+                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 gap-[16px] font-bold">
+                                <div className="text-[25px] drop-shadow-xl">Our Journey</div>
                                 <Link
                                     href={'/about'}
-                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                    className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     DISCOVER OUR WORLD
                                 </Link>
                             </div>
                         </div>
                         <div className="w-full relative">
                             <Image src={main_third_cute} quality={100} alt="main_middle_image1" />
-                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
-                                <div className="lg:text-2xl">@SAZA&GAZA</div>
+                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 gap-[16px] font-bold">
+                                <div className="text-[25px] drop-shadow-xl">@SAZA&GAZA</div>
                                 <Link
                                     href={'https://www.instagram.com/saza.gaza/'}
                                     target={'_blank'}
-                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                                    className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     FOLLOW @SAZA&GAZA
                                 </Link>
                             </div>
@@ -112,11 +112,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="w-full relative">
                             <Image src={main_third_saza} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
-                                <div className="lg:text-2xl">WHITE PAPER</div>
+                                <div className="text-[25px] drop-shadow-xl">Coming Soon</div>
                                 <Link
                                     href={'/white_paper'}
-                                    className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
-                                    SEE
+                                    className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                    PLAY NOW
                                 </Link>
                             </div>
                         </div>

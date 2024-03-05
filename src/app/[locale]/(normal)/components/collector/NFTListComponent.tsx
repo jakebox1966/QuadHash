@@ -28,11 +28,16 @@ export default function NFTListComponent({
 }: INFTListComponentProps) {
     const fetchData = async (pageKey: string) => {
         if (tokenType === 'saza') {
-            return await getNftsForOwner(wallet_address, {
-                contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
-                pageSize: 20,
-                pageKey: pageKey,
-            })
+            // return await getNftsForOwner(wallet_address, {
+            //     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
+            //     pageSize: 20,
+            //     pageKey: pageKey,
+            // })
+            return {
+                ownedNfts: [],
+                pageKey: undefined,
+                totalCount: 0,
+            }
         } else if (tokenType === 'gaza') {
             return await getNftsForOwner(wallet_address, {
                 contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
@@ -94,37 +99,48 @@ export default function NFTListComponent({
                                 <div
                                     className="w-full bg-[#131313] text-[#FFFFFF] rounded-xl"
                                     key={`${index}`}>
-                                    <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] flex flex-row items-center">
-                                        <div className="text-md md:text-2xl lg:text-4xl font-bold w-full text-center">
-                                            YOU DON'T HAVE ANY QBT.
+                                    <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] pl-[83px] flex flex-row items-center">
+                                        <div className="text-md font-medium w-full text-left">
+                                            <div className="text-[30px]">
+                                                YOU DON'T HAVE ANY QBT.
+                                            </div>
+                                            {tokenType !== 'qbt' && (
+                                                <>
+                                                    <div className="font-medium text-[16px]">
+                                                        Head over to OPENSEA or KONKRIT to join the
+                                                        QUADHASH
+                                                    </div>
+                                                    <div className="flex flex-row gap-[24px] font-medium mt-[25px]">
+                                                        <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center min-w-[200px] items-center gap-3">
+                                                            <div>
+                                                                <img
+                                                                    src="/opensea.png"
+                                                                    alt="opensea"
+                                                                />
+                                                            </div>
+                                                            <Link
+                                                                href={`https://opensea.io/collection/qh-${tokenType}`}
+                                                                // href={`https://opensea.io/collection/qh-saza`}
+                                                                target="_blank"
+                                                                className="text-[21px]">
+                                                                OPENSEA
+                                                            </Link>
+                                                        </div>
+                                                        <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3 min-w-[200px]">
+                                                            <div>
+                                                                <img
+                                                                    src="/konkrit.png"
+                                                                    alt="konkrit"
+                                                                />
+                                                            </div>
+                                                            <div className="text-[21px]">
+                                                                KONKRIT
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
-                                        {tokenType !== 'qbt' && (
-                                            <>
-                                                <div className="font-bold">
-                                                    Head over to OPENSEA or KONKRIT to join the
-                                                    QUADHASH
-                                                </div>
-                                                <div className="flex flex-row gap-3 font-bold">
-                                                    <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
-                                                        <div>
-                                                            <img src="/opensea.png" alt="opensea" />
-                                                        </div>
-                                                        <Link
-                                                            href={`https://opensea.io/collection/qh-${tokenType}`}
-                                                            // href={`https://opensea.io/collection/qh-saza`}
-                                                            target="_blank">
-                                                            OPENSEA
-                                                        </Link>
-                                                    </div>
-                                                    <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3">
-                                                        <div>
-                                                            <img src="/konkrit.png" alt="konkrit" />
-                                                        </div>
-                                                        <div>KONKRIT</div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
                                         <div className="hidden lg:block">
                                             <Image src={saza_super} alt="saza_super" />
                                         </div>

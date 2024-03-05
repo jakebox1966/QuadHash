@@ -6,7 +6,7 @@ export interface IReportPageProps {}
 
 const config = {
     apiKey: '2jp0674GCJeIZW9qmM3WB92wslh1P8yM',
-    network: Network.ETH_SEPOLIA,
+    network: Network[process.env.NEXT_PUBLIC_NETWORK],
 }
 
 const alchemy = new Alchemy(config)

@@ -5,8 +5,6 @@ export default function Home() {
     return (
         <>
             <MainWrapper>
-                {process.env.NODE_ENV}!!
-                {process.env.NEXT_PUBLIC_API_HOST_URL}
                 <Main />
             </MainWrapper>
         </>

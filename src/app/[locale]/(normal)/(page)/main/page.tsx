@@ -8,7 +8,7 @@ import MainTopActionImage from '../../components/main/MainTopActionImage'
 import MainBottomActionImage from '../../components/main/MainBottomActionImage'
 import MainBottomTextSlider from '../../components/main/MainBottomTextSlider'
 import MainFirstComponent from '../../components/main/MainFirstComponent'
-import MainSecondComponent from '../../components/main/ MainSecondComponent'
+import MainSecondComponent from '../../components/main/MainSecondComponent'
 import MainThirdComponent from '../../components/main/MainThirdComponent'
 import MainFourthComponent from '../../components/main/MainFourthComponent'
 

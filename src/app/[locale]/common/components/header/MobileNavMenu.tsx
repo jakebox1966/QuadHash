@@ -95,11 +95,8 @@ export default function MobileNavMenu({
     const { data: session } = useSession()
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT?.image
-    // console.log(profileNFT)
 
     return (
-        // <React.Fragment>
-
         <ThemeProvider value={customTheme}>
             <Drawer
                 open={open}
@@ -127,53 +124,6 @@ export default function MobileNavMenu({
                         <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
                     </Link>
 
-                    {/* {wallet.accounts[0] && session && (
-                        <div className="flex flex-col justify-center items-start">
-                            <div>
-                                {imageUrl && (
-                                    <Image
-                                        src={imageUrl}
-                                        width={77}
-                                        height={77}
-                                        alt="profile_image"
-                                        className="rounded-full"
-                                    />
-                                )}
-                            </div>
-                            <div className="mt-5">{profileNFT?.name.split(':')[1].trim()}</div>
-                            <div className="font-normal text-gray-300">
-                                {formatAddress(wallet.accounts[0])}
-                            </div>
-                        </div>
-                    )} */}
-                    {/* 
-                    <Popover placement="bottom-end">
-                        <PopoverHandler>
-                            <div className="flex flex-row justify-center items-center gap-14 cursor-pointer">
-                                Connect Wallet
-                            </div>
-                        </PopoverHandler>
-                        <PopoverContent
-                            className="z-[9999] flex flex-col justify-center items-center text-xl font-black text-black gap-7 p-0 overflow-hidden"
-                            placeholder={undefined}>
-                            <div>
-                                <div className="text-center py-4">Connect to a wallet</div>
-                                <div className="flex flex-col gap-2 w-full bg-[#FAFAFA] px-7 py-10 ">
-                                    <div
-                                        className="flex flex-row items-center justify-center border-2 py-2 px-10 gap-3 rounded-xl cursor-pointer hover:border-[#F46221]"
-                                        onClick={handleSignInModalOpen}>
-                                        <img
-                                            src="https://docs.material-tailwind.com/icons/metamask.svg"
-                                            alt="metamast"
-                                            className="h-6 w-6"
-                                        />
-                                        <div>Metamask</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </PopoverContent>
-                    </Popover> */}
-
                     {menuList.map((item) => (
                         <Link
                             key={item}
@@ -183,39 +133,8 @@ export default function MobileNavMenu({
                             {t(item)}
                         </Link>
                     ))}
-                    {/* <Link
-                        href={'https://discord.gg/quadhash'}
-                        target={'_blank'}
-                        className="flex flex-row justify-center items-center gap-14">
-                      
-                        DISCORD
-                    </Link>
-                    <Link
-                        href={'https://twitter.com/QUADHASH'}
-                        target={'_blank'}
-                        className="flex flex-row justify-center items-center gap-14">
-                     
-                        TWITTER
-                    </Link>
-                    <Link
-                        href={'https://www.instagram.com/saza.gaza/'}
-                        target={'_blank'}
-                        className="flex flex-row justify-center items-center gap-14">
-                    
-                        Saza&Gaza Instagram
-                    </Link> */}
-                    {/* {wallet.accounts[0] && session && (
-                        <Button
-                            className="bg-[#FFFFFF] font-medium text-xs text-[#F46221] py-3 px-4 rounded-lg flex flex-row items-center justify-center gap-3"
-                            onClick={disconnect}
-                            placeholder={undefined}>
-                            <Image src={logout} alt={'logout_icon'} />
-                            Logout
-                        </Button>
-                    )} */}
                 </div>
             </Drawer>
         </ThemeProvider>
-        // </React.Fragment>
     )
 }

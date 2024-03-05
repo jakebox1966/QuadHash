@@ -134,7 +134,7 @@ export default function Header(props: IHeaderProps) {
                     pathName === '/' || pathName === '/about' || pathName === '/saza_gaza'
                         ? 'bg-[#FFCD19]'
                         : 'bg-[#FFFFFF]'
-                } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[130px] px-5`}>
+                } flex flex-row  lg:justify-center sticky top-0 items-center w-full z-50 h-[78px] lg:h-[140px] px-5`}>
                 <div className="lg:hidden flex flex-row justify-between w-full">
                     <div className=" cursor-pointer w-full rounded-full flex flex-row gap-2 items-center">
                         <div onClick={handleOpen}>
@@ -159,37 +159,14 @@ export default function Header(props: IHeaderProps) {
                             <Connect profileNFT={profileNFT} />
                         </div>
                     </div>
-                    {/* <div className="text-white text-xs bg-[#F46221] p-2 rounded-full">
-                        Connect Wallet
-                    </div> */}
                 </div>
 
-                {/* <div className="flex flex-row justify-between">
-                    <div
-                        className="lg:hidden cursor-pointer absolute left-4 rounded-full flex flex-row gap-2 items-center"
-                        onClick={handleOpen}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-                            />
-                        </svg>
-                        <Image src={mobileLogo} alt={'mobile_logo'} />
+                <div className="hidden lg:flex lg:flex-row justify-around items-center max-w-[1400px] w-full px-[50px]">
+                    <div className="w-full flex flex-row justify-between items-center gap-[58px]">
+                        <Logo />
+                        <Navbar />
+                        <Connect profileNFT={profileNFT} />
                     </div>
-                    
-                </div> */}
-
-                <div className="hidden lg:flex lg:flex-row justify-around items-center lg:w-[1300px]">
-                    <Logo />
-                    <Navbar />
-                    <Connect profileNFT={profileNFT} />
                 </div>
             </header>
             <MobileNavMenu

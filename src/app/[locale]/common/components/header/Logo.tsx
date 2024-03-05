@@ -14,8 +14,8 @@ export default function Logo(props: ILogoProps) {
                 <Link href={'/'}>
                     {/* <Image alt="logo" src={'/logo/logo.svg'} width={100} height={100} /> */}
                     <svg
-                        width="186"
-                        height="31"
+                        width="161"
+                        height="27"
                         viewBox="0 0 186 31"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg">

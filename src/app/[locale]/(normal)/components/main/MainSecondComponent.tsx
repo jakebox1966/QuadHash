@@ -15,8 +15,8 @@ const { usePathname, Link } = createSharedPathnamesNavigation({ locales })
 export default function MainSecondComponent(props: IMainSecondComponentProps) {
     return (
         <>
-            <div className="hidden lg:flex bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative lg:min-h-[700px]">
-                <div className="w-[1200px] flex flex-col justify-end items-around py-20 lg:pt-20 px-2 lg:py-0">
+            <div className="hidden lg:flex bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden lg:min-h-[700px] relative">
+                <div className="w-[1161px] flex flex-col justify-end items-around py-20 lg:pt-20 lg:py-0 ">
                     <div className="hidden lg:flex flex-row justify-end items-end z-20">
                         <div className="w-[200px] h-[200px] relative">
                             <Image src={gazaImage} alt="gaza" className="absolute -bottom-10" />
@@ -26,8 +26,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
                     </div>
                     <div className="lg:absolute top-20 flex flex-col justify-center items-start gap-5">
-                        <div className="text-4xl">OUR COLLECTION</div>
-                        <div>
+                        <div className="text-[44.2px]">OUR COLLECTION</div>
+                        <div className="text-[20px]">
                             <div>Vibrant colors, captivating characters. Explore the</div>
                             <div>Authentic digital art crafted by renowned pop Artists</div>
                             <div>‘Crack & Carl’ and ‘Button Morris’</div>
@@ -35,23 +35,25 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
                         <Link
                             href={'/collection'}
-                            className="bg-[#FFFFFF] z-30 text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
+                            className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             VIEW COLLECTIBLES
                         </Link>
                     </div>
                 </div>
 
-                <Image src={background} alt="background" className="absolute w-screen bottom-0" />
+                <div className="absolute bottom-0 z-0">
+                    <img className="z-[-9999]" src="/homepage_1.png" alt="homepage_1.png" />
+                </div>
             </div>
 
             <div className="flex lg:hidden bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative ">
                 <div className="w-[330px] flex flex-col justify-end items-start relative">
                     <div className="flex flex-col justify-center items-start gap-5 min-h-[430px]">
-                        <div className="text-3xl">
+                        <div className="text-[35px] leading-[37px]">
                             <div>OUR</div>
                             <div>COLLECTION</div>
                         </div>
-                        <div>
+                        <div className="text-[17px]">
                             <div>Vibrant colors, captivating characters.</div>
                             <div>Explore the authentic digital art</div>
                             <div> crafted by renowned pop Artists</div>
@@ -60,7 +62,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
                         <Link
                             href={'/collection'}
-                            className="bg-[#FFFFFF] text-black py-2 z-20 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             VIEW COLLECTIBLES
                         </Link>
                     </div>
@@ -78,41 +80,20 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
                 <Image src={background} alt="background" className="absolute w-screen bottom-0" />
             </div>
-
-            {/* <div className="flex flex-col justify-center items-center w-full">
-                <div className="flex flex-col gap-[27px] max-h-[710px] lg:hidden justify-start items-start px-[30px] bg-[#236DF6] w-full pt-[138px] text-white">
-                    <div className="text-3xl font-black">
-                        <div>OUR</div>
-                        <div>COLLECTION</div>
-                    </div>
-                    <div className="text-sm font-medium">
-                        <div>Vibrant colors, captivating characters.</div>
-                        <div>Explore the authentic digital art</div>
-                        <div>crafted by renowned pop artists </div>
-                        <div>‘Crack & Carl’ and ‘Button Morris’</div>
-                    </div>
-                    <div className="bg-[#FFFFFF] text-md text-black p-2 border-1 rounded-full shadow-[_5px_5px_black]">
-                        VIEW COLLECTIBLES
-                    </div>
-                    <Image src={background} alt="background" className="w-full bottom-0" />
-                </div>
-            </div> */}
-
-            {/* <MainBottomTextSlider /> */}
-            <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} />
+            <MarQueeTextComponent />
             <div className="hidden bg-[#FFAE35] lg:flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
-                <div className="max-w-[1162px] flex flex-row justify-center items-center gap-20 py-20">
+                <div className="w-[1162px] flex flex-row justify-between items-center gap-20 py-20">
                     <div className="block">
                         <Image src={saza_gaza_together} alt="saza_gaza_together" />
                     </div>
-                    <div className="flex flex-col justify-center items-start gap-5">
-                        <div className="text-4xl">NEW MERCHANDISE!</div>
-                        <div>"Dive into the dynamic world of Quadhash.”</div>
+                    <div className="flex flex-col justify-center items-start gap-[30px]">
+                        <div className="text-[44.2px]">NEW MERCHANDISE!</div>
+                        <div>"Dive Into The Dynamic World of Quadhash.”</div>
 
                         <Link
                             href={'https://www.sazagaza.co.kr/'}
                             target={'_blank'}
-                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            className="bg-[#FFFFFF] min-w-[202px] mt-5 border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             SHOP NOW
                         </Link>
                     </div>
@@ -120,27 +101,27 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
             </div>
 
             <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-center items-center w-full text-[#FFFFFF] font-black">
-                <div className="w-[330px] flex flex-col justify-center items-center">
-                    <div className="flex flex-col justify-center items-start gap-5 min-h-[330px]">
-                        <div className="text-3xl">
+                <div className="w-[330px] flex flex-col justify-center items-center gap-[30px]">
+                    <div className="flex flex-col justify-center items-start gap-[30px] min-h-[330px]">
+                        <div className="text-[37px] leading-[37px]">
                             <div>NEW</div>
                             <div>MERCHANDISE!</div>
                         </div>
-                        <div>
-                            <div>"Dive into the dynamic world of Quadhash.”</div>
+                        <div className="text-[17px]">
+                            <div>"Dive Into The Dynamic World of Quadhash.”</div>
                         </div>
 
                         <Link
                             href={'https://www.sazagaza.co.kr/'}
                             target={'_blank'}
-                            className="bg-[#FFFFFF] text-black py-2 px-4 border-1 rounded-full shadow-[_5px_5px_black]">
+                            className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             SHOP NOW
                         </Link>
                     </div>
                     <div className=" flex flex-col justify-center items-center">
                         <Image
                             src={saza_gaza_together}
-                            width={280}
+                            width={282}
                             height={280}
                             alt="saza_gaza_together"
                         />

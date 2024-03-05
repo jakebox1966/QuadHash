@@ -9,7 +9,7 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 export default function Footer(props: IFooterProps) {
     return (
         <>
-            <footer className="h-[280px] hidden w-full lg:flex flex-col justify-center gap-6 px-10 max-w-[1600px]">
+            <footer className="h-[280px] hidden w-full lg:flex flex-col justify-center gap-[32px] text-[16px] px-10 max-w-[1600px]">
                 <div className="flex flex-row justify-center lg:justify-between items-center">
                     <div>
                         <Logo />
@@ -19,12 +19,12 @@ export default function Footer(props: IFooterProps) {
                             Hacking Report
                         </Link>
                         <Link href={'/contact'}>Contact Us</Link>
-                        <Link href={'/terms_of_use'}>Terms of Use</Link>
+                        <Link href={'/terms_of_use'}>Terms of Service</Link>
                         <Link href={'/privacy'}>Privacy</Link>
                     </div>
                 </div>
                 <hr />
-                <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between items-center pt-5">
+                <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between items-center">
                     <div className="flex flex-row justify-center items-center gap-6">
                         <div className="font-black">FOLLOW US!</div>
                         <Link href={'https://twitter.com/QUADHASH'} target={'_blank'}>
@@ -80,7 +80,7 @@ export default function Footer(props: IFooterProps) {
                             </svg>
                         </Link>
                     </div>
-                    <div className="text-xs lg:text-base text-gray-400">
+                    <div className="text-gray-400">
                         Copyright @ 2023 QUADHASH. All Rights Reserved
                     </div>
                 </div>
@@ -91,12 +91,12 @@ export default function Footer(props: IFooterProps) {
                     <Logo />
                 </div>
 
-                <div className="flex flex-col gap-5 font-medium">
+                <div className="flex flex-col gap-5 font-medium text-[16px]">
                     <Link href={'/report'} className="text-[#FF000F]">
                         Hacking Report
                     </Link>
                     <Link href={'/contact'}>Contact Us</Link>
-                    <Link href={'/terms_of_use'}>Terms of Use</Link>
+                    <Link href={'/terms_of_use'}>Terms of Service</Link>
                     <Link href={'/privacy'}>Privacy</Link>
                 </div>
 
@@ -157,7 +157,7 @@ export default function Footer(props: IFooterProps) {
                             </svg>
                         </Link>
                     </div>
-                    <div className="text-xs lg:text-base text-gray-400">
+                    <div className="text-gray-400">
                         <div>Copyright @ 2023 QUADHASH.</div>
                         <div>All Rights Reserved</div>
                     </div>
