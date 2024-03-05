@@ -17,7 +17,7 @@ export interface IFractionalInvestPageProps {}
 
 const config = {
     apiKey: '2jp0674GCJeIZW9qmM3WB92wslh1P8yM', // Replace with your API key
-    network: Network.ETH_MAINNET, // Replace with your network
+    network: process.env.NODE_ENV === 'development' ? Network.ETH_SEPOLIA : Network.ETH_MAINNET, // Replace with your network
 }
 
 const alchemy = new Alchemy(config)
