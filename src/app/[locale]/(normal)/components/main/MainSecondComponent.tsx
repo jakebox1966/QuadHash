@@ -80,7 +80,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
                 <Image src={background} alt="background" className="absolute w-screen bottom-0" />
             </div>
-            <MarQueeTextComponent />
+            <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} />
             <div className="hidden bg-[#FFAE35] lg:flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
                 <div className="w-[1162px] flex flex-row justify-between items-center gap-20 py-20">
                     <div className="block">
