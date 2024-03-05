@@ -6,6 +6,7 @@ export default function Home() {
         <>
             <MainWrapper>
                 {process.env.NODE_ENV}!!
+                {process.env.NEXT_PUBLIC_API_HOST_URL}
                 <Main />
             </MainWrapper>
         </>
