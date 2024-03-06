@@ -25,7 +25,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
     const result = await getCalendars(1)
     console.log(result)
 
-    const dataForRender = result.data.filter((item, index) => index <= 2)
+    const dataForRender = result.data.reverse()
 
     return (
         <>
@@ -76,7 +76,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                 </div>
             </div>
             <div className="lg:flex hidden">
-                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} />
+                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} space={true} />
             </div>
             <div className="max-w-[1250px] lg:flex hidden flex-col items-center pt-28">
                 <div className="flex flex-col justify-center items-center font-black text-center ">
@@ -99,7 +99,11 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     </Link>
                 </div>
                 <div className="mt-[100px]">
-                    <Image src={saza_gazaCase} width={1250} alt="sazagazaTogether " />
+                    <img
+                        className="w-[1250px]"
+                        src={`${process.env.NEXT_PUBLIC_STORE_IMAGE_URL}/images/saza_gaza_store.png`}
+                        alt={'saza_gaza_event'}
+                    />
                 </div>
                 <div className="flex flex-row justify-between items-center font-black w-full mt-[314px]">
                     <div className="flex flex-col justify-center items-start gap-[25px]">
@@ -111,7 +115,8 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div>A More Fun Way to Express Feelings, with Saza&Gaza.</div>
 
                         <Link
-                            href={'#'}
+                            href={'https://giphy.com/sazagaza'}
+                            target="_blank"
                             className="bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] flex flex-row justify-center items-center gap-2">
                             <Image src={saza_gaza_giphy_frame} alt="saza_gaza_giphy_frame" />
                             Explore the Collection
@@ -232,12 +237,15 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div>storytelling."</div>
                         </div>
 
-                        <div className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
+                        <Link
+                            href={'https://www.instagram.com/saza.gaza/'}
+                            target="_blank"
+                            className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
                             <div>
                                 <Image src={insta} alt="insta_icon" />
                             </div>
                             <div>Follow Us @saza.gaza</div>
-                        </div>
+                        </Link>
                     </div>
 
                     <div className="pt-20">
@@ -246,7 +254,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                 </div>
             </div>
             <div className="lg:hidden w-full">
-                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} />
+                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} space={true} />
             </div>
             <div className="flex flex-col justify-center items-center py-20 lg:hidden ">
                 <div className="max-w-[330px]">
@@ -261,16 +269,22 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div>with Saza&Gaza.</div>
                         </div>
 
-                        <div className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
+                        <Link
+                            href={'https://www.sazagaza.co.kr/'}
+                            target="_blank"
+                            className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
                             <div>
                                 <Image src={saza} alt="saza_icon" />
                             </div>
                             <div>Go to Saza&Gaza Store</div>
-                        </div>
+                        </Link>
                     </div>
 
                     <div className="pt-20 relative">
-                        <Image src={saza_gazaCaseMobile} alt={'saza_gazaCase'} />
+                        <img
+                            src={`${process.env.NEXT_PUBLIC_STORE_IMAGE_URL}/images/saza_gaza_store.png`}
+                            alt={'saza_gaza_event'}
+                        />
                     </div>
                 </div>
             </div>
@@ -288,12 +302,15 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div>with Saza&Gaza.</div>
                         </div>
 
-                        <div className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
+                        <Link
+                            href={'https://giphy.com/sazagaza'}
+                            target="_blank"
+                            className="flex flex-row items-center bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] gap-2">
                             <div>
                                 <Image src={saza_gaza_giphy_frame} alt="saza_icon" />
                             </div>
                             <div>Explore the Collection</div>
-                        </div>
+                        </Link>
                     </div>
 
                     <div className="pt-20 relative">

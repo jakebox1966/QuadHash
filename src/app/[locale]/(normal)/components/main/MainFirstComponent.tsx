@@ -30,7 +30,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                     </div>
 
                     <div className="flex lg:hidden flex-col justify-center items-start font-medium">
-                        <div>Launched in June 2023, the Quadhash</div>
+                        <div>Launched in June 2023, the QUADHASH</div>
                         <div>NFT Project stands at the forefront of</div>
                         <div>the digital art revolution.</div>
                         <div>Featured on OpenSea, this collection</div>

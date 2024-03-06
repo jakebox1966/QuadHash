@@ -1,20 +1,20 @@
 'use client'
 import * as React from 'react'
-import FilterComponent from '../components/collection/FiterComponent'
-import TabComponent from '../components/collection/TabComponent'
+import FilterComponent from '../components/collectables/FiterComponent'
+import TabComponent from '../components/collectables/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getCollectionList } from '@/app/api/collection/api'
 
-import CollectionDetailModalComponent from '../components/collection/CollectionDetailModalComponent'
+import CollectionDetailModalComponent from '../components/collectables/CollectionDetailModalComponent'
 import { backgroundPallete } from '../../common/color/colorPalette'
 
-import BurtonMorrisComponent from '../components/collection/BurtonMorrisListComponent'
+import BurtonMorrisComponent from '../components/collectables/BurtonMorrisListComponent'
 
-import NormalCollectionListComponent from '../components/collection/NormalListComponent'
+import NormalCollectionListComponent from '../components/collectables/NormalListComponent'
 import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
-import ActivePartFilterComponent from '../components/collection/ActivePartFilterComponent'
+import ActivePartFilterComponent from '../components/collectables/ActivePartFilterComponent'
 
-export interface ICollectionContainerProps {}
+export interface ICollectablesContainerProps {}
 
 function Icon({ id, open }) {
     return (
@@ -66,7 +66,7 @@ const initialQueryParam = {
     onesie: [],
 }
 
-export default function CollectionContainer(props: ICollectionContainerProps) {
+export default function CollectablesContainer(props: ICollectablesContainerProps) {
     const [searchInput, setSearchInput] = React.useState('')
     const [queryParam, setQueryParam] = React.useState(initialQueryParam)
     const [burtonMorris, setBurtonMorris] = React.useState(false)
@@ -254,53 +254,55 @@ export default function CollectionContainer(props: ICollectionContainerProps) {
 
     return (
         <>
-            <div className="max-w-[1300px] px-5 w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">
-                <FilterComponent
-                    isMobileFilterOpen={isMobileFilterOpen}
-                    setIsMobileFilterOpen={setIsMobileFilterOpen}
-                    burtonMorris={burtonMorris}
-                    handleBurtonMorris={handleBurtonMorris}
-                    queryParam={queryParam}
-                    handleSearchParam={handleSearchParam}
-                    handlePartParam={handlePartParam}
-                    searchInput={searchInput}
-                    setSearchInput={setSearchInput}
-                    handleOptionParam={handleOptionParam}
-                    handleNftTypeParam={handleNftTypeParam}
-                    clearFilter={clearFilter}
-                />
-                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap relative">
-                    <TabComponent
+            <div className="max-w-[1400px] px-[50px]">
+                <div className="max-w-[1300px] w-full flex flex-col justify-center items-center lg:flex-row lg:justify-center lg:items-start gap-5">
+                    <FilterComponent
+                        isMobileFilterOpen={isMobileFilterOpen}
+                        setIsMobileFilterOpen={setIsMobileFilterOpen}
                         burtonMorris={burtonMorris}
-                        handleNftTypeParam={handleNftTypeParam}
-                        handleOptionParam={handleOptionParam}
+                        handleBurtonMorris={handleBurtonMorris}
                         queryParam={queryParam}
-                    />
-                    <ActivePartFilterComponent
-                        clearFilter={clearFilter}
-                        queryParam={queryParam}
+                        handleSearchParam={handleSearchParam}
                         handlePartParam={handlePartParam}
+                        searchInput={searchInput}
+                        setSearchInput={setSearchInput}
+                        handleOptionParam={handleOptionParam}
+                        handleNftTypeParam={handleNftTypeParam}
+                        clearFilter={clearFilter}
                     />
+                    <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap relative">
+                        <TabComponent
+                            burtonMorris={burtonMorris}
+                            handleNftTypeParam={handleNftTypeParam}
+                            handleOptionParam={handleOptionParam}
+                            queryParam={queryParam}
+                        />
+                        <ActivePartFilterComponent
+                            clearFilter={clearFilter}
+                            queryParam={queryParam}
+                            handlePartParam={handlePartParam}
+                        />
 
-                    {!burtonMorris && (
-                        <>
-                            <NormalCollectionListComponent
-                                queryParam={queryParam}
-                                burtonMorris={burtonMorris}
-                                openDetailModal={openDetailModal}
-                            />
-                        </>
-                    )}
-                    {burtonMorris && (
-                        <>
-                            <BurtonMorrisComponent
-                                burtonMorrisData={burtonMorrisData}
-                                queryParam={queryParam}
-                                burtonMorris={burtonMorris}
-                                openDetailModal={openDetailModal}
-                            />
-                        </>
-                    )}
+                        {!burtonMorris && (
+                            <>
+                                <NormalCollectionListComponent
+                                    queryParam={queryParam}
+                                    burtonMorris={burtonMorris}
+                                    openDetailModal={openDetailModal}
+                                />
+                            </>
+                        )}
+                        {burtonMorris && (
+                            <>
+                                <BurtonMorrisComponent
+                                    burtonMorrisData={burtonMorrisData}
+                                    queryParam={queryParam}
+                                    burtonMorris={burtonMorris}
+                                    openDetailModal={openDetailModal}
+                                />
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
             <CollectionDetailModalComponent

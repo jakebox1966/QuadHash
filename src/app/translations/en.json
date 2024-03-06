@@ -8,10 +8,10 @@
             },
             "nav_bar": {
                 "about": "About",
-                "collection": "Collection",
+                "collectables": "Collectables",
                 "gallery": "Gallery",
                 "saza_gaza": "Saza&Gaza",
-                "qh_token": "QH Token",
+                "qpd_token": "QPD Token",
                 "admin": "Admin",
                 "dynamicNFT": "Dynamic NFT",
                 "fractional_investment": "Fractional Investment",

@@ -30,13 +30,13 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <div className="text-[20px]">
                             <div>Vibrant colors, captivating characters. Explore the</div>
                             <div>Authentic digital art crafted by renowned pop Artists</div>
-                            <div>‘Craig & Carl’ and ‘Burton Morris’</div>
+                            <div>‘Craig & Karl’ and ‘Burton Morris’</div>
                         </div>
 
                         <Link
                             href={'/collection'}
                             className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
-                            VIEW COLLECTIBLES
+                            VIEW COLLECTABLES
                         </Link>
                     </div>
                 </div>
@@ -57,13 +57,13 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>Vibrant colors, captivating characters.</div>
                             <div>Explore the authentic digital art</div>
                             <div> crafted by renowned pop Artists</div>
-                            <div>‘Craig & Carl’ and ‘Burton Morris’</div>
+                            <div>‘Craig & Karl’ and ‘Burton Morris’</div>
                         </div>
 
                         <Link
                             href={'/collection'}
                             className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
-                            VIEW COLLECTIBLES
+                            VIEW COLLECTABLES
                         </Link>
                     </div>
                     <div className="min-h-[200px] relative flex flex-col justify-center items-center">
@@ -80,7 +80,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
                 <Image src={background} alt="background" className="absolute w-screen bottom-0" />
             </div>
-            <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} />
+            <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} space={true} />
             <div className="hidden bg-[#FFAE35] lg:flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
                 <div className="w-[1162px] flex flex-row justify-between items-center gap-20 py-20">
                     <div className="block">
@@ -88,7 +88,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     </div>
                     <div className="flex flex-col justify-center items-start gap-[30px]">
                         <div className="text-[44.2px] font-['#NeuePlak']">NEW MERCHANDISE!</div>
-                        <div>"Dive Into The Dynamic World of Quadhash.”</div>
+                        <div>"Dive Into The Dynamic World of QUADHASH.”</div>
 
                         <Link
                             href={'https://www.sazagaza.co.kr/'}
@@ -108,7 +108,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>MERCHANDISE!</div>
                         </div>
                         <div className="text-[17px]">
-                            <div>"Dive Into The Dynamic World of Quadhash.”</div>
+                            <div>"Dive Into The Dynamic World of QUADHASH.”</div>
                         </div>
 
                         <Link

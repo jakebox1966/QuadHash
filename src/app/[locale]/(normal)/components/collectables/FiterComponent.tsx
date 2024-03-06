@@ -262,7 +262,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 min-h-fit max-h-[calc(100vh/2+300px)] overflow-x-hidden sticky top-[130px]">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 min-h-fit max-h-[calc(100vh/2+300px)] overflow-x-hidden sticky top-[140px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>

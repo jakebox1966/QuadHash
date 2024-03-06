@@ -27,7 +27,7 @@ export default function MainBottomActionImage(props: IMainBottomActionImage) {
                                 <div className="text-xs">endless possibilities?</div>
                             </div>
                             <div className="text-white p-2 text-xs bg-[#F46221] rounded-full text-center">
-                                VIEW COLLECTIBLES
+                                VIEW COLLECTABLES
                             </div>
                         </div>
                     </div>

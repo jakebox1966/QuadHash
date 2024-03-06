@@ -88,8 +88,21 @@ export default function TabComponent({
                         }}>
                         <div className="relative">
                             <Listbox.Button className="relative w-full rounded-lg bg-white py-1 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:bg-[#FFCD19]">
-                                <span className="block truncate font-medium leading-[30px] ">
+                                <span className="truncate flex flex-row justify-between items-center font-medium leading-[30px] ">
                                     {selected.name}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={2}
+                                        stroke="currentColor"
+                                        className={`h-5 w-5 transition-transform`}>
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                        />
+                                    </svg>
                                 </span>
                             </Listbox.Button>
                             <Transition

@@ -78,7 +78,7 @@ export default function MobileUserInterfaceComponent({
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
                                     </div>
                                     <div className="font-medium text-sm md:text-3xl">
-                                        BALANCE: {qhTokenBalance} QH
+                                        BALANCE: {qhTokenBalance} QPD
                                     </div>
                                     <div className="font-medium text-sm md:text-3xl">
                                         TICKET BALANCE: {session.user.ticket_num}

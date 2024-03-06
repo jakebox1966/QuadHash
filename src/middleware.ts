@@ -10,7 +10,7 @@ const publicPages = [
     '/saza_gaza',
     '/terms_of_use',
     '/contact',
-    '/collection',
+    '/collectables',
     '/signIn',
     '/white_paper',
     '/notFound',

@@ -18,8 +18,8 @@ export default function Navbar(props: INavbarProps) {
     const menuList = [
         'about',
         'saza_gaza',
-        'collection',
-        'qh_token',
+        'collectables',
+        'qpd_token',
         'dynamicNFT',
         'fractional_investment',
     ]

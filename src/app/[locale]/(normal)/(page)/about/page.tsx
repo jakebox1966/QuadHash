@@ -23,7 +23,7 @@ export default function AboutPage(props: IAboutPageProps) {
                                 <div>JOURNEY</div>
                             </div>
                             <div className="text-[20px]">
-                                "Dive into the dynamic world of Quadhash.”
+                                "Dive into the dynamic world of QUADHASH.”
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@ export default function AboutPage(props: IAboutPageProps) {
                     </div>
                     <div className="text-center font-medium">
                         <div>"Dive into the dynamic world of </div>
-                        <div>Quadhash.”</div>
+                        <div>QUADHASH.”</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div className="text-[20px] flex flex-row">
                                 <div className="text-nowrap">
                                     <div>
-                                        "At Quadhash, we aim to create a unique ecosystem where art,
+                                        "At QUADHASH, we aim to create a unique ecosystem where art,
                                         technology,
                                     </div>
                                     <div>
@@ -126,7 +126,7 @@ export default function AboutPage(props: IAboutPageProps) {
                         </div>
                         <div className="text-[17px]">
                             <div>
-                                "At Quadhash, we aim to create a unique ecosystem where art,
+                                "At QUADHASH, we aim to create a unique ecosystem where art,
                                 technology, and intellectual property
                             </div>
                             <div>
@@ -164,14 +164,14 @@ export default function AboutPage(props: IAboutPageProps) {
                     </div>
                 </div>
             </div>
-            <MarQueeTextComponent text={"LET'S WORK TOGETHER"} />
+            <MarQueeTextComponent text={"LET'S WORK TOGETHER"} space={false} />
 
             <div className="hidden min-h-[1064px] bg-[#00B0FF] w-full lg:flex flex-col items-center text-[#FFFFFF] ">
                 <div className="max-w-[1102px] py-[231px] font-black">
                     <div className="flex flex-col justify-center items-center gap-[28px] font-['#NeuePlak']">
                         <div className="text-[56px]">MEET THE QUADHASH TEAM</div>
                         <div className="text-[20px]">
-                            At Quadhash, Our Team Fosters the Fusion of Art and Technology
+                            At QUADHASH, Our Team Fosters the Fusion of Art and Technology
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center text-white font-black mt-[40px]">
@@ -189,7 +189,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             </div>
                             <div className="flex flex-col justify-center items-center ">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_craig_karl} alt="about_craig_karl" />
+                                    <Image src={about_burton_morris} alt="about_burton_morris" />
                                 </div>
                                 <div className="text-center mt-[38.65px]">
                                     <div className="font-['#NeuePlak'] text-[18px]">
@@ -202,7 +202,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             </div>
                             <div className="flex flex-col justify-center items-center">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_burton_morris} alt="about_burton_morris" />
+                                    <Image src={about_craig_karl} alt="about_craig_karl" />
                                 </div>
                                 <div className="text-center mt-[38.65px]">
                                     <div className="font-['#NeuePlak'] text-[18px]">
@@ -227,7 +227,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>TEAM</div>
                         </div>
                         <div className="text-[17px] font-medium">
-                            <div>At Quadhash, Our Team Fasters the</div>
+                            <div>At QUADHASH, Our Team Fasters the</div>
                             <div>Fusion of Art and Technology</div>
                         </div>
 
@@ -245,7 +245,7 @@ export default function AboutPage(props: IAboutPageProps) {
                         <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_craig_karl} alt={'about_craig_karl'} />
+                                    <Image src={about_burton_morris} alt={'about_burton_morris'} />
                                 </div>
                             </div>
                             <div className="mt-[39px] text-[18px] font-['#NeuePlak']">
@@ -259,7 +259,7 @@ export default function AboutPage(props: IAboutPageProps) {
                         <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_burton_morris} alt={'about_burton_morris'} />
+                                    <Image src={about_craig_karl} alt={'about_craig_karl'} />
                                 </div>
                             </div>
                             <div className="mt-[39px] text-[18px] font-['#NeuePlak']">

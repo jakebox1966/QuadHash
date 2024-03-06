@@ -33,7 +33,7 @@ export default function CardComponent({
         if (tokenType === 'saza') {
             imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/art/${item}.png`
         } else if (tokenType === 'gaza') {
-            imgUrl = `https://gaza.quadhash.io/art/${item}.png`
+            imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/art/${item}.png`
         }
     }
 
@@ -47,11 +47,11 @@ export default function CardComponent({
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
-                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
+                <div className="w-full text-center transition-all z-20 p-1 font-medium cursor-pointer mt-[6px]">
                     <div className="text-[10.4px] text-[#7A7A7A]">
                         {queryParam.token_type.toUpperCase()}
                     </div>
-                    <div>NO.{item}</div>
+                    <div className="text-[11.2px] mt-[6px]">NO. {item}</div>
                 </div>
             </div>
         </>
