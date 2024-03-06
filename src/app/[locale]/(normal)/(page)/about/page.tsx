@@ -4,7 +4,7 @@ import Image from 'next/image'
 import * as React from 'react'
 import aboutFirstImage from '/public/main_second_image.png'
 import aboutSaza from '/public/about_saza.png'
-import aboutdoo2 from '/public/about_doo2.png'
+import aboutdoo2 from '/public/about_doo2.jpeg'
 import about_craig_karl from '/public/about_craig_karl.png'
 import about_burton_morris from '/public/about_burton_morris.png'
 import MarQueeTextComponent from '../../components/main/MarqueeText'
@@ -16,7 +16,7 @@ export default function AboutPage(props: IAboutPageProps) {
         <>
             <div className="w-full bg-[#FFCD19] hidden lg:flex flex-col justify-center items-center min-h-[500px] relative">
                 <div className="max-w-[1400px] w-full px-[50px] absolute -bottom-56">
-                    <div className="max-w-[1300px] flex flex-row justify-between items-center  w-full">
+                    <div className="max-w-[1300px] flex flex-row justify-between items-center w-full">
                         <div className="bg-[#FFFFFF] rounded-lg pt-[40px] pb-[82px] px-[25px] font-black flex flex-col justify-center items-start gap-[32px] w-[525px] h-[400px] shadow-lg">
                             <div className="text-[51.9px] font-['#NeuePlak'] font-black leading-[72px]">
                                 <div>OUR</div>
@@ -177,7 +177,9 @@ export default function AboutPage(props: IAboutPageProps) {
                     <div className="flex flex-col justify-center items-center text-white font-black mt-[40px]">
                         <div className="grid grid-cols-3 gap-[32.48px] px-12 w-full">
                             <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
-                                <Image src={aboutdoo2} alt="about_doo2" />
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={aboutdoo2} alt="about_doo2" />
+                                </div>
                                 <div className="text-center mt-[38.65px]">
                                     <div className="font-['#NeuePlak'] text-[18px]">IAMDOO2</div>
                                     <div className="font-['#PlusJakartaSans'] text-[14px] lg:text-sm font-normal mt-[6.54px]">
@@ -185,8 +187,10 @@ export default function AboutPage(props: IAboutPageProps) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
-                                <Image src={about_craig_karl} alt="about_doo2" />
+                            <div className="flex flex-col justify-center items-center ">
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={about_craig_karl} alt="about_craig_karl" />
+                                </div>
                                 <div className="text-center mt-[38.65px]">
                                     <div className="font-['#NeuePlak'] text-[18px]">
                                         CRAIG & KARL
@@ -196,8 +200,10 @@ export default function AboutPage(props: IAboutPageProps) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
-                                <Image src={about_burton_morris} alt="about_doo2" />
+                            <div className="flex flex-col justify-center items-center">
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={about_burton_morris} alt="about_burton_morris" />
+                                </div>
                                 <div className="text-center mt-[38.65px]">
                                     <div className="font-['#NeuePlak'] text-[18px]">
                                         BURTON MORRIS
@@ -227,7 +233,9 @@ export default function AboutPage(props: IAboutPageProps) {
 
                         <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
-                                <Image src={aboutdoo2} alt={'aboutdoo2'} />
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={aboutdoo2} alt={'aboutdoo2'} />
+                                </div>
                             </div>
                             <div className="mt-[39px] text-[18px] font-['#NeuePlak']">IAMDOO2</div>
                             <div className="font-['#PlusJakartaSans'] text-[14px] font-medium mt-[6.54px]">
@@ -236,7 +244,9 @@ export default function AboutPage(props: IAboutPageProps) {
                         </div>
                         <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
-                                <Image src={about_craig_karl} alt={'about_craig_karl'} />
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={about_craig_karl} alt={'about_craig_karl'} />
+                                </div>
                             </div>
                             <div className="mt-[39px] text-[18px] font-['#NeuePlak']">
                                 CRAIG & KARL
@@ -248,7 +258,9 @@ export default function AboutPage(props: IAboutPageProps) {
 
                         <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
-                                <Image src={about_burton_morris} alt={'about_burton_morris'} />
+                                <div className="rounded-3xl overflow-hidden">
+                                    <Image src={about_burton_morris} alt={'about_burton_morris'} />
+                                </div>
                             </div>
                             <div className="mt-[39px] text-[18px] font-['#NeuePlak']">
                                 BURTON MORRIS

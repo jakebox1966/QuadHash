@@ -28,16 +28,11 @@ export default function NFTListComponent({
 }: INFTListComponentProps) {
     const fetchData = async (pageKey: string) => {
         if (tokenType === 'saza') {
-            // return await getNftsForOwner(wallet_address, {
-            //     contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
-            //     pageSize: 20,
-            //     pageKey: pageKey,
-            // })
-            return {
-                ownedNfts: [],
-                pageKey: undefined,
-                totalCount: 0,
-            }
+            return await getNftsForOwner(wallet_address, {
+                contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
+                pageSize: 20,
+                pageKey: pageKey,
+            })
         } else if (tokenType === 'gaza') {
             return await getNftsForOwner(wallet_address, {
                 contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],

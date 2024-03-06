@@ -36,17 +36,19 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
     return (
         <>
             <div className="w-full bg-[#FFCD19] hidden lg:flex flex-col justify-center items-center min-h-[500px] relative">
-                <div className="max-w-[1300px] flex flex-row gap-20 items-center absolute top-1/2 -translate-y-11 ">
-                    <div className="bg-[#FFFFFF] rounded-lg py-8 px-2 font-black flex flex-col justify-center items-start gap-10 min-w-[525px] h-[400px] shadow-lg">
-                        <div className="text-6xl flex flex-col justify-start gap-6">
-                            <div>OPENING NEW</div>
-                            <div>CHAPTERS</div>
-                            <div>WITH EVERY</div>
-                            <div>CHARACTER</div>
+                <div className="max-w-[1400px] w-full px-[50px] absolute -bottom-1/2 translate-y-9">
+                    <div className="max-w-[1300px] flex flex-row gap-20 justify-between items-center ">
+                        <div className="bg-[#FFFFFF] rounded-lg py-8 px-[25px] font-black flex flex-col justify-center gap-10 min-w-[525px] h-[400px] shadow-lg">
+                            <div className="text-[51.9px] flex flex-col justify-start leading-[72px] font-['#NeuePlak']">
+                                <div>OPENING NEW</div>
+                                <div>CHAPTERS</div>
+                                <div>WITH EVERY</div>
+                                <div>CHARACTER</div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <Image src={sazagazaImage} alt="saza_gaza_together" quality={100} />
+                        <div>
+                            <Image src={sazagazaImage} alt="saza_gaza_together" quality={100} />
+                        </div>
                     </div>
                 </div>
             </div>

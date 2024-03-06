@@ -26,7 +26,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
                     </div>
                     <div className="lg:absolute top-20 flex flex-col justify-center items-start gap-5">
-                        <div className="text-[44.2px]">OUR COLLECTION</div>
+                        <div className="text-[44.2px] font-['#NeuePlak']">OUR COLLECTION</div>
                         <div className="text-[20px]">
                             <div>Vibrant colors, captivating characters. Explore the</div>
                             <div>Authentic digital art crafted by renowned pop Artists</div>
@@ -49,7 +49,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
             <div className="flex lg:hidden bg-[#236DF6] flex-col justify-end items-center w-full text-[#FFFFFF] font-black overflow-hidden relative ">
                 <div className="w-[330px] flex flex-col justify-end items-start relative">
                     <div className="flex flex-col justify-center items-start gap-5 min-h-[430px]">
-                        <div className="text-[35px] leading-[37px]">
+                        <div className="text-[35px] leading-[37px] font-['#NeuePlak']">
                             <div>OUR</div>
                             <div>COLLECTION</div>
                         </div>
@@ -87,7 +87,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <Image src={saza_gaza_together} alt="saza_gaza_together" />
                     </div>
                     <div className="flex flex-col justify-center items-start gap-[30px]">
-                        <div className="text-[44.2px]">NEW MERCHANDISE!</div>
+                        <div className="text-[44.2px] font-['#NeuePlak']">NEW MERCHANDISE!</div>
                         <div>"Dive Into The Dynamic World of Quadhash.”</div>
 
                         <Link
@@ -103,7 +103,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
             <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-center items-center w-full text-[#FFFFFF] font-black">
                 <div className="w-[330px] flex flex-col justify-center items-center gap-[30px]">
                     <div className="flex flex-col justify-center items-start gap-[30px] min-h-[330px]">
-                        <div className="text-[37px] leading-[37px]">
+                        <div className="text-[37px] leading-[37px] font-['#NeuePlak']">
                             <div>NEW</div>
                             <div>MERCHANDISE!</div>
                         </div>

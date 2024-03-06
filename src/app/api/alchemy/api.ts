@@ -220,7 +220,7 @@ export const getLogs = async (walletAddress: string) => {
     const response = await alchemy.core.getLogs({
         address: process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
         topics: [
-            '0x11df6712959cc8f8aab17d311d8d23a055eb63beca3cf9428063485f8d8c181d',
+            '0x03e5b31f93927f5691f3eb31a2e858197e10cb449f74bfe98e32076ce1bc7b9b',
             Utils.hexZeroPad(walletAddress, 32).toString(),
         ],
         fromBlock: '0x00',
