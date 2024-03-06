@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { formatAddress, formatToken } from '@/app/utils/ethUtils'
 import { Popover, PopoverHandler, Button, PopoverContent } from '@material-tailwind/react'

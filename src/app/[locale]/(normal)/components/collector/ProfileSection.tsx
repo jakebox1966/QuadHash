@@ -1,25 +1,16 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import * as React from 'react'
-import { Button, Menu, MenuHandler, MenuItem, MenuList } from '@material-tailwind/react'
+export const dynamic = 'force-dynamic'
 
-import { getAccounts, personalSign } from '@/app/api/wallet/api'
+import { useSession } from 'next-auth/react'
+import * as React from 'react'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
-import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import NFTSetting from './NFTSetting'
 import { backgroundPallete } from '@/app/[locale]/common/color/colorPalette'
-import QuestionMark from '/public/mypage_profile_none.png'
-import PartTooltipComponent from './PartTooltipComponent'
-
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
-
-import noneProfileImg from '/public/main_first_image.png'
-import Logo from '@/app/[locale]/common/components/header/Logo'
 import CardLoading from '@/app/[locale]/common/components/CardLoading'
 import { formatAddress } from '@/app/utils/ethUtils'
 
