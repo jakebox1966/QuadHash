@@ -35,8 +35,7 @@ export default function MobileUserInterfaceComponent({
     disconnect,
 }: IMobileUserInterfaceComponentProps) {
     const { wallet } = useMetaMask()
-    const imageUrl = `${profileNFT?.image}?${new Date().getTime()}`
-
+    const imageUrl = profileNFT ? `${profileNFT?.image}?${new Date().getTime()}` : null
     const { data: session } = useSession()
 
     return (

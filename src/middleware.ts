@@ -16,7 +16,7 @@ const publicPages = [
     '/notFound',
 ]
 
-const privatePages = ['/admin', '/dynamicNFT']
+const privatePages = ['/admin', '/dynamicNFT', '/report']
 
 const intlMiddleware = createIntlMiddleware({
     locales,

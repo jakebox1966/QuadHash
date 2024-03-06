@@ -81,7 +81,7 @@ export default function Footer(props: IFooterProps) {
                         </Link>
                     </div>
                     <div className="text-gray-400">
-                        Copyright @ 2023 QUADHASH. All Rights Reserved
+                        Copyright @ 2024 QUADHASH. All Rights Reserved
                     </div>
                 </div>
             </footer>
@@ -101,7 +101,7 @@ export default function Footer(props: IFooterProps) {
                 </div>
 
                 <hr className="w-full" />
-                <div className="flex flex-col gap-5 justify-between items-start pt-5">
+                <div className="flex flex-col gap-5 justify-between items-start">
                     <div className="font-black">FOLLOW US!</div>
                     <div className="flex flex-row justify-start items-start gap-6">
                         <Link href={'https://twitter.com/QUADHASH'} target={'_blank'}>
@@ -157,8 +157,8 @@ export default function Footer(props: IFooterProps) {
                             </svg>
                         </Link>
                     </div>
-                    <div className="text-gray-400">
-                        <div>Copyright @ 2023 QUADHASH.</div>
+                    <div className="text-gray-400 mt-5">
+                        <div>Copyright @ 2024 QUADHASH.</div>
                         <div>All Rights Reserved</div>
                     </div>
                 </div>

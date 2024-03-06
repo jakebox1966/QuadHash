@@ -23,6 +23,8 @@ export default function NormalCollectionListComponent({
             .filter((item) => item[1] !== null)
             .filter((item) => item[1].length !== 0)
 
+        console.log('process', process)
+
         const query = Object.fromEntries(process)
 
         query.page = pageParam

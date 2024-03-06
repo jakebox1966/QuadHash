@@ -63,18 +63,16 @@ export default function SelectNFTComponent({
 
     return (
         <>
-            <div className="flex flex-col w-full justify-center items-center pt-20 gap-10">
-                <div className="flex flex-col justify-center items-center gap-2">
-                    <div className="text-[#F46221] text-sm  font-black">QUADHASH</div>
-                    <div className="text-xl lg:text-3xl font-black">해킹 신고 센터</div>
+            <div className="flex flex-col w-full justify-center items-center lg:pt-[96px] gap-[100px]">
+                <div className="flex flex-col justify-start items-center gap-[12px] w-full">
+                    <div className="text-[#F46221] text-[16px] font-black">
+                        QUADHASH HACKING REPORT
+                    </div>
+                    <div className="text-[35px] lg:text-[36px] font-black">해킹 신고 센터</div>
                     <div>STEP. 2</div>
                     <div className="text-gray-900/40">신고할 NFT를 선택해주세요.</div>
                 </div>
                 <div className="flex flex-col justify-center items-center w-full">
-                    <div className="text-center lg:text-left w-full text-lg lg:text-2xl font-black p-5">
-                        Collection List
-                    </div>
-
                     {isLoading && (
                         <>
                             <div className="relative flex flex-row justify-start items-center p-5 gap-[10px] rounded-2xl flex-wrap">

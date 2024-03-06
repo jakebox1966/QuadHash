@@ -111,7 +111,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         </div>
                         <div className="w-full relative">
                             <Image src={main_third_saza} quality={100} alt="main_middle_image1" />
-                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 lg:bottom-10 lg:left-10 gap-1 font-bold">
+                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 gap-[16px] font-bold">
                                 <div className="text-[25px] drop-shadow-xl">Coming Soon</div>
                                 <Link
                                     href={'/white_paper'}

@@ -246,7 +246,7 @@ export default function FilterComponent({
     )
 
     const onChange = ({ target }) => {
-        let value
+        let value = ''
         if (target.value) {
             value = target.value.replace(/[^0-9]/g, '')
             setSearchInput(parseInt(value).toString())

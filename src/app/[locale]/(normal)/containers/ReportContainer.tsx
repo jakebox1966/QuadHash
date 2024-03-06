@@ -72,7 +72,6 @@ export default function ReportContainer(props: IReportContainerProps) {
         thirdTerm: false,
         fourthTerm: false,
         fifthTerm: false,
-        sixthTerm: false,
     })
 
     const [finalAgreement, setFinalAgreement] = React.useState(false)
@@ -115,7 +114,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                     filteredTransaction = result.transfers.filter(
                         (item) =>
                             Math.floor(new Date(item.metadata.blockTimestamp).getTime() / 1000) +
-                                60 * 60 * 24 >
+                                60 * 60 * 24 * 7 >
                             Math.floor(new Date().getTime() / 1000),
                     )
 
@@ -181,7 +180,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                 thirdTerm: false,
                 fourthTerm: false,
                 fifthTerm: false,
-                sixthTerm: false,
             }))
         }
     }, [])
@@ -227,7 +225,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                 thirdTerm: true,
                 fourthTerm: true,
                 fifthTerm: true,
-                sixthTerm: true,
             }))
         } else {
             setAgreements((prev) => ({
@@ -237,7 +234,6 @@ export default function ReportContainer(props: IReportContainerProps) {
                 thirdTerm: false,
                 fourthTerm: false,
                 fifthTerm: false,
-                sixthTerm: false,
             }))
         }
     }
@@ -348,8 +344,8 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     return (
         <>
-            <div className="flex flex-col justify-start items-start h-full px-10 min-h-[calc(100vh-176px)] gap-16 pt-20 w-full max-w-[1440px]">
-                <div className="w-full px-3 ">
+            <div className="flex flex-col justify-start items-start min-h-[calc(100vh-140px)] gap-16 pt-[96px] w-full max-w-[1400px] px-[33px] lg:px-[86px]">
+                {/* <div className="w-full">
                     <Stepper
                         activeStep={activeStep}
                         isLastStep={(value) => setIsLastStep(value)}
@@ -427,7 +423,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                             </div>
                         </Step>
                     </Stepper>
-                </div>
+                </div> */}
                 {activeStep === 0 && (
                     <>
                         <ReportAgreementComponent
@@ -438,12 +434,12 @@ export default function ReportContainer(props: IReportContainerProps) {
                             handleAgreementChange={handleAgreementChange}
                             handleAllAgreementChange={handleAllAgreementChange}
                         />
-                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                        <div className="w-full flex flex-row justify-center items-center gap-3 text-white">
                             <Button
-                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 disabled={!allAgreed}
-                                placeholder={undefined}
-                                onClick={handleNext}>
+                                onClick={handleNext}
+                                placeholder={undefined}>
                                 <span>확인</span>
                             </Button>
                         </div>
@@ -460,13 +456,13 @@ export default function ReportContainer(props: IReportContainerProps) {
 
                         <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
                             <Button
-                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 placeholder={undefined}
                                 onClick={handlePrev}>
                                 <span>뒤로</span>
                             </Button>
                             <Button
-                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 disabled={inputs.post_nfts.length === 0}
                                 placeholder={undefined}
                                 onClick={handleNext}>
@@ -493,13 +489,13 @@ export default function ReportContainer(props: IReportContainerProps) {
 
                         <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
                             <Button
-                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 placeholder={undefined}
                                 onClick={handlePrev}>
                                 <span>뒤로</span>
                             </Button>
                             <Button
-                                className="rounded-lg px-10 bg-[#F46221] shadow-lg text-white w-[130px]"
+                                className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 disabled={
                                     // inputs.user_name === '' ||
                                     // inputs.title === '' ||

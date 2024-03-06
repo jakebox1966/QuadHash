@@ -82,6 +82,9 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
     const [metadata, setMetadata] = React.useState(null)
     const [imageUrl, setImageUrl] = React.useState(null)
 
+    React.useEffect(() => {
+        console.log(searchInput)
+    }, [searchInput])
     /**
      * 모달 Control
      */
@@ -251,6 +254,12 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
         }))
         // setBurtonMorris(false)
     }
+
+    React.useEffect(() => {
+        if (searchInput === '') {
+            handleSearchParam()
+        }
+    }, [searchInput])
 
     return (
         <>

@@ -64,7 +64,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     <Link
                         href={'https://www.instagram.com/saza.gaza/'}
                         target="_blank"
-                        className="bg-[#FFFFFF] border-black text-[16px] border-[1px] text-center text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] flex flex-row justify-center items-center gap-2">
+                        className="bg-[#FFFFFF] border-black text-[16px] text-center text-black border-[1px] py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] flex flex-row justify-center items-center gap-2">
                         <div>
                             <Image src={insta} alt="insta_icon" />
                         </div>
@@ -254,7 +254,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                 </div>
             </div>
             <div className="lg:hidden w-full">
-                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY # '} space={true} />
+                <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} space={true} />
             </div>
             <div className="flex flex-col justify-center items-center py-20 lg:hidden ">
                 <div className="max-w-[330px]">

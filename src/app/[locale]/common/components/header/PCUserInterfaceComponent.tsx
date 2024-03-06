@@ -33,7 +33,8 @@ export default function PCUserInterfaceComponent({
     disconnect,
 }: IPCUserInterfaceComponentProps) {
     const { wallet } = useMetaMask()
-    const imageUrl = `${profileNFT?.image}?${new Date().getTime()}`
+
+    const imageUrl = profileNFT ? `${profileNFT?.image}?${new Date().getTime()}` : null
 
     const { data: session } = useSession()
 

@@ -12,7 +12,6 @@ export interface IReportAgreementComponentProps {
         thirdTerm: boolean
         fourthTerm: boolean
         fifthTerm: boolean
-        sixthTerm: boolean
     }
     setAgreements: React.Dispatch<
         React.SetStateAction<{
@@ -21,7 +20,6 @@ export interface IReportAgreementComponentProps {
             thirdTerm: boolean
             fourthTerm: boolean
             fifthTerm: boolean
-            sixthTerm: boolean
         }>
     >
     handleAgreementChange: (e: {
@@ -39,76 +37,40 @@ export interface IReportAgreementComponentProps {
 
 export default function ReportAgreementComponent({
     allAgreed,
-    setAllAgreed,
     agreements,
-    setAgreements,
     handleAgreementChange,
     handleAllAgreementChange,
 }: IReportAgreementComponentProps) {
     return (
         <>
-            <div className="flex flex-col w-full justify-center items-center pt-20 gap-10">
-                <div className="flex flex-col justify-center items-center gap-2">
-                    <div className="text-[#F46221] text-sm font-black">QUADHASH</div>
-                    <div className="text-xl lg:text-3xl font-black">해킹 신고 센터</div>
+            <div className="flex flex-col w-full justify-center items-center lg:pt-[96px] gap-[100px]">
+                <div className="flex flex-col justify-start items-center gap-[12px] w-full">
+                    <div className="text-[#F46221] text-[16px] font-black">
+                        QUADHASH HACKING REPORT
+                    </div>
+                    <div className="text-[35px] lg:text-[36px] font-black">해킹 신고 센터</div>
                     <div>STEP. 1</div>
                     <div className="text-gray-900/40">약관에 동의해 주세요.</div>
                 </div>
                 <div className="flex flex-col gap-5 ">
-                    <div className="text-xl lg:text-3xl font-black flex flex-row justify-start items-center gap-3">
+                    <div className="text-[20px] lg:text-[36px] font-black flex flex-row justify-start items-center gap-3">
                         <div>주의사항 및 신고 안내 가이드</div>
-                        {/* <div>
-                            <Checkbox
-                                ripple={false}
-                                id="allAghreed"
-                                label={
-                                    <Typography
-                                        color="blue-gray"
-                                        className="font-medium text-xs lg:text-base"
-                                        placeholder={undefined}>
-                                        전체동의
-                                    </Typography>
-                                }
-                                name="allAgreed"
-                                className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
-                                crossOrigin={undefined}
-                                checked={allAgreed}
-                                onChange={handleAllAgreementChange}
-                            />
-                        </div> */}
                     </div>
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
                             ripple={false}
                             id="allAghreed"
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    전체동의
-                                </Typography>
-                            }
                             name="allAgreed"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
                             crossOrigin={undefined}
                             checked={allAgreed}
                             onChange={handleAllAgreementChange}
                         />
+                        <div className="text-[12px] p-3 lg:text-[20px]">전체동의</div>
                     </div>
 
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    해킹 피해 신고를 한 계정에 등록된 개인정보가 허위이거나
-                                    부정확하게 기입되어 발생하는 모든 문제는 사용자 본인의 책임으로
-                                    간주하며, 이에 대해 동의합니다.
-                                </Typography>
-                            }
                             ripple={false}
                             name="firstTerm"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
@@ -116,18 +78,15 @@ export default function ReportAgreementComponent({
                             checked={agreements.firstTerm}
                             onChange={handleAgreementChange}
                         />
+                        <div className="text-[12px] p-3 lg:text-[20px]">
+                            해킹 피해 신고를 위해 제공된 모든 정보가 사실임을 확신하며, 만일 기재된
+                            정보가 사실과 다르거나 고의적으로 생략되었을 경우 발생하는 모든 문제와
+                            책임은 신고자에게 있습니다. (법적분쟁 발생 시 사법기관의 요청에 따라
+                            신고자의 개인정보가 제공될 수 있습니다.)
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    신고된 계정에서 일어난 피해가 본인의 개인정보 유출이나 개인정보
-                                    관리 부실 등으로 인해 발생하지 않았음을 확인합니다
-                                </Typography>
-                            }
                             ripple={false}
                             name="secondTerm"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
@@ -135,18 +94,15 @@ export default function ReportAgreementComponent({
                             checked={agreements.secondTerm}
                             onChange={handleAgreementChange}
                         />
+                        <div className="text-[12px] p-3 lg:text-[20px]">
+                            해킹 피해 신고를 위해 제공된 모든 정보가 사실임을 확신하며, 만일 기재된
+                            정보가 사실과 다르거나 고의적으로 생략되었을 경우 발생하는 모든 문제와
+                            책임은 신고자에게 있습니다. (법적분쟁 발생 시 사법기관의 요청에 따라
+                            신고자의 개인정보가 제공될 수 있습니다.)
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    사용자는 토큰 구매와 서비스 이용에 필요한 모든 조건을 충분히
-                                    이해하고, 이에 동의합니다.
-                                </Typography>
-                            }
                             ripple={false}
                             name="thirdTerm"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
@@ -154,21 +110,16 @@ export default function ReportAgreementComponent({
                             checked={agreements.thirdTerm}
                             onChange={handleAgreementChange}
                         />
+                        <div className="text-[12px] p-3 lg:text-[20px]">
+                            본 서비스는 피해 발생 시점의 온체인 데이터를 기준으로 7일 이내에 신고된
+                            해킹 피해에 대해서만 지원됩니다. 단, 이미 거래가 되었거나 이동이 발생한
+                            경우에는 신고 시점과 관계 없이 서비스 지원이 제한될 수 있습니다. 또한
+                            신고 접수 이후 서비스 제공 중에 거래 또는 이동이 발생한 경우에도 서비스
+                            지원이 중단될 수 있습니다.
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    해킹 피해 신고 시 제공한 모든 정보는 사실임을 확신하며, 허위로
-                                    기재하거나 고의적으로 신고 내용에서 생략한 사실로 인해 발생하는
-                                    모든 문제와 책임은 본인이 지게 됨을 약속합니다. (이 내용 및 신고
-                                    내용은 사법기관[사이버 수사대 등]의 공식 요청이 있을 경우 제공될
-                                    수 있습니다.)
-                                </Typography>
-                            }
                             ripple={false}
                             name="fourthTerm"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
@@ -176,19 +127,13 @@ export default function ReportAgreementComponent({
                             checked={agreements.fourthTerm}
                             onChange={handleAgreementChange}
                         />
+                        <div className="text-[12px] p-3 lg:text-[20px]">
+                            해킹 신고 접수가 완료된 계정이나 토큰은 조사 및 복구를 위해 일시적으로
+                            이용이 제한될 수 있습니다.
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    해킹 신고에 대해 정상적으로 신고 접수가 완료된 계정은 조사 및
-                                    복구를 위해 일시적으로 이용이 제한될 수 있음을 이해하고
-                                    동의합니다. 복구가 완료될 때까지 이용이 제한될 수 있습니다.
-                                </Typography>
-                            }
                             ripple={false}
                             name="fifthTerm"
                             className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
@@ -196,24 +141,9 @@ export default function ReportAgreementComponent({
                             checked={agreements.fifthTerm}
                             onChange={handleAgreementChange}
                         />
-                    </div>
-                    <div>
-                        <Checkbox
-                            label={
-                                <Typography
-                                    color="blue-gray"
-                                    className="font-medium text-xs lg:text-base"
-                                    placeholder={undefined}>
-                                    이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다.
-                                </Typography>
-                            }
-                            ripple={false}
-                            name="sixthTerm"
-                            className="h-8 w-8 transition-all border-gray-900/20 bg-gray-900/10 checked:!bg-[#F46221] border-none hover:scale-105 hover:before:opacity-0"
-                            crossOrigin={undefined}
-                            checked={agreements.sixthTerm}
-                            onChange={handleAgreementChange}
-                        />
+                        <div className="text-[12px] p-3 lg:text-[20px]">
+                            이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다.
+                        </div>
                     </div>
                 </div>
             </div>

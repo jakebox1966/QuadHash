@@ -22,7 +22,7 @@ export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerP
                 </div>
                 <Link
                     href={'/dynamicNFT/list'}
-                    className="bg-[#FFFFFF] min-w-[210px] text-[16px] lg:text-[20px] border-black font-medium text-black py-2 px-4 border-2 rounded-full shadow-[_5px_5px_black] text-center gap-2 cursor-pointer hover:opacity-60">
+                    className="bg-[#FFFFFF] min-w-[210px] text-[16px] lg:text-[20px] border-black font-medium text-black border-[1px] py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black] text-center gap-2 cursor-pointer hover:opacity-60">
                     PLAY NOW
                 </Link>
             </div>

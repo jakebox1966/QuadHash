@@ -33,7 +33,7 @@ export default function CardComponent({ item, tokenType, onClick }: ICardCompone
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
                     <div className="text-[10.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
-                    <div>No.{item?.tokenId}</div>
+                    <div>No. {item?.tokenId}</div>
                 </div>
             </div>
         </>
