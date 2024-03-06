@@ -73,7 +73,7 @@ export default function CollectionDetailModalComponent({
             {imageUrl && (
                 <ThemeProvider value={customTheme}>
                     <Dialog
-                        className={`!max-w-fit rounded-lg relative`}
+                        className={`!max-w-fit rounded-lg relative overflow-hidden`}
                         size="lg"
                         open={open}
                         handler={handleOpen}
@@ -129,10 +129,10 @@ export default function CollectionDetailModalComponent({
                                     <div className="lg:hidden flex flex-col w-full px-5 py-3 justify-center mt-5">
                                         <div className="flex flex-row justify-between items-center max-h-[50px]">
                                             <div>
-                                                <div className="text-[12px] font-medium">
+                                                <div className="text-[12px] font-medium tracking-[0.05rem]">
                                                     QUADHASH
                                                 </div>
-                                                <div className="text-[24px] font-black">
+                                                <div className="text-[24px] font-black tracking-[0.05rem]">
                                                     {metadata?.name.split(':')[1].trim()}
                                                 </div>
                                             </div>
@@ -221,12 +221,12 @@ export default function CollectionDetailModalComponent({
                                                     .map((item, index) => (
                                                         <SwiperSlide key={`${item}_${index}`}>
                                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                                <div className="text-[10.85px]">
+                                                                <div className="text-[12px]">
                                                                     {item.trait_type !== 'Dcount'
                                                                         ? item.trait_type.toUpperCase()
-                                                                        : 'Dynamic NFT'}
+                                                                        : 'DYNAMIC NFT'}
                                                                 </div>
-                                                                <div className="font-black text-[11.81px]">
+                                                                <div className="font-black text-[14px]">
                                                                     {item.value}
                                                                 </div>
                                                             </div>
@@ -234,10 +234,10 @@ export default function CollectionDetailModalComponent({
                                                     ))}
                                                 <SwiperSlide>
                                                     <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                        <div className="text-[10.85px]">
-                                                            {metadata?.attributes[0].trait_type}
+                                                        <div className="text-[12px]">
+                                                            {metadata?.attributes[0].trait_type.toUpperCase()}
                                                         </div>
-                                                        <div className="font-black text-[11.81px]">
+                                                        <div className="font-black text-[14px]">
                                                             {metadata?.attributes[0].value}
                                                         </div>
                                                     </div>
@@ -250,12 +250,12 @@ export default function CollectionDetailModalComponent({
                             {!burtonMorris && (
                                 <div
                                     className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-3 items-start hidden`}>
-                                    <div className="flex flex-row flex-wrap gap-4 max-w-[550px] justify-start items-center pl-10">
+                                    <div className="flex flex-row flex-wrap gap-[0.75rem] max-w-[550px] justify-start items-center pl-10">
                                         <div className="flex w-[calc(100%/2-4rem)] min-w-[250px] flex-col justify-center font-bold p-2">
-                                            <div className="text-[11.81px]">
+                                            <div className="text-[12px] tracking-[0.05rem]">
                                                 {metadata?.name.split(':')[0].trim()}
                                             </div>
-                                            <div className="text-[25px]">
+                                            <div className="text-[25px] tracking-[0.05rem]">
                                                 {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
@@ -266,25 +266,25 @@ export default function CollectionDetailModalComponent({
                                             .map((item) => (
                                                 <div
                                                     key={item.trait_type}
-                                                    className="w-[calc(100%/2-4rem)] max-w-[250px] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
+                                                    className="w-[calc(100%/2-4rem)] max-w-[250px] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-[0.1] bg-black rounded-[0.25rem] tracking-[0.05rem]">
                                                     <div>
-                                                        <div className="text-[10.85px]">
+                                                        <div className="text-[12px]">
                                                             {item.trait_type !== 'Dcount'
                                                                 ? item.trait_type.toUpperCase()
-                                                                : 'Dynamic NFT'}
+                                                                : 'DYNAMIC NFT'}
                                                         </div>
-                                                        <div className="font-black text-[11.81px]">
+                                                        <div className="font-black text-[14px]">
                                                             {item.value}
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))}
-                                        <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
+                                        <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-[0.1] bg-black rounded-[0.25rem] tracking-[0.05rem]">
                                             <div>
-                                                <div className="text-[10.85px]">
-                                                    {metadata?.attributes[0].trait_type}
+                                                <div className="text-[12px]">
+                                                    {metadata?.attributes[0].trait_type.toUpperCase()}
                                                 </div>
-                                                <div className="font-black text-[11.81px]">
+                                                <div className="font-black text-[14px]">
                                                     {metadata?.attributes[0].value}
                                                 </div>
                                             </div>
