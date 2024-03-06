@@ -13,6 +13,7 @@ import { locales } from '@/i18nconfig'
 import Image from 'next/image'
 
 import saza_super from '/public/saza_super.png'
+import { useSession } from 'next-auth/react'
 
 export interface INFTListComponentProps {
     wallet_address: string
@@ -26,6 +27,7 @@ export default function NFTListComponent({
     tokenType,
     openDetailModal,
 }: INFTListComponentProps) {
+    const { data: session } = useSession()
     const fetchData = async (pageKey: string) => {
         if (tokenType === 'saza') {
             return await getNftsForOwner(wallet_address, {
@@ -49,7 +51,7 @@ export default function NFTListComponent({
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getCollectionByOwner', tokenType],
+        queryKey: ['getCollectionByOwner', tokenType, session],
         queryFn: (query) => fetchData(query.pageParam),
         getNextPageParam: (lastPage: any, allPages) => {
             const pageKey = lastPage.pageKey

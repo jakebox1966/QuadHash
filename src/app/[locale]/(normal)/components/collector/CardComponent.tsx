@@ -12,9 +12,13 @@ export default function CardComponent({ item, tokenType, onClick }: ICardCompone
     let imgUrl = ''
 
     if (tokenType === 'saza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${item.tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${
+            item.tokenId
+        }.png?${new Date().getTime()}`
     } else if (tokenType === 'gaza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${item.tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${
+            item.tokenId
+        }.png?${new Date().getTime()}`
     }
 
     return (

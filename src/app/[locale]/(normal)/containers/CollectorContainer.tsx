@@ -81,7 +81,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
         setMetadata(metadata)
 
-        setImageUrl(metadata.image)
+        setImageUrl(`${metadata.image}?${new Date().getTime()}`)
 
         const backgroundColor = metadata.attributes.find((item) => {
             return item.trait_type === 'Background'

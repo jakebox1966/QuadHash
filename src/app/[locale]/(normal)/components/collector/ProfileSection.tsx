@@ -222,9 +222,13 @@ export default function ProfileSection({
 
         let imageUrl
         if (tokenType === 'saza') {
-            imageUrl = `${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${tokenId}.png`
+            imageUrl = `${
+                process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL
+            }/${tokenId}.png?${new Date().getTime()}`
         } else if (tokenType === 'gaza') {
-            imageUrl = `${process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL}/${tokenId}.png`
+            imageUrl = `${
+                process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL
+            }/${tokenId}.png?${new Date().getTime()}`
         }
 
         return (

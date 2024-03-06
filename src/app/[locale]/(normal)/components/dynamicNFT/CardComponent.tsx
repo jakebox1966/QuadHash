@@ -15,9 +15,9 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
     let imgUrl = ''
 
     if (tokenType === 'saza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_SAZA_S3_IMG_URL}/${tokenId}.png?${new Date().getTime()}`
     } else if (tokenType === 'gaza') {
-        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL}/${tokenId}.png`
+        imgUrl = `${process.env.NEXT_PUBLIC_GAZA_S3_IMG_URL}/${tokenId}.png?${new Date().getTime()}`
     }
 
     return (
