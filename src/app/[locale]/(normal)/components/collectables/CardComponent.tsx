@@ -40,7 +40,7 @@ export default function CardComponent({
     return (
         <>
             <div
-                className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
+                className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
                 onClick={() => onClick(item, queryParam.token_type)}>
                 <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">

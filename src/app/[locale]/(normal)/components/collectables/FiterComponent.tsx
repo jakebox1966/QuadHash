@@ -262,7 +262,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 min-h-fit max-h-[calc(100vh/2+300px)] overflow-x-hidden sticky top-[140px]">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 min-h-fit max-h-[calc(100vh/2+100px)] overflow-x-hidden sticky top-[140px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -305,7 +305,7 @@ export default function FilterComponent({
                     />
                 </div>
 
-                <div className="w-full overflow-y-auto">
+                <div className="w-full overflow-y-auto h-screen">
                     {partFilterList.map((item, index) => (
                         <Accordion
                             disabled={burtonMorris ? true : false}
@@ -334,16 +334,16 @@ export default function FilterComponent({
                             }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none bg-[#FFFFFF] !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
+                                className="border-none bg-[#FFFFFF] h-[64px] !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
                             </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer min-h-fit">
+                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
-                                        className="text-black font-medium pl-[30px] text-xs"
+                                        className="text-black font-medium pl-[30px] h-[50px] text-xs"
                                         onClick={() =>
                                             handlePartParam(item.part_category, partName)
                                         }>

@@ -263,8 +263,8 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
 
     return (
         <>
-            <div className="max-w-[1400px] px-[50px]">
-                <div className="max-w-[1300px] w-full flex flex-col justify-center items-center lg:flex-row lg:justify-center lg:items-start gap-5">
+            <div className="max-w-[1400px] px-[16px] lg:px-[50px]">
+                <div className="max-w-[1300px] w-full flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start gap-5">
                     <FilterComponent
                         isMobileFilterOpen={isMobileFilterOpen}
                         setIsMobileFilterOpen={setIsMobileFilterOpen}

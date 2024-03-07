@@ -36,11 +36,11 @@ export default function TabComponent({
     }, [burtonMorris])
 
     return (
-        <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full max-w-[970px]">
+        <div className="hidden lg:flex flex-row justify-start items-center gap-2 w-full">
             <div
                 className={`${
                     queryParam.token_type === 'saza' ? 'bg-[#FFCD19]' : ''
-                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                } border-2 rounded-full px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
@@ -52,7 +52,7 @@ export default function TabComponent({
             <div
                 className={`${
                     queryParam.token_type === 'gaza' ? 'bg-[#FFCD19]' : ''
-                } border-2 rounded-full px-6 py-1 w-[calc(100%/3-7px)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                } border-2 rounded-full px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>
@@ -61,20 +61,9 @@ export default function TabComponent({
                     <div className="tracking-wider">GAZA</div>
                 </div>
             </div>
-            {/* <div
-                className={`${
-                    queryParam.token_type === 'qbt' ? 'border-[#F46221]' : ''
-                } border-2 rounded-lg px-6 py-1 w-[calc(100%/4)] cursor-pointer tansition-all`}
-                onClick={() => {
-                    handleNftTypeParam('exclusive')
-                }}>
-                <div className="flex flex-row items-center gap-2">
-                    <Image src={mypage_qbt_icon} alt="qbt_icon" width={30} height={30} />
-                    <div>QBT NFT</div>
-                </div>
-            </div> */}
+
             {!burtonMorris && (
-                <div className="w-[calc(100%/3-7px)] z-20">
+                <div className="w-[calc(100%/3)] z-20">
                     <Listbox
                         value={selected.value}
                         onChange={(value) => {
