@@ -8,16 +8,16 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
         <>
             <div className="bg-[#FFCD19] w-full flex flex-col justify-center items-center text-[#FFFFFF] pt-40 lg:pt-60 gap-28 ">
                 <div className="flex flex-col justify-center items-center max-w-[1000px] gap-[32px]">
-                    <div className="hidden lg:flex flex-col justify-center items-center gap-3 text-[70px] leading-[55px] font-NeuePlak">
+                    <div className="hidden lg:flex flex-col justify-center items-center font-[500] gap-3 text-[70px] leading-[55px] font-NeuePlak">
                         <div>QUADHASH.</div>
                         <div>A NEW ERA OF CREATIVITY</div>
                     </div>
-                    <div className="flex lg:hidden flex-col justify-center items-center text-[35px] leading-[37px] font-NeuePlak">
+                    <div className="flex lg:hidden flex-col justify-center items-center text-[35px] font-[400] leading-[37px] font-NeuePlak">
                         <div>QUADHASH.</div>
                         <div>A NEW ERA OF </div>
                         <div>CREATIVITY</div>
                     </div>
-                    <div className="hidden lg:flex flex-col font-NanumSquare justify-center items-center text-[19px] w-full">
+                    <div className="hidden lg:flex flex-col font-NanumSquare font-[700] justify-center items-center text-[20px] leading-[24px] w-full">
                         <div>
                             QUADHASH(쿼드해시) 프로젝트는 디지털 아트의 새로운 가능성을 제시하고
                             있습니다.
@@ -39,7 +39,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                     </div>
                 </div>
             </div>
-            <div className="min-h-[200px] lg:min-h-[700px] w-full bg-[#FFCD19] relative flex flex-col items-center">
+            <div className="min-h-[250px] lg:min-h-[700px] w-full bg-[#FFCD19] relative flex flex-col items-center">
                 <img
                     className="w-full absolute bottom-0"
                     src="/homepage_1.png"

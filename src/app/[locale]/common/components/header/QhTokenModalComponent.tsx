@@ -184,7 +184,7 @@ export default function QhTokenModalComponent({
         if (await $confirm('Ticket을 구매하시겠습니까?')) {
             const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
 
-            const realTokenAmount = tokenAmount * 10 ** 18
+            const realTokenAmount = tokenAmount * 10 ** 6
 
             /**
              * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
@@ -295,7 +295,7 @@ export default function QhTokenModalComponent({
 
             // console.log('ticketPrice', ticketPrice)
 
-            setTicketPrice(ticketPrice / 10 ** 18)
+            setTicketPrice(ticketPrice / 10 ** 6)
         }
         setTokenAmount(0)
         setTicketAmount(0)
@@ -464,7 +464,7 @@ export default function QhTokenModalComponent({
                                                         {transactionHash}
                                                     </td>
                                                     <td className="p-3 px-5">
-                                                        {parseInt(data, 16) / 10 ** 18 / 10}
+                                                        {parseInt(data, 16) / 10 ** 6 / 10}
                                                     </td>
                                                     <td className="p-3 px-5 text-[#FFFFFF]">
                                                         <div className="flex flex-row justify-center items-center bg-[#18AB56] px-5 py-1 rounded-full gap-2 align-middle">

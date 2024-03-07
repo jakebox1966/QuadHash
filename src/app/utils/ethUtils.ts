@@ -27,5 +27,5 @@ export const calcCoinPriceWithWei = (coinAmount: number, coinPriceInWei: number)
 }
 
 export const formatToken = (token) => {
-    return token / 10 ** 18
+    return token / 10 ** 6
 }
