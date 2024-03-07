@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react'
-import FilterComponent from '../components/collectables/FiterComponent'
+import FilterComponent from '../components/collectables/FilterComponent'
 import TabComponent from '../components/collectables/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { getCollectionList } from '@/app/api/collection/api'

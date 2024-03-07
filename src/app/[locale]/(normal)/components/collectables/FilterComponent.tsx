@@ -262,7 +262,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 min-h-fit max-h-[calc(100vh/2+100px)] overflow-x-hidden sticky top-[140px]">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 h-[calc(100vh-140px)] max-h-full overflow-x-hidden sticky top-[140px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -305,7 +305,7 @@ export default function FilterComponent({
                     />
                 </div>
 
-                <div className="w-full overflow-y-auto h-screen">
+                <div className="w-full overflow-y-auto">
                     {partFilterList.map((item, index) => (
                         <Accordion
                             disabled={burtonMorris ? true : false}
