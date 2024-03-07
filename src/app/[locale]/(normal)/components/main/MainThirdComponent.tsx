@@ -18,11 +18,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
         <>
             <div className="hidden w-full lg:flex flex-col justify-center items-center pt-[294px] bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
-                    <div className="font-['#NeuePlak'] lg:text-[70px] text-center leading-[60px]">
+                    <div className="font-NeuePlak lg:text-[70px] text-center leading-[60px]">
                         <div>START YOUR JOURNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
-                    <div className="text-[32px] text-center">
+                    <div className="text-[32px] text-center font-NeuePlak leading-[35px]">
                         <div>WE PRESENT A COLLECTION</div>
                         <div>OF EXCLUSIVE AND UNIQUE WORKS</div>
                     </div>
@@ -60,9 +60,9 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                             <Link
                                 href={'/white_paper'}
                                 className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
-                                <div className="text-[44.2px] drop-shadow-xl">Coming Soon</div>
+                                <div className="text-[44.2px] drop-shadow-xl">White Paper</div>
                                 <div className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
-                                    PLAY NOW
+                                    VIEW
                                 </div>
                             </Link>
                         </div>
@@ -71,13 +71,13 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
             </div>
 
             <div className="lg:hidden w-full flex flex-col justify-center items-center bg-[#FEFAE0] py-[80px]">
-                <div className="flex flex-col justify-center items-start w-[330px] text-black font-black gap-[27px]">
-                    <div className="text-[35px] leading-[37px] font-[400px]">
+                <div className="flex flex-col justify-center items-center w-[330px] text-black font-black gap-[27px]">
+                    <div className="text-[35px] leading-[37px] font-[400px] font-NeuePlak w-full text-center">
                         <div>START YOUR </div>
                         <div>JOURNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
-                    <div className="text-[17px]">
+                    <div className="text-[17px] text-center">
                         <div>WE PRESENT A COLLECTION</div>
                         <div>OF EXCLUSIVE AND UNIQUE WORKS</div>
                     </div>
@@ -112,11 +112,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="w-full relative">
                             <Image src={main_third_saza} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 gap-[16px] font-bold">
-                                <div className="text-[25px] drop-shadow-xl">Coming Soon</div>
+                                <div className="text-[25px] drop-shadow-xl">White Paper</div>
                                 <Link
                                     href={'/white_paper'}
                                     className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
-                                    PLAY NOW
+                                    VIEW
                                 </Link>
                             </div>
                         </div>

@@ -14,6 +14,10 @@ const config: Config = withMT({
     },
     // darkMode: ['class'],
     theme: {
+        fontFamily: {
+            NeuePlak: ['NeuePlak'],
+            NanumSquare: ['NanumSquare'],
+        },
         extend: {
             screens: {
                 sm: '640px',
