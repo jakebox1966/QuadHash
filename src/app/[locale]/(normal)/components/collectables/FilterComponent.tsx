@@ -262,7 +262,7 @@ export default function FilterComponent({
     }
     return (
         <>
-            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 h-[calc(100vh-140px)] max-h-full overflow-x-hidden sticky top-[140px]">
+            <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 h-fit max-h-[calc(100%-140px)] overflow-x-hidden fixed top-[140px]">
                 <div>
                     <Image src={logo} alt={'logo'} />
                 </div>
@@ -284,7 +284,7 @@ export default function FilterComponent({
                     </Button>
                 </div>
 
-                <div className="flex flex-row items-center justify-between gap-[15px] font-medium bg-[#FFCD19] py-4 pl-[30px] pr-[15px] w-full">
+                <div className="flex flex-row items-center justify-between gap-[10px] font-medium bg-[#FFCD19] py-4 px-[20px] w-full">
                     <div>
                         <Image src={logoShort} alt={'logo_short'} width={28} />
                     </div>
@@ -334,16 +334,16 @@ export default function FilterComponent({
                             }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none bg-[#FFFFFF] h-[64px] !text-black text-[16px] font-medium flex flex-row px-[30px] justify-between cursor-pointer"
+                                className="border-none bg-[#FFFFFF] h-[64px] font-[700] !text-black text-[16px] leading-[24px] flex flex-row px-[30px] justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
                             </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
+                            <AccordionBody className="bg-[#FFE8DE] w-full  cursor-pointer">
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
-                                        className="text-black font-medium pl-[30px] h-[50px] text-xs"
+                                        className="text-black font-[700] pl-[30px] h-[50px] text-[13px] leading-[24px]"
                                         onClick={() =>
                                             handlePartParam(item.part_category, partName)
                                         }>

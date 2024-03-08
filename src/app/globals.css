@@ -21,9 +21,7 @@
   src: url('/fonts/NanumSquareNeoOTF-Bd.otf')
 }
 
-@layer base {
-
-}
+@layer base {}
 
 @layer components {
 
@@ -32,6 +30,31 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
+  .common_button {
+    background-color: #ffffff;
+    font-size: 16px;
+    color: black;
+    border: 1px solid black;
+    padding: 16px 20px;
+    border-radius: 100%;
+    box-shadow: 4px 6px black;
+  }
+
+  .skeleton_loading {
+  
+    background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+    border-radius: 1rem;
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load 1s infinite;
+}
+
+@keyframes load {
+  100% {
+      background-position: -100% 0;
+  }
+}
 
   .headerbackground {
     background:
@@ -176,26 +199,26 @@
     animation: 2s rotate linear infinite;
   }
 
-    .card_loader {
-      width: 35px;
-      height: 35px;
-      border: 5px solid black;
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 1s linear infinite;
+  .card_loader {
+    width: 35px;
+    height: 35px;
+    border: 5px solid black;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
     }
-  
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-  
-      100% {
-        transform: rotate(360deg);
-      }
+
+    100% {
+      transform: rotate(360deg);
     }
+  }
 
   @keyframes rotate {
     100% {
@@ -211,8 +234,9 @@
   position: relative;
   box-sizing: border-box;
 }
+
 .loader2::after {
-  content: '';  
+  content: '';
   width: 3px;
   height: 3px;
   background: currentColor;
@@ -227,9 +251,11 @@
   0% {
     box-shadow: 10px 0 rgba(255, 255, 255, 0), 20px 0 rgba(255, 255, 255, 0);
   }
+
   50% {
     box-shadow: 10px 0 white, 20px 0 rgba(255, 255, 255, 0);
   }
+
   100% {
     box-shadow: 10px 0 white, 20px 0 white;
   }
@@ -253,5 +279,3 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: black !important;
   opacity: 0.5 !important;
 }
-
-

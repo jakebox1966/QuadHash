@@ -8,12 +8,13 @@ export default function LoadingCardComponent(props: ILoadingCardComponentProps) 
         <>
             <div className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]">
                 <div className="overflow-hidden rounded-lg aspect-square">
-                    <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full blur-md">
-                        <img src={'/1.png'} width="100%" height="auto" alt="nft-image" />
+                    <div className="relative cursor-pointer transition-all bg-gray-300 skeleton_loading hover:opacity-75 hover:scale-110 w-full h-full blur-md">
+                        <img src="/1.png" alt="loading" className="invisible" />
                     </div>
                 </div>
-                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
-                    <CardLoading />
+                <div className="w-full text-xs lg:text-base transition-all z-20 p-1 font-medium cursor-pointer flex flex-col items-center gap-2 mt-3">
+                    <div className="skeleton_loading w-1/4 h-[16px]"></div>
+                    <div className="skeleton_loading w-1/4 h-[16px]"></div>
                 </div>
             </div>
         </>

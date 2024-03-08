@@ -14,7 +14,7 @@ export default async function NotFoundPage(props: INotFoundPageProps) {
     return (
         <>
             <MainWrapper>
-                <div className="w-screen flex flex-col items-center gap-16">
+                <div className="w-full flex flex-col items-center gap-16">
                     <div className="text-[64px] font-black">Oops!</div>
 
                     <div className="text-[24px] font-black">404 : Page Not Found</div>

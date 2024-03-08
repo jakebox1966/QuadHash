@@ -81,14 +81,7 @@ export default function MobileNavMenu({
     const t = useTranslations('Layout.header.nav_bar')
 
     const { handleSignInModalOpen } = useSignInModal()
-    const menuList = [
-        'about',
-        'saza_gaza',
-        'collectables',
-        'qpd_token',
-        'dynamicNFT',
-        'fractional_investment',
-    ]
+    const menuList = ['about', 'saza_gaza', 'collectables', 'qpd_token', 'dynamicNFT', 'NFTDividr']
     const closeDrawer = () => setOpen(false)
 
     const { data: session } = useSession()

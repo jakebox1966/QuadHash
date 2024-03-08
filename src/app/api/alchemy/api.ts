@@ -175,17 +175,19 @@ export const transferQhToken = async (walletAddress: string, amount: string) => 
     //     SendERC20Token_ContractABI.abi as any,
     //     process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
     // )
+    console.log('amount', amount)
 
     window.contract = new web3.eth.Contract(
-        SendERC20Token_ContractABI.abi as any,
-        process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+        ERC20Token_ContractABI.abi as any,
+        process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
     )
 
     const transactionParameters = {
-        to: process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+        to: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
         from: walletAddress,
-        // value: amount,
-        data: window.contract.methods.sendERC20(amount).encodeABI(),
+        data: window.contract.methods
+            .transfer(process.env.NEXT_PUBLIC_TEAM_WALLET_ADDRESS, amount)
+            .encodeABI(),
     }
 
     const txHash = await window.ethereum.request({
@@ -218,10 +220,11 @@ export const getAssetTransfers = async ({
 export const getLogs = async (walletAddress: string) => {
     console.log(Utils.hexZeroPad(walletAddress, 32).toString())
     const response = await alchemy.core.getLogs({
-        address: process.env.NEXT_PUBLIC_SEND_ERC20_CONTRACT_ADDRESS,
+        address: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
         topics: [
-            '0xd0ed88a3f042c6bbb1e3ea406079b5f2b4b198afccaa535d837f4c63abbc4de6',
+            '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
             Utils.hexZeroPad(walletAddress, 32).toString(),
+            Utils.hexZeroPad(process.env.NEXT_PUBLIC_TEAM_WALLET_ADDRESS, 32).toString(),
         ],
         fromBlock: '0x00',
         toBlock: 'latest',

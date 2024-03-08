@@ -18,7 +18,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                 <div
                     className={`${
                         tokenType === 'saza' ? 'bg-[#FFCD19]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                    } border-2 rounded-full shadow-lg px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                     onClick={() => {
                         handleNFTType('saza')
                     }}>
@@ -32,7 +32,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                 <div
                     className={`${
                         tokenType === 'gaza' ? 'bg-[#FFCD19]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                    } border-2 rounded-full shadow-lg px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                     onClick={() => {
                         handleNFTType('gaza')
                     }}>
@@ -46,11 +46,12 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
 
                 <div
                     className={`${
-                        tokenType === 'qbt' ? 'bg-[#FFCD19]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19]`}
-                    onClick={() => {
-                        handleNFTType('qbt')
-                    }}>
+                        tokenType === 'qbt' ? 'bg-gray-300' : ''
+                    } border-2 rounded-full px-3 bg-gray-300 py-3 w-full  tansition-all`}
+                    // onClick={() => {
+                    //     handleNFTType('qbt')
+                    // }}
+                >
                     <div className="flex flex-row items-center gap-2">
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_qbt_icon} alt="qbt_icon" fill />

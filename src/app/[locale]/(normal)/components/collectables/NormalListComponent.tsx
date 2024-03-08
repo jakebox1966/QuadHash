@@ -44,6 +44,7 @@ export default function NormalCollectionListComponent({
             // const currentPage = 500
             const totalPage = lastPage.paging.total_pages
 
+            return false
             if (currentPage === totalPage) {
                 return false
             }
@@ -67,15 +68,27 @@ export default function NormalCollectionListComponent({
                         .fill(0)
                         .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page) => {
-                    return page?.data.map((item, index) => (
-                        <CardComponent
-                            onClick={openDetailModal}
-                            burtonMorris={burtonMorris}
-                            key={`${item}_${index}`}
-                            item={item}
-                            queryParam={queryParam}
-                        />
-                    ))
+                    console.log(page)
+
+                    if (page.data.length > 0) {
+                        return page?.data.map((item, index) => (
+                            <>
+                                <CardComponent
+                                    onClick={openDetailModal}
+                                    burtonMorris={burtonMorris}
+                                    key={`${item}_${index}`}
+                                    item={item}
+                                    queryParam={queryParam}
+                                />
+                            </>
+                        ))
+                    } else {
+                        return (
+                            <>
+                                <div className="bg-blue-300 w-full">해당 데이터가 없습니다.</div>
+                            </>
+                        )
+                    }
                 })}
                 <div ref={setTarget} className="h-[1rem]" />
             </CardListComponent>

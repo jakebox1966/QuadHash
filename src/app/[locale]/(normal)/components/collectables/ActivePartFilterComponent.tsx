@@ -70,8 +70,8 @@ export default function ActivePartFilterComponent({
                         <div
                             key={`parts_${item}`}
                             className=" text-black border-2 border-[#F46221]/20 rounded-full px-3 py-0.5 flex flex-row items-center gap-3">
-                            <span>
-                                {item} : {el}
+                            <span className="text-[14px]">
+                                {item.toUpperCase()} : {el.toUpperCase()}
                             </span>
                             <span
                                 className="cursor-pointer text-[#F46221]/20"

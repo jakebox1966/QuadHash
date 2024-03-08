@@ -69,13 +69,14 @@ export default async function middleware(req: NextRequestWithAuth) {
     const privatePathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${privatePages
             .flatMap((p) => (p === '/' ? ['', '/'] : p))
-            .join('|')})/?$`,
+            .join('|')})(?:\/(?:list|[a-zA-Z]+\/\d+))?$`,
         'i',
     )
 
     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
 
     const isPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)
+    console.log(privatePathnameRegex)
 
     if (isPublicPage) {
         console.log('public')

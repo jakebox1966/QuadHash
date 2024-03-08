@@ -17,6 +17,7 @@ const config: Config = withMT({
         fontFamily: {
             NeuePlak: ['NeuePlak'],
             NanumSquare: ['NanumSquare'],
+            PlusJakartaSans: ['PlusJakartaSans'],
         },
         extend: {
             screens: {

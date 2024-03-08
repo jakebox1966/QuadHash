@@ -65,7 +65,7 @@ export default function QhTokenModalComponent({
     QhTokenModalTap,
     handleQhTokenModalTap,
 }: IQhtokenModalComponentProps) {
-    const [isLoadingForApproved, setIsLoadingForApproved] = React.useState(false)
+    // const [isLoadingForApproved, setIsLoadingForApproved] = React.useState(false)
     const [isLoadingForTransfer, setIsLoadingForTransfer] = React.useState(false)
     const [isLoadingForExchangeTicket, setIsLoadingForExchangeTicket] = React.useState(false)
 
@@ -120,7 +120,7 @@ export default function QhTokenModalComponent({
     }
 
     const clearLoading = () => {
-        setIsLoadingForApproved(false)
+        // setIsLoadingForApproved(false)
         setIsLoadingForTransfer(false)
         setIsLoadingForExchangeTicket(false)
     }
@@ -145,6 +145,8 @@ export default function QhTokenModalComponent({
         const txListFromOnChain = await getLogs(wallet.accounts[0])
         const txListFromOffChain = await getUsedTicketList()
 
+        console.log('txListFromOnChain', txListFromOnChain)
+        console.log('txListFromOffChain', txListFromOffChain)
         const processingList = txListFromOffChain?.data?.tickets.map((item) => {
             return item.hash_tx
         })
@@ -182,7 +184,7 @@ export default function QhTokenModalComponent({
         }
 
         if (await $confirm('Ticket을 구매하시겠습니까?')) {
-            const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
+            // const allowanceResponse = await checkQhTokenAllowance(wallet.accounts[0])
 
             const realTokenAmount = tokenAmount * 10 ** 6
 
@@ -190,34 +192,34 @@ export default function QhTokenModalComponent({
              * 입력한 수량에 대한 Transfer 권한이 없는 경우엔 권한 승인을 먼저 요청한다.
              */
             try {
-                if (parseInt(allowanceResponse) < realTokenAmount) {
-                    setIsLoadingForApproved(true)
-                    // console.log(
-                    //     '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
-                    // )
-                    const txHash = await giveQhTokenContractPermission(
+                // if (parseInt(allowanceResponse) < realTokenAmount) {
+                // setIsLoadingForApproved(true)
+                // console.log(
+                //     '토큰을 Transfer하기 위한 권한이 필요합니다. 입력하신 수량만큼 권한 요청을 시도합니다.',
+                // )
+                // const txHash = await giveQhTokenContractPermission(
+                //     wallet.accounts[0],
+                //     realTokenAmount.toString(),
+                // )
+
+                // alchemy.ws.on(txHash, async (tx) => {
+                //     alchemy.ws.off(txHash)
+                //     setIsLoadingForApproved(false)
+                setIsLoadingForTransfer(true)
+                try {
+                    const txHashForTransfer = await transferQhToken(
                         wallet.accounts[0],
                         realTokenAmount.toString(),
                     )
-
-                    alchemy.ws.on(txHash, async (tx) => {
-                        alchemy.ws.off(txHash)
-                        setIsLoadingForApproved(false)
-                        setIsLoadingForTransfer(true)
-                        try {
-                            const txHashForTransfer = await transferQhToken(
-                                wallet.accounts[0],
-                                realTokenAmount.toString(),
-                            )
-                            await exchangeTokenToTicket(txHashForTransfer)
-                        } catch (error) {
-                            console.log('Transfer Error')
-                            console.error(error)
-                            clearLoading()
-                        }
-                    })
-                    return
+                    await exchangeTokenToTicket(txHashForTransfer)
+                } catch (error) {
+                    console.log('Transfer Error')
+                    console.error(error)
+                    clearLoading()
                 }
+                // })
+                return
+                // }
             } catch (error) {
                 console.error(error)
                 // console.log('Approve Error')
@@ -290,17 +292,18 @@ export default function QhTokenModalComponent({
     }, [missingTransactionForTicket])
 
     React.useEffect(() => {
-        const getTicketPriceFromChain = async () => {
-            const ticketPrice = await getTicketPrice()
+        // const getTicketPriceFromChain = async () => {
+        //     const ticketPrice = await getTicketPrice()
 
-            // console.log('ticketPrice', ticketPrice)
+        //     // console.log('ticketPrice', ticketPrice)
 
-            setTicketPrice(ticketPrice / 10 ** 6)
-        }
+        //     setTicketPrice(ticketPrice / 10 ** 6)
+        // }
+        setTicketPrice(5)
         setTokenAmount(0)
         setTicketAmount(0)
         getMissingTicketList()
-        getTicketPriceFromChain()
+        // getTicketPriceFromChain()
     }, [])
 
     React.useEffect(() => {
@@ -389,9 +392,8 @@ export default function QhTokenModalComponent({
                                     <input
                                         value={ticketAmount === 0 ? 'Ticket' : ticketAmount}
                                         disabled={
-                                            isLoadingForApproved ||
-                                            isLoadingForTransfer ||
-                                            isLoadingForExchangeTicket
+                                            // isLoadingForApproved ||
+                                            isLoadingForTransfer || isLoadingForExchangeTicket
                                         }
                                         type="number"
                                         onChange={inputHandler}
@@ -402,18 +404,17 @@ export default function QhTokenModalComponent({
                                         <button
                                             className="px-3 rounded-full cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
                                             disabled={
-                                                isLoadingForApproved ||
-                                                isLoadingForTransfer ||
-                                                isLoadingForExchangeTicket
+                                                // isLoadingForApproved ||
+                                                isLoadingForTransfer || isLoadingForExchangeTicket
                                             }
                                             onClick={setMaxTicketBalance}>
                                             Max
                                         </button>
                                     </div>
                                 </div>
-                                {!isLoadingForApproved &&
-                                    !isLoadingForTransfer &&
-                                    !isLoadingForExchangeTicket && (
+                                {
+                                    // !isLoadingForApproved &&
+                                    !isLoadingForTransfer && !isLoadingForExchangeTicket && (
                                         <Button
                                             onClick={sendTransactionForTicket}
                                             className="w-full bg-[#F46221] mt-[62px] mb-[15px] text-white font-black hover:opacity-80"
@@ -421,21 +422,23 @@ export default function QhTokenModalComponent({
                                             disabled={tokenAmount === 0 || !tokenAmount}>
                                             Next
                                         </Button>
-                                    )}
-                                {(isLoadingForApproved ||
-                                    isLoadingForTransfer ||
-                                    isLoadingForExchangeTicket) && (
-                                    <Button
-                                        className="w-full bg-[#F46221] mt-10 text-white font-black"
-                                        placeholder={undefined}
-                                        disabled>
-                                        <span className="loader2">
-                                            {isLoadingForApproved && 'APPROVING'}
-                                            {isLoadingForTransfer && 'TRANSFERRING'}
-                                            {isLoadingForExchangeTicket && 'EXCHANGING'}
-                                        </span>
-                                    </Button>
-                                )}
+                                    )
+                                }
+                                {
+                                    // isLoadingForApproved ||
+                                    (isLoadingForTransfer || isLoadingForExchangeTicket) && (
+                                        <Button
+                                            className="w-full bg-[#F46221] mt-10 text-white font-black"
+                                            placeholder={undefined}
+                                            disabled>
+                                            <span className="loader2">
+                                                {/* {isLoadingForApproved && 'APPROVING'} */}
+                                                {isLoadingForTransfer && 'TRANSFERRING'}
+                                                {isLoadingForExchangeTicket && 'EXCHANGING'}
+                                            </span>
+                                        </Button>
+                                    )
+                                }
                             </div>
                         )}
 
@@ -453,6 +456,8 @@ export default function QhTokenModalComponent({
                                 <tbody className="w-full">
                                     {missingTransactionForTicket.map(
                                         ({ transactionHash, data, claim }, index) => {
+                                            console.log(data)
+                                            console.log(parseInt(data, 16))
                                             return (
                                                 <tr
                                                     className="border-b-2 p-10 cursor-pointer hover:opacity-70"
@@ -464,7 +469,7 @@ export default function QhTokenModalComponent({
                                                         {transactionHash}
                                                     </td>
                                                     <td className="p-3 px-5">
-                                                        {parseInt(data, 16) / 10 ** 6 / 10}
+                                                        {parseInt(data, 16) / (10 ** 6 * 5)}
                                                     </td>
                                                     <td className="p-3 px-5 text-[#FFFFFF]">
                                                         <div className="flex flex-row justify-center items-center bg-[#18AB56] px-5 py-1 rounded-full gap-2 align-middle">

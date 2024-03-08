@@ -17,6 +17,7 @@ export const getCalendars = async (pageParam: number) => {
     )
 
     const result = await response.json()
+
     return result
 }
 

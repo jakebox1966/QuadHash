@@ -18,11 +18,11 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
         <>
             <div className="hidden w-full lg:flex flex-col justify-center items-center pt-[294px] bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
-                    <div className="font-NeuePlak lg:text-[70px] text-center leading-[60px]">
+                    <div className="font-NeuePlak lg:text-[70px] text-center font-[400] leading-[60px]">
                         <div>START YOUR JOURNEY IN</div>
                         <div>QUADHASH.</div>
                     </div>
-                    <div className="text-[32px] text-center font-NeuePlak leading-[35px]">
+                    <div className="text-[32px] text-center font-[500] leading-[35px]">
                         <div>WE PRESENT A COLLECTION</div>
                         <div>OF EXCLUSIVE AND UNIQUE WORKS</div>
                     </div>
@@ -49,7 +49,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                                 <Link
                                     href={'https://www.instagram.com/saza.gaza/'}
                                     target={'_blank'}
-                                    className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                    className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     {/* FOLLOW US @SAZA&GAZA */}
                                     FOLLOW US @SAZA&GAZA
                                 </Link>
@@ -61,7 +61,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                                 href={'/white_paper'}
                                 className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="text-[44.2px] drop-shadow-xl">White Paper</div>
-                                <div className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                <div className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     VIEW
                                 </div>
                             </Link>

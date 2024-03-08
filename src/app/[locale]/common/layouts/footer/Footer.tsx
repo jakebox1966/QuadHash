@@ -14,7 +14,7 @@ export default function Footer(props: IFooterProps) {
                     <div>
                         <Logo />
                     </div>
-                    <div className="hidden lg:flex flex-row gap-10 font-medium">
+                    <div className="hidden lg:flex flex-row gap-[60px] font-medium text-[16px] leading-[24px]">
                         <Link href={'/report'} className="text-[#FF000F]">
                             Hacking Report
                         </Link>
@@ -157,7 +157,7 @@ export default function Footer(props: IFooterProps) {
                             </svg>
                         </Link>
                     </div>
-                    <div className="text-gray-400 mt-5">
+                    <div className="text-gray-400 mt-5 text-[16px]">
                         <div>Copyright @ 2024 QUADHASH.</div>
                         <div>All Rights Reserved</div>
                     </div>

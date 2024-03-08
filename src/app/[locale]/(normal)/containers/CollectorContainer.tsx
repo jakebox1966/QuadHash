@@ -159,6 +159,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 />
 
                 <div className="flex flex-col justify-center items-start w-full mt-10">
+                    <div className="text-[24px] font-[700] mb-[50px]">Collectables</div>
                     <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
                     <NFTListComponent
                         wallet_address={wallet_address}
