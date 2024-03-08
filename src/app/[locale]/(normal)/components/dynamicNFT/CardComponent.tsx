@@ -24,7 +24,7 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
         <>
             <Link
                 href={`/dynamicNFT/${tokenType}/${tokenId}`}
-                className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
+                className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
                 <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
@@ -32,9 +32,9 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
-                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
+                <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[6px]">
                     <div className="text-[10.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
-                    <div>No.{tokenId}</div>
+                    <div className="text-[11.2px] mt-[6px]">NO. {tokenId}</div>
                 </div>
             </Link>
         </>

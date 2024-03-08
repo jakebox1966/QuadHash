@@ -47,7 +47,7 @@ export default function CardComponent({
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
-                <div className="w-full text-center transition-all z-20 p-1 font-medium cursor-pointer mt-[6px]">
+                <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[6px]">
                     <div className="text-[10.4px] text-[#7A7A7A]">
                         {queryParam.token_type.toUpperCase()}
                     </div>

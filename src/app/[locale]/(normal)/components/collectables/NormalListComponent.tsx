@@ -44,7 +44,7 @@ export default function NormalCollectionListComponent({
             // const currentPage = 500
             const totalPage = lastPage.paging.total_pages
 
-            // return false
+            return false
             if (currentPage === totalPage) {
                 return false
             }
@@ -68,7 +68,7 @@ export default function NormalCollectionListComponent({
                         .fill(0)
                         .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page) => {
-                    console.log(page)
+                    console.log(data)
 
                     if (page.data.length > 0) {
                         return page?.data.map((item, index) => (
@@ -82,14 +82,15 @@ export default function NormalCollectionListComponent({
                                 />
                             </>
                         ))
-                    } else {
-                        return (
-                            <>
-                                <div className="bg-blue-300 w-full">해당 데이터가 없습니다.</div>
-                            </>
-                        )
                     }
                 })}
+
+                {data?.pages[0].data.length === 0 && (
+                    <div className="w-full border-2 p-3 rounded-lg text-center">
+                        해당 데이터가 없습니다.
+                    </div>
+                )}
+
                 <div ref={setTarget} className="h-[1rem]" />
             </CardListComponent>
         </>

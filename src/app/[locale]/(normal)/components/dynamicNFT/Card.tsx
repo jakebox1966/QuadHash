@@ -43,7 +43,7 @@ export default function Card({
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         fill={true}
                     /> */}
-                    <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="" />
+                    <img src={`${nft?.image.originalUrl}?${new Date().getTime()}`} alt="nft" />
                 </div>
             </div>
             <div className="absolute bottom-0 w-full text-center bg-gray-300 opacity-0 group-hover:opacity-100 transition-all p-1 font-black cursor-pointer">
