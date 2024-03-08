@@ -194,6 +194,19 @@ export default function FilterComponent({
 
     React.useEffect(() => {
         setSelectedOption(optionList[0])
+        setFilterOpen({
+            background: false,
+            body: false,
+            extras: false,
+            eyes: false,
+            head: false,
+            headwear: false,
+            mane: false,
+            mouth: false,
+            top: false,
+            bottom: false,
+            onesie: false,
+        })
     }, [burtonMorris])
 
     const handleKeyPress = (e) => {
@@ -339,7 +352,7 @@ export default function FilterComponent({
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
                             </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full  cursor-pointer">
+                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}

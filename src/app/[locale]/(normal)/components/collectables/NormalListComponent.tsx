@@ -44,7 +44,7 @@ export default function NormalCollectionListComponent({
             // const currentPage = 500
             const totalPage = lastPage.paging.total_pages
 
-            return false
+            // return false
             if (currentPage === totalPage) {
                 return false
             }
