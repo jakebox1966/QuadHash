@@ -81,7 +81,7 @@ export default function MobileNavMenu({
     const t = useTranslations('Layout.header.nav_bar')
 
     const { handleSignInModalOpen } = useSignInModal()
-    const menuList = ['about', 'saza_gaza', 'collectables', 'qpd_token', 'dynamicNFT', 'NFTDividr']
+    const menuList = ['about', 'saza_gaza', 'collectables', 'dynamicNFT', 'NFTDividr']
     const closeDrawer = () => setOpen(false)
 
     const { data: session } = useSession()
@@ -104,7 +104,7 @@ export default function MobileNavMenu({
                         viewBox="0 0 24 24"
                         strokeWidth="2"
                         stroke="currentColor"
-                        className="h-10 w-10">
+                        className="h-10 w-10 hover:opacity-65 cursor-pointer">
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -112,7 +112,9 @@ export default function MobileNavMenu({
                     </svg>
                 </div>
                 <div className="px-10 flex flex-col justify-center items-start gap-10 text-white font-black">
-                    <Link href={'/'} className="flex flex-row justify-start w-full">
+                    <Link
+                        href={'/'}
+                        className="flex flex-row justify-start w-full transition-all hover:opacity-65">
                         <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
                     </Link>
 
@@ -120,7 +122,7 @@ export default function MobileNavMenu({
                         <Link
                             key={item}
                             href={`/${item}`}
-                            className="flex flex-row justify-center items-center gap-14">
+                            className="flex flex-row justify-center items-center gap-14 transition-all hover:opacity-65">
                             {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                             {t(item)}
                         </Link>

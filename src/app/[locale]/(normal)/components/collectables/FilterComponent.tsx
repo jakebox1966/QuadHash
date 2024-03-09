@@ -403,7 +403,7 @@ export default function FilterComponent({
                             handleNftTypeParam(value)
                         }}>
                         <div className="relative max-w-[calc(25%-5px)] w-full">
-                            <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm md:text-sm">
+                            <Listbox.Button className="relative w-full text-center leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm md:text-sm">
                                 <span className="block truncate font-medium">
                                     {selectedType.name}
                                 </span>
@@ -442,7 +442,7 @@ export default function FilterComponent({
                         </div>
                     </Listbox>
                     <div
-                        className={`max-w-[calc(50%-6px)] w-full flex flex-row text-[10px] md:text-sm justify-center items-center border-2 py-2 rounded-lg hover:bg-[#FFCD19] ${
+                        className={`max-w-[calc(50%-6px)] w-full flex flex-row text-[10px] md:text-sm justify-center items-center border-2 py-2 rounded-lg cursor-pointer hover:bg-[#FFCD19] ${
                             burtonMorris && ' bg-[#FFCD19]'
                         }`}
                         onClick={handleBurtonMorris}>
@@ -465,7 +465,7 @@ export default function FilterComponent({
                                 handleOptionParam(value)
                             }}>
                             <div className="relative max-w-[calc(25%-5px)] w-full">
-                                <Listbox.Button className="relative w-full text-left leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 md:text-sm sm:text-sm">
+                                <Listbox.Button className="relative w-full text-center leading-[18px] border-2 px-3 py-2 bg-white hover:border-[#F46221] rounded-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 md:text-sm sm:text-sm">
                                     <span className="block truncate font-medium">
                                         {selectedOption.name}
                                     </span>

@@ -55,7 +55,7 @@ export default function MobileUserInterfaceComponent({
                     className="p-5 rounded-t-xl"
                     placeholder={undefined}>
                     <div className="w-full flex flex-row justify-center">
-                        <div className="border-2 bg-gray-700 opacity-90 w-1/5"></div>
+                        {/* <div className="border-2 bg-gray-700 opacity-90 w-1/5"></div> */}
                     </div>
                     <div className="flex flex-row justify-end items-end w-full">
                         <img
@@ -77,7 +77,7 @@ export default function MobileUserInterfaceComponent({
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
                                     </div>
                                     <div className="font-medium text-sm md:text-3xl">
-                                        BALANCE: {qhTokenBalance} QPD
+                                        BALANCE: {qhTokenBalance} USDT
                                     </div>
                                     <div className="font-medium text-sm md:text-3xl">
                                         TICKET BALANCE: {session.user.ticket_num}

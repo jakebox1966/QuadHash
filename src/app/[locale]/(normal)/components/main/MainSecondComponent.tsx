@@ -28,7 +28,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     <div className="lg:absolute top-20 flex flex-col justify-center items-start gap-[30px]">
                         <div className="text-[44.2px] font-NeuePlak">OUR COLLECTION</div>
                         <div className="text-[20px] font-NanumSquare font-[700] leading-[24px]">
-                            <div>V강렬한 색감과 독창적인 캐릭터.</div>
+                            <div>강렬한 색감과 독창적인 캐릭터.</div>
                             <div>세계적인 아티스트인 'Craig & Karl', 'Burton Morris'의 손에서 </div>
                             <div>탄생한 QUADHASH의 'SAZA'와 'GAZA'를 만나보세요.</div>
                         </div>

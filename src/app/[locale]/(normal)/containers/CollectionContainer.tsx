@@ -13,6 +13,19 @@ import BurtonMorrisComponent from '../components/collectables/BurtonMorrisListCo
 import NormalCollectionListComponent from '../components/collectables/NormalListComponent'
 import { saza_morris, gaza_morris } from '@/app/mock/burton_morris'
 import ActivePartFilterComponent from '../components/collectables/ActivePartFilterComponent'
+import {
+    Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+    ThemeProvider,
+} from '@material-tailwind/react'
+import { customTheme, dialogTheme } from '../../common/materialUI/theme'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper/modules'
 
 export interface ICollectablesContainerProps {}
 
@@ -98,6 +111,8 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
             nftType: token_type,
             tokenId: token_id,
         })
+
+        console.log('metadata', metadata)
 
         let contractAddress = ''
         if (token_type === 'saza') {
@@ -263,7 +278,7 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
 
     return (
         <>
-            <div className="max-w-[1400px] px-[16px] lg:px-[50px] w-full flex flex-col justify-center items-start lg:flex-row lg:justify-start lg:items-start gap-5">
+            <div className="max-w-[1400px] px-[16px] lg:px-[50px] w-full">
                 <FilterComponent
                     isMobileFilterOpen={isMobileFilterOpen}
                     setIsMobileFilterOpen={setIsMobileFilterOpen}
@@ -278,7 +293,9 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
                     handleNftTypeParam={handleNftTypeParam}
                     clearFilter={clearFilter}
                 />
-                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-between items-start flex-wrap relative lg:left-[320px]">
+            </div>
+            <div className="max-w-[1400px] px-[16px] lg:px-[50px] w-full flex flex-col justify-center items-start lg:flex-row lg:justify-end lg:items-start gap-5">
+                <div className="w-full lg:w-[calc(100%-300px)] flex flex-row justify-start items-start flex-wrap relative mt-[61px] lg:mt-0 lg:pl-[28px]">
                     <TabComponent
                         burtonMorris={burtonMorris}
                         handleNftTypeParam={handleNftTypeParam}

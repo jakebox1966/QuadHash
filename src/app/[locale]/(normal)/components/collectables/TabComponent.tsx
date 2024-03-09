@@ -62,7 +62,6 @@ export default function TabComponent({
                 </div>
             </div>
 
-            {/* {!burtonMorris && ( */}
             <div className={`w-[calc(100%/3)] z-20 ${!burtonMorris ? 'visible' : 'invisible'}`}>
                 <Listbox
                     value={selected.value}

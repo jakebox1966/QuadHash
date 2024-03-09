@@ -28,6 +28,7 @@ import MobileUserInterfaceComponent from './MobileUserInterfaceComponent'
 import PCUserInterfaceComponent from './PCUserInterfaceComponent'
 import { getQhTokenBalance } from '@/app/api/alchemy/api'
 import { Utils } from 'alchemy-sdk'
+import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
 
 export interface IConnectProps {
     profileNFT: any
@@ -38,6 +39,8 @@ export default function Connect({ profileNFT }: IConnectProps) {
     const localeNames = useLocaleNames()
     const locale = useLocale()
     const router = useRouter()
+
+    const { lockScroll, openScroll } = useBodyScrollLock()
     const headerColorRef = React.useRef<HTMLInputElement>(null)
     const { data: session } = useSession()
     const { wallet, hasProvider, isConnecting, connectMetaMask } = useMetaMask()
@@ -75,6 +78,14 @@ export default function Connect({ profileNFT }: IConnectProps) {
     const handleQhTokenModalTap = (value: string) => {
         setQhTokenModalTap(value)
     }
+
+    React.useEffect(() => {
+        if (isOpenMobileModal || isQhTokenModalOpen) {
+            lockScroll()
+            return
+        }
+        openScroll()
+    }, [isOpenMobileModal, isQhTokenModalOpen])
 
     const switchLocale = (key: string | undefined) => {
         router.push(pathName, { locale: key as string | undefined })

@@ -362,9 +362,9 @@ export default function QhTokenModalComponent({
                                 <div className="flex flex-row justify-center items-center w-full gap-1 relative">
                                     <div className="flex flex-col justify-center items-center border-2 border-[#F46221] rounded-l-xl p-5 w-full text-[#F46221]">
                                         <div className="font-black">
-                                            {tokenAmount ? tokenAmount : 0} QPD
+                                            {tokenAmount ? tokenAmount : 0} USDT
                                         </div>
-                                        <div className="font-medium">QPD balance</div>
+                                        <div className="font-medium">USDT balance</div>
                                     </div>
                                     <div className="flex flex-col justify-center items-center border-2 border-[#F46221] bg-[#F46221] text-[#FFFFFF] rounded-r-xl p-5 w-full">
                                         <div className="font-black">

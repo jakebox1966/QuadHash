@@ -15,7 +15,7 @@ export default function Navbar(props: INavbarProps) {
     const params = useSearchParams()
     const queryString = params.get('callbackUrl')
     const t = useTranslations('Layout.header.nav_bar')
-    const menuList = ['about', 'saza_gaza', 'collectables', 'qpd_token', 'dynamicNFT', 'NFTDividr']
+    const menuList = ['about', 'saza_gaza', 'collectables', 'dynamicNFT', 'NFTDividr']
     return (
         <div className="relative flex items-center gap-[50px] text-[16px] font-[500] mx-3">
             {menuList.map((menu) => (

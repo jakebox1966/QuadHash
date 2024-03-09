@@ -71,7 +71,7 @@ export default function PCUserInterfaceComponent({
                                         ACCOUNT: {formatAddress(wallet.accounts[0])}
                                     </div>
                                     <div className="font-medium text-base">
-                                        QPD BALANCE: {qhTokenBalance}
+                                        USDT BALANCE: {qhTokenBalance}
                                     </div>
                                     <div className="font-medium text-base">
                                         TICKET BALANCE: {session.user.ticket_num}
