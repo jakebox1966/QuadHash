@@ -51,7 +51,7 @@ export default function NFTListComponent({
     }
 
     const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
-        queryKey: ['getCollectionByOwner', tokenType, session],
+        queryKey: [`getCollectionByOwner?${wallet_address}`, tokenType, session],
         queryFn: (query) => fetchData(query.pageParam),
         getNextPageParam: (lastPage: any, allPages) => {
             const pageKey = lastPage.pageKey

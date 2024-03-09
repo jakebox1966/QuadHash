@@ -5,7 +5,7 @@ import { Dialog, DialogBody, ThemeProvider } from '@material-tailwind/react'
 
 import Image from 'next/image'
 
-import { customTheme } from '@/app/[locale]/common/materialUI/theme'
+import { customTheme, dialogTheme } from '@/app/[locale]/common/materialUI/theme'
 import NFTSetting from './NFTSetting'
 import { useSession } from 'next-auth/react'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
+import { formatAddress } from '@/app/utils/ethUtils'
 
 export interface INFTDetailModalComponentProps {
     collector_address: any
@@ -48,108 +49,108 @@ export default function NFTDetailModalComponent({
 
     return (
         <>
-            {/* <ThemeProvider value={customTheme}>
+            <ThemeProvider value={dialogTheme}>
                 <Dialog
-                    className="rounded-lg overflow-hidden !max-h-fit !max-w-fit"
-                    size="lg"
                     open={open}
                     handler={handleOpen}
+                    className={`rounded-lg relative overflow-hidden`}
+                    style={{
+                        backgroundColor: backgroundColor,
+                    }}
                     placeholder={undefined}
-                    style={{ backgroundColor: backgroundColor }}>
+                    size="lg">
                     <DialogBody
-                        className="p-0 overflow-hidden flex lg:flex-row justify-center"
-                        placeholder={undefined}>
-                        <div className="lg:w-[650px] flex flex-col justify-end items-center lg:items-start relative overflow-hidden">
-                            <img
-                                src={`${imageUrl}?${new Date().getTime()}`}
-                                alt="profile_image"
-                                width={650}
-                                height={'auto'}
-                            />
-                        </div>
-                        <div
-                            className={`text-white w-[calc(100%-650px)] lg:flex flex-col justify-center items-center hidden`}>
-                            <div className="flex flex-row flex-wrap gap-4 pl-10 justify-start items-start">
-                                <div className="flex w-[calc(100%/2-4rem)] flex-col justify-center font-bold p-2 bg-opacity-20 bg-black rounded-lg">
-                                    <div>{metadata?.name.split(':')[0].trim()}</div>
-                                    <div className="text-2xl">
-                                        {metadata?.name.split(':')[1].trim()}
-                                    </div>
-                                </div>
+                        placeholder={undefined}
+                        className={`p-0 rounded-lg overflow-hidden ${
+                            backgroundColor === '#FFFFFF' ? '!text-black' : '!text-[#FFFFFF]'
+                        }`}>
+                        <div className={`flex flex-col lg:flex-row items-start w-full`}>
+                            <div className="max-w-[350px] lg:max-w-[581px] lg:max-h-[581px] w-full h-full">
+                                <img src={imageUrl} alt="" />
 
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row justify-between">
-                                    {session && collector_address === wallet?.accounts[0] && (
-                                        <NFTSetting
-                                            updateUserProfile={updateUserProfile}
-                                            profileNFT={activeNFT}
-                                            isFrom={'list'}
-                                        />
-                                    )}
-                                </div>
-                                {metadata?.attributes
-                                    .filter((item, index) => index !== 0)
-                                    .map((item) => (
-                                        <div
-                                            key={item.trait_type}
-                                            className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 bg-opacity-20 bg-black rounded-lg">
-                                            <div>
-                                                <div className="font-medium">
-                                                    {item.trait_type !== 'Dcount'
-                                                        ? item.trait_type
-                                                        : 'Dynamic NFT'}
-                                                </div>
-                                                <div className="font-black">{item.value}</div>
+                                {/* MOBILE 버전 */}
+                                <div className={`block lg:hidden w-full relative mt-4 px-4`}>
+                                    <div className="flex flex-row justify-between items-center max-h-[50px]">
+                                        <div className="leading-[25px]">
+                                            <div className="text-[12px] font-medium tracking-[0.05rem]">
+                                                QUADHASH
+                                            </div>
+                                            <div className="text-[24px] font-black tracking-[0.05rem]">
+                                                {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
-                                    ))}
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 bg-opacity-20 bg-black rounded-lg">
-                                    <div>
-                                        <img src="/mypage_rank.svg" alt="mypage_rank" />
                                     </div>
-                                    <div>
-                                        <div className="font-medium">
-                                            {metadata?.attributes[0].trait_type}
+                                    {/* <div className="font-medium">
+                                        <div className="flex gap-4 justify-start items-center">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                width={40}
+                                                height={40}
+                                                stroke="currentColor">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                                                />
+                                            </svg>
+
+                                            <div className="text-[9.4px]">
+                                                <div>ADDRESS</div>
+                                                <div className="text-[13px] font-black">
+                                                    {formatAddress(collector_address)}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="font-black">
-                                            {metadata?.attributes[0].value}
-                                        </div>
+                                    </div> */}
+                                    <div className="my-[28px]">
+                                        <Swiper
+                                            slidesPerView={1}
+                                            spaceBetween={-30}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                            modules={[Pagination]}>
+                                            {metadata?.attributes
+                                                .filter((item, index) => index !== 0)
+                                                .map((item, index) => (
+                                                    <SwiperSlide>
+                                                        <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
+                                                            <div className="text-[12px] tracking-[0.56px]">
+                                                                {item.trait_type.toUpperCase()}
+                                                            </div>
+                                                            <div className="font-black text-[14px]">
+                                                                {item.value}
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                ))}
+                                            <SwiperSlide>
+                                                <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
+                                                    <div className="text-[12px] tracking-[0.56px]">
+                                                        {metadata?.attributes[0].trait_type.toUpperCase()}
+                                                    </div>
+                                                    <div className="font-black text-[14px]">
+                                                        {metadata?.attributes[0].value}
+                                                    </div>
+                                                </div>
+                                            </SwiperSlide>
+                                        </Swiper>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </DialogBody>
-                </Dialog>
-            </ThemeProvider> */}
-            <ThemeProvider value={customTheme}>
-                <Dialog
-                    className={`!max-w-fit rounded-lg overflow-hidden relative `}
-                    size="lg"
-                    open={open}
-                    handler={handleOpen}
-                    placeholder={undefined}
-                    style={{ backgroundColor: backgroundColor }}>
-                    <DialogBody
-                        className={`p-0 flex lg:flex-row justify-center group !relative ${
-                            backgroundColor === '#FFFFFF' ? '!text-black' : '!text-[#FFFFFF]'
-                        }`}
-                        placeholder={undefined}>
-                        <div
-                            className={`max-w-[350px] lg:max-w-[581px] max-h-[581px] w-full h-full flex flex-col justify-end items-center lg:items-start overflow-hidden`}>
-                            <img
-                                src={imageUrl}
-                                alt="profile_image"
-                                className={`max-w-[581px] w-full`}
-                            />
-
-                            <div className="lg:hidden flex flex-col w-full px-5 py-3 justify-center mt-5">
-                                <div className="flex flex-row justify-between items-center max-h-[50px]">
-                                    <div>
-                                        <div className="text-[12px] font-medium">QUADHASH</div>
-                                        <div className="text-[24px] font-black">
-                                            {metadata?.name.split(':')[1].trim()}
+                            {/* PC 버전 */}
+                            <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
+                                <div className="max-w-[550px]">
+                                    <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
+                                        <div className="text-nowrap">
+                                            <div className="text-[12px]">QUADHASH</div>
+                                            <div className="text-[25px]">
+                                                {metadata?.name.split(':')[1].trim()}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="text-[9.4px]">
                                         {session && collector_address === wallet?.accounts[0] && (
                                             <NFTSetting
                                                 backgroundColor={backgroundColor}
@@ -160,97 +161,51 @@ export default function NFTDetailModalComponent({
                                             />
                                         )}
                                     </div>
-                                </div>
-
-                                <div className="w-full relative mt-4">
-                                    <Swiper
-                                        slidesPerView={1}
-                                        spaceBetween={-30}
-                                        pagination={{
-                                            clickable: true,
-                                        }}
-                                        modules={[Pagination]}>
+                                    <div className="flex flex-row justify-between mt-[15px] flex-wrap gap-4">
                                         {metadata?.attributes
                                             .filter((item, index) => index !== 0)
-                                            .map((item, index) => (
-                                                <SwiperSlide key={`${item.trait_type}_${index}`}>
-                                                    <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                        <div className="text-[10.85px]">
-                                                            {item.trait_type !== 'Dcount'
-                                                                ? item.trait_type.toUpperCase()
-                                                                : 'Dynamic NFT'}
-                                                        </div>
-                                                        <div className="font-black text-[11.81px]">
-                                                            {item.value}
-                                                        </div>
+                                            .map((item) => (
+                                                <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
+                                                    <div className="tracking-[0.56px]">
+                                                        {item.trait_type.toUpperCase()}
                                                     </div>
-                                                </SwiperSlide>
+                                                    <div className="font-[700]">{item.value}</div>
+                                                </div>
                                             ))}
-                                        <SwiperSlide>
-                                            <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                <div className="text-[10.85px]">
-                                                    {metadata?.attributes[0].trait_type}
-                                                </div>
-                                                <div className="font-black text-[11.81px]">
-                                                    {metadata?.attributes[0].value}
-                                                </div>
+                                        <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
+                                            <div className="tracking-[0.56px]">
+                                                {metadata?.attributes[0].trait_type.toUpperCase()}
                                             </div>
-                                        </SwiperSlide>
-                                    </Swiper>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            className={`w-[calc(100%-581px)] lg:flex flex-col justify-start py-10 items-start hidden`}>
-                            <div className="flex flex-row flex-wrap gap-4 max-w-[550px] justify-start items-center pl-10">
-                                <div className="flex w-[calc(100%/2-4rem)] max-w-[250px] flex-col justify-center font-bold p-2">
-                                    <div className="text-[11.81px]">
-                                        {metadata?.name.split(':')[0].trim()}
+                                            <div className="font-[700]">
+                                                {metadata?.attributes[0].value}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="text-[25px]">
-                                        {metadata?.name.split(':')[1].trim()}
-                                    </div>
-                                </div>
-                                <div className="flex w-[calc(100%/2-4rem)] flex-row justify-center">
-                                    {session && collector_address === wallet?.accounts[0] && (
-                                        <NFTSetting
-                                            backgroundColor={backgroundColor}
-                                            updateUserProfile={updateUserProfile}
-                                            tokenId={tokenId}
-                                            tokenType={tokenType}
-                                            isFrom={'list'}
-                                        />
-                                    )}
-                                </div>
+                                    {/* <div className="font-medium mt-4">
+                                        <div className="flex gap-4 justify-start items-center">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                width={40}
+                                                height={40}
+                                                stroke="currentColor">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                                                />
+                                            </svg>
 
-                                {metadata?.attributes
-                                    .filter((item, index) => index !== 0)
-                                    .map((item) => (
-                                        <div
-                                            key={item.trait_type}
-                                            className="w-[calc(100%/2-4rem)] max-w-[250px] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
-                                            <div>
-                                                <div className="text-[10.85px]">
-                                                    {item.trait_type !== 'Dcount'
-                                                        ? item.trait_type.toUpperCase()
-                                                        : 'Dynamic NFT'}
-                                                </div>
-                                                <div className="font-black text-[11.81px]">
-                                                    {item.value}
+                                            <div className="text-[9.4px]">
+                                                <div>ADDRESS</div>
+                                                <div className="text-[13px] font-black">
+                                                    {formatAddress(collector_address)}
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
-                                <div className="w-[calc(100%/2-4rem)] flex flex-row items-center gap-3 p-2 pl-4 bg-opacity-20 bg-black rounded-lg">
-                                    <div>
-                                        <div className="text-[10.85px]">
-                                            {metadata?.attributes[0].trait_type}
-                                        </div>
-                                        <div className="font-black text-[11.81px]">
-                                            {metadata?.attributes[0].value}
-                                        </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

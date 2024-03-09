@@ -1,7 +1,7 @@
 'use client'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import * as React from 'react'
-import NFTDetailModalComponent from './NFTDetialModalComponent'
+import NFTDetailModalComponent from './NFTDetialModalComponent1'
 import Image from 'next/image'
 
 export interface ICardProps {

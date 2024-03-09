@@ -49,7 +49,7 @@ export default function PCUserInterfaceComponent({
                     <button
                         className="hidden lg:block rounded-full text-[15px] p-[16px] min-w-[170px] bg-[#F46221] text-[white] shadow-lg cursor-pointer hover:opacity-80 text-center"
                         onClick={openPCModal}>
-                        {formatAddress(wallet.accounts[0])}
+                        {formatAddress(wallet.accounts[0]).toUpperCase()}
                     </button>
                 </PopoverHandler>
 
@@ -68,7 +68,7 @@ export default function PCUserInterfaceComponent({
 
                                 <div>
                                     <div className="font-medium text-base">
-                                        ACCOUNT: {formatAddress(wallet.accounts[0])}
+                                        ACCOUNT: {formatAddress(wallet.accounts[0]).toUpperCase()}
                                     </div>
                                     <div className="font-medium text-base">
                                         USDT BALANCE: {qhTokenBalance}

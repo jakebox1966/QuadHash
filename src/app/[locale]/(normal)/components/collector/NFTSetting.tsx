@@ -22,7 +22,7 @@ export default function NFTSetting({
             <div className="flex flex-row justify-end items-center gap-3 w-full">
                 <Menu placement="bottom-end">
                     <MenuHandler>
-                        <div className="p-3 bg-opacity-20 bg-black rounded-lg cursor-pointer">
+                        <div className="p-3 bg-opacity-10 bg-black rounded-lg cursor-pointer">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill={

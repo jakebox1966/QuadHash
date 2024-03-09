@@ -43,7 +43,7 @@ export default function MobileUserInterfaceComponent({
             <button
                 className="block lg:hidden rounded-full p-[7px] min-w-[100px] text-[10px] text-white bg-[#F46221] cursor-pointer hover:opacity-80 text-center"
                 onClick={openMobileModal}>
-                {formatAddress(wallet.accounts[0])}
+                {formatAddress(wallet.accounts[0]).toUpperCase()}
             </button>
 
             <ThemeProvider value={drawerTheme}>
@@ -74,7 +74,7 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                                 <div>
                                     <div className="font-medium text-sm md:text-3xl">
-                                        ACCOUNT: {formatAddress(wallet.accounts[0])}
+                                        ACCOUNT: {formatAddress(wallet.accounts[0]).toUpperCase()}
                                     </div>
                                     <div className="font-medium text-sm md:text-3xl">
                                         BALANCE: {qhTokenBalance} USDT

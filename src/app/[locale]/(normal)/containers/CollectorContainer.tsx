@@ -169,7 +169,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 </div>
             </div>
             <NFTDetailModalComponent
-                collector_address={collector_address}
+                collector_address={wallet_address}
                 metadata={metadata}
                 imageUrl={imageUrl}
                 backgroundColor={backgroundColor}
