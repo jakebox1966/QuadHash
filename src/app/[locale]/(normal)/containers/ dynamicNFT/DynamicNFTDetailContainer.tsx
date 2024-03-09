@@ -29,6 +29,7 @@ export default function DynamicNFTDetailContainer({
     const [isDynamicNFTLoading, setIsDynamicNFTLoading] = React.useState(false)
 
     const [NFTMetadata, setNFTMetadata] = React.useState(null)
+
     const [imageUrl, setImageUrl] = React.useState('')
     const [backgroundColor, setBackgroundColor] = React.useState('')
 
@@ -47,6 +48,7 @@ export default function DynamicNFTDetailContainer({
 
     const [selectedPartsData, setSelectedPartsData] = React.useState({
         partsData: { trait_type: '', value: '' },
+
         tokenType: tokenType,
         availability: false,
         pool: [],
@@ -81,9 +83,10 @@ export default function DynamicNFTDetailContainer({
     const checkDisabledPartsCategory = () => {
         if (tokenType && tokenId && NFTMetadata) {
             const ranking = NFTMetadata.attributes[0].value
+
             if (tokenType === 'saza') {
                 const result = NFTMetadata.attributes.filter(
-                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'DynamicNFT',
                 )
 
                 const validResult = result.filter((item) => {
@@ -98,7 +101,7 @@ export default function DynamicNFTDetailContainer({
                 return validResult.map((item) => item.trait_type)
             } else if (tokenType === 'gaza') {
                 const result = NFTMetadata.attributes.filter(
-                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'DynamicNFT',
                 )
 
                 const validResult = result.filter((item) => {
@@ -123,7 +126,7 @@ export default function DynamicNFTDetailContainer({
             const ranking = metadata.attributes[0].value
             if (tokenType === 'saza') {
                 const result = metadata.attributes.filter(
-                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dynamic NFT',
                 )
 
                 const validAttributes = result.map((item) => {
@@ -144,7 +147,7 @@ export default function DynamicNFTDetailContainer({
                 return validMetadata
             } else if (tokenType === 'gaza') {
                 const result = metadata.attributes.filter(
-                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dcount',
+                    (item) => item.trait_type !== 'Ranking' && item.trait_type !== 'Dynamic NFT',
                 )
 
                 const validAttributes = result.map((item) => {
@@ -373,7 +376,7 @@ export default function DynamicNFTDetailContainer({
                                         : 'bg-[#FFC947] cursor-pointer'
                                 } flex flex-row items-center gap-3 p-2 pl-4 rounded-lg transition-all`}>
                                 <div>
-                                    <div className="text-[10.85px]">
+                                    <div className="text-[10.85px] tracking-[0.05rem]">
                                         {item.trait_type.toUpperCase()}
                                     </div>
                                     <div className="font-black text-[11.81px]">{item.value}</div>
@@ -432,7 +435,7 @@ export default function DynamicNFTDetailContainer({
                                                         ? 'bg-[#BDBDBD]'
                                                         : 'bg-[#FFC947]'
                                                 }`}>
-                                                <div className="text-[10.85px]">
+                                                <div className="text-[10.85px] tracking-[0.05rem]">
                                                     {item.trait_type.toUpperCase()}
                                                 </div>
                                                 <div className="font-black text-[11.81px]">
@@ -450,11 +453,11 @@ export default function DynamicNFTDetailContainer({
                             selectedPartsData.availability
                                 ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
                                 : 'bg-[#BDBDBD]'
-                        } absolute hidden lg:flex flex-col justify-center items-center gap-1 p-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
+                        } absolute hidden lg:flex flex-col justify-center items-center gap-1 px-8 py-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
                         disabled={!selectedPartsData.availability}
                         onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />
-                        <div className="text-[25px] font-medium">START</div>
+                        <div className="text-[25px] font-medium tracking-[0.1rem]">START</div>
                     </button>
                 </div>
                 <button
@@ -472,7 +475,7 @@ export default function DynamicNFTDetailContainer({
                     </div>
                 </button>
 
-                {!selectedPartsData.availability && selectedPartsData.pool.length === 0 && (
+                {/* {!selectedPartsData.availability && selectedPartsData.pool.length === 0 && (
                     <div className="flex flex-col justify-center items-start w-full">
                         <div className="text-[25px] font-medium mb-5">Parts List</div>
                         <div className="w-full bg-[#131313] text-[#FFFFFF] rounded-xl">
@@ -487,16 +490,17 @@ export default function DynamicNFTDetailContainer({
                             </div>
                         </div>
                     </div>
-                )}
+                )} */}
 
-                {selectedPartsData &&
+                {/* {selectedPartsData &&
                     selectedPartsData.availability &&
-                    selectedPartsData.pool.length > 0 && (
-                        <div className="flex flex-col justify-center items-start w-full">
-                            <div className="text-[25px] mb-5 font-medium">Parts List</div>
-                            <PartsListComponent selectedPartsData={selectedPartsData} />
-                        </div>
-                    )}
+                    selectedPartsData.pool.length > 0 && ( */}
+                <div className="flex flex-col justify-center items-start w-full">
+                    <div className="text-[25px] mb-5 font-medium">Parts List</div>
+                    <PartsListComponent selectedPartsData={selectedPartsData} />
+                </div>
+
+                {/* )} */}
             </div>
             {isDynamicNFTLoading && <Loading />}
         </>

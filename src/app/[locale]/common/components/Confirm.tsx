@@ -28,8 +28,8 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                         <div className="flex flex-row items-start gap-5">
                             <div className="w-[72px] lg:w-[60px] h-auto">
                                 <img
-                                    src="/alert_icon.svg"
-                                    alt="alert_icon"
+                                    src="/confirm_icon.svg"
+                                    alt="confirm"
                                     className="w-full h-auto"
                                 />
                             </div>

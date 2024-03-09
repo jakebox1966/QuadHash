@@ -19,20 +19,30 @@ export default function PartsListComponent({ selectedPartsData }: IPartsListComp
     const { partsData, tokenType, pool } = selectedPartsData
 
     React.useEffect(() => {
-        console.log(pool)
-    }, [pool])
+        console.log(selectedPartsData)
+    }, [selectedPartsData])
 
     return (
         <>
             <CardListComponent>
-                {pool.map((item) => (
+                {selectedPartsData.availability &&
+                    selectedPartsData.pool.length > 0 &&
+                    pool.map((item) => (
+                        <PartCardComponent
+                            key={item}
+                            tokenType={tokenType}
+                            partsData={partsData}
+                            item={item}
+                        />
+                    ))}
+
+                {!selectedPartsData.availability && selectedPartsData.pool.length === 0 && (
                     <PartCardComponent
-                        key={item}
                         tokenType={tokenType}
                         partsData={partsData}
-                        item={item}
+                        item={partsData.value}
                     />
-                ))}
+                )}
             </CardListComponent>
         </>
     )
