@@ -33,6 +33,8 @@ export default function DynamicNFTDetailContainer({
     const [imageUrl, setImageUrl] = React.useState('')
     const [backgroundColor, setBackgroundColor] = React.useState('')
 
+    const [prevParts, setPrevParts] = React.useState(null)
+
     const [disabledPartsCategory, setDisabledPartsCategory] = React.useState([])
 
     // const [selectedPartsData, setSelectedPartsData] = React.useState({
@@ -48,7 +50,6 @@ export default function DynamicNFTDetailContainer({
 
     const [selectedPartsData, setSelectedPartsData] = React.useState({
         partsData: { trait_type: '', value: '' },
-
         tokenType: tokenType,
         availability: false,
         pool: [],
@@ -200,6 +201,7 @@ export default function DynamicNFTDetailContainer({
                 if (result.ok) {
                     fetchData()
                     updateSession()
+                    setPrevParts(selectedPartsData.partsData.trait_type)
                     await $alert('Dynamic NFT 적용 완료되었습니다.')
 
                     // const keyChanged = selectedCategory?.trait_type
@@ -232,20 +234,6 @@ export default function DynamicNFTDetailContainer({
     }
 
     React.useEffect(() => {
-        // const disabledPartsResult = checkDisabledPartsCategory()
-        // console.log(disabledPartsResult)
-        // setDisabledPartsCategory(disabledPartsResult)
-
-        // if (disabledPartsResult?.length === NFTMetadata?.attributes.length - 1) {
-        //     setSelectedPartsData({
-        //         partsData: { trait_type: '', value: '' },
-        //         tokenType: tokenType,
-        //         availability: false,
-        //         pool: [],
-        //     })
-        //     return
-        // }
-
         if (NFTMetadata) {
             setBackgroundColor(
                 backgroundPallete[
@@ -255,61 +243,56 @@ export default function DynamicNFTDetailContainer({
                 ],
             )
 
-            NFTMetadata?.attributes.forEach((item) => {
-                if (item.availability === true) {
-                    setSelectedPartsData((prev) => ({
-                        partsData: { trait_type: item.trait_type, value: item.value },
-                        tokenType: tokenType,
-                        availability: item.availability,
-                        pool: item.pool,
-                    }))
-                    return false
-                }
-            })
+            // NFTMetadata?.attributes.forEach((item) => {
+            //     if (item.availability === true) {
+            //         setSelectedPartsData((prev) => ({
+            //             partsData: { trait_type: item.trait_type, value: item.value },
+            //             tokenType: tokenType,
+            //             availability: item.availability,
+            //             pool: item.pool,
+            //         }))
+            //         return false
+            //     }
+            // })
 
-            for (let i = 0; i < NFTMetadata?.attributes.length; i++) {
-                if (NFTMetadata?.attributes[i].availability === true) {
-                    setSelectedPartsData((prev) => ({
-                        partsData: {
-                            trait_type: NFTMetadata?.attributes[i].trait_type,
-                            value: NFTMetadata?.attributes[i].value,
-                        },
-                        tokenType: tokenType,
-                        availability: NFTMetadata?.attributes[i].availability,
-                        pool: NFTMetadata?.attributes[i].pool,
-                    }))
-                    break
+            if (!prevParts) {
+                for (let i = 0; i < NFTMetadata?.attributes.length; i++) {
+                    if (NFTMetadata?.attributes[i].availability === true) {
+                        setSelectedPartsData((prev) => ({
+                            partsData: {
+                                trait_type: NFTMetadata?.attributes[i].trait_type,
+                                value: NFTMetadata?.attributes[i].value,
+                            },
+                            tokenType: tokenType,
+                            availability: NFTMetadata?.attributes[i].availability,
+                            pool: NFTMetadata?.attributes[i].pool,
+                        }))
+                        break
+                    }
                 }
+            } else {
+                console.log(NFTMetadata)
+                const data = NFTMetadata?.attributes.find((data) => {
+                    return data.trait_type === prevParts
+                })
+
+                console.log('prev123123', data)
+                setSelectedPartsData((prev) => ({
+                    partsData: {
+                        trait_type: data.trait_type,
+                        value: data.value,
+                    },
+                    tokenType: data.tokenType,
+                    availability: data.availability,
+                    pool: data.pool,
+                }))
             }
-            // if (tokenType === 'saza') {
-            //     const result = sazaCategoryValidation(
-            //         NFTMetadata.attributes[0].value,
-            //         selectedPartsData.partsData.trait_type,
-            //     )
-            //     console.log(result)
-
-            // setSelectedPartsData((prev) => ({
-            //     ...prev,
-            //     partsData: NFTMetadata.attributes[0],
-            //     availability: result.availability,
-            //     pool: result.pool,
-            // }))
-            // } else if (tokenType === 'gaza') {
-            //     const result = gazaCategoryValidation(
-            //         NFTMetadata.attributes[0].value,
-            //         selectedPartsData.partsData.trait_type,
-            //         NFTMetadata.attributes.filter((item, index) => index !== 0),
-            //     )
-            //     console.log('result', result)
-            //     // setSelectedPartsData((prev) => ({
-            //     //     ...prev,
-            //     //     partsData: NFTMetadata.attributes[0],
-            //     //     availability: result.availability,
-            //     //     pool: result.pool,
-            //     // }))
-            // }
         }
     }, [NFTMetadata])
+
+    React.useEffect(() => {
+        console.log('123123', selectedPartsData)
+    }, [selectedPartsData])
 
     const fetchData = async () => {
         if (tokenType && tokenId) {
@@ -352,7 +335,7 @@ export default function DynamicNFTDetailContainer({
                     className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl relative bg-[${backgroundColor}]
                     `}
                     style={{ backgroundColor: backgroundColor }}>
-                    <div className="absolute left-4 hidden lg:flex flex-col items-start gap-4 -translate-y-20 pl-3">
+                    <div className="absolute left-4 hidden lg:flex flex-col items-start gap-4 top-1/2 -translate-y-1/2 pl-3">
                         <div
                             className={`${
                                 backgroundColor === '#FFFFFF' ? 'text-black' : 'text-[#FFFFFF]'
@@ -497,7 +480,10 @@ export default function DynamicNFTDetailContainer({
                     selectedPartsData.pool.length > 0 && ( */}
                 <div className="flex flex-col justify-center items-start w-full">
                     <div className="text-[25px] mb-5 font-medium">Parts List</div>
-                    <PartsListComponent selectedPartsData={selectedPartsData} />
+                    <PartsListComponent
+                        tokenType={tokenType}
+                        selectedPartsData={selectedPartsData}
+                    />
                 </div>
 
                 {/* )} */}

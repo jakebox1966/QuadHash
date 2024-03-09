@@ -4,6 +4,7 @@ import CardComponent from './CardComponent'
 import PartCardComponent from './PartCardComponent'
 
 export interface IPartsListComponentProps {
+    tokenType: string
     selectedPartsData: {
         partsData: {
             trait_type: string
@@ -15,11 +16,14 @@ export interface IPartsListComponentProps {
     }
 }
 
-export default function PartsListComponent({ selectedPartsData }: IPartsListComponentProps) {
-    const { partsData, tokenType, pool } = selectedPartsData
+export default function PartsListComponent({
+    selectedPartsData,
+    tokenType,
+}: IPartsListComponentProps) {
+    const { partsData, pool } = selectedPartsData
 
     React.useEffect(() => {
-        console.log(selectedPartsData)
+        console.log('gggg', selectedPartsData)
     }, [selectedPartsData])
 
     return (

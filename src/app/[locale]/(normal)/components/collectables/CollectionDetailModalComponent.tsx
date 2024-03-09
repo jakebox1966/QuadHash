@@ -69,9 +69,6 @@ export default function CollectionDetailModalComponent({
         }
     }, [contractAddress, selectedTokenId])
 
-    React.useEffect(() => {
-        console.log(backgroundColor)
-    }, [backgroundColor])
     return (
         <>
             {imageUrl && (
