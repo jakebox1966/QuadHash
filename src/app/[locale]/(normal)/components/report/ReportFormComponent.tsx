@@ -2,7 +2,18 @@ import { Checkbox } from '@material-tailwind/react'
 import * as React from 'react'
 
 export interface IReportFormComponentProps {
+    inputs: {
+        user_name: string
+        title: string
+        post_nfts: any[]
+        user_email: string
+        user_phone: string
+        content: string
+        checkbox: boolean
+    }
     inputsHandler: (e: React.ChangeEvent) => void
+    emailValidationText: string
+    contentValidationText: string
     nameRef: React.MutableRefObject<any>
     titleRef: React.MutableRefObject<any>
     // walletAddressRef: React.MutableRefObject<any>
@@ -22,7 +33,10 @@ export interface IReportFormComponentProps {
 }
 
 export default function ReportFormComponent({
+    inputs,
     inputsHandler,
+    emailValidationText,
+    contentValidationText,
     nameRef,
     titleRef,
     // walletAddressRef,
@@ -51,11 +65,12 @@ export default function ReportFormComponent({
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>이름</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={nameRef}>
+                            <p className="text-sm text-red-600 invisible" ref={nameRef}>
                                 * 이름은 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
+                            value={inputs.user_name}
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
                             type="text"
                             name="user_name"
@@ -67,25 +82,26 @@ export default function ReportFormComponent({
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>제목</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={titleRef}>
+                            <p className="text-sm text-red-600 invisible" ref={titleRef}>
                                 * 제목은 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
+                            value={inputs.title}
                             type="text"
                             name="title"
                             placeholder="제목을 입력해주세요."
                             onChange={inputsHandler}
                         />
                     </div>
-                    <div className="flex flex-col w-full gap-2">
+                    {/* <div className="flex flex-col w-full gap-2">
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>신고자 지갑 주소</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={walletAddressRef}>
+                            <p className="text-sm text-red-600 invisible" ref={walletAddressRef}>
                                 * 지갑주소는 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
@@ -94,21 +110,21 @@ export default function ReportFormComponent({
                             placeholder="지갑 주소를 입력해주세요."
                             onChange={inputsHandler}
                         />
-                    </div>
+                    </div> */}
                     <div className="flex flex-col w-full gap-2">
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>해당 콜렉션 넘버</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={NFTListRef}>
+                            <p className="text-sm text-red-600 invisible" ref={NFTListRef}>
                                 * NFT목록은 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
                             readOnly
                             type="text"
                             value={targetList
-                                .map((item) => `${item.token_type}_${item.token_id}`)
+                                .map((item) => `${item.token_type} #${item.token_id}`)
                                 .join(', ')}
                             name="post_nfts"
                             placeholder="신고하고자 하는 NFT ID를 입력해주세요."
@@ -119,13 +135,14 @@ export default function ReportFormComponent({
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>이메일</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={emailRef}>
-                                * 이메일은 필수 항목입니다.
-                            </p> */}
+                            <p className="text-sm text-red-600 invisible" ref={emailRef}>
+                                {emailValidationText}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
-                            type="email"
+                            value={inputs.user_email}
+                            type="text"
                             name="user_email"
                             placeholder=" 이메일 주소를 입력해주세요."
                             onChange={inputsHandler}
@@ -135,25 +152,26 @@ export default function ReportFormComponent({
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>연락처</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={phoneRef}>
+                            <p className="text-sm text-red-600 invisible" ref={phoneRef}>
                                 * 연락처는 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
-                            type="tel"
+                            value={inputs.user_phone}
+                            type="text"
                             name="user_phone"
                             placeholder="전화번호를 입력해주세요."
                             onChange={inputsHandler}
                         />
                     </div>
-                    <div className="flex flex-col w-full gap-2">
+                    {/* <div className="flex flex-col w-full gap-2">
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>주민등록번호</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={phoneRef}>
+                            <p className="text-sm text-red-600 invisible" ref={phoneRef}>
                                 * 연락처는 필수 항목입니다.
-                            </p> */}
+                            </p>
                         </div>
                         <input
                             className="w-full p-3 rounded-lg bg-[#F5F5F5]"
@@ -162,17 +180,18 @@ export default function ReportFormComponent({
                             placeholder="주민등록번호를 입력해주세요."
                             onChange={inputsHandler}
                         />
-                    </div>
+                    </div> */}
                     <div className="flex flex-col w-full gap-2">
                         <div className="flex flex-row items-center gap-1 font-[700]">
                             <p>신고 내용</p>
                             <span className="text-[#FF0000]">*</span>
-                            {/* <p className="text-sm text-red-600 invisible" ref={contentRef}>
-                                * 내용을 10글자 이상 입력해주세요.
-                            </p> */}
+                            <p className="text-sm text-red-600 invisible" ref={contentRef}>
+                                {contentValidationText}
+                            </p>
                         </div>
                         <textarea
                             className="resize-none p-3 rounded-lg bg-[#F5F5F5] h-[74px]"
+                            value={inputs.content}
                             placeholder="내용을 입력해주세요."
                             name="content"
                             onChange={inputsHandler}></textarea>

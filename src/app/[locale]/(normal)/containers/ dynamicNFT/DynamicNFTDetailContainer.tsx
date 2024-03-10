@@ -16,17 +16,26 @@ import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import saza_super from '/public/saza_super.png'
+import { getOwnerForNft } from '@/app/api/alchemy/api'
+import { useMetaMask } from '@/app/hooks/useMetaMask'
+import { locales } from '@/i18nconfig'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 
 export interface IDynamicNFTDetailContainerProps {
     tokenType: string
     tokenId: string
 }
 
+const { useRouter } = createSharedPathnamesNavigation({ locales })
+
 export default function DynamicNFTDetailContainer({
     tokenType,
     tokenId,
 }: IDynamicNFTDetailContainerProps) {
+    const router = useRouter()
     const [isDynamicNFTLoading, setIsDynamicNFTLoading] = React.useState(false)
+
+    const { wallet } = useMetaMask()
 
     const [NFTMetadata, setNFTMetadata] = React.useState(null)
 
@@ -174,7 +183,27 @@ export default function DynamicNFTDetailContainer({
         }
     }
 
+    const checkOwner = async () => {
+        let result
+        if (tokenType === 'saza') {
+            result = await getOwnerForNft(process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS, tokenId)
+        } else if (tokenType === 'gaza') {
+            result = await getOwnerForNft(process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS, tokenId)
+        }
+
+        if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
+            return true
+        }
+        return false
+    }
+
     const startDynamicNFT = async () => {
+        const result = await checkOwner()
+        if (!result) {
+            router.push('/access-denied')
+            return
+        }
+
         if (
             await $confirm(
                 'Dynamic NFT 서비스를 이용하여 파츠 변경 시, 변경된 내용은 원상 복구가 불가능하며 진행 시, 보유한 티켓 1개가 차감됩니다. 계속 진행하시겠습니까?',

@@ -43,9 +43,9 @@ export default function NFTDetailModalComponent({
     const tokenId = metadata?.name.split('#')[1]
     const tokenType = metadata?.name.split('#')[0].split(':')[1].trim().toLowerCase()
 
-    // React.useEffect(() => {
-    //     console.log(activeNFT)
-    // }, [activeNFT])
+    React.useEffect(() => {
+        console.log(tokenId)
+    }, [tokenId])
 
     return (
         <>

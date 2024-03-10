@@ -3,13 +3,13 @@
 import * as React from 'react'
 import ProfileSection from '../components/collector/ProfileSection'
 import NFTSection from '../components/collector/NFTSection'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
 import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUserInfoByWalletAddress, getUuidByAccount } from '@/app/api/auth/api'
-import { getNFTMetadata } from '@/app/api/alchemy/api'
+import { getNFTMetadata, getOwnerForNft } from '@/app/api/alchemy/api'
 import TabComponent from '../components/collector/TabComponent'
 import NFTDetailModalComponent from '../components/collector/NFTDetialModalComponent'
 import NFTListComponent from '../components/collector/NFTListComponent'
@@ -17,12 +17,16 @@ import { backgroundPallete } from '../../common/color/colorPalette'
 import { setActive } from '@material-tailwind/react/components/Tabs/TabsContext'
 import CardLoading from '../../common/components/CardLoading'
 import { AlertContext } from '@/app/provider/AlertProvider'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface ICollectorContainerProps {
     wallet_address: string
 }
 
+const { useRouter } = createSharedPathnamesNavigation({ locales })
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
+    const router = useRouter()
     const { $alert } = React.useContext(AlertContext)
     const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
@@ -94,6 +98,18 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         init()
     }, [session])
 
+    const disconnect = async () => {
+        await window.ethereum.request({
+            method: 'wallet_revokePermissions',
+            params: [
+                {
+                    eth_accounts: wallet.accounts[0],
+                },
+            ],
+        })
+        signOut({ redirect: true, callbackUrl: '/' })
+    }
+
     const init = async () => {
         try {
             setIsLoading(true)
@@ -110,9 +126,16 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
                 setProfileNFT(metadata)
             } else if (!token_type) {
-                console.log(123)
                 setProfileNFT('none')
             }
+
+            // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
+            const isOwner = await checkOwner(token_id)
+            if (!isOwner) {
+                setProfileNFT('none')
+                // disconnect()
+            }
+
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
@@ -120,9 +143,31 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         }
     }
 
+    const checkOwner = async (tokenId) => {
+        let result
+        if (tokenType === 'saza') {
+            result = await getOwnerForNft(process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS, tokenId)
+        } else if (tokenType === 'gaza') {
+            result = await getOwnerForNft(process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS, tokenId)
+        }
+
+        if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
+            return true
+        }
+        return false
+    }
+
     const updateUserProfile = async ({ tokenId, tokenType }) => {
         setIsLoading(true)
         try {
+            const isOwner = await checkOwner(tokenId)
+
+            console.log('isOwner?', isOwner)
+            if (!isOwner) {
+                router.push('/access-denied')
+                return
+            }
+
             const accounts = await getAccounts()
 
             let signResult = await getUuidByAccount(accounts[0])

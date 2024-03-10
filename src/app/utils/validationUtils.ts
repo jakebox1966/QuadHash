@@ -4,3 +4,8 @@ export const emailCheck = (email: string) => {
 
     return reg.test(email)
 }
+
+// export const phoneCheck = (phone : string) =>  {
+//     const reg = /^01([0|1|6|7|8])
+
+// }

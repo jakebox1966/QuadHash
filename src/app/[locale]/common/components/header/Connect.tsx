@@ -112,17 +112,17 @@ export default function Connect({ profileNFT }: IConnectProps) {
     }
 
     React.useEffect(() => {
+        const getTokenBalance = async () => {
+            console.log('get TokenBalance')
+            const response = await getQhTokenBalance(wallet.accounts[0])
+            // console.log(response)
+            // console.log(parseInt(response.tokenBalances[0].tokenBalance, 16) / 10 ** 18)
+            setQhTokenBalance(parseInt(response.tokenBalances[0].tokenBalance, 16) / 10 ** 6)
+        }
         if (session && wallet.accounts[0]) {
             getTokenBalance()
         }
-    }, [wallet.accounts])
-
-    const getTokenBalance = async () => {
-        const response = await getQhTokenBalance(wallet.accounts[0])
-        // console.log(response)
-        // console.log(parseInt(response.tokenBalances[0].tokenBalance, 16) / 10 ** 18)
-        setQhTokenBalance(parseInt(response.tokenBalances[0].tokenBalance, 16) / 10 ** 6)
-    }
+    }, [wallet.accounts[0], session])
 
     return (
         <>

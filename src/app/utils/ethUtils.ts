@@ -5,13 +5,17 @@ export const formatBalance = (rawBalance: string) => {
     return balance
 }
 
+export const copyWalletAddress = (wallet_address: string) => {
+    navigator.clipboard.writeText(wallet_address)
+}
+
 export const formatChainAsNum = (chainIdHex: string) => {
     const chainIdNum = parseInt(chainIdHex)
     return chainIdNum
 }
 
 export const formatAddress = (addr: string) => {
-    return `${addr.substring(0, 13)}...`
+    return `${addr.substring(0, 10)}...${addr.slice(-6)}`
 }
 
 export const calcCoinPriceWithWei = (coinAmount: number, coinPriceInWei: number) => {

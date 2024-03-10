@@ -28,7 +28,7 @@ import {
     Utils,
 } from 'alchemy-sdk'
 import { ToastContext } from '@/app/provider/ToastProvider'
-import { customTheme, customTheme1 } from '../../materialUI/theme'
+import { customTheme, customTheme1, dialogTheme } from '../../materialUI/theme'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
@@ -314,6 +314,7 @@ export default function QhTokenModalComponent({
     return (
         <>
             <Dialog
+                size="lg"
                 ref={myElementRef}
                 dismiss={open ? { outsidePress: false } : { outsidePress: true }}
                 open={isQhTokenModalOpen}
@@ -321,7 +322,7 @@ export default function QhTokenModalComponent({
                 handler={handleQhTokenModal}
                 placeholder={undefined}>
                 <DialogHeader placeholder={undefined}>
-                    <div className="flex flex-row justify-center font-black items-center w-full relative">
+                    <div className="text-[23px] flex flex-row justify-center font-black items-center w-full relative">
                         Dynamic NFT Buy
                         <img
                             src="/exit.svg"
@@ -333,46 +334,46 @@ export default function QhTokenModalComponent({
                 </DialogHeader>
                 <DialogBody placeholder={undefined}>
                     <div className="w-full flex flex-col justify-center items-center gap-1">
-                        <div className="flex flex-row justify-center items-center font-black w-full text-center gap-1">
+                        <div className="flex flex-row justify-center items-center font-black w-full text-center gap-1 text-[16px]">
                             <div
-                                className={`w-full border-2 rounded-l-xl p-2 cursor-pointer text-[#F46221] border-[#F46221] hover:border-[#F46221]`}
+                                className={`leading-[28px] w-full border-2 rounded-l-xl p-2 cursor-pointer text-[#F46221] border-[#F46221]`}
                                 onClick={() => handleQhTokenModalTap('ticket')}>
                                 TICKET
                             </div>
                             <div
-                                className={`w-full border-2 border-[#F46221] rounded-r-xl p-2 relative bg-[#F46221] text-[#FFFFFF] ${
+                                className={`w-full border-2 border-[#F46221] rounded-r-xl p-2 relative bg-[#F46221] text-[16px] text-[#FFFFFF] flex flex-row items-center ${
                                     missingTransactionForTicket.length > 0 &&
                                     'hover:border-[#F46221] cursor-pointer'
-                                }  ${QhTokenModalTap === 'activity' && 'bg-[#FFCD19]/25'}`}
+                                }  `}
                                 onClick={() =>
                                     missingTransactionForTicket.length > 0 &&
                                     handleQhTokenModalTap('activity')
                                 }>
-                                ACTIVITY
                                 <div
                                     className={`${
                                         missingTransactionForTicket.length > 0 ? 'block' : 'hidden'
-                                    } absolute text-red-700 text-2xl -translate-y-1/2 left-32 top-1/2`}>
+                                    }  text-red-700 text-[16px] bg-[#FFFFFF] px-3 py-1.5 leading-[16px] rounded-full mr-[10px]`}>
                                     !
                                 </div>
+                                ACTIVITY
                             </div>
                         </div>
                         {QhTokenModalTap === 'ticket' && (
                             <div className="w-full mt-[47px]">
-                                <div className="flex flex-row justify-center items-center w-full gap-1 relative">
-                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] rounded-l-xl p-5 w-full text-[#F46221]">
-                                        <div className="font-black">
+                                <div className="flex flex-row justify-center items-stretch w-full gap-1 relative text-[13px] h-full">
+                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] rounded-l-xl py-5 px-5 w-1/2 text-center text-[#F46221]">
+                                        <div className="font-black w-full overflow-x-auto">
                                             {tokenAmount ? tokenAmount : 0} USDT
                                         </div>
                                         <div className="font-medium">USDT balance</div>
                                     </div>
-                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] bg-[#F46221] text-[#FFFFFF] rounded-r-xl p-5 w-full">
-                                        <div className="font-black">
+                                    <div className="flex flex-col justify-center items-center border-2 border-[#F46221] bg-[#F46221] text-[#FFFFFF] rounded-r-xl py-5 px-4 w-1/2 text-center">
+                                        <div className="font-black w-full overflow-x-auto">
                                             {ticketAmount ? ticketAmount : 0} TICKET
                                         </div>
                                         <div className="font-medium">Dynamic NFT</div>
                                     </div>
-                                    <div className="absolute bg-white rounded-full border-2 p-2">
+                                    <div className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full border-2 p-2">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -398,11 +399,12 @@ export default function QhTokenModalComponent({
                                         type="number"
                                         onChange={inputHandler}
                                         placeholder="TICKET"
-                                        className="outline-none p-2 border-2 border-[#F46221] focus:border-[#F46221] bg-[#FFF5F0] rounded-lg w-full"
+                                        className="outline-none text-[13px] p-2 border-2 border-[#F46221] focus:border-[#F46221] bg-[#FFF5F0] rounded-lg w-full"
                                     />
                                     <div className="flex flex-row justify-center items-center gap-2 font-medium absolute right-3 top-1/2 -translate-y-1/2">
                                         <button
-                                            className="px-3 rounded-full cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
+                                            className="px-3 py-1
+                                             leading-[13px] rounded-full text-[13px] cursor-pointer text-[#F46221] font-black bg-[#F46221]/15"
                                             disabled={
                                                 // isLoadingForApproved ||
                                                 isLoadingForTransfer || isLoadingForExchangeTicket
@@ -428,7 +430,7 @@ export default function QhTokenModalComponent({
                                     // isLoadingForApproved ||
                                     (isLoadingForTransfer || isLoadingForExchangeTicket) && (
                                         <Button
-                                            className="w-full bg-[#F46221] mt-10 text-white font-black"
+                                            className="w-full bg-[#F46221] mt-[62px] mb-[15px] text-white font-black"
                                             placeholder={undefined}
                                             disabled>
                                             <span className="loader2">
@@ -443,48 +445,52 @@ export default function QhTokenModalComponent({
                         )}
 
                         {QhTokenModalTap === 'activity' && (
-                            <table className="w-full font-medium rounded-lg table-auto text-left">
-                                <thead className="text-[#FFFFFF] rounded-xl w-full">
-                                    <tr>
-                                        {TABLE_HEAD.map((head) => (
-                                            <th key={head} className="bg-[#F46221] py-3 px-5 ">
-                                                {head}
+                            <div className="rounded-lg overflow-hidden w-full text-xs">
+                                <table className="w-full font-medium rounded-lg text-left table-fixed">
+                                    <thead className="text-[#FFFFFF] rounded-xl w-full">
+                                        <tr>
+                                            <th className="bg-[#F46221] w-[40%] py-3 px-3">Hash</th>
+                                            <th className="bg-[#F46221] w-[20%] py-3 px-3">
+                                                Ticket
                                             </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="w-full">
-                                    {missingTransactionForTicket.map(
-                                        ({ transactionHash, data, claim }, index) => {
-                                            console.log(data)
-                                            console.log(parseInt(data, 16))
-                                            return (
-                                                <tr
-                                                    className="border-b-2 p-10 cursor-pointer hover:opacity-70"
-                                                    key={transactionHash}
-                                                    onClick={() =>
-                                                        exchangeHashToTicket(transactionHash)
-                                                    }>
-                                                    <td className="p-3 px-5 truncate max-w-[300px]">
-                                                        {transactionHash}
-                                                    </td>
-                                                    <td className="p-3 px-5">
-                                                        {parseInt(data, 16) / (10 ** 6 * 5)}
-                                                    </td>
-                                                    <td className="p-3 px-5 text-[#FFFFFF]">
-                                                        <div className="flex flex-row justify-center items-center bg-[#18AB56] px-5 py-1 rounded-full gap-2 align-middle">
-                                                            <div>
-                                                                <img src="/dot.svg" alt="dot" />
+                                            <th className="bg-[#F46221] w-[30%] py-3 px-3">
+                                                Claim
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="w-full">
+                                        {missingTransactionForTicket.map(
+                                            ({ transactionHash, data, claim }, index) => {
+                                                console.log(data)
+                                                console.log(parseInt(data, 16))
+                                                return (
+                                                    <tr
+                                                        className="border-b-2 p-10 cursor-pointer hover:opacity-70"
+                                                        key={transactionHash}
+                                                        onClick={() =>
+                                                            exchangeHashToTicket(transactionHash)
+                                                        }>
+                                                        <td className="p-3 px-3 truncate break-all w-[50%]">
+                                                            {transactionHash}
+                                                        </td>
+                                                        <td className="p-3 px-3 w-[25%]">
+                                                            <div className="text-[10px] px-2 py-1">
+                                                                {parseInt(data, 16) / (10 ** 6 * 5)}
                                                             </div>
-                                                            <div>Available</div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        },
-                                    )}
-                                </tbody>
-                            </table>
+                                                        </td>
+                                                        <td className="p-3 px-3 text-[#FFFFFF] w-[25%]">
+                                                            <div className="bg-[#18AB56] text-[10px] px-2 py-1  rounded-full gap-1 w-full flex flex-row justify-center items-center">
+                                                                <img src="/dot.svg" alt="dot" />
+                                                                <div>Available </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            },
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         )}
                     </div>
                 </DialogBody>

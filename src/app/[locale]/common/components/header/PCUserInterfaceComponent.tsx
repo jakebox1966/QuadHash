@@ -3,11 +3,19 @@
 export const dynamic = 'force-dynamic'
 
 import { useMetaMask } from '@/app/hooks/useMetaMask'
-import { formatAddress, formatToken } from '@/app/utils/ethUtils'
-import { Popover, PopoverHandler, Button, PopoverContent } from '@material-tailwind/react'
+import { copyWalletAddress, formatAddress, formatToken } from '@/app/utils/ethUtils'
+import {
+    Popover,
+    PopoverHandler,
+    Button,
+    PopoverContent,
+    Tooltip,
+    ThemeProvider,
+} from '@material-tailwind/react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import * as React from 'react'
+import { tooltipTheme } from '../../materialUI/theme'
 
 export interface IPCUserInterfaceComponentProps {
     isOpenPCModal: boolean
@@ -37,6 +45,15 @@ export default function PCUserInterfaceComponent({
     const imageUrl = profileNFT ? `${profileNFT?.image}?${new Date().getTime()}` : null
 
     const { data: session } = useSession()
+    const [toolipMessage, setTooltipMessage] = React.useState('Copy Address')
+
+    const copy = () => {
+        copyWalletAddress(wallet.accounts[0])
+        setTooltipMessage('Copied!')
+        setTimeout(() => {
+            setTooltipMessage('Copy Address')
+        }, 1000)
+    }
 
     return (
         <>
@@ -67,8 +84,30 @@ export default function PCUserInterfaceComponent({
                                 </div>
 
                                 <div>
-                                    <div className="font-medium text-base">
-                                        ACCOUNT: {formatAddress(wallet.accounts[0]).toUpperCase()}
+                                    <div className="font-medium text-base flex flex-row items-center gap-3">
+                                        ACCOUNT:
+                                        {formatAddress(wallet.accounts[0]).toUpperCase()}
+                                        <ThemeProvider value={tooltipTheme}>
+                                            <Tooltip content={toolipMessage} placement="top">
+                                                <div
+                                                    className="hover:opacity-65 active:opacity-65"
+                                                    onClick={copy}>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-6 h-6">
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </Tooltip>
+                                        </ThemeProvider>
                                     </div>
                                     <div className="font-medium text-base">
                                         USDT BALANCE: {qhTokenBalance}
@@ -84,7 +123,7 @@ export default function PCUserInterfaceComponent({
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-row justify-center text-xs items-center text-white w-full gap-3 mt-[15px] font-medium">
+                        <div className="flex flex-row justify-center text-[16px] items-center text-white w-full gap-3 mt-[15px] font-medium">
                             <Link
                                 href={`/collector/${wallet.accounts[0]}`}
                                 className="bg-[#F46221] border-none py-2 px-5 w-full border-2 rounded-lg flex flex-row justify-center items-center gap-2 cursor-pointer hover:opacity-70">

@@ -28,6 +28,7 @@ import { getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
 import Loading from '../../common/components/Loading'
 import ReportSuccessComponent from '../components/report/ReportSuccess'
+import { emailCheck } from '@/app/utils/validationUtils'
 
 export interface IReportContainerProps {}
 
@@ -57,6 +58,9 @@ export default function ReportContainer(props: IReportContainerProps) {
     const [activeStep, setActiveStep] = React.useState(0)
     const [isLastStep, setIsLastStep] = React.useState(false)
     const [isFirstStep, setIsFirstStep] = React.useState(false)
+
+    const [emailValidationText, setEmailVaidationText] = React.useState('')
+    const [contentValidationText, setContentValidationText] = React.useState('')
 
     const nameRef = useRef(null)
     const titleRef = useRef(null)
@@ -171,6 +175,10 @@ export default function ReportContainer(props: IReportContainerProps) {
     }, [wallet])
 
     React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [activeStep])
+
+    React.useEffect(() => {
         return () => {
             setAllAgreed(false)
             setAgreements((prev) => ({
@@ -189,7 +197,13 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     const inputsHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {
-            const { value, name } = e.target
+            let { value, name } = e.target
+
+            if (name === 'user_phone') {
+                console.log(123123)
+                value = value.replace(/[^0-9]/g, '')
+            }
+
             setInputs({ ...inputs, [name]: value })
         } else if (e.target instanceof HTMLTextAreaElement) {
             const { value, name } = e.target
@@ -241,7 +255,7 @@ export default function ReportContainer(props: IReportContainerProps) {
     const formValidation = () => {
         let usernameValidation = true
         let titleValidation = true
-        let walletAddressValidation = true
+        // let walletAddressValidation = true
         let nftListValidation = true
         let userEmailValidation = true
         let userPhoneValidation = true
@@ -249,7 +263,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.user_name === '') {
             nameRef?.current?.classList.remove('invisible')
-            nameRef.current.focus()
+            // nameRef.current.focus()
             usernameValidation = false
         } else {
             nameRef?.current?.classList.add('invisible')
@@ -257,7 +271,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.title === '') {
             titleRef.current?.classList.remove('invisible')
-            titleRef.current.focus()
+            // titleRef.current.focus()
             titleValidation = false
         } else {
             titleRef.current?.classList.add('invisible')
@@ -265,7 +279,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.post_nfts.length === 0) {
             NFTListRef?.current?.classList.remove('invisible')
-            NFTListRef.current.focus()
+            // NFTListRef.current.focus()
             nftListValidation = false
         } else {
             NFTListRef?.current?.classList.add('invisible')
@@ -273,32 +287,45 @@ export default function ReportContainer(props: IReportContainerProps) {
 
         if (inputs.user_email === '') {
             emailRef?.current?.classList.remove('invisible')
-            emailRef.current.focus()
+
+            setEmailVaidationText('이메일은 필수 항목입니다.')
             userEmailValidation = false
         } else {
-            emailRef.current?.classList.add('invisible')
+            if (!emailCheck(inputs.user_email)) {
+                emailRef?.current?.classList.remove('invisible')
+                setEmailVaidationText('이메일 형식에 맞지 않습니다.')
+                userEmailValidation = false
+            } else {
+                emailRef?.current?.classList.add('invisible')
+                userEmailValidation = true
+            }
         }
 
         if (inputs.user_phone === '') {
-            phoneRef.current?.classList.remove('invisible')
-            phoneRef.current.focus()
+            phoneRef?.current?.classList.remove('invisible')
             userPhoneValidation = false
         } else {
-            phoneRef.current?.classList.add('invisible')
+            phoneRef?.current?.classList.add('invisible')
         }
 
-        if (inputs.content === '' || inputs.content.length < 10) {
-            contentRef.current?.classList.remove('invisible')
-            contentRef.current.focus()
+        if (inputs.content === '') {
+            contentRef?.current?.classList.remove('invisible')
+            setContentValidationText('내용은 필수 항목입니다')
             contentValidation = false
         } else {
-            contentRef.current?.classList.add('invisible')
+            if (inputs.content.length < 10) {
+                contentRef?.current?.classList.remove('invisible')
+                setContentValidationText('10글자 이상 입력해주세요.')
+                contentValidation = false
+            } else {
+                contentRef?.current?.classList.add('invisible')
+                contentValidation = true
+            }
         }
 
         if (
             usernameValidation &&
             titleValidation &&
-            walletAddressValidation &&
             nftListValidation &&
             userEmailValidation &&
             userPhoneValidation &&
@@ -310,6 +337,8 @@ export default function ReportContainer(props: IReportContainerProps) {
     }
 
     const submit = async () => {
+        console.log(formValidation())
+        console.log(allAgreed)
         if (formValidation() && finalAgreement && allAgreed) {
             if (await $confirm('제출하시겠습니까?')) {
                 try {
@@ -345,85 +374,6 @@ export default function ReportContainer(props: IReportContainerProps) {
     return (
         <>
             <div className="flex flex-col justify-start items-start min-h-[calc(100vh-140px)] gap-16 pt-[96px] w-full max-w-[1400px] px-[33px] lg:px-[86px]">
-                {/* <div className="w-full">
-                    <Stepper
-                        activeStep={activeStep}
-                        isLastStep={(value) => setIsLastStep(value)}
-                        isFirstStep={(value) => setIsFirstStep(value)}
-                        placeholder={undefined}
-                        activeLineClassName={`bg-[#F46221] ${activeStep === 0 && !'!w-0'} ${
-                            activeStep === 1 && '!w-1/3'
-                        } ${activeStep === 2 && '!w-2/3'} ${activeStep === 3} '!w-full`}
-                        lineClassName="bg-gray-300">
-                        <Step
-                            // onClick={() => setActiveStep(0)}
-                            placeholder={undefined}
-                            className={
-                                activeStep === 0 ||
-                                activeStep === 1 ||
-                                activeStep === 2 ||
-                                activeStep === 3
-                                    ? '!bg-[#F46221]'
-                                    : '!bg-gray-300'
-                            }>
-                            <div className="absolute -top-[2.5rem] w-max text-center">
-                                <Typography
-                                    variant="h6"
-                                    color={activeStep === 0 ? 'blue-gray' : 'gray'}
-                                    placeholder={undefined}>
-                                    약관 동의
-                                </Typography>
-                            </div>
-                        </Step>
-                        <Step
-                            // onClick={() => setActiveStep(1)}
-                            placeholder={undefined}
-                            className={
-                                activeStep === 1 || activeStep === 2 || activeStep === 3
-                                    ? '!bg-[#F46221]'
-                                    : '!bg-gray-300'
-                            }>
-                            <div className="absolute -top-[2.5rem] w-max text-center">
-                                <Typography
-                                    variant="h6"
-                                    color={activeStep === 1 ? 'blue-gray' : 'gray'}
-                                    placeholder={undefined}>
-                                    NFT 선택
-                                </Typography>
-                            </div>
-                        </Step>
-                        <Step
-                            // onClick={() => setActiveStep(2)}
-                            placeholder={undefined}
-                            className={
-                                activeStep === 2 || activeStep === 3
-                                    ? '!bg-[#F46221]'
-                                    : '!bg-gray-300'
-                            }>
-                            <div className="absolute -top-[2.5rem] w-max text-center">
-                                <Typography
-                                    variant="h6"
-                                    color={activeStep === 2 ? 'blue-gray' : 'gray'}
-                                    placeholder={undefined}>
-                                    폼 작성
-                                </Typography>
-                            </div>
-                        </Step>
-                        <Step
-                            // onClick={() => setActiveStep(2)}
-                            placeholder={undefined}
-                            className={activeStep === 3 ? '!bg-[#F46221]' : '!bg-gray-300'}>
-                            <div className="absolute -top-[2.5rem] w-max text-center">
-                                <Typography
-                                    variant="h6"
-                                    color={activeStep === 3 ? 'blue-gray' : 'gray'}
-                                    placeholder={undefined}>
-                                    완료
-                                </Typography>
-                            </div>
-                        </Step>
-                    </Stepper>
-                </div> */}
                 {activeStep === 0 && (
                     <>
                         <ReportAgreementComponent
@@ -454,7 +404,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                             setInputs={setInputs}
                         />
 
-                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                        <div className="w-full flex flex-row justify-center items-center gap-3 text-white">
                             <Button
                                 className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 placeholder={undefined}
@@ -474,8 +424,11 @@ export default function ReportContainer(props: IReportContainerProps) {
                 {activeStep === 2 && (
                     <>
                         <ReportFormComponent
+                            inputs={inputs}
                             targetList={inputs.post_nfts}
                             inputsHandler={inputsHandler}
+                            emailValidationText={emailValidationText}
+                            contentValidationText={contentValidationText}
                             finalAgreement={finalAgreement}
                             nameRef={nameRef}
                             titleRef={titleRef}
@@ -487,7 +440,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                             handleFinalAgreementChange={handleFinalAgreementChange}
                         />
 
-                        <div className="w-full flex flex-row justify-center lg:justify-end items-center gap-3 text-white">
+                        <div className="w-full flex flex-row justify-center items-center gap-3 text-white">
                             <Button
                                 className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 placeholder={undefined}
@@ -497,12 +450,12 @@ export default function ReportContainer(props: IReportContainerProps) {
                             <Button
                                 className="rounded-lg bg-[#F46221] text-white w-[148px] border-[1px] border-black py-[8px] lg:py-[16px] lg:px-[20px] !shadow-[_4px_6px_black]"
                                 disabled={
-                                    // inputs.user_name === '' ||
-                                    // inputs.title === '' ||
-                                    // inputs.post_nfts.length === 0 ||
-                                    // inputs.user_email === '' ||
-                                    // inputs.user_phone === '' ||
-                                    // inputs.content === '' ||
+                                    inputs.user_name === '' ||
+                                    inputs.title === '' ||
+                                    inputs.post_nfts.length === 0 ||
+                                    inputs.user_email === '' ||
+                                    inputs.user_phone === '' ||
+                                    inputs.content === '' ||
                                     !finalAgreement
                                 }
                                 placeholder={undefined}

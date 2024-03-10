@@ -62,8 +62,10 @@ export default function NFTListComponent({
 
             return pageKey
         },
+        cacheTime: 0,
+        staleTime: 0,
         retry: 0,
-        refetchOnMount: false,
+        refetchOnMount: true,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
     })

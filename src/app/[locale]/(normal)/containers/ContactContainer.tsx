@@ -19,7 +19,7 @@ export default function ContactContainer() {
 
     const user_nameRef = React.useRef(null)
     const user_emailRef = React.useRef(null)
-    const user_phoneRef = React.useRef(null)
+    // const user_phoneRef = React.useRef(null)
     const contentRef = React.useRef(null)
 
     const [emailValidationText, setEmailVaidationText] = React.useState('')
@@ -37,7 +37,11 @@ export default function ContactContainer() {
 
     const inputsHandler = (e: React.ChangeEvent) => {
         if (e.target instanceof HTMLInputElement) {
-            const { value, name } = e.target
+            let { value, name } = e.target
+
+            if (name === 'user_phone') {
+                value = value.replace(/[^0-9]/g, '')
+            }
             setInputs({ ...inputs, [name]: value })
         } else if (e.target instanceof HTMLTextAreaElement) {
             const { value, name } = e.target
@@ -73,7 +77,7 @@ export default function ContactContainer() {
     const formValidation = () => {
         let user_nameValidation = true
         let user_emailValidation = true
-        let user_phoneValidation = true
+        // let user_phoneValidation = true
         let contentValidation = true
 
         if (inputs.user_name === '') {
@@ -101,14 +105,14 @@ export default function ContactContainer() {
             }
         }
 
-        if (inputs.user_phone === '') {
-            user_phoneRef?.current?.classList.remove('invisible')
-            user_phoneRef.current.focus()
-            user_phoneValidation = false
-        } else {
-            user_phoneRef?.current?.classList.add('invisible')
-            user_phoneValidation = true
-        }
+        // if (inputs.user_phone === '') {
+        //     user_phoneRef?.current?.classList.remove('invisible')
+        //     user_phoneRef.current.focus()
+        //     user_phoneValidation = false
+        // } else {
+        //     user_phoneRef?.current?.classList.add('invisible')
+        //     user_phoneValidation = true
+        // }
         if (inputs.content === '') {
             contentRef?.current?.classList.remove('invisible')
             contentRef.current.focus()
@@ -121,7 +125,7 @@ export default function ContactContainer() {
         if (
             user_nameValidation &&
             user_emailValidation &&
-            user_phoneValidation &&
+            // user_phoneValidation &&
             contentValidation
         ) {
             return true
@@ -135,10 +139,10 @@ export default function ContactContainer() {
                 <div className="text-center text-5xl font-medium w-full">CONTACT US</div>
                 <div className="flex flex-col items-center w-full gap-10 mt-[70px]">
                     <div className="flex flex-row w-full">
-                        <div>WHAT ARE YOU LOOKING TO DO?</div>
+                        <div>제안하실 내용을 선택해주세요.</div>
                     </div>
                     <div className="flex flex-row justify-between items-center w-full">
-                        <div>PARTNER WITH QUADHASH</div>
+                        <div>파트너쉽 제안</div>
 
                         <div>
                             <Checkbox
@@ -153,7 +157,7 @@ export default function ContactContainer() {
                         </div>
                     </div>
                     <div className="flex flex-row justify-between items-center w-full">
-                        <div>CO-MARKETING WITH QUADHASH</div>
+                        <div>마케팅 제안</div>
                         <div>
                             <Checkbox
                                 ripple={false}
@@ -168,14 +172,14 @@ export default function ContactContainer() {
                     </div>
                     <div className="flex flex-col justify-start items-start w-full h-[85px]">
                         <div>
-                            NAME<span className="text-[#FF0000]">*</span>
+                            이름<span className="text-[#FF0000]">*</span>
                         </div>
 
                         <div className="w-full">
                             <input
                                 value={inputs.user_name}
                                 name="user_name"
-                                placeholder="Your name..."
+                                placeholder="이름"
                                 className="w-full bg-[#F5F5F5] p-2 border-2 rounded-lg"
                                 onChange={inputsHandler}
                                 type="text"
@@ -189,13 +193,13 @@ export default function ContactContainer() {
                     </div>
                     <div className="flex flex-col justify-start items-start w-full h-[85px]">
                         <div>
-                            EMAIL<span className="text-[#FF0000]">*</span>
+                            이메일<span className="text-[#FF0000]">*</span>
                         </div>
                         <div className="w-full">
                             <input
                                 value={inputs.user_email}
                                 name="user_email"
-                                placeholder="Your email address..."
+                                placeholder="이메일"
                                 className="w-full bg-[#F5F5F5] p-2 border-2 rounded-lg"
                                 onChange={inputsHandler}
                                 type="text"
@@ -209,19 +213,20 @@ export default function ContactContainer() {
                     </div>
                     <div className="flex flex-col justify-start items-start w-full h-[85px]">
                         <div>
-                            PHONE NUMBER<span className="text-[#FF0000]">*</span>
+                            연락처
+                            {/* <span className="text-[#FF0000]">*</span> */}
                         </div>
                         <div className="w-full">
                             <input
                                 value={inputs.user_phone}
                                 name="user_phone"
-                                placeholder="A contact telephone number"
+                                placeholder="연락처 ( '-' 제외 ) "
                                 className="w-full bg-[#F5F5F5] p-2 border-2 rounded-lg"
                                 onChange={inputsHandler}
-                                type="number"
+                                type="text"
                             />
                             <div className="pt-2">
-                                <p className="text-sm text-red-600 invisible" ref={user_phoneRef}>
+                                <p className="text-sm text-red-600 invisible">
                                     * 연락처는 필수 항목입니다.
                                 </p>
                             </div>
@@ -230,18 +235,19 @@ export default function ContactContainer() {
 
                     <div className="flex flex-col justify-start items-start w-full">
                         <div>
-                            PLEASE GIVE SOME MORE DETAIL REGARDING YOUR REQUEST
+                            제안 내용
                             <span className="text-[#FF0000]">*</span>
                         </div>
                         <div className="w-full">
                             <textarea
+                                placeholder="제안 내용"
                                 onChange={inputsHandler}
                                 value={inputs.content}
                                 name="content"
                                 className="resize-none w-full bg-[#F5F5F5] p-2 border-2 rounded-lg h-[100px]"></textarea>
                             <div className="pt-2">
                                 <p className="text-sm text-red-600 invisible" ref={contentRef}>
-                                    * Content는 필수 항목입니다.
+                                    * 제안 내용은 필수 항목입니다.
                                 </p>
                             </div>
                         </div>
