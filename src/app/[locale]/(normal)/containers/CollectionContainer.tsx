@@ -26,6 +26,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
+import BurtonMorrisDetailModalComponent from '../components/collectables/BurtonMorrisDetailModalComponent'
 
 export interface ICollectablesContainerProps {}
 
@@ -330,16 +331,31 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
                 </div>
             </div>
 
-            <CollectionDetailModalComponent
-                burtonMorris={burtonMorris}
-                contractAddress={contractAddress}
-                selectedTokenId={selectedTokenId}
-                open={open}
-                handleOpen={handleOpen}
-                metadata={metadata}
-                imageUrl={imageUrl}
-                backgroundColor={backgroundColor}
-            />
+            {!burtonMorris && (
+                <CollectionDetailModalComponent
+                    burtonMorris={burtonMorris}
+                    contractAddress={contractAddress}
+                    selectedTokenId={selectedTokenId}
+                    open={open}
+                    handleOpen={handleOpen}
+                    metadata={metadata}
+                    imageUrl={imageUrl}
+                    backgroundColor={backgroundColor}
+                />
+            )}
+
+            {burtonMorris && (
+                <BurtonMorrisDetailModalComponent
+                    burtonMorris={burtonMorris}
+                    contractAddress={contractAddress}
+                    selectedTokenId={selectedTokenId}
+                    open={open}
+                    handleOpen={handleOpen}
+                    metadata={metadata}
+                    imageUrl={imageUrl}
+                    backgroundColor={backgroundColor}
+                />
+            )}
         </>
     )
 }
