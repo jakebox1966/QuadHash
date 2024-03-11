@@ -71,7 +71,7 @@ export default function NFTDetailModalComponent({
                                 {/* MOBILE 버전 */}
                                 <div className={`block lg:hidden w-full relative mt-4 px-4`}>
                                     <div className="flex flex-row justify-between items-center max-h-[50px]">
-                                        <div className="leading-[25px]">
+                                        <div className="leading-[25px] w-full">
                                             <div className="text-[12px] font-medium tracking-[0.05rem]">
                                                 QUADHASH
                                             </div>
@@ -79,6 +79,15 @@ export default function NFTDetailModalComponent({
                                                 {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
+                                        {session && collector_address === wallet?.accounts[0] && (
+                                            <NFTSetting
+                                                backgroundColor={backgroundColor}
+                                                updateUserProfile={updateUserProfile}
+                                                tokenId={tokenId}
+                                                tokenType={tokenType}
+                                                isFrom={'list'}
+                                            />
+                                        )}
                                     </div>
                                     {/* <div className="font-medium">
                                         <div className="flex gap-4 justify-start items-center">

@@ -108,7 +108,7 @@ export default function CollectionDetailModalComponent({
                                         } transition ease-in lg:duration-3000`}
                                     />
 
-                                    <div className="absolute top-1/2 left-[calc(50%+4px)] -translate-y-1/2 -translate-x-1/2 w-[calc(100%+80px)] lg:w-[calc(100%+170px)]">
+                                    <div className="absolute min-w-fit top-1/2 left-[calc(50%+4px)] -translate-y-1/2 -translate-x-1/2 w-[calc(100%+80px)] lg:w-[calc(100%+170px)]">
                                         <img src="/frame.png" alt="" />
                                     </div>
 

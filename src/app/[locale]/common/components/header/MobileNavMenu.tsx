@@ -114,7 +114,7 @@ export default function MobileNavMenu({
                 <div className="px-10 flex flex-col justify-center items-start gap-10 text-white font-black">
                     <Link
                         href={'/'}
-                        className="flex flex-row justify-start w-full transition-all hover:opacity-65">
+                        className="flex flex-row justify-start w-full transition-all hover:opacity-65 active:opacity-65">
                         <Image src={mobileWhiteLogo} alt={'mobile_white_logo'} />
                     </Link>
 
