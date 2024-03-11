@@ -122,7 +122,7 @@ export default function MobileNavMenu({
                         <Link
                             key={item}
                             href={`/${item}`}
-                            className="flex flex-row justify-center items-center gap-14 transition-all hover:opacity-65">
+                            className="flex flex-row justify-center items-center gap-14 transition-all hover:opacity-65 active:opacity-65">
                             {/* <Image src={mobileMenuIcon} alt={'mobile_menu_icon'} /> */}
                             {t(item)}
                         </Link>

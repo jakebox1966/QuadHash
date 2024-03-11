@@ -4,14 +4,14 @@ export const dynamic = 'force-dynamic'
 
 import { copyWalletAddress, formatAddress } from '@/app/utils/ethUtils'
 import { Button, Drawer, ThemeProvider, Tooltip } from '@material-tailwind/react'
-
-import Link from 'next/link'
+import { locales } from '@/i18nconfig'
 
 import * as React from 'react'
 
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { drawerTheme, tooltipTheme } from '../../materialUI/theme'
 import { useSession } from 'next-auth/react'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 
 export interface IMobileUserInterfaceComponentProps {
     qhTokenBalance: number
@@ -23,6 +23,7 @@ export interface IMobileUserInterfaceComponentProps {
     handleQhTokenModal: () => void
     disconnect: () => Promise<void>
 }
+const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
 
 export default function MobileUserInterfaceComponent({
     qhTokenBalance,
@@ -34,6 +35,8 @@ export default function MobileUserInterfaceComponent({
     handleQhTokenModal,
     disconnect,
 }: IMobileUserInterfaceComponentProps) {
+    const router = useRouter()
+    const pathname = usePathname()
     const { wallet } = useMetaMask()
     const imageUrl = profileNFT ? `${profileNFT?.image}?${new Date().getTime()}` : null
     const { data: session } = useSession()
@@ -47,6 +50,10 @@ export default function MobileUserInterfaceComponent({
             setTooltipMessage('Copy Address')
         }, 1000)
     }
+
+    React.useEffect(() => {
+        closeMobileModal()
+    }, [pathname])
 
     return (
         <>
