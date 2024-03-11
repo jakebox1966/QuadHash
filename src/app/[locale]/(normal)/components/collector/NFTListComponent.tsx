@@ -98,53 +98,55 @@ export default function NFTListComponent({
                                 <div
                                     className="w-full bg-[#131313] text-[#FFFFFF] rounded-xl"
                                     key={`${index}`}>
-                                    <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] pl-[83px] flex flex-row items-center">
+                                    <div className="overflow-hidden rounded-lg lg:aspect-[4/1] p-[1rem] lg:pl-[83px] flex flex-row items-center">
                                         <div className="text-md font-medium w-full text-left">
-                                            <div className="text-[30px]">
+                                            <div className="text-[10px] lg:text-[30px]">
                                                 YOU DON'T HAVE ANY QUADHASH :{' '}
                                                 {tokenType.toUpperCase()}
                                             </div>
                                             {tokenType !== 'qbt' && (
                                                 <>
-                                                    <div className="font-medium text-[16px]">
+                                                    <div className="font-medium text-[10px] lg:text-[20px] text-[#A2A2A2]">
                                                         Head over to OPENSEA or KONKRIT to join the
                                                         QUADHASH
                                                     </div>
                                                     <div className="flex flex-row gap-[24px] font-medium mt-[25px]">
-                                                        <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center min-w-[200px] items-center gap-3">
+                                                        <Link
+                                                            href={`https://opensea.io/collection/qh-${tokenType}`}
+                                                            // href={`https://opensea.io/collection/qh-saza`}
+                                                            target="_blank"
+                                                            className="bg-[#FFFFFF] text-black rounded-full p-[5px] lg:py-2 flex flex-row justify-center min-w-[100px] lg:min-w-[200px] items-center gap-3">
                                                             <div>
                                                                 <img
                                                                     src="/opensea.png"
                                                                     alt="opensea"
+                                                                    className="w-[15px] lg:w-[30px]"
                                                                 />
                                                             </div>
-                                                            <Link
-                                                                href={`https://opensea.io/collection/qh-${tokenType}`}
-                                                                // href={`https://opensea.io/collection/qh-saza`}
-                                                                target="_blank"
-                                                                className="text-[21px]">
+                                                            <div className="text-[10px] lg:text-[21px]">
                                                                 OPENSEA
-                                                            </Link>
-                                                        </div>
-                                                        <div className="bg-[#FFFFFF] text-black rounded-full px-6 py-2 flex flex-row justify-center items-center gap-3 min-w-[200px]">
+                                                            </div>
+                                                        </Link>
+                                                        <Link
+                                                            className="bg-[#FFFFFF] text-black rounded-full p-[5px] lg:py-2 flex flex-row justify-center items-center gap-3 min-w-[100px] lg:min-w-[200px]"
+                                                            href={`${
+                                                                tokenType === 'saza'
+                                                                    ? 'https://market.konkrit.io/collection/0x75e46bdc52d4a2064dc8850ee0f52ee93bfe337c'
+                                                                    : 'https://market.konkrit.io/collection/0x3d049adb773faddef681fbe565466c4f9736a009'
+                                                            }`}
+                                                            // href={`https://opensea.io/collection/qh-saza`}
+                                                            target="_blank">
                                                             <div>
                                                                 <img
                                                                     src="/konkrit.png"
                                                                     alt="konkrit"
+                                                                    className="w-[15px] lg:w-[30px]"
                                                                 />
                                                             </div>
-                                                            <Link
-                                                                href={`${
-                                                                    tokenType === 'saza'
-                                                                        ? 'https://market.konkrit.io/collection/0x75e46bdc52d4a2064dc8850ee0f52ee93bfe337c'
-                                                                        : 'https://market.konkrit.io/collection/0x3d049adb773faddef681fbe565466c4f9736a009'
-                                                                }`}
-                                                                // href={`https://opensea.io/collection/qh-saza`}
-                                                                target="_blank"
-                                                                className="text-[21px]">
+                                                            <div className="text-[10px] lg:text-[21px]">
                                                                 KONKRIT
-                                                            </Link>
-                                                        </div>
+                                                            </div>
+                                                        </Link>
                                                     </div>
                                                 </>
                                             )}

@@ -30,7 +30,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
 
                 <div className="flex flex-col items-center max-w-[1300px] w-full gap-[40px] mt-[50px] text-white">
                     <div className="w-full relative">
-                        <Image src={main_image1} alt="main_middle_image1" />
+                        <Image src={main_image1} alt="main_middle_image1" className="w-full" />
                         <div className="flex flex-col justify-center items-start absolute bottom-[95px] left-[82px] gap-1 font-black">
                             <div className="text-[44.2px] drop-shadow-xl">Our Journey</div>
                             <Link
@@ -42,8 +42,12 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                     </div>
 
                     <div className="w-full flex flex-row justify-center items-center gap-[40px]">
-                        <div className="flex-1 relative">
-                            <Image src={main_image2} alt="main_middle_image2" sizes="100vw" />
+                        <div className="relative w-full">
+                            <Image
+                                src={main_image2}
+                                alt="main_middle_image2"
+                                className="object-cover w-full"
+                            />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="text-[44.2px] drop-shadow-xl">Saza&Gaza</div>
                                 <Link
@@ -55,13 +59,19 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex-1 relative">
-                            <Image src={main_image3} alt="main_middle_image3" sizes="100vw" />
+                        <div className="relative w-full">
+                            <Image
+                                src={main_image3}
+                                alt="main_middle_image3"
+                                quality={100}
+                                sizes="100vw"
+                                className="object-cover w-full"
+                            />
                             <Link
                                 href={'/white_paper'}
                                 className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="text-[44.2px] drop-shadow-xl">White Paper</div>
-                                <div className="bg-[#FFFFFF] text-[16px] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                <div className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     VIEW
                                 </div>
                             </Link>

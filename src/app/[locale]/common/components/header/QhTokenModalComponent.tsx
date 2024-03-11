@@ -30,13 +30,14 @@ import {
 import { ToastContext } from '@/app/provider/ToastProvider'
 import { customTheme, customTheme1, dialogTheme } from '../../materialUI/theme'
 import { AlertContext } from '@/app/provider/AlertProvider'
-import { getUuidByAccount } from '@/app/api/auth/api'
+import { getUserInfo, getUuidByAccount } from '@/app/api/auth/api'
 import { personalSign } from '@/app/api/wallet/api'
 import { exchangeTicket, getUsedTicketList } from '@/app/api/dynamicNFT/api'
 import { formatToken } from '@/app/utils/ethUtils'
 import { ConfirmContext } from '@/app/provider/ConfirmProvider'
 import InnerToast from '../InnerToast'
 import InnerConfirm from '../InnerConfirm'
+import { useSession } from 'next-auth/react'
 
 // import { Dialog } from '@headlessui/react'
 
@@ -70,6 +71,8 @@ export default function QhTokenModalComponent({
     const [isLoadingForExchangeTicket, setIsLoadingForExchangeTicket] = React.useState(false)
 
     const limit = qhTokenBalance
+
+    const { data: session, update } = useSession()
 
     const { wallet } = useMetaMask()
 
@@ -108,7 +111,7 @@ export default function QhTokenModalComponent({
 
             // 현재 보유한 Token Balance에 따라 MAX Token amount 변경
             if (parseInt(value) * ticketPrice > limit) {
-                const maxTicket = limit / ticketPrice
+                const maxTicket = Math.floor(limit / ticketPrice)
                 setTicketAmount(maxTicket)
                 setTokenAmount(maxTicket * ticketPrice)
                 return
@@ -125,28 +128,39 @@ export default function QhTokenModalComponent({
         setIsLoadingForExchangeTicket(false)
     }
 
-    const exchangeHashToTicket = async (txHash) => {
-        let signResult = await getUuidByAccount(wallet.accounts[0])
-        const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
-        const result = await exchangeTicket({
-            hash_tx: txHash,
-            wallet_signature: signature,
-            wallet_address: wallet.accounts[0],
-        })
+    const exchangeHashToTicket = async (txHash, ticketNum) => {
+        if (ticketNum < 1) {
+            return
+        }
 
-        setTokenAmount(0)
-        setTicketAmount(0)
-        setZindex()
-        showToast(`Dynamic NFT 티켓 연동을 완료하였습니다`)
-        getMissingTicketList()
+        try {
+            let signResult = await getUuidByAccount(wallet.accounts[0])
+            const signature = await personalSign(wallet.accounts[0], signResult.eth_nonce)
+            const result = await exchangeTicket({
+                hash_tx: txHash,
+                wallet_signature: signature,
+                wallet_address: wallet.accounts[0],
+            })
+
+            if (result.ok) {
+                setTokenAmount(0)
+                setTicketAmount(0)
+                setZindex()
+                showToast(`Dynamic NFT 티켓 연동을 완료하였습니다.`)
+                getMissingTicketList()
+            } else {
+                throw new Error()
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
-
     const getMissingTicketList = async () => {
         const txListFromOnChain = await getLogs(wallet.accounts[0])
         const txListFromOffChain = await getUsedTicketList()
 
-        console.log('txListFromOnChain', txListFromOnChain)
-        console.log('txListFromOffChain', txListFromOffChain)
+        // console.log('txListFromOnChain', txListFromOnChain)
+        // console.log('txListFromOffChain', txListFromOffChain)
         const processingList = txListFromOffChain?.data?.tickets.map((item) => {
             return item.hash_tx
         })
@@ -155,11 +169,11 @@ export default function QhTokenModalComponent({
             (item) => !processingList.includes(item.transactionHash),
         )
 
-        setMissingTransactionForTicket(missingTicketList)
+        setMissingTransactionForTicket(missingTicketList.reverse())
     }
 
     const setMaxTicketBalance = () => {
-        const maxTicket = limit / ticketPrice
+        const maxTicket = Math.floor(limit / ticketPrice)
         setTicketAmount(maxTicket)
         setTokenAmount(maxTicket * ticketPrice)
     }
@@ -254,7 +268,6 @@ export default function QhTokenModalComponent({
         console.log('txHash', txHash)
         alchemy.ws.on(txHash, async (tx) => {
             try {
-                // console.log('tx', tx)
                 alchemy.ws.off(txHash)
                 setIsLoadingForTransfer(false)
                 setIsLoadingForExchangeTicket(true)
@@ -267,17 +280,35 @@ export default function QhTokenModalComponent({
                     wallet_address: wallet.accounts[0],
                 })
 
-                setZindex()
-                showToast(`Dynamic NFT 티켓 연동을 완료하였습니다`)
-                setTokenAmount(0)
-                setTicketAmount(0)
-                setIsLoadingForExchangeTicket(false)
+                if (result.ok) {
+                    setZindex()
+                    showToast(`Dynamic NFT 티켓 연동을 완료하였습니다.`)
+                    const refreshInfo = await getUserInfo(session.user.access_token)
+                    console.log(refreshInfo)
+                    updateSessionForTicket(refreshInfo.data.ticket_num)
+                    setTokenAmount(0)
+                    setTicketAmount(0)
+                    setIsLoadingForExchangeTicket(false)
+                } else {
+                    throw new Error()
+                }
             } catch (error) {
                 console.log('Ticket Error')
+                showToast(`Dynamic NFT 티켓 연동에 실패하였습니다.`)
                 console.error(error)
                 getMissingTicketList()
                 clearLoading()
             }
+        })
+    }
+
+    const updateSessionForTicket = async (ticketNum) => {
+        await update({
+            ...session,
+            user: {
+                ...session?.user,
+                ticket_num: ticketNum,
+            },
         })
     }
 
@@ -461,14 +492,19 @@ export default function QhTokenModalComponent({
                                     <tbody className="w-full">
                                         {missingTransactionForTicket.map(
                                             ({ transactionHash, data, claim }, index) => {
-                                                console.log(data)
-                                                console.log(parseInt(data, 16))
                                                 return (
                                                     <tr
-                                                        className="border-b-2 p-10 cursor-pointer hover:opacity-70"
+                                                        className={`border-b-2 p-10 cursor-pointer hover:opacity-70 ${
+                                                            parseInt(data, 16) / (10 ** 6 * 5) < 0
+                                                                ? 'pointer-events-none'
+                                                                : 'cursor-pointer'
+                                                        }`}
                                                         key={transactionHash}
                                                         onClick={() =>
-                                                            exchangeHashToTicket(transactionHash)
+                                                            exchangeHashToTicket(
+                                                                transactionHash,
+                                                                parseInt(data, 16) / (10 ** 6 * 5),
+                                                            )
                                                         }>
                                                         <td className="p-3 px-3 truncate break-all w-[50%]">
                                                             {transactionHash}
@@ -479,9 +515,22 @@ export default function QhTokenModalComponent({
                                                             </div>
                                                         </td>
                                                         <td className="p-3 px-3 text-[#FFFFFF] w-[25%]">
-                                                            <div className="bg-[#18AB56] text-[10px] px-2 py-1  rounded-full gap-1 w-full flex flex-row justify-center items-center">
+                                                            <div
+                                                                className={`${
+                                                                    parseInt(data, 16) /
+                                                                        (10 ** 6 * 5) <
+                                                                    1
+                                                                        ? 'bg-[#DC143C]'
+                                                                        : 'bg-[#18AB56]'
+                                                                } text-[10px] px-2 py-1  rounded-full gap-1 w-full flex flex-row justify-center items-center `}>
                                                                 <img src="/dot.svg" alt="dot" />
-                                                                <div>Available </div>
+                                                                <div>
+                                                                    {parseInt(data, 16) /
+                                                                        (10 ** 6 * 5) <
+                                                                    1
+                                                                        ? 'Unavailable'
+                                                                        : 'Available'}
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>

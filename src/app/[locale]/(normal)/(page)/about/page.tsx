@@ -8,9 +8,12 @@ import aboutdoo2 from '/public/about_doo2.jpeg'
 import about_craig_karl from '/public/about_craig_karl.png'
 import about_burton_morris from '/public/about_burton_morris.png'
 import MarQueeTextComponent from '../../components/main/MarqueeText'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface IAboutPageProps {}
 
+const { Link } = createSharedPathnamesNavigation({ locales })
 export default function AboutPage(props: IAboutPageProps) {
     return (
         <>
@@ -166,9 +169,14 @@ export default function AboutPage(props: IAboutPageProps) {
                     </div>
                     <div className="flex flex-col justify-center items-center text-white font-black mt-[40px]">
                         <div className="grid grid-cols-3 gap-[32.48px] px-12 w-full">
-                            <div className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
-                                <div className="rounded-3xl overflow-hidden">
-                                    <Image src={aboutdoo2} alt="about_doo2" />
+                            <Link
+                                href={'https://www.instagram.com/iamdoo2/'}
+                                target={'_blank'}
+                                className="flex flex-col justify-center items-center rounded-3xl overflow-hidden">
+                                <div className="rounded-3xl overflow-hidden ">
+                                    <div className="transition-all hover:opacity-75 hover:scale-110">
+                                        <Image src={aboutdoo2} alt="about_doo2" />
+                                    </div>
                                 </div>
                                 <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">IAMDOO2</div>
@@ -176,10 +184,18 @@ export default function AboutPage(props: IAboutPageProps) {
                                         FOUNDER
                                     </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col justify-center items-center ">
+                            </Link>
+                            <Link
+                                href={'https://www.instagram.com/craigandkarl/'}
+                                target={'_blank'}
+                                className="flex flex-col justify-center items-center ">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_burton_morris} alt="about_burton_morris" />
+                                    <div className="transition-all hover:opacity-75 hover:scale-110">
+                                        <Image
+                                            src={about_burton_morris}
+                                            alt="about_burton_morris"
+                                        />
+                                    </div>
                                 </div>
                                 <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">CRAIG & KARL</div>
@@ -187,10 +203,15 @@ export default function AboutPage(props: IAboutPageProps) {
                                         DESIGNER
                                     </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-col justify-center items-center">
+                            </Link>
+                            <Link
+                                href={'https://www.instagram.com/burtonmorrisart/'}
+                                target={'_blank'}
+                                className="flex flex-col justify-center items-center">
                                 <div className="rounded-3xl overflow-hidden">
-                                    <Image src={about_craig_karl} alt="about_craig_karl" />
+                                    <div className="transition-all hover:opacity-75 hover:scale-110">
+                                        <Image src={about_craig_karl} alt="about_craig_karl" />
+                                    </div>
                                 </div>
                                 <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">BURTON MORRIS</div>
@@ -198,7 +219,7 @@ export default function AboutPage(props: IAboutPageProps) {
                                         CREATIVE DIRECTOR
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
