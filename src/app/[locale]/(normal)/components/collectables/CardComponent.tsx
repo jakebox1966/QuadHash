@@ -21,13 +21,9 @@ export default function CardComponent({
     let imgUrl = ''
     if (!burtonMorris) {
         if (tokenType === 'saza') {
-            imgUrl = `${
-                process.env.NEXT_PUBLIC_SAZA_IMG_URL
-            }/images/${item}.png?${new Date().getTime()}`
+            imgUrl = `${process.env.NEXT_PUBLIC_SAZA_IMG_URL}/images/${item}.png`
         } else if (tokenType === 'gaza') {
-            imgUrl = `${
-                process.env.NEXT_PUBLIC_GAZA_IMG_URL
-            }/images/${item}.png?${new Date().getTime()}`
+            imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/images/${item}.png`
         }
     } else {
         if (tokenType === 'saza') {
