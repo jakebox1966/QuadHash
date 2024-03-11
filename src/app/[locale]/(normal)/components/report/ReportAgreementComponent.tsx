@@ -11,7 +11,7 @@ export interface IReportAgreementComponentProps {
         secondTerm: boolean
         thirdTerm: boolean
         fourthTerm: boolean
-        fifthTerm: boolean
+        // fifthTerm: boolean
     }
     setAgreements: React.Dispatch<
         React.SetStateAction<{
@@ -19,7 +19,7 @@ export interface IReportAgreementComponentProps {
             secondTerm: boolean
             thirdTerm: boolean
             fourthTerm: boolean
-            fifthTerm: boolean
+            // fifthTerm: boolean
         }>
     >
     handleAgreementChange: (e: {
@@ -95,10 +95,11 @@ export default function ReportAgreementComponent({
                             onChange={handleAgreementChange}
                         />
                         <div className="text-[12px] p-3 lg:text-[20px]">
-                            해킹 피해 신고를 위해 제공된 모든 정보가 사실임을 확신하며, 만일 기재된
-                            정보가 사실과 다르거나 고의적으로 생략되었을 경우 발생하는 모든 문제와
-                            책임은 신고자에게 있습니다. (법적분쟁 발생 시 사법기관의 요청에 따라
-                            신고자의 개인정보가 제공될 수 있습니다.)
+                            본 서비스는 피해 발생 시점의 온체인 데이터를 기준으로 7일 이내에 신고된
+                            해킹 피해에 대해서만 지원됩니다. 단, 이미 거래가 되었거나 이동이 발생한
+                            경우에는 신고 시점과 관계 없이 서비스 지원이 제한될 수 있습니다. 또한
+                            신고 접수 이후 서비스 제공 중에 거래 또는 이동이 발생한 경우에도 서비스
+                            지원이 중단될 수 있습니다.
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-start gap-2">
@@ -111,11 +112,8 @@ export default function ReportAgreementComponent({
                             onChange={handleAgreementChange}
                         />
                         <div className="text-[12px] p-3 lg:text-[20px]">
-                            본 서비스는 피해 발생 시점의 온체인 데이터를 기준으로 7일 이내에 신고된
-                            해킹 피해에 대해서만 지원됩니다. 단, 이미 거래가 되었거나 이동이 발생한
-                            경우에는 신고 시점과 관계 없이 서비스 지원이 제한될 수 있습니다. 또한
-                            신고 접수 이후 서비스 제공 중에 거래 또는 이동이 발생한 경우에도 서비스
-                            지원이 중단될 수 있습니다.
+                            해킹 신고 접수가 완료된 계정이나 토큰은 조사 및 복구를 위해 일시적으로
+                            이용이 제한될 수 있습니다.
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-start gap-2">
@@ -128,11 +126,10 @@ export default function ReportAgreementComponent({
                             onChange={handleAgreementChange}
                         />
                         <div className="text-[12px] p-3 lg:text-[20px]">
-                            해킹 신고 접수가 완료된 계정이나 토큰은 조사 및 복구를 위해 일시적으로
-                            이용이 제한될 수 있습니다.
+                            이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다.
                         </div>
                     </div>
-                    <div className="flex flex-row justify-start items-start gap-2">
+                    {/* <div className="flex flex-row justify-start items-start gap-2">
                         <Checkbox
                             ripple={false}
                             name="fifthTerm"
@@ -144,7 +141,7 @@ export default function ReportAgreementComponent({
                         <div className="text-[12px] p-3 lg:text-[20px]">
                             이상 위의 모든 조항을 충분히 이해하고, 이에 동의합니다.
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

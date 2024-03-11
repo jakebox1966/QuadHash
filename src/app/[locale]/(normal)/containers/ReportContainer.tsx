@@ -75,7 +75,7 @@ export default function ReportContainer(props: IReportContainerProps) {
         secondTerm: false,
         thirdTerm: false,
         fourthTerm: false,
-        fifthTerm: false,
+        // fifthTerm: false,
     })
 
     const [finalAgreement, setFinalAgreement] = React.useState(false)
@@ -187,7 +187,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                 secondTerm: false,
                 thirdTerm: false,
                 fourthTerm: false,
-                fifthTerm: false,
+                // fifthTerm: false,
             }))
         }
     }, [])
@@ -238,7 +238,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                 secondTerm: true,
                 thirdTerm: true,
                 fourthTerm: true,
-                fifthTerm: true,
+                // fifthTerm: true,
             }))
         } else {
             setAgreements((prev) => ({
@@ -247,7 +247,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                 secondTerm: false,
                 thirdTerm: false,
                 fourthTerm: false,
-                fifthTerm: false,
+                // fifthTerm: false,
             }))
         }
     }
