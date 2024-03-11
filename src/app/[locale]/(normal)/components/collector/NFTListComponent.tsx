@@ -101,7 +101,8 @@ export default function NFTListComponent({
                                     <div className="overflow-hidden rounded-lg aspect-[2/1] lg:aspect-[4/1] pl-[83px] flex flex-row items-center">
                                         <div className="text-md font-medium w-full text-left">
                                             <div className="text-[30px]">
-                                                YOU DON'T HAVE ANY QBT.
+                                                YOU DON'T HAVE ANY QUADHASH :{' '}
+                                                {tokenType.toUpperCase()}
                                             </div>
                                             {tokenType !== 'qbt' && (
                                                 <>
@@ -132,9 +133,17 @@ export default function NFTListComponent({
                                                                     alt="konkrit"
                                                                 />
                                                             </div>
-                                                            <div className="text-[21px]">
+                                                            <Link
+                                                                href={`${
+                                                                    tokenType === 'saza'
+                                                                        ? 'https://market.konkrit.io/collection/0x75e46bdc52d4a2064dc8850ee0f52ee93bfe337c'
+                                                                        : 'https://market.konkrit.io/collection/0x3d049adb773faddef681fbe565466c4f9736a009'
+                                                                }`}
+                                                                // href={`https://opensea.io/collection/qh-saza`}
+                                                                target="_blank"
+                                                                className="text-[21px]">
                                                                 KONKRIT
-                                                            </div>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </>

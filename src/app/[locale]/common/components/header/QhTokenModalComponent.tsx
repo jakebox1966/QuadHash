@@ -341,7 +341,7 @@ export default function QhTokenModalComponent({
                                 TICKET
                             </div>
                             <div
-                                className={`w-full border-2 border-[#F46221] rounded-r-xl p-2 relative bg-[#F46221] text-[16px] text-[#FFFFFF] flex flex-row items-center ${
+                                className={`w-full border-2 border-[#F46221] rounded-r-xl p-2 relative bg-[#F46221] text-[16px] text-[#FFFFFF] flex flex-row justify-center items-center ${
                                     missingTransactionForTicket.length > 0 &&
                                     'hover:border-[#F46221] cursor-pointer'
                                 }  `}

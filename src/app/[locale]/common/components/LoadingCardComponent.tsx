@@ -12,7 +12,7 @@ export default function LoadingCardComponent(props: ILoadingCardComponentProps) 
                         <img src="/1.png" alt="loading" className="invisible" />
                     </div>
                 </div>
-                <div className="w-full text-xs lg:text-base transition-all z-20 p-1 font-medium cursor-pointer flex flex-col items-center gap-2 mt-3">
+                <div className="w-full text-xs lg:text-base transition-all z-20 p-1 font-medium cursor-pointer flex flex-col items-center gap-2 mt-1">
                     <div className="skeleton_loading w-1/4 h-[16px]"></div>
                     <div className="skeleton_loading w-1/4 h-[16px]"></div>
                 </div>

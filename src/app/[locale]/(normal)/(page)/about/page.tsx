@@ -170,9 +170,9 @@ export default function AboutPage(props: IAboutPageProps) {
                                 <div className="rounded-3xl overflow-hidden">
                                     <Image src={aboutdoo2} alt="about_doo2" />
                                 </div>
-                                <div className="text-center mt-[38.65px]">
+                                <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">IAMDOO2</div>
-                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[6.54px]">
+                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[5px]">
                                         FOUNDER
                                     </div>
                                 </div>
@@ -181,9 +181,9 @@ export default function AboutPage(props: IAboutPageProps) {
                                 <div className="rounded-3xl overflow-hidden">
                                     <Image src={about_burton_morris} alt="about_burton_morris" />
                                 </div>
-                                <div className="text-center mt-[38.65px]">
+                                <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">CRAIG & KARL</div>
-                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[6.54px]">
+                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[5px]">
                                         DESIGNER
                                     </div>
                                 </div>
@@ -192,9 +192,9 @@ export default function AboutPage(props: IAboutPageProps) {
                                 <div className="rounded-3xl overflow-hidden">
                                     <Image src={about_craig_karl} alt="about_craig_karl" />
                                 </div>
-                                <div className="text-center mt-[38.65px]">
+                                <div className="text-center mt-[15px]">
                                     <div className="font-NeuePlak text-[18px]">BURTON MORRIS</div>
-                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[6.54px]">
+                                    <div className="font-PlusJakartaSans text-[14px] font-normal mt-[5px]">
                                         CREATIVE DIRECTOR
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@ export default function AboutPage(props: IAboutPageProps) {
 
             <div className="lg:hidden flex flex-col w-full items-center justify-center bg-[#00B0FF] py-36 text-[#FFFFFF]">
                 <div className="max-w-[390px] flex flex-col items-center">
-                    <div className="w-[330px] flex flex-col justify-center items-center font-black gap-[27px]">
+                    <div className="w-[330px] flex flex-col justify-center items-center font-black gap-[50px]">
                         <div className="text-[35px] font-NeuePlak leading-[37px] text-center">
                             <div>MEET THE</div>
                             <div>QUADHASH</div>
@@ -217,25 +217,25 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>QUADHASH 팀이 이뤄냅니다.</div>
                         </div>
 
-                        <div className="flex flex-col justify-center items-center pt-[23px]">
+                        <div className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
                                 <div className="rounded-3xl overflow-hidden">
                                     <Image src={aboutdoo2} alt={'aboutdoo2'} />
                                 </div>
                             </div>
-                            <div className="mt-[39px] text-[18px] font-NeuePlak">IAMDOO2</div>
-                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[6.54px]">
+                            <div className="mt-[10px] text-[18px] font-NeuePlak">IAMDOO2</div>
+                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[1px]">
                                 FOUNDER
                             </div>
                         </div>
-                        <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center items-center  ">
                             <div className="relative w-[300] h-[300]">
                                 <div className="rounded-3xl overflow-hidden">
                                     <Image src={about_burton_morris} alt={'about_burton_morris'} />
                                 </div>
                             </div>
-                            <div className="mt-[39px] text-[18px] font-NeuePlak">CRAIG & KARL</div>
-                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[6.54px]">
+                            <div className="mt-[10px] text-[18px] font-NeuePlak">CRAIG & KARL</div>
+                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[1px]">
                                 DESIGNER
                             </div>
                         </div>
@@ -246,8 +246,8 @@ export default function AboutPage(props: IAboutPageProps) {
                                     <Image src={about_craig_karl} alt={'about_craig_karl'} />
                                 </div>
                             </div>
-                            <div className="mt-[39px] text-[18px] font-NeuePlak">BURTON MORRIS</div>
-                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[6.54px]">
+                            <div className="mt-[10px] text-[18px] font-NeuePlak">BURTON MORRIS</div>
+                            <div className="font-PlusJakartaSans text-[14px] font-medium mt-[1px]">
                                 CREATIVE DIRECTOR
                             </div>
                         </div>
