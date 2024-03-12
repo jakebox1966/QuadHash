@@ -38,9 +38,9 @@ const authMiddleware = withAuth(
          *
          * is_admin 이 0이라면 (관리자가 아니라면) access-denied 페이지로 이동
          */
-        // if (request.nextUrl.pathname.includes('/admin') && request.nextauth.token?.is_admin === 0) {
-        //     return NextResponse.redirect(new URL('/access-denied', request.nextUrl))
-        // }
+        if (req.nextUrl.pathname.includes('/admin') && req.nextauth.token?.is_admin === 0) {
+            return NextResponse.redirect(new URL('/access-denied', req.nextUrl))
+        }
         return intlMiddleware(req)
     },
     {

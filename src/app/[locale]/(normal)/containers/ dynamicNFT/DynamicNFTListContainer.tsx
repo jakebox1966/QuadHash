@@ -21,7 +21,7 @@ export default function DynamicNFTListContainer(props: IDynamicNFTListContainerP
     const { wallet } = useMetaMask()
     return (
         <>
-            <div className="max-w-[1300px] w-full px-[24px]">
+            <div className="max-w-[1400px] w-full px-5 lg:px-[50px]">
                 <div className="flex flex-col justify-center items-center w-full mt-10">
                     <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
                     <NFTListComponent tokenType={tokenType} wallet_address={wallet.accounts[0]} />

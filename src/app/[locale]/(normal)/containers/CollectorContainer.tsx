@@ -210,7 +210,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     return (
         <>
-            <div className="max-w-[1300px] w-full px-[24px]">
+            <div className="max-w-[1400px] w-full px-5 lg:px-[50px]">
                 <ProfileSection
                     tokenType={tokenType}
                     isLoading={isLoading}

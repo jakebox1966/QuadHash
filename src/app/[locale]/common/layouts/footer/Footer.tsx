@@ -158,8 +158,8 @@ export default function Footer(props: IFooterProps) {
                         </Link>
                     </div>
                     <div className="text-gray-400 mt-5 text-[16px]">
-                        <div>Copyright @ 2024 QUADHASH.</div>
-                        <div>All Rights Reserved</div>
+                        <div>Copyright 2024. (주)멋쟁이사자처럼</div>
+                        <div>all rights reserved.</div>
                     </div>
                 </div>
             </footer>
