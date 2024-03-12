@@ -10,6 +10,9 @@ import {
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import { formatBalance } from '../utils/ethUtils'
+import { getUuidByAccount, signUpUser } from '../api/auth/api'
+import { personalSign } from '../api/wallet/api'
+import { signIn } from 'next-auth/react'
 
 interface WalletState {
     accounts: any[]
@@ -40,19 +43,48 @@ export const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMask
 export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     const [hasProvider, setHasProvider] = useState<boolean | null>(null)
 
-    const [isMainNetwork, setIsMainNetwork] = useState(true)
-
     const [isConnecting, setIsConnecting] = useState(false)
 
     const [errorMessage, setErrorMessage] = useState('')
     const clearError = () => setErrorMessage('')
 
     const [wallet, setWallet] = useState(disconnectedState)
+
+    const renewSession = useCallback(async () => {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' })
+        let result = await getUuidByAccount(accounts[0])
+
+        if (result.status === 'NotFound') {
+            const formData = new FormData()
+            formData.append('wallet_address', accounts[0])
+
+            const response = await signUpUser(formData)
+
+            result = await getUuidByAccount(accounts[0])
+        }
+
+        const signature = await personalSign(accounts[0], result.eth_nonce)
+
+        const signInResult = await signIn('Credentials', {
+            wallet_address: accounts[0],
+            wallet_signature: signature,
+            redirect: true,
+            // redirect: false,
+            // callbackUrl: callbackUrl,
+        })
+    }, [])
+
     // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
     const _updateWallet = useCallback(async (providedAccounts?: any) => {
+        console.log('업덷지갑')
         const accounts =
             providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
 
+        console.log('providedAccounts', providedAccounts)
+        console.log(
+            'await window.ethereum.request({ method: "eth_accounts" })',
+            await window.ethereum.request({ method: 'eth_accounts' }),
+        )
         if (accounts.length === 0) {
             // If there are no accounts, then the user is disconnected
             setWallet(disconnectedState)
@@ -70,11 +102,14 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         })
 
         setWallet({ accounts, balance, chainId })
-
+        if (providedAccounts) {
+            renewSession()
+        }
         console.log('changed')
     }, [])
 
     const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
+
     const updateWallet = useCallback((accounts: any) => _updateWallet(accounts), [_updateWallet])
 
     /**

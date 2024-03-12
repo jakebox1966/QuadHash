@@ -44,8 +44,9 @@ export default function NormalCollectionListComponent({
             // const currentPage = 500
             const totalPage = lastPage.paging.total_pages
 
+            console.log(lastPage)
             // return false
-            if (currentPage === totalPage) {
+            if (currentPage === totalPage || totalPage === 0) {
                 return false
             }
             return currentPage + 1
@@ -67,10 +68,11 @@ export default function NormalCollectionListComponent({
                     Array(20)
                         .fill(0)
                         .map((__, index) => <LoadingCardComponent key={index} />)}
-                {data?.pages.map((page) => {
-                    console.log(data)
 
-                    if (page.data.length > 0) {
+                {data?.pages.map((page) => {
+                    console.log(page)
+
+                    if (page.paging.total_pages > 0) {
                         return page?.data.map((item, index) => (
                             <>
                                 <CardComponent

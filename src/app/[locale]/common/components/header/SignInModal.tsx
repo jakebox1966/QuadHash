@@ -108,7 +108,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 // console.log('signInResult', signInResult)
             } catch (error) {
                 console.error(error)
-                throw new Error('Error occured.')
+                // throw new Error('Error occured.')
             }
             setIsConnecting(false)
         } else if ('konkrit') {
