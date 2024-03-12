@@ -67,14 +67,14 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                                 sizes="100vw"
                                 className="object-cover w-full"
                             />
-                            <Link
-                                href={'/white_paper'}
-                                className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
+                            <div className="flex flex-col justify-center items-start absolute bottom-8 left-8 lg:bottom-10 lg:left-10 gap-1 font-black">
                                 <div className="text-[44.2px] drop-shadow-xl">White Paper</div>
-                                <div className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                                <Link
+                                    href={'/white_paper'}
+                                    className="bg-[#FFFFFF] text-black border-[1px] border-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                                     VIEW
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

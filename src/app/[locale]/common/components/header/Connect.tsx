@@ -126,7 +126,7 @@ export default function Connect({ profileNFT }: IConnectProps) {
 
     return (
         <>
-            {(hasProvider && wallet.accounts.length < 1) || !session ? (
+            {hasProvider && wallet.accounts.length < 1 && !session ? (
                 <button
                     className="rounded-full min-w-[100px] text-[10px] lg:text-[15px] lg:min-w-[167px] p-[7px] lg:p-[16px] bg-[#F46221] shadow-lg text-white"
                     disabled={isConnecting}
