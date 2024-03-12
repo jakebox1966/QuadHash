@@ -55,7 +55,7 @@ const config = {
 
 const alchemy = new Alchemy(config)
 
-const { Link, useRouter } = createSharedPathnamesNavigation({ locales })
+const { useRouter } = createSharedPathnamesNavigation({ locales })
 
 export default function ReportContainer(props: IReportContainerProps) {
     const { showToast } = React.useContext(ToastContext)

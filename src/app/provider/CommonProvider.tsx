@@ -9,6 +9,7 @@ import AlertProvider from './AlertProvider'
 import ConfirmProvider from './ConfirmProvider'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastProvider } from './ToastProvider'
+import NetworkCheckProvider from './NetworkCheckProvider'
 
 export default function CommonProvider({ children }: { children: React.ReactNode }) {
     const queryClient = new QueryClient()
@@ -22,7 +23,7 @@ export default function CommonProvider({ children }: { children: React.ReactNode
                             <AlertProvider>
                                 <ToastProvider>
                                     <SignInModalContextProvider>
-                                        {children}
+                                        <NetworkCheckProvider>{children}</NetworkCheckProvider>
                                     </SignInModalContextProvider>
                                 </ToastProvider>
                             </AlertProvider>

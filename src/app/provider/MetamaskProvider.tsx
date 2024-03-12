@@ -25,6 +25,7 @@ interface MetaMaskContextData {
     isConnecting: boolean
     connectMetaMask: () => void
     clearError: () => void
+    updateWalletAndAccounts: () => Promise<void>
 }
 
 const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
@@ -82,11 +83,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
             if (provider) {
                 updateWalletAndAccounts()
-                window.ethereum.on('accountsChanged', (accounts) => {
-                    console.log('accounts', accounts)
-                    console.log('account changed')
-                    updateWallet(accounts)
-                })
+                window.ethereum.on('accountsChanged', updateWallet)
                 window.ethereum.on('chainChanged', updateWalletAndAccounts)
             }
         }
@@ -125,6 +122,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
                 isConnecting,
                 connectMetaMask,
                 clearError,
+                updateWalletAndAccounts,
             }}>
             {children}
         </MetaMaskContext.Provider>
