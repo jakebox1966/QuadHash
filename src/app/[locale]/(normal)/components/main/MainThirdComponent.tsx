@@ -28,7 +28,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center max-w-[1300px] w-full gap-[40px] mt-[50px] text-white">
+                <div className="flex flex-col items-center max-w-[1400px] w-full gap-[40px] mt-[50px] text-white px-[50px]">
                     <div className="w-full relative">
                         <Image src={main_image1} alt="main_middle_image1" className="w-full" />
                         <div className="flex flex-col justify-center items-start absolute bottom-[95px] left-[82px] gap-1 font-black">
