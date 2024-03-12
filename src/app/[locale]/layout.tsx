@@ -28,8 +28,8 @@ export default function RootLayout({
     const messages = useMessages()
 
     return (
-        <html lang={locale} className="light" suppressHydrationWarning>
-            <body className={popins.className}>
+        <html lang={locale} className={`light ${popins.className}`} suppressHydrationWarning>
+            <body className={`${popins.className}`}>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <AuthProvider>
                         <CommonProvider>{children}</CommonProvider>

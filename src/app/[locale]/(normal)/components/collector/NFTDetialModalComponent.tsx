@@ -72,10 +72,10 @@ export default function NFTDetailModalComponent({
                                 <div className={`block lg:hidden w-full relative mt-4 px-4`}>
                                     <div className="flex flex-row justify-between items-center max-h-[50px]">
                                         <div className="leading-[25px] w-full">
-                                            <div className="text-[12px] font-medium tracking-[0.05rem]">
+                                            <div className="text-[11.81px] font-Poppins_semiBold">
                                                 QUADHASH
                                             </div>
-                                            <div className="text-[24px] font-black tracking-[0.05rem]">
+                                            <div className="text-[25px] font-Poppins_bold">
                                                 {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
@@ -127,10 +127,10 @@ export default function NFTDetailModalComponent({
                                                 .map((item, index) => (
                                                     <SwiperSlide>
                                                         <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                            <div className="text-[12px] tracking-[0.56px]">
+                                                            <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                                 {item.trait_type.toUpperCase()}
                                                             </div>
-                                                            <div className="font-black text-[14px]">
+                                                            <div className="font-Poppins_semiBold text-[11.81px]">
                                                                 {item.value}
                                                             </div>
                                                         </div>
@@ -138,10 +138,10 @@ export default function NFTDetailModalComponent({
                                                 ))}
                                             <SwiperSlide>
                                                 <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                    <div className="text-[12px] tracking-[0.56px]">
+                                                    <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                         {metadata?.attributes[0].trait_type.toUpperCase()}
                                                     </div>
-                                                    <div className="font-black text-[14px]">
+                                                    <div className="font-Poppins_semiBold text-[11.81px]">
                                                         {metadata?.attributes[0].value}
                                                     </div>
                                                 </div>
@@ -155,8 +155,10 @@ export default function NFTDetailModalComponent({
                                 <div className="max-w-[550px]">
                                     <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                         <div className="text-nowrap">
-                                            <div className="text-[12px]">QUADHASH</div>
-                                            <div className="text-[25px]">
+                                            <div className="text-[11.81px] font-Poppins_semiBold">
+                                                QUADHASH
+                                            </div>
+                                            <div className="text-[25px] font-Poppins_bold">
                                                 {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
@@ -175,17 +177,19 @@ export default function NFTDetailModalComponent({
                                             .filter((item, index) => index !== 0)
                                             .map((item) => (
                                                 <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                                    <div className="tracking-[0.56px]">
+                                                    <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                         {item.trait_type.toUpperCase()}
                                                     </div>
-                                                    <div className="font-[700]">{item.value}</div>
+                                                    <div className="font-Poppins_semiBold text-[11.81px]">
+                                                        {item.value}
+                                                    </div>
                                                 </div>
                                             ))}
                                         <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                            <div className="tracking-[0.56px]">
+                                            <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                 {metadata?.attributes[0].trait_type.toUpperCase()}
                                             </div>
-                                            <div className="font-[700]">
+                                            <div className="font-Poppins_semiBold text-[11.81px]">
                                                 {metadata?.attributes[0].value}
                                             </div>
                                         </div>

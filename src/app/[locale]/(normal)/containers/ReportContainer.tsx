@@ -29,6 +29,7 @@ import { personalSign } from '@/app/api/wallet/api'
 import Loading from '../../common/components/Loading'
 import ReportSuccessComponent from '../components/report/ReportSuccess'
 import { emailCheck } from '@/app/utils/validationUtils'
+import { ToastContext } from '@/app/provider/ToastProvider'
 
 export interface IReportContainerProps {}
 
@@ -54,7 +55,12 @@ const config = {
 
 const alchemy = new Alchemy(config)
 
+const { Link, useRouter } = createSharedPathnamesNavigation({ locales })
+
 export default function ReportContainer(props: IReportContainerProps) {
+    const { showToast } = React.useContext(ToastContext)
+    const router = useRouter()
+
     const [activeStep, setActiveStep] = React.useState(0)
     const [isLastStep, setIsLastStep] = React.useState(false)
     const [isFirstStep, setIsFirstStep] = React.useState(false)
@@ -360,12 +366,18 @@ export default function ReportContainer(props: IReportContainerProps) {
                     const result = await postReport(parameter)
 
                     if (result.status === 'Success') {
+                        showToast('해킹 신고 완료.')
                         setActiveStep(3)
+                        setIsLoading(false)
+                    } else {
+                        throw new Error()
                     }
                     setIsLoading(false)
                 } catch (error) {
+                    showToast('해킹 신고 실패.')
                     setIsLoading(false)
                     console.error(error)
+                    router.push('/')
                 }
             }
         }

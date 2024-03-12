@@ -19,6 +19,7 @@ import CardLoading from '../../common/components/CardLoading'
 import { AlertContext } from '@/app/provider/AlertProvider'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
+import { ToastContext } from '@/app/provider/ToastProvider'
 
 export interface ICollectorContainerProps {
     wallet_address: string
@@ -27,6 +28,7 @@ export interface ICollectorContainerProps {
 const { useRouter } = createSharedPathnamesNavigation({ locales })
 export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
     const router = useRouter()
+    const { showToast } = React.useContext(ToastContext)
     const { $alert } = React.useContext(AlertContext)
     const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
@@ -158,6 +160,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     }
 
     const updateUserProfile = async ({ tokenId, tokenType }) => {
+        console.log(tokenType)
         setIsLoading(true)
         try {
             const isOwner = await checkOwner(tokenId)
@@ -180,13 +183,26 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 wallet_address: wallet.accounts[0],
             }
             const response = await updateUserProfileTokenId(parameter)
+            console.log(response)
+            if (response.ok) {
+                const updateSessionResponse = await updateSession(tokenId, tokenType)
 
-            const updateSessionResponse = await updateSession(tokenId, tokenType)
-            setIsLoading(false)
+                if (tokenType === 'reset') {
+                    showToast('프로필 해제 완료.')
+                } else {
+                    showToast('프로필 설정 완료.')
+                }
+                setOpen(false)
+                window.scrollTo(0, 0)
+                setIsLoading(false)
+            } else {
+                throw new Error()
+            }
             // console.log(updateSessionResponse)
 
             // console.log(response)
         } catch (error) {
+            showToast('프로필 설정 실패.')
             setIsLoading(false)
             console.error(error)
         }

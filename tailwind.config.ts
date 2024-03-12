@@ -15,10 +15,14 @@ const config: Config = withMT({
     // darkMode: ['class'],
     theme: {
         fontFamily: {
+            Poppins_light: ['PoppinsLight'],
+            Poppins_bold: ['PoppinsBold'],
+            Poppins_semiBold: ['PoppinsSemiBold'],
             NeuePlak: ['NeuePlak'],
             NanumSquare: ['NanumSquare'],
             PlusJakartaSans: ['PlusJakartaSans'],
         },
+
         extend: {
             screens: {
                 sm: '640px',

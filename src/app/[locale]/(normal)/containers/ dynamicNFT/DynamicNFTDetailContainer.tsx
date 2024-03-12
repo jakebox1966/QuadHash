@@ -20,6 +20,7 @@ import { getOwnerForNft } from '@/app/api/alchemy/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { locales } from '@/i18nconfig'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { ToastContext } from '@/app/provider/ToastProvider'
 
 export interface IDynamicNFTDetailContainerProps {
     tokenType: string
@@ -32,6 +33,7 @@ export default function DynamicNFTDetailContainer({
     tokenType,
     tokenId,
 }: IDynamicNFTDetailContainerProps) {
+    const { showToast } = React.useContext(ToastContext)
     const router = useRouter()
     const [isDynamicNFTLoading, setIsDynamicNFTLoading] = React.useState(false)
 
@@ -231,8 +233,9 @@ export default function DynamicNFTDetailContainer({
                     fetchData()
                     updateSession()
                     setPrevParts(selectedPartsData.partsData.trait_type)
-                    await $alert('Dynamic NFT 적용 완료되었습니다.')
+                    showToast('Dynamic NFT 적용 완료')
 
+                    // throw new Error()
                     // const keyChanged = selectedCategory?.trait_type
                     // const changedValue = refreshResult.attributes.find(
                     //     (item) => item.trait_type === keyChanged,
@@ -242,10 +245,11 @@ export default function DynamicNFTDetailContainer({
                     //     value: changedValue.value,
                     // }))
                 } else {
-                    console.error(result.statusText)
+                    throw new Error()
                 }
                 setIsDynamicNFTLoading(false)
             } catch (error) {
+                showToast('Dynamic NFT 적용 실패')
                 setIsDynamicNFTLoading(false)
                 console.error(error)
             }
@@ -465,7 +469,7 @@ export default function DynamicNFTDetailContainer({
                             selectedPartsData.availability
                                 ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
                                 : 'bg-[#BDBDBD]'
-                        } absolute hidden lg:flex flex-col justify-center items-center gap-1 px-8 py-7 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
+                        } absolute hidden lg:flex flex-col justify-center items-center gap-1 px-8 py-8 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
                         disabled={!selectedPartsData.availability}
                         onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />

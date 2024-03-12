@@ -76,7 +76,7 @@ export default function CollectionDetailModalComponent({
                     <Dialog
                         open={open}
                         handler={handleOpen}
-                        className={`rounded-lg relative overflow-hidden`}
+                        className={`rounded-lg relative overflow-hidden !font-Poppins`}
                         style={{
                             backgroundColor: backgroundColor,
                         }}
@@ -95,10 +95,10 @@ export default function CollectionDetailModalComponent({
                                     <div className={`block lg:hidden w-full relative mt-4 px-4`}>
                                         <div className="flex flex-row justify-between items-center max-h-[50px]">
                                             <div className="leading-[25px]">
-                                                <div className="text-[12px] font-medium tracking-[0.05rem]">
+                                                <div className="text-[11.81px] font-Poppins_semiBold">
                                                     QUADHASH
                                                 </div>
-                                                <div className="text-[24px] font-black tracking-[0.05rem]">
+                                                <div className="text-[25px] font-Poppins_bold">
                                                     {metadata?.name.split(':')[1].trim()}
                                                 </div>
                                             </div>
@@ -162,9 +162,9 @@ export default function CollectionDetailModalComponent({
                                                             </svg>
                                                         </div>
 
-                                                        <div className="text-[9.4px]">
+                                                        <div className="text-[9.4px] font-Poppins_semiBold">
                                                             <div>OWNER</div>
-                                                            <div className="text-[13px] font-black">
+                                                            <div className="text-[13px]">
                                                                 {formatAddress(owner).toUpperCase()}
                                                             </div>
                                                             <div>GO TO PROFILE</div>
@@ -186,10 +186,10 @@ export default function CollectionDetailModalComponent({
                                                     .map((item, index) => (
                                                         <SwiperSlide>
                                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                                <div className="text-[12px] tracking-[0.56px]">
+                                                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                                     {item.trait_type.toUpperCase()}
                                                                 </div>
-                                                                <div className="font-black text-[14px]">
+                                                                <div className="font-Poppins_semiBold text-[11.81px]">
                                                                     {item.value}
                                                                 </div>
                                                             </div>
@@ -197,10 +197,10 @@ export default function CollectionDetailModalComponent({
                                                     ))}
                                                 <SwiperSlide>
                                                     <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                        <div className="text-[12px] tracking-[0.56px]">
+                                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                             {metadata?.attributes[0].trait_type.toUpperCase()}
                                                         </div>
-                                                        <div className="font-black text-[14px]">
+                                                        <div className="font-Poppins_semiBold text-[11.81px]">
                                                             {metadata?.attributes[0].value}
                                                         </div>
                                                     </div>
@@ -212,9 +212,11 @@ export default function CollectionDetailModalComponent({
                                 {/* PC 버전 */}
                                 <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
                                     <div className="max-w-[550px]">
-                                        <div className="w-full font-[700] leading-[25px]">
-                                            <div className="text-[12px]">QUADHASH</div>
-                                            <div className="text-[25px]">
+                                        <div className="w-full font-[300] leading-[25px]">
+                                            <div className="text-[11.81px] font-Poppins_semiBold">
+                                                QUADHASH
+                                            </div>
+                                            <div className="text-[25px] font-Poppins_bold">
                                                 {metadata?.name.split(':')[1].trim()}
                                             </div>
                                         </div>
@@ -223,19 +225,19 @@ export default function CollectionDetailModalComponent({
                                                 .filter((item, index) => index !== 0)
                                                 .map((item) => (
                                                     <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                                        <div className="tracking-[0.56px]">
+                                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                             {item.trait_type.toUpperCase()}
                                                         </div>
-                                                        <div className="font-[700]">
+                                                        <div className="font-Poppins_semiBold text-[11.81px]">
                                                             {item.value}
                                                         </div>
                                                     </div>
                                                 ))}
                                             <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                                <div className="tracking-[0.56px]">
+                                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                     {metadata?.attributes[0].trait_type.toUpperCase()}
                                                 </div>
-                                                <div className="font-[700]">
+                                                <div className="font-Poppins_semiBold text-[11.81px]">
                                                     {metadata?.attributes[0].value}
                                                 </div>
                                             </div>
@@ -292,7 +294,7 @@ export default function CollectionDetailModalComponent({
                                                         </svg>
                                                     </div>
 
-                                                    <div className="text-[9.4px]">
+                                                    <div className="text-[9.4px] font-Poppins_semiBold">
                                                         <div>OWNER</div>
                                                         <div className="text-[13px] font-black">
                                                             {formatAddress(owner).toUpperCase()}

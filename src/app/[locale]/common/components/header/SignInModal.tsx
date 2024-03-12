@@ -19,13 +19,19 @@ import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUuidByAccount, signUpUser } from '@/app/api/auth/api'
 import { useSearchParams } from 'next/navigation'
 import { AlertContext } from '@/app/provider/AlertProvider'
+import { checkIsInApp, checkMobile } from '@/app/utils/commonUtils'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 
 export interface ISignInModalProps {
     open: boolean
     handleOpen: () => void
 }
 
+const { Link } = createSharedPathnamesNavigation({ locales })
 export function SignInModal({ open, handleOpen }: ISignInModalProps) {
+    const [isMobile, setIsMobile] = React.useState(false)
+    const [isInApp, setIsInApp] = React.useState(false)
     const { $alert } = React.useContext(AlertContext)
     const [isConnecting, setIsConnecting] = useState(false)
     const callbackUrlParams = useSearchParams()
@@ -38,6 +44,24 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
 
     // const router = useRouter()
     const t = useTranslations('Layout.header.connect')
+
+    useEffect(() => {
+        const isMobile = checkMobile()
+        // const result2 = checkIsInApp()
+        if (isMobile) {
+            setIsMobile(true)
+        } else {
+            setIsInApp(false)
+        }
+
+        const isInApp = checkIsInApp()
+
+        if (isInApp) {
+            setIsInApp(true)
+        } else {
+            setIsInApp(false)
+        }
+    }, [])
 
     const connect = async (walletType: string) => {
         if (walletType === 'metamask') {
@@ -135,26 +159,70 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                             Popular
                         </Typography>
                         <ul className="mt-3 -ml-2 flex flex-col">
-                            <MenuItem
-                                className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
-                                onClick={() => {
-                                    connect('metamask')
-                                }}
-                                placeholder={undefined}>
-                                <img
-                                    src="https://docs.material-tailwind.com/icons/metamask.svg"
-                                    alt="metamask"
-                                    className="h-6 w-6"
-                                />
-                                <Typography
-                                    className="uppercase"
-                                    color="blue-gray"
-                                    variant="h6"
+                            {!isMobile && (
+                                <MenuItem
+                                    className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
+                                    onClick={() => {
+                                        connect('metamask')
+                                    }}
                                     placeholder={undefined}>
-                                    Connect with MetaMask
-                                </Typography>
-                                {isConnecting && <Spinner className="h-6 w-6" />}
-                            </MenuItem>
+                                    <img
+                                        src="https://docs.material-tailwind.com/icons/metamask.svg"
+                                        alt="metamask"
+                                        className="h-6 w-6"
+                                    />
+                                    <Typography
+                                        className="uppercase"
+                                        color="blue-gray"
+                                        variant="h6"
+                                        placeholder={undefined}>
+                                        Connect with MetaMask
+                                    </Typography>
+                                    {isConnecting && <Spinner className="h-6 w-6" />}
+                                </MenuItem>
+                            )}
+
+                            {isMobile && !isInApp && (
+                                <MenuItem
+                                    className="mb-4 flex items-center justify-center gap-6 !py-4 shadow-md"
+                                    placeholder={undefined}>
+                                    <img
+                                        src="https://docs.material-tailwind.com/icons/metamask.svg"
+                                        alt="metamask"
+                                        className="h-6 w-6"
+                                    />
+                                    <Typography
+                                        className="uppercase"
+                                        color="blue-gray"
+                                        variant="h6"
+                                        placeholder={undefined}>
+                                        <Link
+                                            href={`${process.env.NEXT_PUBLIC_DEEP_LINK}/dev.quadhash.kr`}>
+                                            Connect with MetaMask(Mobile)
+                                        </Link>
+                                    </Typography>
+                                </MenuItem>
+                            )}
+
+                            {isInApp && (
+                                <MenuItem
+                                    className="mb-4 flex items-center justify-center gap-3 !py-4 shadow-md"
+                                    placeholder={undefined}
+                                    onClick={() => connect('metamask')}>
+                                    <img
+                                        src="https://docs.material-tailwind.com/icons/metamask.svg"
+                                        alt="metamast"
+                                        className="h-6 w-6"
+                                    />
+                                    <Typography
+                                        className="uppercase"
+                                        color="blue-gray"
+                                        variant="h6"
+                                        placeholder={undefined}>
+                                        Connect with MetaMask(Mobile)
+                                    </Typography>
+                                </MenuItem>
+                            )}
                         </ul>
                         <ul className="mt-3 -ml-2 flex flex-col">
                             <MenuItem

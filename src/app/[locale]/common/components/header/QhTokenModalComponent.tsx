@@ -146,12 +146,13 @@ export default function QhTokenModalComponent({
                 setTokenAmount(0)
                 setTicketAmount(0)
                 setZindex()
-                showToast(`Dynamic NFT 티켓 연동을 완료하였습니다.`)
+                showToast('티켓 연동 완료')
                 getMissingTicketList()
             } else {
                 throw new Error()
             }
         } catch (error) {
+            showToast('티켓 연동 실패')
             console.error(error)
         }
     }
@@ -282,7 +283,7 @@ export default function QhTokenModalComponent({
 
                 if (result.ok) {
                     setZindex()
-                    showToast(`Dynamic NFT 티켓 연동을 완료하였습니다.`)
+                    showToast('티켓 연동 완료.')
                     const refreshInfo = await getUserInfo(session.user.access_token)
                     console.log(refreshInfo)
                     updateSessionForTicket(refreshInfo.data.ticket_num)
@@ -294,7 +295,7 @@ export default function QhTokenModalComponent({
                 }
             } catch (error) {
                 console.log('Ticket Error')
-                showToast(`Dynamic NFT 티켓 연동에 실패하였습니다.`)
+                showToast('티켓 연동 실패.')
                 console.error(error)
                 getMissingTicketList()
                 clearLoading()
@@ -330,12 +331,12 @@ export default function QhTokenModalComponent({
 
         //     setTicketPrice(ticketPrice / 10 ** 6)
         // }
-        setTicketPrice(5)
+        if (wallet.accounts[0] && session) setTicketPrice(5)
         setTokenAmount(0)
         setTicketAmount(0)
         getMissingTicketList()
         // getTicketPriceFromChain()
-    }, [])
+    }, [session])
 
     React.useEffect(() => {
         setTokenAmount(0)

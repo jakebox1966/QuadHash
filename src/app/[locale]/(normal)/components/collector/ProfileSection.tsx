@@ -115,7 +115,7 @@ export default function ProfileSection({
                                         />
                                     </svg>
 
-                                    <div className="text-[9.4px]">
+                                    <div className="text-[9.4px] font-Poppins_semiBold">
                                         <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address).toUpperCase()}
@@ -126,8 +126,12 @@ export default function ProfileSection({
                             <div className="flex flex-row items-center mt-4">
                                 <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                     <div className="text-nowrap">
-                                        <div className="text-[12px]">QUADHASH</div>
-                                        <div className="text-[25px]">{tokenType.toUpperCase()}</div>
+                                        <div className="text-[11.81px] font-Poppins_semiBold">
+                                            QUADHASH
+                                        </div>
+                                        <div className="text-[25px] font-Poppins_bold">
+                                            {tokenType.toUpperCase()}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -142,10 +146,12 @@ export default function ProfileSection({
                                     {profileNFT?.attributes.map((item, index) => (
                                         <SwiperSlide>
                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                <div className="text-[12px] tracking-[0.56px]">
+                                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                     {item.toUpperCase()}
                                                 </div>
-                                                <div className="font-black text-[14px]">???</div>
+                                                <div className="font-Poppins_semiBold text-[11.81px]">
+                                                    ???
+                                                </div>
                                             </div>
                                         </SwiperSlide>
                                     ))}
@@ -158,17 +164,23 @@ export default function ProfileSection({
                         <div className="max-w-[550px]">
                             <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                 <div className="text-nowrap">
-                                    <div className="text-[12px]">QUADHASH</div>
-                                    <div className="text-[25px]">{tokenType.toUpperCase()}</div>
+                                    <div className="text-[11.81px] font-Poppins_semiBold">
+                                        QUADHASH
+                                    </div>
+                                    <div className="text-[25px] font-Poppins_bold">
+                                        {tokenType.toUpperCase()}
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-row justify-between mt-[15px] flex-wrap gap-4">
                                 {profileNFT?.attributes.map((item) => (
                                     <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                        <div className="tracking-[0.56px]">
+                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                             {item.toUpperCase()}
                                         </div>
-                                        <div className="font-[700]">???</div>
+                                        <div className="font-Poppins_semiBold text-[11.81px]">
+                                            ???
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -191,7 +203,7 @@ export default function ProfileSection({
                                         </svg>
                                     </div>
 
-                                    <div className="text-[9.4px]">
+                                    <div className="text-[9.4px] font-Poppins_semiBold">
                                         <div>ADDRESS</div>
                                         <div className="text-[13px] font-black">
                                             {formatAddress(collector_address).toUpperCase()}
@@ -257,7 +269,7 @@ export default function ProfileSection({
                                     />
                                 </svg>
 
-                                <div className="text-[9.4px]">
+                                <div className="text-[9.4px] font-Poppins_semiBold">
                                     <div>ADDRESS</div>
                                     <div className="text-[13px] font-black">
                                         {formatAddress(collector_address).toUpperCase()}
@@ -268,8 +280,10 @@ export default function ProfileSection({
                         <div className="flex flex-row items-center mt-4">
                             <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                 <div className="text-nowrap">
-                                    <div className="text-[12px]">QUADHASH</div>
-                                    <div className="text-[25px]">
+                                    <div className="text-[11.81px] font-Poppins_semiBold">
+                                        QUADHASH
+                                    </div>
+                                    <div className="text-[25px] font-Poppins_bold">
                                         {profileNFT?.name.split(':')[1].trim()}
                                     </div>
                                 </div>
@@ -297,10 +311,10 @@ export default function ProfileSection({
                                     .map((item, index) => (
                                         <SwiperSlide>
                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                <div className="text-[12px] tracking-[0.56px]">
+                                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                     {item.trait_type.toUpperCase()}
                                                 </div>
-                                                <div className="font-black text-[14px]">
+                                                <div className="font-Poppins_semiBold text-[11.81px]">
                                                     {item.value}
                                                 </div>
                                             </div>
@@ -308,10 +322,10 @@ export default function ProfileSection({
                                     ))}
                                 <SwiperSlide>
                                     <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                        <div className="text-[12px] tracking-[0.56px]">
+                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                             {profileNFT?.attributes[0].trait_type.toUpperCase()}
                                         </div>
-                                        <div className="font-black text-[14px]">
+                                        <div className="font-Poppins_semiBold text-[11.81px]">
                                             {profileNFT?.attributes[0].value}
                                         </div>
                                     </div>
@@ -325,8 +339,8 @@ export default function ProfileSection({
                     <div className="max-w-[550px]">
                         <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                             <div className="text-nowrap">
-                                <div className="text-[12px]">QUADHASH</div>
-                                <div className="text-[25px]">
+                                <div className="text-[11.81px] font-Poppins_semiBold">QUADHASH</div>
+                                <div className="text-[25px] font-Poppins_bold">
                                     {profileNFT?.name.split(':')[1].trim()}
                                 </div>
                             </div>
@@ -345,17 +359,21 @@ export default function ProfileSection({
                                 .filter((item, index) => index !== 0)
                                 .map((item) => (
                                     <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                        <div className="tracking-[0.56px]">
+                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                             {item.trait_type.toUpperCase()}
                                         </div>
-                                        <div className="font-[700]">{item.value}</div>
+                                        <div className="font-Poppins_semiBold text-[11.81px]">
+                                            {item.value}
+                                        </div>
                                     </div>
                                 ))}
                             <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                <div className="tracking-[0.56px]">
+                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                     {profileNFT?.attributes[0].trait_type.toUpperCase()}
                                 </div>
-                                <div className="font-[700]">{profileNFT?.attributes[0].value}</div>
+                                <div className="font-Poppins_semiBold text-[11.81px]">
+                                    {profileNFT?.attributes[0].value}
+                                </div>
                             </div>
                         </div>
                         <div className="font-medium mt-4">
@@ -377,7 +395,7 @@ export default function ProfileSection({
                                     </svg>
                                 </div>
 
-                                <div className="text-[9.4px]">
+                                <div className="text-[9.4px] font-Poppins_semiBold">
                                     <div>ADDRESS</div>
                                     <div className="text-[13px] font-black">
                                         {formatAddress(collector_address).toUpperCase()}

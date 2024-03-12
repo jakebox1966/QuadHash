@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 
+@font-face {
+  font-family: 'PoppinsLight';
+  src: url('/fonts/PPoppins-Light.ttf') format(truetype);
+  font-weight: normal
+}
+
+@font-face {
+  font-family: 'PoppinsBold';
+  src: url('/fonts/Poppins-Bold.ttf') format(truetype);
+  font-weight: normal
+}
+
+@font-face {
+  font-family: 'PoppinsSemiBold';
+  src: url('/fonts/Poppins-SemiBold.ttf') format(truetype);
+  font-weight: normal
+}
 
 @font-face {
   font-family: 'NeuePlak';
