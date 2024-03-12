@@ -16,11 +16,11 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
             <div className="text-[25px] font-medium w-full text-center mb-10">
                 Select Your Collection
             </div>
-            <div className="w-full flex flex-row justify-center items-cnter gap-3 text-[9px] lg:text-base pb-[32px]">
+            <div className="w-full flex flex-row justify-center items-center gap-3 text-[9px] lg:text-base pb-[32px]">
                 <div
                     className={`${
                         tokenType === 'saza' ? 'bg-[#FFCD19]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
+                    } border-2 rounded-[30px] px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
                     onClick={() => {
                         handleNFTType('saza')
                     }}>
@@ -34,7 +34,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                 <div
                     className={`${
                         tokenType === 'gaza' ? 'bg-[#FFCD19]' : ''
-                    } border-2 rounded-full px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
+                    } border-2 rounded-[30px] px-3 py-3 w-full cursor-pointer tansition-all hover:bg-[#FFCD19] max-w-[408px]`}
                     onClick={() => {
                         handleNFTType('gaza')
                     }}>

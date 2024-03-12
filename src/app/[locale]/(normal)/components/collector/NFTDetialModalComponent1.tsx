@@ -46,6 +46,10 @@ export default function NFTDetailModalComponent({
     //     console.log(activeNFT)
     // }, [activeNFT])
 
+    React.useEffect(() => {
+        console.log(session)
+    }, [session])
+
     return (
         <>
             <ThemeProvider value={customTheme}>

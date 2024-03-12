@@ -40,7 +40,7 @@ export default function TabComponent({
             <div
                 className={`${
                     queryParam.token_type === 'saza' ? 'bg-[#FFCD19]' : ''
-                } border-2 rounded-full px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                } border-2 rounded-[15px] px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('saza')
                 }}>
@@ -52,7 +52,7 @@ export default function TabComponent({
             <div
                 className={`${
                     queryParam.token_type === 'gaza' ? 'bg-[#FFCD19]' : ''
-                } border-2 rounded-full px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
+                } border-2 rounded-[15px] px-1 py-1 w-[calc(100%/3)] cursor-pointer tansition-all hover:bg-[#FFCD19]`}
                 onClick={() => {
                     handleNftTypeParam('gaza')
                 }}>
@@ -62,7 +62,7 @@ export default function TabComponent({
                 </div>
             </div>
 
-            <div className={`w-[calc(100%/3)] z-20 ${!burtonMorris ? 'visible' : 'invisible'}`}>
+            <div className={`w-[calc(100%/3)]  z-20 ${!burtonMorris ? 'visible' : 'invisible'}`}>
                 <Listbox
                     value={selected.value}
                     onChange={(value) => {
@@ -76,7 +76,7 @@ export default function TabComponent({
                     }}>
                     {({ open }) => (
                         <div className="relative">
-                            <Listbox.Button className="relative w-full rounded-lg bg-white py-1 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:bg-[#FFCD19]">
+                            <Listbox.Button className="relative w-full rounded-[15px] bg-white py-1 px-3 text-left border-2 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:bg-[#FFCD19]">
                                 <span className="truncate flex flex-row justify-between items-center font-medium leading-[30px] ">
                                     {selected.name}
                                     <svg

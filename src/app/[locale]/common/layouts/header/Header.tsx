@@ -76,6 +76,7 @@ export default function Header(props: IHeaderProps) {
     }, [])
 
     React.useEffect(() => {
+        console.log(123)
         init()
     }, [session])
 

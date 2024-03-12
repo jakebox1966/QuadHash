@@ -83,8 +83,8 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div className="text-[#0065F2]">MEET US AT THE</div>
                         <div className="text-[#0065F2]">SAZA&GAZA STORE</div>
                     </div>
-                    <div className="mt-[28px] text-[20px]">
-                        A More Fun Way to Express Feelings, with Saza&Gaza.
+                    <div className="font-NanumSquare mt-[28px] text-[20px]">
+                        QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
                     </div>
 
                     <Link
@@ -227,14 +227,12 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">OUR CREATIVE</div>
                             <div className="text-3xl font-black text-[#0065F2]">UNIVERSE</div>
                         </div>
-                        <div className="font-NeuePlak font-medium">
-                            <div>"Our vision is to be the leading force in</div>
-                            <div>the IP-centric digital art world. We aim </div>
-                            <div>to create an immersive universe </div>
-                            <div>where each NFT brings a piece of our</div>
-                            <div>story to life, engaging audiences with</div>
-                            <div>innovative and interactive </div>
-                            <div>storytelling."</div>
+                        <div className="font-NanumSquare font-medium">
+                            <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
+                            <div>
+                                모든 NFT가 소유자와 상호작용하며, 각각의 고유한 이야기를 써 내려가는
+                                몰입형 세계를 만들어 갑니다.
+                            </div>
                         </div>
 
                         <Link
@@ -264,9 +262,10 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">SAZA&GAZA</div>
                             <div className="text-3xl font-black text-[#0065F2]">STORE</div>
                         </div>
-                        <div className="font-medium font-NeuePlak">
-                            <div>A More Fun Way to Express Feelings, </div>
-                            <div>with Saza&Gaza.</div>
+                        <div className="font-medium font-NanumSquare">
+                            <div>
+                                QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
+                            </div>
                         </div>
 
                         <Link

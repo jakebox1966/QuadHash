@@ -14,10 +14,10 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
                 <div
-                    className={`overflow-hidden aspect-square rounded-xl ${
+                    className={`overflow-hidden aspect-square shadow-xl ${
                         item === partsData.value.replaceAll(' ', '-')
-                            ? 'shadow-[_5px_1px_40px_0px_blue]'
-                            : 'shadow-xl'
+                            ? 'border-[5px] border-[#F46221] rounded-none'
+                            : 'rounded-xl'
                     }`}>
                     <div
                         className={`relative w-full h-full hover:opacity-75 transition-all hover:scale-110`}>
@@ -30,6 +30,11 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                             height="auto"
                             alt="parts-image"
                         />
+                        {item === partsData.value.replaceAll(' ', '-') && (
+                            <div className="bg-[#F46221] w-[142px] text-center text-[16px] px-[20px] py-[16px] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-Poppins_light text-[#FFFFFF]">
+                                Owned
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-2 font-medium cursor-pointer">

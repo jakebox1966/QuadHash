@@ -25,7 +25,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <Image src={sazaImage} alt="saza" className="absolute -bottom-10" />
                         </div>
                     </div>
-                    <div className="lg:absolute top-20 flex flex-col justify-center items-start gap-[30px]">
+                    <div className="lg:absolute top-44 flex flex-col justify-center items-start gap-[30px]">
                         <div className="text-[44.2px] font-NeuePlak">OUR COLLECTION</div>
                         <div className="text-[20px] font-NanumSquare font-[700] leading-[24px]">
                             <div>강렬한 색감과 독창적인 캐릭터.</div>
@@ -90,7 +90,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     <div className="flex flex-col justify-center items-start gap-[30px]">
                         <div className="text-[44.2px] font-NeuePlak">NEW MERCHANDISE!</div>
                         <div className="font-NanumSquare text-[20px] w-full">
-                            QUADHASH의 또다른 IP 브랜드, ‘사자와가자’의 스토어에 방문해보세요.
+                            QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
                         </div>
 
                         <Link
@@ -105,12 +105,12 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
 
             <div className="flex lg:hidden bg-[#FFAE35] flex-col justify-start items-center w-full text-[#FFFFFF] font-black pt-[138px] min-h-[709px]">
                 <div className="w-[330px] flex flex-col justify-center items-center gap-[30px]">
-                    <div className="flex flex-col justify-start items-center gap-[27px] w-full">
+                    <div className="flex flex-col justify-start items-center w-full">
                         <div className="text-[37px] leading-[37px] font-NeuePlak text-center">
                             <div>NEW</div>
                             <div>MERCHANDISE!</div>
                         </div>
-                        <div className="text-[17px] font-NanumSquare leading-[24px] text-center w-full">
+                        <div className="text-[17px] font-NanumSquare leading-[24px] text-center w-full mt-[27px]">
                             <div>QUADHASH의 또다른 IP 브랜드,</div>
                             <div>‘사자랑가자’의 스토어에 방문해보세요.</div>
                         </div>
@@ -118,11 +118,11 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         <Link
                             href={'https://www.sazagaza.co.kr/'}
                             target={'_blank'}
-                            className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
+                            className="bg-[#FFFFFF] min-w-[202px] border-[1px] mt-[40px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             SHOP NOW
                         </Link>
                     </div>
-                    <div className=" flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center mt-[52px]">
                         <Image
                             src={saza_gaza_together}
                             width={282}

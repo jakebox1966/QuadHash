@@ -385,7 +385,7 @@ export default function ReportContainer(props: IReportContainerProps) {
 
     return (
         <>
-            <div className="flex flex-col justify-start items-start min-h-[calc(100vh-140px)] gap-16 pt-[96px] w-full max-w-[1400px] px-[33px] lg:px-[86px]">
+            <div className="flex flex-col justify-start items-start min-h-[calc(100vh-140px)] gap-16 w-full max-w-[1400px] px-[33px] lg:px-[86px]">
                 {activeStep === 0 && (
                     <>
                         <ReportAgreementComponent

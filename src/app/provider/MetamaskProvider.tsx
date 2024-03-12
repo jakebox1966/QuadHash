@@ -62,6 +62,8 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         })
 
         setWallet({ accounts, balance, chainId })
+
+        console.log('changed')
     }, [])
 
     const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
@@ -80,7 +82,11 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
             if (provider) {
                 updateWalletAndAccounts()
-                window.ethereum.on('accountsChanged', updateWallet)
+                window.ethereum.on('accountsChanged', (accounts) => {
+                    console.log('accounts', accounts)
+                    console.log('account changed')
+                    updateWallet(accounts)
+                })
                 window.ethereum.on('chainChanged', updateWalletAndAccounts)
             }
         }

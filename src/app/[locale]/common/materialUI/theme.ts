@@ -209,11 +209,9 @@ export const dialogTheme = {
                     maxWidth: 'max-w-[80%] md:max-w-[60%] lg:max-w-[40%] 2xl:max-w-[25%]',
                 },
                 sm: {
-                    width: 'w-full md:w-2/3 lg:w-2/4 2xl:w-1/3',
-                    minWidth:
-                        'min-w-[80%] md:min-w-[66.666667%] lg:min-w-[50%] 2xl:min-w-[33.333333%]',
-                    maxWidth:
-                        'max-w-[80%] md:max-w-[66.666667%] lg:max-w-[50%] 2xl:max-w-[33.333333%]',
+                    width: 'w-fit',
+                    minWidth: 'min-w-[80%] lg:min-w-[429px]',
+                    maxWidth: 'max-w-[80%] lg:max-w-[429px]',
                 },
                 md: {
                     width: 'w-full md:w-3/4 lg:w-3/5 2xl:w-2/5',

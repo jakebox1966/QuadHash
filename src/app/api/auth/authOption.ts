@@ -73,7 +73,7 @@ export const authOption: AuthOptions = {
             }
 
             const nowTime = Date.now()
-            console.log('첫 token', token)
+            // console.log('첫 token', token)
 
             //refresh token은 token안에 기본적으로 세팅된 exp 값과 같기 때문에 exp로 비교
             // if ((token?.exp as number) * 1000 < nowTime) {

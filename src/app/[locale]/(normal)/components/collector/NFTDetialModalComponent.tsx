@@ -47,6 +47,10 @@ export default function NFTDetailModalComponent({
         console.log(tokenId)
     }, [tokenId])
 
+    React.useEffect(() => {
+        console.log(session)
+    }, [session])
+
     return (
         <>
             <ThemeProvider value={dialogTheme}>

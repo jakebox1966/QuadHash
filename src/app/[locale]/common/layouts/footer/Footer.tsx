@@ -9,7 +9,7 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 export default function Footer(props: IFooterProps) {
     return (
         <>
-            <footer className="h-[280px] hidden w-full lg:flex flex-col justify-center gap-[32px] text-[16px] px-10 max-w-[1600px]">
+            <footer className="h-[280px] hidden w-full lg:flex flex-col justify-center gap-[32px] text-[16px] px-[50px] max-w-[1400px]">
                 <div className="flex flex-row justify-center lg:justify-between items-center">
                     <div>
                         <Logo />

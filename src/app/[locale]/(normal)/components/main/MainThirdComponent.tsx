@@ -19,8 +19,8 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
             <div className="hidden w-full lg:flex flex-col justify-center items-center pt-[294px] bg-[#FEFAE0]">
                 <div className="flex flex-col justify-center items-center max-w-[1300px] w-full px-10 lg:px-28 text-black font-black gap-10">
                     <div className="font-NeuePlak lg:text-[70px] text-center font-[400] leading-[60px]">
-                        <div>START YOUR JOURNEY IN</div>
-                        <div>QUADHASH.</div>
+                        <div>START YOUR JOURNEY </div>
+                        <div>WITH QUADHASH.</div>
                     </div>
                     <div className="text-[32px] text-center font-[500] leading-[35px]">
                         <div>WE PRESENT A COLLECTION</div>
@@ -84,7 +84,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                 <div className="flex flex-col justify-center items-center w-[330px] text-black font-black gap-[27px]">
                     <div className="text-[35px] leading-[37px] font-[400px] font-NeuePlak w-full text-center">
                         <div>START YOUR </div>
-                        <div>JOURNEY IN</div>
+                        <div>JOURNEY WITH</div>
                         <div>QUADHASH.</div>
                     </div>
                     <div className="text-[17px] text-center">
@@ -110,7 +110,7 @@ export default function MainThirdComponent(props: IMainThirdComponentProps) {
                         <div className="w-full relative">
                             <Image src={main_third_cute} quality={100} alt="main_middle_image1" />
                             <div className="flex flex-col justify-center items-start absolute bottom-8 left-12 gap-[16px] font-bold">
-                                <div className="text-[25px] drop-shadow-xl">@SAZA&GAZA</div>
+                                <div className="text-[25px] drop-shadow-xl">SAZA&GAZA</div>
                                 <Link
                                     href={'https://www.instagram.com/saza.gaza/'}
                                     target={'_blank'}

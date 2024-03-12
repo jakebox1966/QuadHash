@@ -208,7 +208,7 @@ export default function DynamicNFTDetailContainer({
 
         if (
             await $confirm(
-                'Dynamic NFT 서비스를 이용하여 파츠 변경 시, 변경된 내용은 원상 복구가 불가능하며 진행 시, 보유한 티켓 1개가 차감됩니다. 계속 진행하시겠습니까?',
+                'Dynamic NFT 서비스를 이용하여 파츠 변경 시, <br /> 변경된 내용은 원상 복구가 불가능하며 진행 시 <br /> 보유한 티켓 1개가 차감됩니다. <br /> 계속 진행하시겠습니까?',
             )
         ) {
             try {
@@ -384,8 +384,8 @@ export default function DynamicNFTDetailContainer({
                                 key={item.trait_type}
                                 className={`min-w-[200px] w-full text-left ${
                                     selectedPartsData.partsData.trait_type === item.trait_type
-                                        ? 'shadow-[_5px_1px_40px_0px_white]'
-                                        : 'shadow-[_5px_5px_black]'
+                                        ? 'shadow-[inset_2px_4px_6px_rgba(0,0,0,0.4)] text-[#FFFFFF] font-Poppins_bold'
+                                        : 'shadow-[_2px_4px_rgba(0,0,0,0.4)]'
                                 } ${
                                     !item.availability
                                         ? 'bg-[#BDBDBD]'
