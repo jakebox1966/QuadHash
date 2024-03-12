@@ -8,9 +8,13 @@ import mypage_qbt_icon from '/public/mypage_qbt_icon.svg'
 export interface ITabComponentProps {
     tokenType: string
     handleNFTType: (type: string) => void
+    nftCount: {
+        sazaCount: number
+        gazaCount: number
+    }
 }
 
-export default function TabComponent({ tokenType, handleNFTType }: ITabComponentProps) {
+export default function TabComponent({ tokenType, handleNFTType, nftCount }: ITabComponentProps) {
     // const [activeTab, setActiveTab] = React.useState('saza')
     return (
         <>
@@ -26,7 +30,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_saza_icon} alt="saza_icon" fill />
                         </div>
-                        <div className="tracking-wider">SAZA</div>
+                        <div className="tracking-wider">SAZA {nftCount?.sazaCount}</div>
                     </div>
                 </div>
                 <div
@@ -40,7 +44,7 @@ export default function TabComponent({ tokenType, handleNFTType }: ITabComponent
                         <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
                             <Image src={mypage_gaza_icon} alt="gaza_icon" fill />
                         </div>
-                        <div className="tracking-wider">GAZA</div>
+                        <div className="tracking-wider">GAZA {nftCount?.gazaCount}</div>
                     </div>
                 </div>
 

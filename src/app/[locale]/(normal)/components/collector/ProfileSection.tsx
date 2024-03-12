@@ -311,7 +311,12 @@ export default function ProfileSection({
                                     .map((item, index) => (
                                         <SwiperSlide>
                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
+                                                <div
+                                                    className={`text-[10.85px] font-Poppins_light font-semibold ${
+                                                        backgroundColor?.value === 'White'
+                                                            ? '!text-black'
+                                                            : '!text-[#E0E0E0]'
+                                                    } tracking-[0.56px]`}>
                                                     {item.trait_type.toUpperCase()}
                                                 </div>
                                                 <div className="font-Poppins_semiBold text-[11.81px]">
@@ -322,7 +327,12 @@ export default function ProfileSection({
                                     ))}
                                 <SwiperSlide>
                                     <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
-                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
+                                        <div
+                                            className={`text-[10.85px] font-Poppins_light font-semibold ${
+                                                backgroundColor?.value === 'White'
+                                                    ? '!text-black'
+                                                    : '!text-[#E0E0E0]'
+                                            } tracking-[0.56px]`}>
                                             {profileNFT?.attributes[0].trait_type.toUpperCase()}
                                         </div>
                                         <div className="font-Poppins_semiBold text-[11.81px]">
@@ -359,7 +369,12 @@ export default function ProfileSection({
                                 .filter((item, index) => index !== 0)
                                 .map((item) => (
                                     <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                        <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
+                                        <div
+                                            className={`text-[10.85px] font-Poppins_light font-semibold ${
+                                                backgroundColor?.value === 'White'
+                                                    ? '!text-black'
+                                                    : '!text-[#E0E0E0]'
+                                            } tracking-[0.56px]`}>
                                             {item.trait_type.toUpperCase()}
                                         </div>
                                         <div className="font-Poppins_semiBold text-[11.81px]">
@@ -368,7 +383,12 @@ export default function ProfileSection({
                                     </div>
                                 ))}
                             <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
-                                <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
+                                <div
+                                    className={`text-[10.85px] font-Poppins_light font-semibold ${
+                                        backgroundColor?.value === 'White'
+                                            ? '!text-black'
+                                            : '!text-[#E0E0E0]'
+                                    } tracking-[0.56px]`}>
                                     {profileNFT?.attributes[0].trait_type.toUpperCase()}
                                 </div>
                                 <div className="font-Poppins_semiBold text-[11.81px]">

@@ -9,7 +9,7 @@ import { updateUserProfileTokenId } from '@/app/api/collector/api'
 import { useMetaMask } from '@/app/hooks/useMetaMask'
 import { getAccounts, personalSign } from '@/app/api/wallet/api'
 import { getUserInfoByWalletAddress, getUuidByAccount } from '@/app/api/auth/api'
-import { getNFTMetadata, getOwnerForNft } from '@/app/api/alchemy/api'
+import { getNFTMetadata, getNftsForOwner, getOwnerForNft } from '@/app/api/alchemy/api'
 import TabComponent from '../components/collector/TabComponent'
 import NFTDetailModalComponent from '../components/collector/NFTDetialModalComponent'
 import NFTListComponent from '../components/collector/NFTListComponent'
@@ -37,6 +37,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     const [backgroundColor, setBackgroundColor] = React.useState(null)
     const [metadata, setMetadata] = React.useState(null)
     const [imageUrl, setImageUrl] = React.useState(null)
+
+    const [nftCount, setNftCount] = React.useState({
+        sazaCount: 0,
+        gazaCount: 0,
+    })
 
     const [open, setOpen] = React.useState(false)
 
@@ -72,6 +77,29 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             },
         })
     }
+
+    const getCountForNFT = async () => {
+        const response = await getNftsForOwner(wallet_address, {
+            contractAddresses: [
+                process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+                process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+            ],
+        })
+
+        const sazaCount = response.ownedNfts.filter(
+            (item: any) => item.contract.address === process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
+        )
+
+        const gazaCount = response.ownedNfts.filter(
+            (item: any) => item.contract.address === process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
+        )
+
+        setNftCount({
+            sazaCount: sazaCount.length,
+            gazaCount: gazaCount.length,
+        })
+    }
+
     const openDetailModal = async (token_id, token_type) => {
         const metadata = await getMetadata({
             nftType: token_type,
@@ -114,6 +142,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     const init = async () => {
         try {
+            await getCountForNFT()
             setIsLoading(true)
             const result = await getUserInfoByWalletAddress(wallet_address)
             const token_type = result.token_type
@@ -221,7 +250,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
                 <div className="flex flex-col justify-center items-start w-full mt-10">
                     <div className="text-[24px] font-[700] mb-[50px]">Collectables</div>
-                    <TabComponent tokenType={tokenType} handleNFTType={handleNFTType} />
+                    <TabComponent
+                        tokenType={tokenType}
+                        handleNFTType={handleNFTType}
+                        nftCount={nftCount}
+                    />
                     <NFTListComponent
                         wallet_address={wallet_address}
                         tokenType={tokenType}
