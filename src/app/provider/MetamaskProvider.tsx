@@ -28,12 +28,19 @@ interface MetaMaskContextData {
     updateWalletAndAccounts: () => Promise<void>
 }
 
+declare enum Networks {
+    ETH_MAINNET = '0x1',
+    ETH_SEPOLIA = '0xaa36a7',
+}
+
 const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
 
 export const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
 
 export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
     const [hasProvider, setHasProvider] = useState<boolean | null>(null)
+
+    const [isMainNetwork, setIsMainNetwork] = useState(true)
 
     const [isConnecting, setIsConnecting] = useState(false)
 

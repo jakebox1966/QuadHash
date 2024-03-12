@@ -20,6 +20,7 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
     const { wallet } = useMetaMask()
 
     const [isMainNetwork, setIsMainNetwork] = React.useState(true)
+    const [chainId, setChainId] = React.useState('')
 
     const checkNetwork = React.useCallback(
         (network) => {
@@ -30,21 +31,27 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
                 setIsMainNetwork(true)
             }
         },
-        [wallet.chainId],
+        [chainId],
     )
 
     React.useEffect(() => {
-        checkNetwork(wallet.chainId)
-    }, [wallet.chainId])
+        checkNetwork(chainId)
+    }, [chainId])
 
     React.useEffect(() => {
-        const getProvider = async () => {
+        const init = async () => {
             const provider = await detectEthereumProvider({ silent: true })
             if (provider) {
                 window.ethereum.on('chainChanged', checkNetwork)
             }
+            const chainId = await window.ethereum.request({
+                method: 'eth_chainId',
+                params: [],
+            })
+
+            setChainId(chainId)
         }
-        getProvider()
+        init()
         return () => {
             window.ethereum?.removeListener('chainChanged', checkNetwork)
         }
