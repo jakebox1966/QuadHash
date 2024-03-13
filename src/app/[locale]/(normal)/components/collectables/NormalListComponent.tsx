@@ -81,7 +81,7 @@ export default function NormalCollectionListComponent({
                         return page?.data.map((item, index) => (
                             <>
                                 <CardComponent
-                                    lockedNFTs={lockedNFTs}
+                                    // lockedNFTs={lockedNFTs}
                                     onClick={openDetailModal}
                                     burtonMorris={burtonMorris}
                                     key={`${item}_${index}`}

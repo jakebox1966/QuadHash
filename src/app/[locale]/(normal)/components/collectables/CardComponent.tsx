@@ -6,10 +6,10 @@ import { IQueryParam } from '../../containers/CollectionContainer'
 import { getMetadata } from '@/app/api/collection/api'
 
 export interface ICardComponentProps {
-    lockedNFTs: {
-        saza: any[]
-        gaza: any[]
-    }
+    // lockedNFTs: {
+    //     saza: any[]
+    //     gaza: any[]
+    // }
     item: number
     queryParam: IQueryParam
     burtonMorris: boolean
@@ -17,13 +17,13 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({
-    lockedNFTs,
+    // lockedNFTs,
     item,
     queryParam,
     burtonMorris,
     onClick,
 }: ICardComponentProps) {
-    console.log(lockedNFTs)
+    // console.log(lockedNFTs)
     const tokenType = queryParam.token_type
 
     const [isLocked, setIsLocked] = React.useState(false)

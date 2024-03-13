@@ -86,7 +86,7 @@ export default function BurtonMorrisListComponent({
                 {data?.pages.map((page) => {
                     return page?.data.map((item, index) => (
                         <CardComponent
-                            lockedNFTs={lockedNFTs}
+                            // lockedNFTs={lockedNFTs}
                             onClick={openDetailModal}
                             burtonMorris={burtonMorris}
                             key={`${item}_${index}`}
