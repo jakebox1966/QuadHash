@@ -22,6 +22,7 @@ import mobileWhiteLogo from '/public/mobile_white_logo.png'
 
 import Link from 'next/link'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
+import Logo from '@/app/[locale]/common/components/header/Logo'
 export interface IFilterComponentProps {
     isMobileFilterOpen: boolean
     setIsMobileFilterOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -277,7 +278,7 @@ export default function FilterComponent({
         <>
             <div className="w-[300px] hidden lg:flex flex-col justify-start items-center border-2 rounded-lg pt-10 h-fit max-h-[calc(100%-140px)] overflow-x-hidden fixed top-[140px]">
                 <div>
-                    <Image src={logo} alt={'logo'} />
+                    <Logo />
                 </div>
 
                 <div className="min-w-[246px] p-10 flex flex-col justify-center items-center gap-5">

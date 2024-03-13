@@ -60,12 +60,6 @@ export default function Header(props: IHeaderProps) {
         }
         openScroll()
     }, [isMobileMenuOpen])
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll)
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll) //clean up
-    //     }
-    // }, [])
 
     useEffect(() => {
         window.addEventListener('resize', handleResize)
@@ -153,7 +147,7 @@ export default function Header(props: IHeaderProps) {
                             </svg>
                         </div>
                         <Link href={'/'}>
-                            <Image src={mobileLogo} alt={'mobile_logo'} />
+                            <Image src={mobileLogo} alt={'mobile_logo'} width={28} height={28} />
                         </Link>
                         <div className="w-full flex flex-row justify-end">
                             <Connect profileNFT={profileNFT} />

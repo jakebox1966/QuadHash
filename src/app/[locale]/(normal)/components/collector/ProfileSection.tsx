@@ -160,7 +160,7 @@ export default function ProfileSection({
                             </div>
                         </div>
                         {/* PC 버전 */}
-                        <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
+                        <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-start items-start pt-[30px]">
                             <div className="max-w-[550px]">
                                 <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                     <div className="text-nowrap">
@@ -344,9 +344,9 @@ export default function ProfileSection({
                     </div>
 
                     {/* PC 버전 */}
-                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
-                        <div className="max-w-[550px]">
-                            <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
+                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-center items-center mt-[35px]">
+                        <div className="max-w-[550px] flex flex-col justify-center">
+                            <div className="w-full font-[700] leading-[25px] flex flex-row justify-center items-center">
                                 <div className="text-nowrap">
                                     <div className="text-[11.81px] font-Poppins_semiBold">
                                         QUADHASH

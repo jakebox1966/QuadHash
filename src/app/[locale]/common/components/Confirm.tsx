@@ -32,7 +32,7 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                             <div className="flex flex-row items-center gap-5 relative w-full">
                                 <div className="flex flex-col text-black gap-2 w-full ">
                                     <div className="font-Poppins_semiBold text-[18px]">
-                                        Are You Sure?
+                                        QUADHASH
                                     </div>
 
                                     <div className="absolute right-0 top-0 translate-y-1/2">
