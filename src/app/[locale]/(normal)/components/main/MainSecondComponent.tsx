@@ -83,13 +83,13 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
             </div>
             <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} space={true} />
             <div className="hidden bg-[#FFAE35] lg:flex flex-row justify-center items-center w-full text-[#FFFFFF] font-black overflow-hidden relative">
-                <div className="max-w-[1355px] w-full flex flex-row justify-between items-center gap-[30px] py-20 px-[50px]">
+                <div className="max-w-[1400px] w-full flex flex-row justify-between items-center gap-[30px] py-20 px-[50px]">
                     <div className="block">
                         <Image src={saza_gaza_together} alt="saza_gaza_together" />
                     </div>
-                    <div className="flex flex-col justify-center items-start gap-[30px]">
+                    <div className="flex flex-col justify-center items-start gap-[30px] ">
                         <div className="text-[44.2px] font-NeuePlak">NEW MERCHANDISE!</div>
-                        <div className="font-NanumSquare text-[20px] w-full">
+                        <div className="font-NanumSquare text-[20px] lg:min-w-[626.25px]">
                             QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
                         </div>
 
