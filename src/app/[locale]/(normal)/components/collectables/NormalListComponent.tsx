@@ -8,6 +8,10 @@ import { IQueryParam } from '../../containers/CollectionContainer'
 import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardComponent'
 
 export interface INormalCollectionListComponentProps {
+    lockedNFTs: {
+        saza: any[]
+        gaza: any[]
+    }
     queryParam: IQueryParam
     burtonMorris: boolean
     openDetailModal: (token_id: any, token_type: any) => Promise<void>
@@ -16,6 +20,7 @@ export interface INormalCollectionListComponentProps {
 export default function NormalCollectionListComponent({
     queryParam,
     burtonMorris,
+    lockedNFTs,
     openDetailModal,
 }: INormalCollectionListComponentProps) {
     const fetchData = async (pageParam) => {

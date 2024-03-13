@@ -21,3 +21,8 @@ export const getCollectionList = async (queryParam) => {
 
     return await result.json()
 }
+
+export const getLockedNFTs = async () => {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/api/v1/utils/locked`)
+    return await result.json()
+}

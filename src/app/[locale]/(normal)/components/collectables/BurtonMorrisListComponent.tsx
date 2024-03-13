@@ -10,6 +10,10 @@ import LoadingCardComponent from '@/app/[locale]/common/components/LoadingCardCo
 export interface IBurtonMorrisListComponentProps {
     queryParam: IQueryParam
     burtonMorris: boolean
+    lockedNFTs: {
+        saza: any[]
+        gaza: any[]
+    }
     burtonMorrisData: {
         list: any[]
         total_page: number
@@ -20,6 +24,7 @@ export interface IBurtonMorrisListComponentProps {
 export default function BurtonMorrisListComponent({
     queryParam,
     burtonMorris,
+    lockedNFTs,
     openDetailModal,
     burtonMorrisData,
 }: IBurtonMorrisListComponentProps) {
@@ -81,6 +86,7 @@ export default function BurtonMorrisListComponent({
                 {data?.pages.map((page) => {
                     return page?.data.map((item, index) => (
                         <CardComponent
+                            lockedNFTs={lockedNFTs}
                             onClick={openDetailModal}
                             burtonMorris={burtonMorris}
                             key={`${item}_${index}`}

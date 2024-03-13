@@ -77,7 +77,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
             <div className="lg:flex hidden w-full">
                 <MarQueeTextComponent text={'A NEW ERA OF CREATIVITY'} space={true} />
             </div>
-            <div className="max-w-[1350px] lg:flex hidden flex-col items-center pt-28 px-[50px]">
+            <div className="max-w-[1400px] lg:flex hidden flex-col items-center pt-28 px-[50px]">
                 <div className="flex flex-col justify-center items-center font-black text-center ">
                     <div className="leading-[60px] font-NeuePlak text-[56px]">
                         <div className="text-[#0065F2]">MEET US AT THE</div>
@@ -227,7 +227,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">OUR CREATIVE</div>
                             <div className="text-3xl font-black text-[#0065F2]">UNIVERSE</div>
                         </div>
-                        <div className="font-NanumSquare font-medium">
+                        <div className="font-NanumSquare font-[17px]">
                             <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
                             <div>
                                 모든 NFT가 소유자와 상호작용하며, 각각의 고유한 이야기를 써 내려가는
@@ -262,7 +262,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">SAZA&GAZA</div>
                             <div className="text-3xl font-black text-[#0065F2]">STORE</div>
                         </div>
-                        <div className="font-medium font-NanumSquare">
+                        <div className=" font-[17px] font-NanumSquare">
                             <div>
                                 QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
                             </div>
@@ -296,7 +296,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">TO CONVEY</div>
                             <div className="text-3xl font-black text-[#0065F2]">EMOTIONS</div>
                         </div>
-                        <div className="font-medium font-NeuePlak">
+                        <div className="font-[17px] font-NeuePlak">
                             <div>A More Fun Way to Express Feelings, </div>
                             <div>with Saza&Gaza.</div>
                         </div>

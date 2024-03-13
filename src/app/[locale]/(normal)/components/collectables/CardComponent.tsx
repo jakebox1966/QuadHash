@@ -1,10 +1,15 @@
-// 'use client'
+'use client'
 
 import * as React from 'react'
 import Image from 'next/image'
 import { IQueryParam } from '../../containers/CollectionContainer'
+import { getMetadata } from '@/app/api/collection/api'
 
 export interface ICardComponentProps {
+    lockedNFTs: {
+        saza: any[]
+        gaza: any[]
+    }
     item: number
     queryParam: IQueryParam
     burtonMorris: boolean
@@ -12,12 +17,17 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({
+    lockedNFTs,
     item,
     queryParam,
     burtonMorris,
     onClick,
 }: ICardComponentProps) {
+    console.log(item)
     const tokenType = queryParam.token_type
+
+    const [isLocked, setIsLocked] = React.useState(false)
+
     let imgUrl = ''
     if (!burtonMorris) {
         if (tokenType === 'saza') {

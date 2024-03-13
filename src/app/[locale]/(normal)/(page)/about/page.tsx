@@ -97,15 +97,17 @@ export default function AboutPage(props: IAboutPageProps) {
                         <div className="min-w-[775px] flex flex-col justify-center items-start font-black gap-10">
                             <div className="text-[51.9px] font-NeuePlak">OUR VISION</div>
                             <div className="text-[20px] font-NanumSquare leading-[24px]">
+                                <div>"우리의 비전은 작품이 경험이 되는 디지털 아트 세계입니다.</div>
                                 <div>
-                                    우리는 독창적인 IP를 바탕으로 몰입감 넘치는 내러티브를 제작하고,
+                                    프로젝트를 통해 생태계를 확장하고 새로운 경험을 만들어갑니다.
                                 </div>
-                                <div>다양한 영역으로 확장되는 잠재력 있는 브랜드를 추구합니다.</div>
+                                <br />
                                 <div>
-                                    우리의 IP는 단순한 시각적인 경험에 그치지 않고, 훨씬 더 다양한
-                                    경험을 제공하는
+                                    그리고 우리만의 오리지널 IP로, 몰입감 있는 서사를 창조하여
                                 </div>
-                                <div>‘Multi Experience’ 아트로 확장됩니다.</div>
+                                <div>
+                                    시각을 넘어서는 상호작용적인 스토리텔링의 영역으로 나아갑니다."
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,12 +122,10 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>MISSION</div>
                         </div>
                         <div className="text-[17px] font-NanumSquare leading-[25px]">
-                            <div>"우리의 비전은 작품이 경험이 되는 디지털 아트 세계입니다.</div>
-                            <div>프로젝트를 통해 생태계를 확장하고 새로운 경험을 만들어갑니다.</div>
-                            <div>그리고 우리만의 오리지널 IP로, 몰입감 있는 서사를 창조하여</div>
-                            <div>
-                                시각을 넘어서는 상호작용적인 스토리텔링의 영역으로 나아갑니다."
-                            </div>
+                            <div>QUADHASH는 블록체인 기술을 바탕으로</div>
+                            <div>모든 IP에 독자적인 아이덴티티를 부여, </div>
+                            <div>아트와 기술, IP가 교차하는 독창적인 </div>
+                            <div>생태계를 꾸려나가는 것을 목표로 합니다.</div>
                         </div>
                     </div>
                     <div className="absolute w-[180px] h-[217px] bottom-[-280px] right-0">

@@ -3,7 +3,7 @@ import * as React from 'react'
 import FilterComponent from '../components/collectables/FilterComponent'
 import TabComponent from '../components/collectables/TabComponent'
 import { getMetadata } from '@/app/api/dynamicNFT/api'
-import { getCollectionList } from '@/app/api/collection/api'
+import { getCollectionList, getLockedNFTs } from '@/app/api/collection/api'
 
 import CollectionDetailModalComponent from '../components/collectables/CollectionDetailModalComponent'
 import { backgroundPallete } from '../../common/color/colorPalette'
@@ -90,6 +90,7 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
 
     const [open, setOpen] = React.useState(false)
 
+    const [lockedNFTs, setLockedNFTs] = React.useState({ saza: [], gaza: [] })
     const [contractAddress, setContractAddress] = React.useState(null)
     const [selectedTokenId, seSelectedTokenId] = React.useState(null)
     const [backgroundColor, setBackgroundColor] = React.useState(null)
@@ -272,6 +273,16 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
     }
 
     React.useEffect(() => {
+        const getLockedList = async () => {
+            const result = await getLockedNFTs()
+            console.log(result)
+            setLockedNFTs(result?.data)
+        }
+
+        getLockedList()
+    }, [])
+
+    React.useEffect(() => {
         if (searchInput === '') {
             handleSearchParam()
         }
@@ -312,6 +323,7 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
                     {!burtonMorris && (
                         <>
                             <NormalCollectionListComponent
+                                lockedNFTs={lockedNFTs}
                                 queryParam={queryParam}
                                 burtonMorris={burtonMorris}
                                 openDetailModal={openDetailModal}
@@ -321,6 +333,7 @@ export default function CollectablesContainer(props: ICollectablesContainerProps
                     {burtonMorris && (
                         <>
                             <BurtonMorrisComponent
+                                lockedNFTs={lockedNFTs}
                                 burtonMorrisData={burtonMorrisData}
                                 queryParam={queryParam}
                                 burtonMorris={burtonMorris}
