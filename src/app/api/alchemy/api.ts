@@ -218,7 +218,7 @@ export const getAssetTransfers = async ({
 }
 
 export const getLogs = async (walletAddress: string) => {
-    console.log(Utils.hexZeroPad(walletAddress, 32).toString())
+    // console.log(Utils.hexZeroPad(walletAddress, 32).toString())
     const response = await alchemy.core.getLogs({
         address: process.env.NEXT_PUBLIC_ERC20_CONTRACT_ADDRESS,
         topics: [
