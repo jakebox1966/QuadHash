@@ -397,7 +397,7 @@ export default function QhTokenModalComponent({
                                         <div className="font-black w-full overflow-x-auto">
                                             {tokenAmount ? tokenAmount : 0} USDT
                                         </div>
-                                        <div className="font-medium">USDT balance</div>
+                                        <div className="font-medium">USDT BALANCE</div>
                                     </div>
                                     <div className="flex flex-col justify-center items-center border-2 border-[#F46221] bg-[#F46221] text-[#FFFFFF] rounded-r-xl py-5 px-4 w-1/2 text-center">
                                         <div className="font-black w-full overflow-x-auto">
