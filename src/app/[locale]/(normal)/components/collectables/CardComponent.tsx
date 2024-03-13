@@ -23,7 +23,7 @@ export default function CardComponent({
     burtonMorris,
     onClick,
 }: ICardComponentProps) {
-    console.log(item)
+    console.log(lockedNFTs)
     const tokenType = queryParam.token_type
 
     const [isLocked, setIsLocked] = React.useState(false)
@@ -42,6 +42,17 @@ export default function CardComponent({
             imgUrl = `${process.env.NEXT_PUBLIC_GAZA_IMG_URL}/art/${item}.png`
         }
     }
+
+    // React.useEffect(() => {
+    //     let result = false
+    //     console.log('item => ', item)
+    //     result = lockedNFTs.saza.includes(22)
+
+    //     console.log('result', result)
+    //     result = lockedNFTs.gaza.includes)
+
+    //     console.log(result)
+    // }, [lockedNFTs])
 
     return (
         <>
