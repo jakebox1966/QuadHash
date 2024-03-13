@@ -76,15 +76,15 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
     // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
     const _updateWallet = useCallback(async (providedAccounts?: any) => {
-        console.log('업덷지갑')
+        // console.log('업덷지갑')
         const accounts =
             providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
 
-        console.log('providedAccounts', providedAccounts)
-        console.log(
-            'await window.ethereum.request({ method: "eth_accounts" })',
-            await window.ethereum.request({ method: 'eth_accounts' }),
-        )
+        // console.log('providedAccounts', providedAccounts)
+        // console.log(
+        //     'await window.ethereum.request({ method: "eth_accounts" })',
+        //     await window.ethereum.request({ method: 'eth_accounts' }),
+        // )
         if (accounts.length === 0) {
             // If there are no accounts, then the user is disconnected
             setWallet(disconnectedState)
@@ -102,10 +102,10 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         })
 
         setWallet({ accounts, balance, chainId })
-        if (providedAccounts) {
-            renewSession()
-        }
-        console.log('changed')
+        // if (providedAccounts) {
+        //     renewSession()
+        // }
+        // console.log('changed')
     }, [])
 
     const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
