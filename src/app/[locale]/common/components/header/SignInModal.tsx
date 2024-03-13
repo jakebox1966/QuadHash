@@ -34,7 +34,6 @@ interface WalletState {
     balance: string
     chainId: string
 }
-;``
 
 const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
 
@@ -71,34 +70,6 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
         } else {
             setIsInApp(false)
         }
-    }, [])
-
-    const _updateWallet = useCallback(async (providedAccounts?: any) => {
-        console.log('업덷지갑')
-        const accounts =
-            providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
-        if (accounts.length === 0) {
-            console.log(123123123132123323122332)
-            // If there are no accounts, then the user is disconnected
-            setWallet(disconnectedState)
-            return
-        }
-
-        console.log('넘어옴')
-        const balance = formatBalance(
-            await window.ethereum.request({
-                method: 'eth_getBalance',
-                params: [accounts[0], 'latest'],
-            }),
-        )
-        const chainId = await window.ethereum.request({
-            method: 'eth_chainId',
-        })
-        console.log('chainId', chainId)
-        console.log('balance', balance)
-        setWallet({ accounts, balance, chainId })
-
-        // renewSession()
     }, [])
 
     const connect = async (walletType: string) => {
@@ -150,7 +121,6 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                     return
                 }
 
-                console.log('넘어옴')
                 const balance = formatBalance(
                     await window.ethereum.request({
                         method: 'eth_getBalance',
@@ -160,12 +130,10 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 const chainId = await window.ethereum.request({
                     method: 'eth_chainId',
                 })
-                console.log('chainId', chainId)
-                console.log('balance', balance)
+
                 setWallet({ accounts, balance, chainId })
                 setPrevWallet(accounts[0])
-
-                console.log('signInResult', signInResult)
+                handleOpen()
             } catch (error) {
                 console.error(error)
                 // throw new Error('Error occured.')
@@ -185,7 +153,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                             Connect a Wallet
                         </Typography>
                         <Typography color="gray" variant="paragraph" placeholder={undefined}>
-                            Choose which card you want to connect
+                            Choose a wallet to connect
                         </Typography>
                     </div>
                     <IconButton

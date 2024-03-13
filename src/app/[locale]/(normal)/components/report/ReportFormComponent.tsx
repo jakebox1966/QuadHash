@@ -124,7 +124,7 @@ export default function ReportFormComponent({
                             readOnly
                             type="text"
                             value={targetList
-                                .map((item) => `${item.token_type} #${item.token_id}`)
+                                .map((item) => `${item.token_type.toUpperCase()} #${item.token_id}`)
                                 .join(', ')}
                             name="post_nfts"
                             placeholder="신고하고자 하는 NFT ID를 입력해주세요."

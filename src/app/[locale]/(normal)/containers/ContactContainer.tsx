@@ -138,7 +138,7 @@ export default function ContactContainer() {
             <div className="max-w-[600px] w-full mt-16 font-medium p-[32px]">
                 <div className="text-center text-5xl font-medium w-full">CONTACT US</div>
                 <div className="flex flex-col items-center w-full gap-10 mt-[70px]">
-                    <div className="flex flex-row w-full">
+                    <div className="flex flex-row w-full leading-[56px]">
                         <div>제안하실 내용을 선택해주세요.</div>
                     </div>
                     <div className="flex flex-row justify-between items-center w-full">

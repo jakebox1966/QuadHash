@@ -62,7 +62,10 @@ export default function TabComponent({
                 </div>
             </div>
 
-            <div className={`w-[calc(100%/3)]  z-20 ${!burtonMorris ? 'visible' : 'invisible'}`}>
+            <div
+                className={`w-[calc(100%/3)] font-Poppins_semiBold z-20 ${
+                    !burtonMorris ? 'visible' : 'invisible'
+                }`}>
                 <Listbox
                     value={selected.value}
                     onChange={(value) => {

@@ -1,9 +1,9 @@
 'use client'
 import * as React from 'react'
 import Image from 'next/image'
-import mypage_saza_icon from '/public/mypage_saza_icon.svg'
-import mypage_gaza_icon from '/public/mypage_gaza_icon.svg'
-import mypage_qbt_icon from '/public/mypage_qbt_icon.svg'
+import mypage_saza_icon from '/public/mypage_saza_icon.png'
+import mypage_gaza_icon from '/public/mypage_gaza_icon.png'
+import mypage_qbt_icon from '/public/mypage_qbt_icon.png'
 
 export interface ITabComponentProps {
     tokenType: string
@@ -27,7 +27,7 @@ export default function TabComponent({ tokenType, handleNFTType, nftCount }: ITa
                         handleNFTType('saza')
                     }}>
                     <div className={`flex flex-row items-center gap-2`}>
-                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
+                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px] rounded-full overflow-hidden">
                             <Image src={mypage_saza_icon} alt="saza_icon" fill />
                         </div>
                         <div className="tracking-wider hidden lg:block">
@@ -47,7 +47,7 @@ export default function TabComponent({ tokenType, handleNFTType, nftCount }: ITa
                         handleNFTType('gaza')
                     }}>
                     <div className="flex flex-row items-center gap-2">
-                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
+                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px] rounded-full overflow-hidden">
                             <Image src={mypage_gaza_icon} alt="gaza_icon" fill />
                         </div>
                         <div className="tracking-wider hidden lg:block">
@@ -69,7 +69,7 @@ export default function TabComponent({ tokenType, handleNFTType, nftCount }: ITa
                         handleNFTType('qbt')
                     }}>
                     <div className="flex flex-row items-center gap-2">
-                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px]">
+                        <div className="relative w-[32px] h-[32px] lg:w-[70px] lg:h-[70px] rounded-full overflow-hidden">
                             <Image src={mypage_qbt_icon} alt="qbt_icon" fill />
                         </div>
                         <div className="tracking-wider">QBT</div>

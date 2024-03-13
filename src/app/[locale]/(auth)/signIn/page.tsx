@@ -11,13 +11,22 @@ import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { useSearchParams } from 'next/navigation'
 import * as React from 'react'
 import { AlertContext } from '@/app/provider/AlertProvider'
+import { formatBalance } from '@/app/utils/ethUtils'
 
 export interface ISignInProps {}
+
+interface WalletState {
+    accounts: any[]
+    balance: string
+    chainId: string
+}
+
+const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
 
 export default function SignIn(props: ISignInProps) {
     const { $alert } = React.useContext(AlertContext)
     const [isConnecting, setIsConnecting] = React.useState(false)
-    const { wallet, hasProvider, connectMetaMask } = useMetaMask()
+    const { wallet, hasProvider, connectMetaMask, setWallet, setPrevWallet } = useMetaMask()
     const callbackUrlParams = useSearchParams()
 
     const callbackUrl = callbackUrlParams.get('callbackUrl')
@@ -34,11 +43,11 @@ export default function SignIn(props: ISignInProps) {
             }
             try {
                 setIsConnecting(true)
-                await connectMetaMask()
+                // await connectMetaMask()
 
                 const accounts = await getAccounts()
 
-                //TODO 기존 프로세스는 회원가입 이력을 확인하는 로직이 들어가있지만, 새로운 로직에서는 필요가 없으므로 nonce값을 통해 처리하는 로직이 없어야한다.
+                // //TODO 기존 프로세스는 회원가입 이력을 확인하는 로직이 들어가있지만, 새로운 로직에서는 필요가 없으므로 nonce값을 통해 처리하는 로직이 없어야한다.
 
                 let result = await getUuidByAccount(accounts[0])
                 // console.log('result', result)
@@ -59,15 +68,37 @@ export default function SignIn(props: ISignInProps) {
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
                     wallet_signature: signature,
-                    redirect: true,
+                    redirect: false,
                     // redirect: false,
-                    callbackUrl: callbackUrl,
+                    // callbackUrl: callbackUrl,
                 })
 
-                // console.log('signInResult', signInResult)
+                if (accounts.length === 0) {
+                    console.log('accounts', accounts)
+                    // If there are no accounts, then the user is disconnected
+                    setWallet(disconnectedState)
+                    return
+                }
+
+                console.log('넘어옴')
+                const balance = formatBalance(
+                    await window.ethereum.request({
+                        method: 'eth_getBalance',
+                        params: [accounts[0], 'latest'],
+                    }),
+                )
+                const chainId = await window.ethereum.request({
+                    method: 'eth_chainId',
+                })
+                console.log('chainId', chainId)
+                console.log('balance', balance)
+                setWallet({ accounts, balance, chainId })
+                setPrevWallet(accounts[0])
+
+                console.log('signInResult', signInResult)
             } catch (error) {
                 console.error(error)
-                throw new Error('Error occured.')
+                // throw new Error('Error occured.')
             }
             setIsConnecting(false)
         } else if ('konkrit') {
@@ -83,7 +114,7 @@ export default function SignIn(props: ISignInProps) {
                         <img className="w-[60%] max-w-[335px]" src="/com_saza.png" alt="" />
                         <div className="font-black lg:text-4xl mt-5">Connect a Wallet</div>
                         <div className="font-medium text-xs lg:text-2xl text-gray-700 mt-3">
-                            Choose which card you want to connect
+                            Choose a wallet to connect
                         </div>
                     </div>
 

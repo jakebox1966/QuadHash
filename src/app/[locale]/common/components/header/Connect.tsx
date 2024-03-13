@@ -159,13 +159,13 @@ export default function Connect({ profileNFT }: IConnectProps) {
                         disconnect={disconnect}
                     />
 
-                    {/* <QhTokenModalComponent
+                    <QhTokenModalComponent
                         qhTokenBalance={qhTokenBalance}
                         isQhTokenModalOpen={isQhTokenModalOpen}
                         handleQhTokenModal={handleQhTokenModal}
                         QhTokenModalTap={QhTokenModalTap}
                         handleQhTokenModalTap={handleQhTokenModalTap}
-                    /> */}
+                    />
                 </>
             )}
         </>

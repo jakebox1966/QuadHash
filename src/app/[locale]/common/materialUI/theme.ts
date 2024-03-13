@@ -210,8 +210,8 @@ export const dialogTheme = {
                 },
                 sm: {
                     width: 'w-fit',
-                    minWidth: 'min-w-[80%] lg:min-w-[429px]',
-                    maxWidth: 'max-w-[80%] lg:max-w-[429px]',
+                    minWidth: 'min-w-[94%] md:min-w-[60%] lg:min-w-[429px]',
+                    maxWidth: 'max-w-[94%] md:max-w-[60%] lg:max-w-[429px]',
                 },
                 md: {
                     width: 'w-full md:w-3/4 lg:w-3/5 2xl:w-2/5',

@@ -31,7 +31,7 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                         <DialogBody placeholder={undefined} className="p-[24px]">
                             <div className="flex flex-row items-center gap-5 relative w-full">
                                 <div className="flex flex-col text-black gap-2 w-full ">
-                                    <div className="font-Poppins_semiBold text-[18px]">
+                                    <div className="font-Poppins_semiBold text-[16px]">
                                         QUADHASH
                                     </div>
 
@@ -44,7 +44,7 @@ export function Confirm({ open, message, onClickOK, onClickCancel }: IConfirmPro
                                         />
                                     </div>
                                     <div
-                                        className="font-[18px] !leading-[30px] w-full"
+                                        className="text-[13px] !font-Poppins_light !leading-[30px] w-full"
                                         dangerouslySetInnerHTML={{
                                             __html: message ? message : '',
                                         }}></div>

@@ -289,27 +289,26 @@ export default function DynamicNFTDetailContainer({
             // })
 
             if (!prevParts) {
-                for (let i = 0; i < NFTMetadata?.attributes.length; i++) {
-                    if (NFTMetadata?.attributes[i].availability === true) {
-                        setSelectedPartsData((prev) => ({
-                            partsData: {
-                                trait_type: NFTMetadata?.attributes[i].trait_type,
-                                value: NFTMetadata?.attributes[i].value,
-                            },
-                            tokenType: tokenType,
-                            availability: NFTMetadata?.attributes[i].availability,
-                            pool: NFTMetadata?.attributes[i].pool,
-                        }))
-                        break
-                    }
-                }
+                // for (let i = 0; i < NFTMetadata?.attributes.length; i++) {
+                //     if (NFTMetadata?.attributes[i].availability === true) {
+                setSelectedPartsData((prev) => ({
+                    partsData: {
+                        trait_type: NFTMetadata?.attributes[0].trait_type,
+                        value: NFTMetadata?.attributes[0].value,
+                    },
+                    tokenType: tokenType,
+                    availability: NFTMetadata?.attributes[0].availability,
+                    pool: NFTMetadata?.attributes[0].pool,
+                }))
+                //         break
+                //     }
+                // }
             } else {
                 console.log(NFTMetadata)
                 const data = NFTMetadata?.attributes.find((data) => {
                     return data.trait_type === prevParts
                 })
 
-                console.log('prev123123', data)
                 setSelectedPartsData((prev) => ({
                     partsData: {
                         trait_type: data.trait_type,

@@ -111,7 +111,7 @@ export default function SelectNFTComponent({
                     )}
                     {!isLoading && transactions && transactions.length === 0 && (
                         <div className="relative flex flex-row w-full justify-center items-center border-4 p-5 gap-[10px] rounded-2xl flex-wrap">
-                            <div>You dont have any NFT Transaction in your account.</div>
+                            <div>신고 가능한 NFT가 존재하지 않습니다.</div>
                         </div>
                     )}
                 </div>

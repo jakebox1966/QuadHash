@@ -283,6 +283,14 @@ export default function FilterComponent({
 
                 <div className="min-w-[246px] p-10 flex flex-col justify-center items-center gap-5">
                     <Input
+                        icon={
+                            <img
+                                src="/search.svg"
+                                alt="search"
+                                className="absolute w-[20px] cursor-pointer"
+                                onClick={handleSearchParam}
+                            />
+                        }
                         label="Search ID"
                         crossOrigin={undefined}
                         value={searchInput}
@@ -290,19 +298,20 @@ export default function FilterComponent({
                         onKeyDown={handleKeyPress}
                         onChange={onChange}
                     />
-                    <Button
+
+                    {/* <Button
                         onClick={handleSearchParam}
                         className="text-center p-2 rounded-lg w-full text-[#FFFFFF] bg-[#F46221]"
                         placeholder={undefined}>
                         SEARCH
-                    </Button>
+                    </Button> */}
                 </div>
 
                 <div className="flex flex-row items-center justify-between gap-[10px] font-medium bg-[#FFCD19] py-4 px-[20px] w-full">
                     <div>
                         <Image src={logoShort} alt={'logo_short'} width={28} />
                     </div>
-                    <div className="text-[16px]">BURTON MORRIS</div>
+                    <div className="text-[16px] font-Poppins_semiBold">BURTON MORRIS</div>
 
                     <Switch
                         checked={burtonMorris}
@@ -348,12 +357,12 @@ export default function FilterComponent({
                             }
                             placeholder={undefined}>
                             <AccordionHeader
-                                className="border-none bg-[#FFFFFF] h-[64px] font-[700] !text-black text-[16px] leading-[24px] flex flex-row px-[30px] justify-between cursor-pointer"
+                                className="border-none bg-[#FFFFFF] h-[64px] font-Poppins_semiBold font-[700] !text-black text-[16px] leading-[24px] flex flex-row px-[30px] justify-between cursor-pointer"
                                 onClick={() => handleFilterOpen(item)}
                                 placeholder={undefined}>
                                 {item.part_category.toUpperCase()}
                             </AccordionHeader>
-                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer">
+                            <AccordionBody className="bg-[#FFE8DE] w-full cursor-pointer font-Poppins_semiBold">
                                 {item.part_name.map((partName) => (
                                     <div
                                         key={partName}
