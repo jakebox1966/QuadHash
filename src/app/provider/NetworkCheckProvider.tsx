@@ -4,6 +4,8 @@ import * as React from 'react'
 
 import { useMetaMask } from '../hooks/useMetaMask'
 import NetworkErrorPage from '../[locale]/(error)/network-error/page'
+import { locales } from '@/i18nconfig'
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 
 export interface INetworkCheckProviderProps {}
 
@@ -16,11 +18,26 @@ export const NetworkCheckContext = React.createContext<INetworkCheckProviderProp
     {} as INetworkCheckProviderProps,
 )
 
+const privatePages = ['/dynamicNFT', '/report']
+
+const { Link, redirect, usePathname } = createSharedPathnamesNavigation({ locales })
 export default function NetworkCheckProvider({ children }: React.PropsWithChildren) {
+    const pathName = usePathname()
     const { wallet } = useMetaMask()
 
     const [isMainNetwork, setIsMainNetwork] = React.useState(true)
     const [chainId, setChainId] = React.useState('')
+
+    const privatePathnameRegex = RegExp(
+        `^(/(${locales.join('|')})?)?(${privatePages
+            .flatMap((p) => (p === '/' ? ['', '/'] : p))
+            .join(
+                '|',
+            )})(?:\/(?:list|[a-zA-Z]+\/\d+))?(?!\/dynamicNFT(?:\/(?:list|saza\/'\d+'|gaza\/'\d+'))(?:\/|$)).*$`,
+        'i',
+    )
+
+    const isPrivatePages = privatePathnameRegex.test(pathName)
 
     const checkNetwork = React.useCallback(
         (network) => {
@@ -56,6 +73,9 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
             window.ethereum?.removeListener('chainChanged', checkNetwork)
         }
     }, [])
+
+    if (!isPrivatePages)
+        return <NetworkCheckContext.Provider value={null}>{children}</NetworkCheckContext.Provider>
 
     if (isMainNetwork)
         return <NetworkCheckContext.Provider value={null}>{children}</NetworkCheckContext.Provider>

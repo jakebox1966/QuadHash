@@ -80,6 +80,8 @@ export default async function middleware(req: NextRequestWithAuth) {
         'i',
     )
 
+    console.log(req.nextUrl.pathname)
+
     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
 
     const isPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)

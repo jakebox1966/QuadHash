@@ -392,10 +392,12 @@ export default function DynamicNFTDetailContainer({
                                         : 'bg-[#FFC947] cursor-pointer'
                                 } flex flex-row items-center gap-3 p-2 pl-4 rounded-lg transition-all`}>
                                 <div>
-                                    <div className="text-[10.85px] tracking-[0.05rem]">
+                                    <div className="text-[10.85px] tracking-[0.56px] font-Poppins_light font-black">
                                         {item.trait_type.toUpperCase()}
                                     </div>
-                                    <div className="font-black text-[11.81px]">{item.value}</div>
+                                    <div className="font-black text-[11.81px] font-Poppins_bold ">
+                                        {item.value}
+                                    </div>
                                 </div>
                             </button>
                         ))}
@@ -454,7 +456,7 @@ export default function DynamicNFTDetailContainer({
                                                 <div className="text-[10.85px] tracking-[0.05rem]">
                                                     {item.trait_type.toUpperCase()}
                                                 </div>
-                                                <div className="font-black text-[11.81px]">
+                                                <div className="font-black text-[11.81px] ">
                                                     {item.value}
                                                 </div>
                                             </div>

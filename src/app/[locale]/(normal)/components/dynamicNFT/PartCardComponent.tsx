@@ -31,7 +31,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                             alt="parts-image"
                         />
                         {item === partsData.value.replaceAll(' ', '-') && (
-                            <div className="bg-[#F46221] w-[142px] text-center text-[16px] px-[20px] py-[16px] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-Poppins_light text-[#FFFFFF]">
+                            <div className="bg-[#F46221] w-[142px] text-center text-[16px] px-[10px] py-[8px] rounded-full absolute top-1 left-1 font-Poppins_light text-[#FFFFFF]">
                                 Owned
                             </div>
                         )}
