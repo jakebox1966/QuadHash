@@ -217,9 +217,9 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 const updateSessionResponse = await updateSession(tokenId, tokenType)
 
                 if (tokenType === 'reset') {
-                    showToast('프로필 해제 완료')
+                    showToast('프로필 해제 완료', true)
                 } else {
-                    showToast('프로필 설정 완료')
+                    showToast('프로필 설정 완료', true)
                 }
                 setOpen(false)
                 window.scrollTo(0, 0)
@@ -231,7 +231,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
             // console.log(response)
         } catch (error) {
-            showToast('프로필 설정 실패')
+            showToast('프로필 설정 실패', false)
             setIsLoading(false)
             console.error(error)
         }

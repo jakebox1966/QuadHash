@@ -146,13 +146,13 @@ export default function QhTokenModalComponent({
                 setTokenAmount(0)
                 setTicketAmount(0)
                 setZindex()
-                showToast('티켓 연동 완료')
+                showToast('티켓 연동 완료', true)
                 getMissingTicketList()
             } else {
                 throw new Error()
             }
         } catch (error) {
-            showToast('티켓 연동 실패')
+            showToast('티켓 연동 실패', false)
             console.error(error)
         }
     }
@@ -283,7 +283,7 @@ export default function QhTokenModalComponent({
 
                 if (result.ok) {
                     setZindex()
-                    showToast('티켓 연동 완료')
+                    showToast('티켓 연동 완료', true)
                     const refreshInfo = await getUserInfo(session.user.access_token)
                     console.log(refreshInfo)
                     updateSessionForTicket(refreshInfo.data.ticket_num)
@@ -295,7 +295,7 @@ export default function QhTokenModalComponent({
                 }
             } catch (error) {
                 console.log('Ticket Error')
-                showToast('티켓 연동 실패')
+                showToast('티켓 연동 실패', false)
                 console.error(error)
                 getMissingTicketList()
                 clearLoading()

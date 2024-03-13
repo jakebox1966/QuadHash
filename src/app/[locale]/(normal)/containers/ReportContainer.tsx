@@ -366,7 +366,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                     const result = await postReport(parameter)
 
                     if (result.status === 'Success') {
-                        showToast('해킹 신고 완료')
+                        showToast('해킹 신고 완료', true)
                         setActiveStep(3)
                         setIsLoading(false)
                     } else {
@@ -374,7 +374,7 @@ export default function ReportContainer(props: IReportContainerProps) {
                     }
                     setIsLoading(false)
                 } catch (error) {
-                    showToast('해킹 신고 실패')
+                    showToast('해킹 신고 실패', false)
                     setIsLoading(false)
                     console.error(error)
                     router.push('/')

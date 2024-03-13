@@ -233,7 +233,7 @@ export default function DynamicNFTDetailContainer({
                     fetchData()
                     updateSession()
                     setPrevParts(selectedPartsData.partsData.trait_type)
-                    showToast('Dynamic NFT 적용 완료')
+                    showToast('Dynamic NFT 적용 완료', true)
 
                     // throw new Error()
                     // const keyChanged = selectedCategory?.trait_type
@@ -249,7 +249,7 @@ export default function DynamicNFTDetailContainer({
                 }
                 setIsDynamicNFTLoading(false)
             } catch (error) {
-                showToast('Dynamic NFT 적용 실패')
+                showToast('Dynamic NFT 적용 실패', false)
                 setIsDynamicNFTLoading(false)
                 console.error(error)
             }
