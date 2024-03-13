@@ -81,7 +81,7 @@ export default function Footer(props: IFooterProps) {
                         </Link>
                     </div>
                     <div className="text-gray-400">
-                        Copyright © 2024 QUADHASH. All Rights Reserved
+                        Copyright 2024. (주)멋쟁이사자처럼 all rights reserved.
                     </div>
                 </div>
             </footer>
