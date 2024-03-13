@@ -146,7 +146,7 @@ export const sazaPartList = [
             'Charcoal Cap',
             'Newsboy',
             'Camo Cap',
-            'Sherrif',
+            'Sheriff',
             'Star Cap',
             'Pom Pom',
             'Naval',
