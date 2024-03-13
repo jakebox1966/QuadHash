@@ -66,15 +66,15 @@ export default function AboutPage(props: IAboutPageProps) {
                     <div className="w-full relative">
                         <div className="min-w-[775px] flex flex-col justify-center items-start font-black gap-[31px]">
                             <div className="text-[51.9px] font-NeuePlak">OUR MISSION</div>
-                            <div className="text-[20px] flex flex-row justify-between font-NanumSquare leading-[24px] w-full ">
+                            <div className="text-[20px] flex flex-row justify-between font-NanumSquare leading-[27px] tracking-[0.4px] w-full ">
                                 <div className="text-nowrap mr-[100px]">
                                     <div>
-                                        QUADHASH는 블록체인 기술을 바탕으로 모든 IP에 독자적인
-                                        아이덴티티를 부여,
+                                        ”QUADHASH는 블록체인 기술을 통해 IP에 독자적인 아이덴티티를
+                                        부여하고
                                     </div>
                                     <div>
-                                        아트와 기술, IP가 교차하는 독창적인 생태계를 꾸려나가는 것을
-                                        목표로 합니다.
+                                        이를 바탕으로 아트와 기술, IP가 융합되는 독창적이고 풍부한
+                                        생태계를 만들어갑니다.”
                                     </div>
                                 </div>
                                 <div className="translate-y-40">
@@ -96,15 +96,14 @@ export default function AboutPage(props: IAboutPageProps) {
                     <div className="max-w-[1330px] w-full">
                         <div className="min-w-[775px] flex flex-col justify-center items-start font-black gap-10">
                             <div className="text-[51.9px] font-NeuePlak">OUR VISION</div>
-                            <div className="text-[20px] font-NanumSquare leading-[24px]">
-                                <div>"우리의 비전은 작품이 경험이 되는 디지털 아트 세계입니다.</div>
+                            <div className="text-[20px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                                <div>"우리의 비전은 IP가 경험이 되는 디지털 아트 세계입니다.</div>
                                 <div>
-                                    프로젝트를 통해 생태계를 확장하고 새로운 경험을 만들어갑니다.
+                                    다양한 프로젝트를 통해 생태계를 확장하고 새로운 경험을
+                                    만들어갑니다.
                                 </div>
                                 <br />
-                                <div>
-                                    그리고 우리만의 오리지널 IP로, 몰입감 있는 서사를 창조하여
-                                </div>
+                                <div>그리고 우리만의 오리지널 IP로 몰입감 있는 서사를 창조하여</div>
                                 <div>
                                     시각을 넘어서는 상호작용적인 스토리텔링의 영역으로 나아갑니다."
                                 </div>
@@ -121,11 +120,9 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>OUR</div>
                             <div>MISSION</div>
                         </div>
-                        <div className="text-[17px] font-NanumSquare leading-[25px]">
-                            <div>QUADHASH는 블록체인 기술을 바탕으로</div>
-                            <div>모든 IP에 독자적인 아이덴티티를 부여, </div>
-                            <div>아트와 기술, IP가 교차하는 독창적인 </div>
-                            <div>생태계를 꾸려나가는 것을 목표로 합니다.</div>
+                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                            <div>”QUADHASH는 IP와 기술이 융합된</div>
+                            <div>독창적이고 풍부한 생태계를 만들어 갑니다.”</div>
                         </div>
                     </div>
                     <div className="absolute w-[180px] h-[217px] bottom-[-280px] right-0">
@@ -140,13 +137,15 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>OUR</div>
                             <div>VISION</div>
                         </div>
-                        <div className="text-[17px] font-NanumSquare leading-[25px]">
-                            <div>"우리의 비전은 작품이 경험이 되는 디지털 아트 세계입니다.</div>
-                            <div>프로젝트를 통해 생태계를 확장하고 새로운 경험을 만들어갑니다.</div>
-                            <div>그리고 우리만의 오리지널 IP로, 몰입감 있는 서사를 창조하여</div>
-                            <div>
-                                시각을 넘어서는 상호작용적인 스토리텔링의 영역으로 나아갑니다."
-                            </div>
+                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                            <div>"우리의 비전은 IP가 경험이 되는</div>
+                            <div>디지털 아트 세계입니다. </div>
+                            <div>다양한 프로젝트를 통해 생태계를 확장하고 </div>
+                            <div>새로운 경험을 만들어갑니다.</div>
+                            <div>그리고 우리만의 오리지널 IP로</div>
+                            <div>몰입감 있는 서사를 창조하여</div>
+                            <div>시각을 넘어서는 상호작용적인</div>
+                            <div>스토리텔링의 영역으로 나아갑니다."</div>
                         </div>
                     </div>
                 </div>
@@ -228,7 +227,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>TEAM</div>
                         </div>
                         <div className="text-[17px] font-medium font-NanumSquare leading-[25px] text-center">
-                            <div>예술과 기술의 결합, </div>
+                            <div>예술과 기술의 결합,</div>
                             <div>QUADHASH 팀이 이뤄냅니다.</div>
                         </div>
 
@@ -237,7 +236,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             target={'_blank'}
                             className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
-                                <div className="rounded-3xl overflow-hidden">
+                                <div className="rounded-3xl overflow-hidden active:opacity-75 active:scale-110">
                                     <Image src={aboutdoo2} alt={'aboutdoo2'} />
                                 </div>
                             </div>
@@ -251,7 +250,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             target={'_blank'}
                             className="flex flex-col justify-center items-center  ">
                             <div className="relative w-[300] h-[300]">
-                                <div className="rounded-3xl overflow-hidden">
+                                <div className="rounded-3xl overflow-hidden active:opacity-75 active:scale-110">
                                     <Image src={about_burton_morris} alt={'about_burton_morris'} />
                                 </div>
                             </div>
@@ -266,7 +265,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             target={'_blank'}
                             className="flex flex-col justify-center items-center">
                             <div className="relative w-[300] h-[300]">
-                                <div className="rounded-3xl overflow-hidden">
+                                <div className="rounded-3xl overflow-hidden active:opacity-75 active:scale-110">
                                     <Image src={about_craig_karl} alt={'about_craig_karl'} />
                                 </div>
                             </div>

@@ -17,7 +17,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                         <div>A NEW ERA OF </div>
                         <div>CREATIVITY</div>
                     </div>
-                    <div className="hidden lg:flex flex-col font-NanumSquare font-[700] justify-center items-center text-[20px] leading-[24px] w-full tracking-[0.4px]">
+                    <div className="hidden lg:flex flex-col font-NanumSquare font-[700] justify-center items-center text-[20px] leading-[27px] w-full tracking-[0.4px]">
                         <div>
                             QUADHASH(쿼드해시) 프로젝트는 IP 비즈니스의 새로운 가능성을 제시합니다.
                         </div>
@@ -28,15 +28,13 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                         </div>
                     </div>
 
-                    <div className="flex lg:hidden flex-col justify-center items-center font-NanumSquare text-[17px] leading-[24px] w-[300px] text-center">
-                        <div>
-                            QUADHASH(쿼드해시) 프로젝트는 IP 비즈니스의 새로운 가능성을 제시합니다.
-                        </div>
-                        <div>2023년 8월, 블록체인 기술을 활용한 NFT 프로젝트로 출발하여</div>
-                        <div>
-                            꾸준한 IP의 확장으로 온·오프라인을 넘나드는 다채로운 IP 경험을
-                            제공합니다.
-                        </div>
+                    <div className="flex lg:hidden flex-col justify-center items-center font-NanumSquare text-[17px] leading-[27px] w-[340px] text-center tracking-[0.4px]">
+                        <div>QUADHASH(쿼드해시) 프로젝트는</div>
+                        <div>IP 비즈니스의 새로운 가능성을 제시합니다.</div>
+                        <div>2023년 8월, 블록체인 기술을 활용한</div>
+                        <div>NFT 프로젝트로 출발하여</div>
+                        <div>꾸준한 IP의 확장으로 온·오프라인을 넘나드는</div>
+                        <div>다채로운 IP 경험을 제공합니다.</div>
                     </div>
                 </div>
             </div>

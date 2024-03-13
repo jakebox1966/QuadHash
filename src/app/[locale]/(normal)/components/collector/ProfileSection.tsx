@@ -344,7 +344,7 @@ export default function ProfileSection({
                     </div>
 
                     {/* PC 버전 */}
-                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-center items-center mt-[35px]">
+                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-center items-center h-[581px]">
                         <div className="max-w-[550px] flex flex-col justify-center">
                             <div className="w-full font-[700] leading-[25px] flex flex-row justify-center items-center">
                                 <div className="text-nowrap">

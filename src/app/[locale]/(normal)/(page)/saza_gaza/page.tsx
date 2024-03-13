@@ -23,7 +23,6 @@ const { Link } = createSharedPathnamesNavigation({ locales })
 
 export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
     const result = await getCalendars(1)
-    console.log(result)
 
     const dataForRender = result.data.reverse()
 
@@ -52,7 +51,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     <div className="text-[56px] text-[#0065F2] font-NeuePlak leading-[60px]">
                         OUR CREATIVE UNIVERSE
                     </div>
-                    <div className="font-NanumSquare text-[20px] leading-[25px]">
+                    <div className="font-NanumSquare text-[20px] leading-[27px] tracking-[0.4px]">
                         <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
                         <div>
                             모든 NFT가 소유자와 상호작용하며, 각각의 고유한 이야기를 써 내려가는
@@ -229,10 +228,8 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         </div>
                         <div className="font-NanumSquare font-[17px]">
                             <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
-                            <div>
-                                모든 NFT가 소유자와 상호작용하며, 각각의 고유한 이야기를 써 내려가는
-                                몰입형 세계를 만들어 갑니다.
-                            </div>
+                            <div>모든 NFT가 소유자와 상호작용하며, 각각의</div>
+                            <div>고유한 이야기를 써 내려가는 몰입형 세계를 만들어 갑니다.</div>
                         </div>
 
                         <Link
