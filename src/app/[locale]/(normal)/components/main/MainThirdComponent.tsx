@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import * as React from 'react'
-import main_image1 from '/public/main_third_image1.png'
+import main_image1 from '/public/main_middle_image1.png'
 import main_image2 from '/public/main_middle_image2.png'
 import main_image3 from '/public/main_middle_image3.png'
 
