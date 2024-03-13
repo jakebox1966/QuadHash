@@ -543,7 +543,7 @@ export default function FilterComponent({
                         open={isMobileFilterOpen}
                         onClose={closeDrawer}
                         placeholder={undefined}
-                        className="overflow-y-auto h-screen">
+                        className="overflow-y-auto !h-[100dvh]">
                         <div
                             className="text-[#FFFFFF] px-3 pt-3 flex flex-row justify-end"
                             onClick={closeDrawer}>
