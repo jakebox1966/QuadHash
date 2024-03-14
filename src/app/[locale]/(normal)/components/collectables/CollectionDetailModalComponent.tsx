@@ -183,7 +183,8 @@ export default function CollectionDetailModalComponent({
                                                 {metadata?.attributes
                                                     .filter((item, index) => index !== 0)
                                                     .map((item, index) => (
-                                                        <SwiperSlide>
+                                                        <SwiperSlide
+                                                            key={`${item.value}_${item.trait_type}`}>
                                                             <div className="bg-opacity-20 bg-black w-[80%] px-2 py-1 pl-4 rounded-md">
                                                                 <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                                     {item.trait_type.toUpperCase()}
@@ -223,7 +224,9 @@ export default function CollectionDetailModalComponent({
                                             {metadata?.attributes
                                                 .filter((item, index) => index !== 0)
                                                 .map((item) => (
-                                                    <div className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
+                                                    <div
+                                                        key={`${item.value}_${item.trait_type}`}
+                                                        className="bg-opacity-10 bg-black rounded-md p-[8px] text-[12px] max-w-[250px] w-full">
                                                         <div className="text-[10.85px] font-Poppins_light font-semibold text-[#E0E0E0] tracking-[0.56px]">
                                                             {item.trait_type.toUpperCase()}
                                                         </div>

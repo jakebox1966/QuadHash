@@ -80,23 +80,19 @@ export default function NormalCollectionListComponent({
                 {isLoading &&
                     Array(20)
                         .fill(0)
-                        .map((__, index) => <LoadingCardComponent key={index} />)}
+                        .map((__, index) => <LoadingCardComponent key={`${index}_dummy`} />)}
 
-                {data?.pages.map((page) => {
-                    console.log(page)
-
+                {data?.pages.map((page, index) => {
                     if (page.paging.total_pages > 0) {
-                        return page?.data.map((item, index) => (
-                            <>
-                                <CardComponent
-                                    isLocked={lockedNFTList.includes(item)}
-                                    onClick={openDetailModal}
-                                    burtonMorris={burtonMorris}
-                                    key={`${item}_${index}`}
-                                    item={item}
-                                    queryParam={queryParam}
-                                />
-                            </>
+                        return page?.data.map((item) => (
+                            <CardComponent
+                                key={`${item}_${queryParam.token_type}`}
+                                isLocked={lockedNFTList.includes(item)}
+                                onClick={openDetailModal}
+                                burtonMorris={burtonMorris}
+                                item={item}
+                                queryParam={queryParam}
+                            />
                         ))
                     }
                 })}

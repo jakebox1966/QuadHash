@@ -319,23 +319,15 @@ export default function QhTokenModalComponent({
     }
     React.useEffect(() => {
         if (missingTransactionForTicket.length === 0) {
-            // handleQhTokenModalTap('ticket')
+            handleQhTokenModalTap('ticket')
         }
     }, [missingTransactionForTicket])
 
     React.useEffect(() => {
-        console.log(123123)
-        // const getTicketPriceFromChain = async () => {
-        //     const ticketPrice = await getTicketPrice()
-
-        //     // console.log('ticketPrice', ticketPrice)
-
-        //     setTicketPrice(ticketPrice / 10 ** 6)
-        // }
         if (wallet.accounts[0] && session) setTicketPrice(5)
         setTokenAmount(0)
         setTicketAmount(0)
-        // getMissingTicketList()
+
         // getTicketPriceFromChain()
     }, [isQhTokenModalOpen])
 

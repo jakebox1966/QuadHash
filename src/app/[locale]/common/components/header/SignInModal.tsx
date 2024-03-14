@@ -49,7 +49,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
     if (callbackUrlParams.get('callbackUrl')) {
         callbackUrl = callbackUrlParams.get('callbackUrl')
     }
-    const { wallet, hasProvider, connectMetaMask, setWallet, setPrevWallet } = useMetaMask()
+    const { wallet, hasProvider, connectMetaMask } = useMetaMask()
 
     // const router = useRouter()
     const t = useTranslations('Layout.header.connect')
@@ -84,7 +84,7 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
             }
             try {
                 setIsConnecting(true)
-                // await connectMetaMask()
+                await connectMetaMask()
 
                 const accounts = await getAccounts()
 
@@ -109,31 +109,10 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
                     wallet_signature: signature,
-                    redirect: false,
+                    redirect: true,
                     // redirect: false,
-                    // callbackUrl: callbackUrl,
+                    callbackUrl: callbackUrl,
                 })
-
-                if (accounts.length === 0) {
-                    console.log('accounts', accounts)
-                    // If there are no accounts, then the user is disconnected
-                    setWallet(disconnectedState)
-                    return
-                }
-
-                const balance = formatBalance(
-                    await window.ethereum.request({
-                        method: 'eth_getBalance',
-                        params: [accounts[0], 'latest'],
-                    }),
-                )
-                const chainId = await window.ethereum.request({
-                    method: 'eth_chainId',
-                })
-
-                setWallet({ accounts, balance, chainId })
-                setPrevWallet(accounts[0])
-                handleOpen()
             } catch (error) {
                 console.error(error)
                 // throw new Error('Error occured.')

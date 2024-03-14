@@ -66,6 +66,8 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
                 params: [],
             })
 
+            console.log(chainId)
+
             setChainId(chainId)
         }
         init()

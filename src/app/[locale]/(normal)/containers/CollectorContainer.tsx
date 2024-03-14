@@ -128,8 +128,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     }
 
     React.useEffect(() => {
-        init()
-    }, [session])
+        if (session && wallet_address) {
+            console.log(123123)
+            init()
+        }
+    }, [session, wallet_address, wallet.accounts[0]])
 
     const disconnect = async () => {
         await window.ethereum.request({
@@ -157,9 +160,9 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 let metadata = null
                 setCollector_address(result.data.wallet_address)
                 console.log('now setting profile', token_type)
-
                 if (token_type === 'saza' || token_type === 'gaza') {
                     metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
+                    console.log('metadata', metadata)
                     setProfileNFT(metadata)
                 } else if (!token_type) {
                     setProfileNFT('none')
@@ -167,10 +170,12 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
                 const isOwner = await checkOwner(token_id)
                 if (!isOwner) {
+                    console.log('Owner 아님')
+
                     setProfileNFT('none')
-                    // disconnect()
                 }
             } else {
+                console.log('여기 안탄다')
                 setProfileNFT('none')
             }
 
@@ -184,10 +189,8 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     React.useEffect(() => {
         const getLockedList = async () => {
             const result = await getLockedNFTs()
-            console.log(result)
             setLockedNFTs(result?.data)
         }
-
         getLockedList()
     }, [])
 
@@ -198,15 +201,16 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         } else if (tokenType === 'gaza') {
             result = await getOwnerForNft(process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS, tokenId)
         }
-
-        if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
-            return true
+        // return true
+        if (result && wallet.accounts[0]) {
+            if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
+                return true
+            }
+            return false
         }
-        return false
     }
 
     const updateUserProfile = async ({ tokenId, tokenType }) => {
-        console.log(tokenType)
         setIsLoading(true)
         try {
             const isOwner = await checkOwner(tokenId)
@@ -228,7 +232,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 wallet_address: wallet.accounts[0],
             }
             const response = await updateUserProfileTokenId(parameter)
-            console.log(response)
             if (response.ok) {
                 const updateSessionResponse = await updateSession(tokenId, tokenType)
 
@@ -243,9 +246,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             } else {
                 throw new Error()
             }
-            // console.log(updateSessionResponse)
-
-            // console.log(response)
         } catch (error) {
             showToast('프로필 설정 실패', false)
             setIsLoading(false)

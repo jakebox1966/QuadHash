@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     useState,
     useEffect,
@@ -6,15 +5,10 @@ import {
     PropsWithChildren,
     useContext,
     useCallback,
-    Dispatch,
-    SetStateAction,
 } from 'react'
 
 import detectEthereumProvider from '@metamask/detect-provider'
-import { formatBalance } from '../utils/ethUtils'
-import { getUuidByAccount, signUpUser } from '../api/auth/api'
-import { personalSign } from '../api/wallet/api'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { formatBalance } from '@/app/utils/ethUtils'
 
 interface WalletState {
     accounts: any[]
@@ -24,28 +18,23 @@ interface WalletState {
 
 interface MetaMaskContextData {
     wallet: WalletState
-    setWallet: Dispatch<SetStateAction<WalletState>>
     hasProvider: boolean | null
     error: boolean
     errorMessage: string
     isConnecting: boolean
     connectMetaMask: () => void
     clearError: () => void
-    updateWalletAndAccounts: () => Promise<void>
-    setPrevWallet: Dispatch<SetStateAction<string>>
 }
 
-declare enum Networks {
-    ETH_MAINNET = '0x1',
-    ETH_SEPOLIA = '0xaa36a7',
+const disconnectedState: WalletState = {
+    accounts: [],
+    balance: '',
+    chainId: '',
 }
-
-const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' }
 
 export const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
 
 export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
-    const { data: session } = useSession()
     const [hasProvider, setHasProvider] = useState<boolean | null>(null)
 
     const [prevWallet, setPrevWallet] = useState('')
@@ -57,33 +46,8 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
     const [wallet, setWallet] = useState(disconnectedState)
 
-    const renewSession = useCallback(async ({ accounts, balance, chainId }) => {
-        let result = await getUuidByAccount(accounts[0])
-
-        if (result.status === 'NotFound') {
-            const formData = new FormData()
-            formData.append('wallet_address', accounts[0])
-
-            const response = await signUpUser(formData)
-
-            result = await getUuidByAccount(accounts[0])
-        }
-
-        const signature = await personalSign(accounts[0], result.eth_nonce)
-
-        const signInResult = await signIn('Credentials', {
-            wallet_address: accounts[0],
-            wallet_signature: signature,
-            redirect: true,
-
-            // callbackUrl: callbackUrl,
-        })
-        setPrevWallet(accounts[0])
-    }, [])
-
     // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
     const _updateWallet = useCallback(async (providedAccounts?: any) => {
-        console.log('update')
         const accounts =
             providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
 
@@ -92,6 +56,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
             setWallet(disconnectedState)
             return
         }
+
         const balance = formatBalance(
             await window.ethereum.request({
                 method: 'eth_getBalance',
@@ -103,20 +68,6 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         })
 
         setWallet({ accounts, balance, chainId })
-
-        if (prevWallet !== accounts[0]) {
-            // await window.ethereum.request({
-            //     method: 'wallet_revokePermissions',
-            //     params: [
-            //         {
-            //             eth_accounts: wallet.accounts[0],
-            //         },
-            //     ],
-            // })
-            // signOut({ redirect: false })
-
-            renewSession({ accounts, balance, chainId })
-        }
     }, [])
 
     const refresh = useCallback(async (providedAccounts?: any) => {
@@ -141,8 +92,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         setWallet({ accounts, balance, chainId })
     }, [])
 
-    const updateWalletAndAccounts = useCallback(() => refresh(), [refresh])
-
+    const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
     const updateWallet = useCallback((accounts: any) => _updateWallet(accounts), [_updateWallet])
 
     /**
@@ -159,7 +109,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
             if (provider) {
                 updateWalletAndAccounts()
                 window.ethereum.on('accountsChanged', updateWallet)
-                // window.ethereum.on('chainChanged', updateWalletAndAccounts)
+                window.ethereum.on('chainChanged', updateWalletAndAccounts)
             }
         }
 
@@ -167,9 +117,9 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
         return () => {
             window.ethereum?.removeListener('accountsChanged', updateWallet)
-            // window.ethereum?.removeListener('chainChanged', updateWalletAndAccounts)
+            window.ethereum?.removeListener('chainChanged', updateWalletAndAccounts)
         }
-    }, [updateWallet])
+    }, [updateWallet, updateWalletAndAccounts])
 
     const connectMetaMask = async () => {
         setIsConnecting(true)
@@ -178,10 +128,8 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
             const accounts = await window.ethereum.request({
                 method: 'eth_requestAccounts',
             })
-
             clearError()
             updateWallet(accounts)
-            setPrevWallet(accounts[0])
         } catch (err: any) {
             setErrorMessage(err.message)
         }
@@ -192,15 +140,12 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         <MetaMaskContext.Provider
             value={{
                 wallet,
-                setWallet,
                 hasProvider,
                 error: !!errorMessage,
                 errorMessage,
                 isConnecting,
                 connectMetaMask,
                 clearError,
-                updateWalletAndAccounts,
-                setPrevWallet,
             }}>
             {children}
         </MetaMaskContext.Provider>

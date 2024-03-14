@@ -58,7 +58,7 @@ export default function MobileUserInterfaceComponent({
     return (
         <>
             <button
-                className="block lg:hidden rounded-full p-[7px] min-w-[100px] text-[10px] text-white bg-[#F46221] cursor-pointer hover:opacity-80 text-center"
+                className="block lg:hidden rounded-full p-[7px] min-w-[110px] text-[10px] text-white bg-[#F46221] cursor-pointer hover:opacity-80 text-center"
                 onClick={openMobileModal}>
                 {formatAddress(wallet.accounts[0]).toUpperCase()}
             </button>

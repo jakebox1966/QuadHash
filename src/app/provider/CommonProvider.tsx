@@ -23,9 +23,7 @@ export default function CommonProvider({ children }: { children: React.ReactNode
                             <AlertProvider>
                                 <ToastProvider>
                                     <SignInModalContextProvider>
-                                        {/* <NetworkCheckProvider> */}
-                                        {children}
-                                        {/* </NetworkCheckProvider> */}
+                                        <NetworkCheckProvider>{children}</NetworkCheckProvider>
                                     </SignInModalContextProvider>
                                 </ToastProvider>
                             </AlertProvider>
