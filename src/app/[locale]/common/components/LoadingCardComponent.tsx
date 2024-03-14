@@ -6,7 +6,7 @@ export interface ILoadingCardComponentProps {}
 export default function LoadingCardComponent(props: ILoadingCardComponentProps) {
     return (
         <>
-            <div className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]">
+            <div className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]">
                 <div className="overflow-hidden rounded-lg aspect-square">
                     <div className="relative cursor-pointer transition-all bg-gray-300 skeleton_loading hover:opacity-75 hover:scale-110 w-full h-full blur-md">
                         <img src="/1.png" alt="loading" className="invisible" />

@@ -109,10 +109,11 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
                     wallet_signature: signature,
-                    redirect: true,
+                    redirect: false,
                     // redirect: false,
                     callbackUrl: callbackUrl,
                 })
+                handleOpen()
             } catch (error) {
                 console.error(error)
                 // throw new Error('Error occured.')
