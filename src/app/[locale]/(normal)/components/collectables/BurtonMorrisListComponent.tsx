@@ -28,6 +28,14 @@ export default function BurtonMorrisListComponent({
     openDetailModal,
     burtonMorrisData,
 }: IBurtonMorrisListComponentProps) {
+    let lockedNFTList = []
+
+    if (queryParam.token_type === 'saza') {
+        lockedNFTList = lockedNFTs.saza
+    } else if (queryParam.token_type === 'gaza') {
+        lockedNFTList = lockedNFTs.gaza
+    }
+
     const fetchData = async (pageParam) => {
         const startIndex = (pageParam - 1) * 20
         const endIndex = startIndex + 20
@@ -86,7 +94,7 @@ export default function BurtonMorrisListComponent({
                 {data?.pages.map((page) => {
                     return page?.data.map((item, index) => (
                         <CardComponent
-                            // lockedNFTs={lockedNFTs}
+                            isLocked={lockedNFTList.includes(item)}
                             onClick={openDetailModal}
                             burtonMorris={burtonMorris}
                             key={`${item}_${index}`}

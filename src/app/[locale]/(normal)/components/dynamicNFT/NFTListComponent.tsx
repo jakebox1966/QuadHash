@@ -15,6 +15,10 @@ import Image from 'next/image'
 import saza_super from '/public/saza_super.png'
 
 export interface INFTListComponentProps {
+    lockedNFTs: {
+        saza: any[]
+        gaza: any[]
+    }
     wallet_address: string
     tokenType: string
 }
@@ -26,7 +30,20 @@ type lastpage = {
 
 const { Link } = createSharedPathnamesNavigation({ locales })
 
-export default function NFTListComponent({ wallet_address, tokenType }: INFTListComponentProps) {
+export default function NFTListComponent({
+    wallet_address,
+    tokenType,
+    lockedNFTs,
+}: INFTListComponentProps) {
+    let lockedNFTList = []
+
+    if (tokenType === 'saza') {
+        lockedNFTList = lockedNFTs.saza
+    } else if (tokenType === 'gaza') {
+        lockedNFTList = lockedNFTs.gaza
+    }
+
+    console.log(lockedNFTList)
     const fetchData = async (pageKey: string) => {
         if (tokenType === 'saza') {
             return await getNftsForOwner(wallet_address, {
@@ -75,8 +92,10 @@ export default function NFTListComponent({ wallet_address, tokenType }: INFTList
                         .map((__, index) => <LoadingCardComponent key={index} />)}
                 {data?.pages.map((page, index) => {
                     if (page.totalCount > 0) {
+                        console.log(page)
                         return page?.ownedNfts.map((item, index) => (
                             <CardComponent
+                                isLocked={lockedNFTList.includes(parseInt(item.tokenId))}
                                 key={`${item.tokenId}_${index}`}
                                 tokenId={item.tokenId}
                                 tokenType={tokenType}

@@ -7,6 +7,8 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({ tokenType, partsData, item }: ICardComponentProps) {
+    console.log(item)
+    console.log(partsData.value)
     return (
         <>
             <div
@@ -15,7 +17,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
             >
                 <div
                     className={`overflow-hidden aspect-square shadow-xl ${
-                        item === partsData.value.replaceAll(' ', '-')
+                        item.replaceAll(' ', '-') === partsData.value.replaceAll(' ', '-')
                             ? 'border-[5px] border-[#F46221] rounded-none'
                             : 'rounded-xl'
                     }`}>
@@ -30,7 +32,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
                             height="auto"
                             alt="parts-image"
                         />
-                        {item === partsData.value.replaceAll(' ', '-') && (
+                        {item.replaceAll(' ', '-') === partsData.value.replaceAll(' ', '-') && (
                             <div className="bg-[#F46221] text-center text-[10px] lg:text-[16px] px-[10px] py-[8px] w-1/2 rounded-full absolute top-[5%] left-[5%] font-Poppins_light opacity-60 text-[#FFFFFF]">
                                 <div className="z-[9999]">Owned</div>
                             </div>

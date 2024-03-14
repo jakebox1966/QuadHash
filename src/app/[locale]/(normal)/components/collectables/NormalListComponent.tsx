@@ -23,6 +23,14 @@ export default function NormalCollectionListComponent({
     lockedNFTs,
     openDetailModal,
 }: INormalCollectionListComponentProps) {
+    let lockedNFTList = []
+
+    if (queryParam.token_type === 'saza') {
+        lockedNFTList = lockedNFTs.saza
+    } else if (queryParam.token_type === 'gaza') {
+        lockedNFTList = lockedNFTs.gaza
+    }
+
     const fetchData = async (pageParam) => {
         const process = Object.entries(queryParam)
             .filter((item) => item[1] !== null)
@@ -81,7 +89,7 @@ export default function NormalCollectionListComponent({
                         return page?.data.map((item, index) => (
                             <>
                                 <CardComponent
-                                    // lockedNFTs={lockedNFTs}
+                                    isLocked={lockedNFTList.includes(item)}
                                     onClick={openDetailModal}
                                     burtonMorris={burtonMorris}
                                     key={`${item}_${index}`}

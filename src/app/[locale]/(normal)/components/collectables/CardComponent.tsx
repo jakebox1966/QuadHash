@@ -10,6 +10,7 @@ export interface ICardComponentProps {
     //     saza: any[]
     //     gaza: any[]
     // }
+    isLocked: boolean
     item: number
     queryParam: IQueryParam
     burtonMorris: boolean
@@ -17,16 +18,15 @@ export interface ICardComponentProps {
 }
 
 export default function CardComponent({
-    // lockedNFTs,
+    isLocked,
     item,
     queryParam,
     burtonMorris,
     onClick,
 }: ICardComponentProps) {
+    console.log(isLocked)
     // console.log(lockedNFTs)
     const tokenType = queryParam.token_type
-
-    const [isLocked, setIsLocked] = React.useState(false)
 
     let imgUrl = ''
     if (!burtonMorris) {
@@ -58,10 +58,36 @@ export default function CardComponent({
         <>
             <div
                 className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
-                onClick={() => onClick(item, queryParam.token_type)}>
+                onClick={() => {
+                    if (!isLocked) {
+                        onClick(item, queryParam.token_type)
+                        return
+                    }
+                    return
+                }}>
                 <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
                     <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
-                        <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
+                        {!isLocked && (
+                            <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
+                        )}
+
+                        {isLocked && queryParam.token_type === 'saza' && (
+                            <img
+                                src="/saza-locked.png"
+                                width="100%"
+                                height="auto"
+                                alt="saza-locked"
+                            />
+                        )}
+
+                        {isLocked && queryParam.token_type === 'gaza' && (
+                            <img
+                                src="/gaza-locked.png"
+                                width="100%"
+                                height="auto"
+                                alt="gaza-locked"
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">

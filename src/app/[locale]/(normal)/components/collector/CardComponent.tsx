@@ -3,12 +3,13 @@
 import * as React from 'react'
 
 export interface ICardComponentProps {
+    isLocked: boolean
     item: any
     tokenType: string
     onClick?: (token_id: any, token_type: any) => Promise<void>
 }
 
-export default function CardComponent({ item, tokenType, onClick }: ICardComponentProps) {
+export default function CardComponent({ isLocked, item, tokenType, onClick }: ICardComponentProps) {
     let imgUrl = ''
 
     if (tokenType === 'saza') {
@@ -23,19 +24,54 @@ export default function CardComponent({ item, tokenType, onClick }: ICardCompone
 
     return (
         <>
-            <div
-                className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
-                onClick={() => onClick(item.tokenId, tokenType)}>
-                <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
-                    <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
-                        <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
+            {!isLocked && (
+                <div
+                    className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
+                    onClick={() => onClick(item.tokenId, tokenType)}>
+                    <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
+                        <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
+                            <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
+                        </div>
+                    </div>
+                    <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
+                        <div className="text-[11.4px] text-[#7A7A7A]">
+                            {tokenType.toUpperCase()}
+                        </div>
+                        <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>
                     </div>
                 </div>
-                <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
-                    <div className="text-[11.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
-                    <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>
+            )}
+
+            {isLocked && (
+                <div className="w-[calc(50%-5px)] lg:w-[calc(25%-6.1px)]">
+                    <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
+                        <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
+                            {tokenType === 'saza' && (
+                                <img
+                                    src="/saza-locked.png"
+                                    width="100%"
+                                    height="auto"
+                                    alt="saza-locked"
+                                />
+                            )}
+                            {tokenType === 'gaza' && (
+                                <img
+                                    src="/gaza-locked.png"
+                                    width="100%"
+                                    height="auto"
+                                    alt="gaza-locked"
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
+                        <div className="text-[11.4px] text-[#7A7A7A]">
+                            {tokenType.toUpperCase()}
+                        </div>
+                        <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }

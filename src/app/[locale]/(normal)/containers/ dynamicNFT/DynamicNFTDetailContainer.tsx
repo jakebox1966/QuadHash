@@ -361,7 +361,7 @@ export default function DynamicNFTDetailContainer({
     return (
         <>
             <div
-                className={`max-w-[1300px] px-5 pb-10 w-full flex flex-col justify-center items-start gap-5 mt-[50px]`}>
+                className={`max-w-[1400px] pb-10 w-full flex flex-col justify-center items-start gap-5 mt-[50px] px-[16px] lg:px-[50px]`}>
                 {/* DynamicNFT Main */}
                 <div
                     className={`w-full flex flex-row items-end justify-center lg:px-5 max-h-[864px] gap-5 overflow-hidden rounded-lg shadow-2xl relative bg-[${backgroundColor}]

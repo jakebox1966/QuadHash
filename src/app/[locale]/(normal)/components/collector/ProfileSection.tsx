@@ -245,13 +245,14 @@ export default function ProfileSection({
 
             return (
                 <div
-                    className={`flex flex-col lg:flex-row items-center lg:items-start w-full relative rounded-lg shadow-lg overflow-hidden ${
+                    className={`flex flex-col lg:flex-row items-center lg:items-end w-full relative rounded-lg shadow-lg overflow-hidden ${
                         backgroundColor?.value === 'White' ? '!text-black' : '!text-[#FFFFFF]'
                     } `}
                     style={{
                         backgroundColor: backgroundPallete[backgroundColor?.value.toLowerCase()],
                     }}>
-                    <div className={`max-w-[581px] lg:max-h-[581px] w-full h-full`}>
+                    <div
+                        className={`flex flex-col items-end max-w-[581px] min-w-[450px] lg:max-h-[581px] w-full h-full`}>
                         <img src={imageUrl} alt="profileNFT" />
 
                         {/* MOBILE 버전 */}
@@ -350,7 +351,7 @@ export default function ProfileSection({
                     </div>
 
                     {/* PC 버전 */}
-                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-start items-center h-[581px] pt-[45px]">
+                    <div className="w-[calc(100%-581px)] mx-[30px] hidden lg:flex flex-col justify-start items-center h-[581px] pt-[45px]">
                         <div className="max-w-[550px] flex flex-col justify-center">
                             <div className="w-full font-[700] leading-[25px] flex flex-row justify-center items-center">
                                 <div className="text-nowrap">
@@ -371,7 +372,7 @@ export default function ProfileSection({
                                     />
                                 )}
                             </div>
-                            <div className="flex flex-row items-center justify-between mt-[15px] flex-wrap gap-4 min-w-[540px]">
+                            <div className="flex flex-row items-center justify-between mt-[15px] flex-wrap gap-4 min-w-[530px]">
                                 {profileNFT?.attributes
                                     .filter((item, index) => index !== 0)
                                     .map((item) => (

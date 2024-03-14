@@ -16,6 +16,10 @@ import saza_super from '/public/saza_super.png'
 import { useSession } from 'next-auth/react'
 
 export interface INFTListComponentProps {
+    lockedNFTs: {
+        saza: any[]
+        gaza: any[]
+    }
     wallet_address: string
     tokenType: string
     openDetailModal: (token_id: any, token_type: any) => Promise<void>
@@ -26,7 +30,15 @@ export default function NFTListComponent({
     wallet_address,
     tokenType,
     openDetailModal,
+    lockedNFTs,
 }: INFTListComponentProps) {
+    let lockedNFTList = []
+
+    if (tokenType === 'saza') {
+        lockedNFTList = lockedNFTs.saza
+    } else if (tokenType === 'gaza') {
+        lockedNFTList = lockedNFTs.gaza
+    }
     const { data: session } = useSession()
     const fetchData = async (pageKey: string) => {
         if (tokenType === 'saza') {
@@ -86,6 +98,7 @@ export default function NFTListComponent({
                     if (page.totalCount > 0) {
                         return page?.ownedNfts.map((item, index) => (
                             <CardComponent
+                                isLocked={lockedNFTList.includes(parseInt(item.tokenId))}
                                 onClick={openDetailModal}
                                 key={`${item.tokenId}_${index}`}
                                 item={item}

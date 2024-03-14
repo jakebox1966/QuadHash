@@ -20,6 +20,7 @@ import { AlertContext } from '@/app/provider/AlertProvider'
 import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
 import { ToastContext } from '@/app/provider/ToastProvider'
+import { getLockedNFTs } from '@/app/api/collection/api'
 
 export interface ICollectorContainerProps {
     wallet_address: string
@@ -33,6 +34,8 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
     const [tokenType, setTokenType] = React.useState('saza')
+
+    const [lockedNFTs, setLockedNFTs] = React.useState({ saza: [], gaza: [] })
 
     const [backgroundColor, setBackgroundColor] = React.useState(null)
     const [metadata, setMetadata] = React.useState(null)
@@ -179,8 +182,14 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
     }
 
     React.useEffect(() => {
-        console.log('profileNFT', profileNFT)
-    }, [profileNFT])
+        const getLockedList = async () => {
+            const result = await getLockedNFTs()
+            console.log(result)
+            setLockedNFTs(result?.data)
+        }
+
+        getLockedList()
+    }, [])
 
     const checkOwner = async (tokenId) => {
         let result
@@ -263,6 +272,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                         nftCount={nftCount}
                     />
                     <NFTListComponent
+                        lockedNFTs={lockedNFTs}
                         wallet_address={wallet_address}
                         tokenType={tokenType}
                         openDetailModal={openDetailModal}
