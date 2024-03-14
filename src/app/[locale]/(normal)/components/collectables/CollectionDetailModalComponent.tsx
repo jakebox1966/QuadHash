@@ -163,7 +163,6 @@ export default function CollectionDetailModalComponent({
                                                         </div>
 
                                                         <div className="text-[9.4px] font-Poppins_semiBold">
-                                                            <div>OWNER</div>
                                                             <div className="text-[13px]">
                                                                 {formatAddress(owner).toUpperCase()}
                                                             </div>
@@ -210,7 +209,7 @@ export default function CollectionDetailModalComponent({
                                     </div>
                                 </div>
                                 {/* PC 버전 */}
-                                <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
+                                <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[45px]">
                                     <div className="max-w-[550px]">
                                         <div className="w-full font-[300] leading-[25px]">
                                             <div className="text-[11.81px] font-Poppins_semiBold">
@@ -243,7 +242,7 @@ export default function CollectionDetailModalComponent({
                                             </div>
                                         </div>
                                         {owner && (
-                                            <div className="font-medium absolute bottom-5">
+                                            <div className="font-medium mt-4">
                                                 <Link
                                                     href={`/collector/${owner}`}
                                                     className="flex gap-4 justify-start items-center hover:opacity-70 cursor-pointer group/owner">
@@ -295,7 +294,6 @@ export default function CollectionDetailModalComponent({
                                                     </div>
 
                                                     <div className="text-[9.4px] font-Poppins_semiBold">
-                                                        <div>OWNER</div>
                                                         <div className="text-[13px] font-black">
                                                             {formatAddress(owner).toUpperCase()}
                                                         </div>

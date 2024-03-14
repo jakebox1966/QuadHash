@@ -33,7 +33,12 @@ export default function ProfileSection({
 
     const { data: session } = useSession()
 
-    if (!profileNFT || isLoading) {
+    React.useEffect(() => {
+        console.log('profileSection', profileNFT)
+        console.log(collector_address)
+    }, [profileNFT, collector_address])
+
+    if (isLoading || !profileNFT) {
         return (
             <div className="flex flex-col justify-center items-center min-h-[716.12px] lg:min-h-[581px]">
                 <CardLoading />
@@ -43,8 +48,8 @@ export default function ProfileSection({
 
     if (collector_address) {
         if (!isLoading && profileNFT === 'none') {
+            console.log('이미지 설정안됨')
             let profileNFT
-
             if (tokenType === 'saza') {
                 profileNFT = {
                     attributes: [
@@ -217,6 +222,7 @@ export default function ProfileSection({
         }
 
         if (!isLoading && profileNFT && profileNFT !== 'none') {
+            console.log('이미지 설정됨')
             const backgroundColor = profileNFT?.attributes.find((item) => {
                 return item.trait_type === 'Background'
             })
@@ -344,7 +350,7 @@ export default function ProfileSection({
                     </div>
 
                     {/* PC 버전 */}
-                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-center items-center h-[581px]">
+                    <div className="w-[calc(100%-581px)] mx-[60px] hidden lg:flex flex-col justify-start items-center h-[581px] pt-[45px]">
                         <div className="max-w-[550px] flex flex-col justify-center">
                             <div className="w-full font-[700] leading-[25px] flex flex-row justify-center items-center">
                                 <div className="text-nowrap">

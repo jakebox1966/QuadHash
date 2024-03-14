@@ -32,9 +32,9 @@ export default function CardComponent({ tokenType, tokenId }: ICardComponentProp
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
-                <div className="w-full text-center transition-all z-20 p-1 pb-5 cursor-pointer mt-[1px]">
-                    <div className="text-[10.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
-                    <div className="text-[11.2px] mt-[1px]">NO. {tokenId}</div>
+                <div className="w-full text-center transition-all z-20 p-1 pb-5 cursor-pointer mt-[4px]">
+                    <div className="text-[11.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
+                    <div className="text-[12.2px] mt-[1px]">NO. {tokenId}</div>
                 </div>
             </Link>
         </>

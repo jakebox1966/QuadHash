@@ -31,9 +31,9 @@ export default function CardComponent({ item, tokenType, onClick }: ICardCompone
                         <img src={imgUrl} width="100%" height="auto" alt="nft-image" />
                     </div>
                 </div>
-                <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[1px] pb-5">
-                    <div className="text-[10.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
-                    <div className="text-[11.2px] mt-[1px]">NO. {item?.tokenId}</div>
+                <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
+                    <div className="text-[11.4px] text-[#7A7A7A]">{tokenType.toUpperCase()}</div>
+                    <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>
                 </div>
             </div>
         </>

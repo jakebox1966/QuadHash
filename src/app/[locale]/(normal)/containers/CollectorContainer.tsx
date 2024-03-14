@@ -145,26 +145,30 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             await getCountForNFT()
             setIsLoading(true)
             const result = await getUserInfoByWalletAddress(wallet_address)
-            const token_type = result.token_type
-            const token_id = result.token_id
-            let metadata = null
 
-            setCollector_address(result.wallet_address)
+            console.log('result', result)
+            if (result.status !== 'NotFound') {
+                console.log('여기탄다')
+                const token_type = result.data.token_type
+                const token_id = result.data.token_id
+                let metadata = null
+                setCollector_address(result.data.wallet_address)
+                console.log('now setting profile', token_type)
 
-            console.log('now setting profile', token_type)
-
-            if (token_type === 'saza' || token_type === 'gaza') {
-                metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
-                setProfileNFT(metadata)
-            } else if (!token_type) {
+                if (token_type === 'saza' || token_type === 'gaza') {
+                    metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
+                    setProfileNFT(metadata)
+                } else if (!token_type) {
+                    setProfileNFT('none')
+                }
+                // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
+                const isOwner = await checkOwner(token_id)
+                if (!isOwner) {
+                    setProfileNFT('none')
+                    // disconnect()
+                }
+            } else {
                 setProfileNFT('none')
-            }
-
-            // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
-            const isOwner = await checkOwner(token_id)
-            if (!isOwner) {
-                setProfileNFT('none')
-                // disconnect()
             }
 
             setIsLoading(false)
@@ -173,6 +177,10 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             console.error(error)
         }
     }
+
+    React.useEffect(() => {
+        console.log('profileNFT', profileNFT)
+    }, [profileNFT])
 
     const checkOwner = async (tokenId) => {
         let result
@@ -194,7 +202,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
         try {
             const isOwner = await checkOwner(tokenId)
 
-            console.log('isOwner?', isOwner)
             if (!isOwner) {
                 router.push('/access-denied')
                 return
@@ -243,7 +250,7 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 <ProfileSection
                     tokenType={tokenType}
                     isLoading={isLoading}
-                    collector_address={collector_address}
+                    collector_address={wallet_address}
                     profileNFT={profileNFT}
                     updateUserProfile={updateUserProfile}
                 />

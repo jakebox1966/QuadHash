@@ -167,7 +167,7 @@ export default function NFTDetailModalComponent({
                                 </div>
                             </div>
                             {/* PC 버전 */}
-                            <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[15px]">
+                            <div className="w-[calc(100%-581px)] mx-[25px] hidden lg:flex flex-col justify-start items-start pt-[45px]">
                                 <div className="max-w-[550px]">
                                     <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
                                         <div className="text-nowrap">

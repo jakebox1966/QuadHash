@@ -44,11 +44,11 @@ export default function Card({ nft, onClick }: ICardProps) {
                         </div>
                     )}
                 </div>
-                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer">
-                    <div className="text-[10.4px] text-[#7A7A7A]">
+                <div className="w-full text-xs lg:text-base text-center transition-all z-20 p-1 font-medium cursor-pointer mt-[4px]">
+                    <div className="text-[11.4px] text-[#7A7A7A]">
                         {nft.tokenType.toUpperCase()}
                     </div>
-                    <div>No. {nft.decimalTokenId}</div>
+                    <div className="text-[12.2px]">NO. {nft.decimalTokenId}</div>
                 </div>
             </div>
 

@@ -80,7 +80,8 @@ export const getUserInfoByWalletAddress = async (wallet_address: string) => {
     )
 
     const result = await response.json()
-    return result.data
+
+    return result
 }
 
 /**
