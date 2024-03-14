@@ -394,7 +394,7 @@ export default function DynamicNFTDetailContainer({
                                     <div className="text-[10.85px] tracking-[0.56px] font-Poppins_light font-black">
                                         {item.trait_type.toUpperCase()}
                                     </div>
-                                    <div className="font-black text-[11.81px] font-Poppins_bold ">
+                                    <div className="font-black text-[11.81px] font-Poppins_semiBold ">
                                         {item.value}
                                     </div>
                                 </div>

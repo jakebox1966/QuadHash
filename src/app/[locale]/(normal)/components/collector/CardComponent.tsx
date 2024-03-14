@@ -26,7 +26,7 @@ export default function CardComponent({ isLocked, item, tokenType, onClick }: IC
         <>
             {!isLocked && (
                 <div
-                    className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
+                    className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]"
                     onClick={() => onClick(item.tokenId, tokenType)}>
                     <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
                         <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
@@ -34,7 +34,7 @@ export default function CardComponent({ isLocked, item, tokenType, onClick }: IC
                         </div>
                     </div>
                     <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
-                        <div className="text-[11.4px] text-[#7A7A7A]">
+                        <div className="text-[12.4px] text-[#7A7A7A]">
                             {tokenType.toUpperCase()}
                         </div>
                         <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>
@@ -43,7 +43,7 @@ export default function CardComponent({ isLocked, item, tokenType, onClick }: IC
             )}
 
             {isLocked && (
-                <div className="w-[calc(50%-5px)] lg:w-[calc(25%-6.1px)]">
+                <div className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]">
                     <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
                         <div className="relative cursor-pointer transition-all hover:opacity-75 hover:scale-110 w-full h-full">
                             {tokenType === 'saza' && (
@@ -65,7 +65,7 @@ export default function CardComponent({ isLocked, item, tokenType, onClick }: IC
                         </div>
                     </div>
                     <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
-                        <div className="text-[11.4px] text-[#7A7A7A]">
+                        <div className="text-[12.4px] text-[#7A7A7A]">
                             {tokenType.toUpperCase()}
                         </div>
                         <div className="text-[12.2px] mt-[1px]">NO. {item?.tokenId}</div>

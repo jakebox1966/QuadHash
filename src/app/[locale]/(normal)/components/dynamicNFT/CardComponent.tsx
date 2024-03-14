@@ -27,7 +27,7 @@ export default function CardComponent({ tokenType, tokenId, isLocked }: ICardCom
             {!isLocked && (
                 <Link
                     href={`/dynamicNFT/${tokenType}/${tokenId}`}
-                    className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
+                    className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]"
                     // onClick={() => onClick(item.tokenId, tokenType)}
                 >
                     <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
@@ -46,7 +46,7 @@ export default function CardComponent({ tokenType, tokenId, isLocked }: ICardCom
 
             {isLocked && (
                 <div
-                    className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
+                    className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]"
                     // onClick={() => onClick(item.tokenId, tokenType)}
                 >
                     <div className="overflow-hidden rounded-lg aspect-square shadow-xl">
@@ -70,7 +70,7 @@ export default function CardComponent({ tokenType, tokenId, isLocked }: ICardCom
                         </div>
                     </div>
                     <div className="w-full text-center transition-all z-20 p-1 pb-5 cursor-pointer mt-[4px]">
-                        <div className="text-[11.4px] text-[#7A7A7A]">
+                        <div className="text-[12.4px] text-[#7A7A7A]">
                             {tokenType.toUpperCase()}
                         </div>
                         <div className="text-[12.2px] mt-[1px]">NO. {tokenId}</div>

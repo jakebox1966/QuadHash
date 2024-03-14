@@ -83,8 +83,8 @@ export default function PCUserInterfaceComponent({
                                     )}
                                 </div>
 
-                                <div className="leading-[20px]">
-                                    <div className="font-medium text-[16px] flex flex-row justify-center items-end gap-3 align-middle">
+                                <div className="leading-[25px] font-Poppins_light font-black">
+                                    <div className="font-medium text-[16px] flex flex-row justify-center items-end gap-3 align-middle ">
                                         <div>
                                             ACCOUNT :{' '}
                                             {formatAddress(wallet.accounts[0]).toUpperCase()}

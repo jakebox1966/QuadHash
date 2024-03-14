@@ -12,7 +12,7 @@ export default function DynamicNFTMainContainer(props: IDynamicNFTMainContainerP
     return (
         <>
             <div className="max-w-[1300px] p-5 w-full flex flex-col justify-center items-center">
-                <div className="flex flex-col items-center text-[40px] lg:text-[70px] font-black text-[#F46221]">
+                <div className="flex flex-col items-center text-[40px] lg:text-[70px] font-black text-[#F46221] font-NeuePlak">
                     <div className="leading-tight">QUADHASH</div>
                     <div className="leading-tight">DYNAMIC NFT</div>
                 </div>

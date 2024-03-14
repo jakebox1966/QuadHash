@@ -8,6 +8,7 @@ import { createSharedPathnamesNavigation } from 'next-intl/navigation'
 import { locales } from '@/i18nconfig'
 import { redirect } from 'next/navigation'
 import AccessDeniedErrorPage from '@/app/[locale]/(error)/access-denied/page'
+import { getLockedNFTs } from '@/app/api/collection/api'
 
 export interface IDynamicDetailPageNFTProps {
     params: {
@@ -18,7 +19,6 @@ export interface IDynamicDetailPageNFTProps {
 
 const checkIsMyNFT = async (tokenType, tokenId) => {
     const session = await getServerSession(authOption)
-    console.log('session', session)
 
     if (session) {
         const wallet_address = session?.user.wallet_address
@@ -43,15 +43,30 @@ const checkIsMyNFT = async (tokenType, tokenId) => {
         }
     }
 }
+
+const checkIsLocked = async (tokenType, tokenId) => {
+    const session = await getServerSession(authOption)
+    if (session) {
+        const result = await getLockedNFTs()
+
+        if (tokenType === 'saza') {
+            return result?.data.saza.includes(parseInt(tokenId))
+        } else if (tokenType === 'gaza') {
+            return result?.data.gaza.includes(parseInt(tokenId))
+        }
+    }
+}
 // const { Link, redirect } = createSharedPathnamesNavigation({ locales })
 export default async function DynamicNFTDetailPage({
     params: { tokenType, tokenId },
 }: IDynamicDetailPageNFTProps) {
-    const result = await checkIsMyNFT(tokenType, tokenId)
+    const isMyNFTResult = await checkIsMyNFT(tokenType, tokenId)
+    const isLockedResult = await checkIsLocked(tokenType, tokenId)
 
-    if (!result) {
+    if (!isMyNFTResult || isLockedResult) {
         redirect('/access-denied')
     }
+
     return (
         <>
             <DynamicNFTDetailContainer tokenType={tokenType} tokenId={tokenId} />

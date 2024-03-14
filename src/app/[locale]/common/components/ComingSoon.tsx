@@ -12,7 +12,7 @@ export default function CommingSoonComponent(props: ICommingSoonComponentProps) 
     return (
         <div className="w-full max-w-[1300px] flex flex-col justify-center items-center px-5 gap-10 pt-14 lg:pt-20">
             <div className="flex flex-col items-center justify-center gap-6 w-full">
-                <div className="text-2xl md:text-4xl lg:text-5xl font-black text-[#0065F2] w-full text-center">
+                <div className="text-2xl lg:text-[56px] font-black text-[#0065F2] w-full text-center font-NeuePlak">
                     WE ARE COMING SOON.
                 </div>
             </div>

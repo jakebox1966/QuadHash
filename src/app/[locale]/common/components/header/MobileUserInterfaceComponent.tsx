@@ -89,7 +89,7 @@ export default function MobileUserInterfaceComponent({
                                     <span className="mr-3">QUADHASH</span>
                                     <span>{profileNFT?.name.split(':')[1].trim()}</span>
                                 </div>
-                                <div>
+                                <div className="leading-[25px]">
                                     <div className="font-medium text-sm md:text-3xl flex flex-row items-center gap-3">
                                         ACCOUNT: {formatAddress(wallet.accounts[0]).toUpperCase()}
                                         <ThemeProvider value={tooltipTheme}>

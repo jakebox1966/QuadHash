@@ -25,12 +25,13 @@ export default function ReportSuccessComponent(props: IReportSuccessComponentPro
                     <div className="text-xl lg:text-3xl font-black">해킹 신고 센터</div>
                     <div>STEP. 4</div>
                     <div className="text-gray-900/40 lg:block">
-                        해킹신고가 완료 되었습니다. 기재해주신 메일을 확인해 주세요.
+                        해킹신고가 완료 되었습니다. 확인 후 기재해 주신 이메일 주소로 안내해
+                        드리겠습니다.
                     </div>
 
                     <div className="text-gray-900/40 block lg:hidden">
-                        <div>해킹신고가 완료 되었습니다.</div>
-                        <div>기재해주신 메일을 확인해 주세요.</div>
+                        <div>해킹 신고 접수가 완료되었습니다.</div>
+                        <div>확인 후 기재해 주신 이메일 주소로 안내해 드리겠습니다.</div>
                     </div>
                 </div>
             </div>

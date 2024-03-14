@@ -24,10 +24,14 @@ import { getLockedNFTs } from '@/app/api/collection/api'
 
 export interface ICollectorContainerProps {
     wallet_address: string
+    isUsingLockedNFT: boolean
 }
 
 const { useRouter } = createSharedPathnamesNavigation({ locales })
-export default function CollectorContainer({ wallet_address }: ICollectorContainerProps) {
+export default function CollectorContainer({
+    wallet_address,
+    isUsingLockedNFT,
+}: ICollectorContainerProps) {
     const router = useRouter()
     const { showToast } = React.useContext(ToastContext)
     const { $alert } = React.useContext(AlertContext)
@@ -166,6 +170,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
                 const isOwner = await checkOwner(token_id)
                 if (!isOwner) {
+                    setProfileNFT('none')
+                    updateSession(token_id, token_type)
+                }
+
+                if (isUsingLockedNFT) {
                     setProfileNFT('none')
                 }
             } else {

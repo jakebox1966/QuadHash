@@ -260,8 +260,9 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                             <div className="text-3xl font-black text-[#0065F2]">STORE</div>
                         </div>
                         <div className=" font-[17px] font-NanumSquare">
-                            <div>
-                                QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
+                            <div className="font-NanumSquare mt-[28px] text-[20px]">
+                                <div>QUADHASH의 또다른 IP 브랜드,</div>
+                                <div>‘사자랑가자’의 스토어에 방문해보세요.</div>
                             </div>
                         </div>
 

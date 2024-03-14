@@ -57,7 +57,7 @@ export default function CardComponent({
     return (
         <>
             <div
-                className="w-[calc(50%-5px)] lg:w-[calc(25%-8.1px)]"
+                className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]"
                 onClick={() => {
                     if (!isLocked) {
                         onClick(item, queryParam.token_type)
@@ -91,7 +91,7 @@ export default function CardComponent({
                     </div>
                 </div>
                 <div className="w-full text-center transition-all z-20 p-1 cursor-pointer mt-[4px] pb-5">
-                    <div className="text-[11.4px] text-[#7A7A7A]">
+                    <div className="text-[12.4px] text-[#7A7A7A]">
                         {queryParam.token_type.toUpperCase()}
                     </div>
                     <div className="text-[12.2px] mt-[1px]">NO. {item}</div>

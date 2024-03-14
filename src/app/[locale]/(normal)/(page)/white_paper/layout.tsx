@@ -5,5 +5,5 @@ import MainWrapperNoFooter from '@/app/[locale]/common/layouts/MainWrapperNoFoot
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
     // return <MainWrapper>{children}</MainWrapper>
 
-    return <MainWrapperNoFooter>{children}</MainWrapperNoFooter>
+    return <MainWrapper>{children}</MainWrapper>
 }

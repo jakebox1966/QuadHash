@@ -137,10 +137,10 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>OUR</div>
                             <div>VISION</div>
                         </div>
-                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px] whitespace-nowrap">
                             <div>"우리의 비전은 IP가 경험이 되는</div>
                             <div>디지털 아트 세계입니다. </div>
-                            <div>다양한 프로젝트를 통해 생태계를 확장하고 </div>
+                            <div>다양한 프로젝트를 통해 생태계를 확장하고</div>
                             <div>새로운 경험을 만들어갑니다.</div>
                             <div>그리고 우리만의 오리지널 IP로</div>
                             <div>몰입감 있는 서사를 창조하여</div>
