@@ -249,19 +249,19 @@ export default function QhTokenModalComponent({
             // console.log(
             //     '입력하신 수량에 대한 토큰 Transfer권한이 충분합니다. Transfer Transaction을 실행합니다.',
             // )
-            setIsLoadingForTransfer(true)
-            try {
-                const txHashForTransfer = await transferQhToken(
-                    wallet.accounts[0],
-                    realTokenAmount.toString(),
-                )
-                await exchangeTokenToTicket(txHashForTransfer)
-            } catch (error) {
-                // console.log('Transfer Error')
-                console.error(error)
-                getMissingTicketList()
-                clearLoading()
-            }
+            // setIsLoadingForTransfer(true)
+            // try {
+            //     const txHashForTransfer = await transferQhToken(
+            //         wallet.accounts[0],
+            //         realTokenAmount.toString(),
+            //     )
+            //     await exchangeTokenToTicket(txHashForTransfer)
+            // } catch (error) {
+            //     // console.log('Transfer Error')
+            //     console.error(error)
+            //     getMissingTicketList()
+            //     clearLoading()
+            // }
         }
     }
 
@@ -324,6 +324,7 @@ export default function QhTokenModalComponent({
     }, [missingTransactionForTicket])
 
     React.useEffect(() => {
+        console.log(123123)
         // const getTicketPriceFromChain = async () => {
         //     const ticketPrice = await getTicketPrice()
 
@@ -334,9 +335,9 @@ export default function QhTokenModalComponent({
         if (wallet.accounts[0] && session) setTicketPrice(5)
         setTokenAmount(0)
         setTicketAmount(0)
-        getMissingTicketList()
+        // getMissingTicketList()
         // getTicketPriceFromChain()
-    }, [session])
+    }, [isQhTokenModalOpen])
 
     React.useEffect(() => {
         setTokenAmount(0)
