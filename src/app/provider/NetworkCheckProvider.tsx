@@ -41,7 +41,6 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
 
     const checkNetwork = React.useCallback(
         (network) => {
-            console.log('network changed', network)
             if (network !== Networks[process.env.NEXT_PUBLIC_NETWORK]) {
                 setIsMainNetwork(false)
             } else {
@@ -65,9 +64,6 @@ export default function NetworkCheckProvider({ children }: React.PropsWithChildr
                 method: 'eth_chainId',
                 params: [],
             })
-
-            console.log(chainId)
-
             setChainId(chainId)
         }
         init()

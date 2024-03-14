@@ -71,7 +71,7 @@ export default function PCUserInterfaceComponent({
                 </PopoverHandler>
 
                 <PopoverContent
-                    className="min-w-[517px] w-max !z-[9997] hidden lg:flex flex-row border-2 border-black"
+                    className="min-w-[517px] w-max !z-[9997] hidden lg:flex flex-row border-2 border-black font-Poppins_semiBold"
                     placeholder={undefined}>
                     <div className="flex flex-col items-center justify-start relative w-full">
                         <div className="flex flex-row just w-full">
@@ -83,8 +83,8 @@ export default function PCUserInterfaceComponent({
                                     )}
                                 </div>
 
-                                <div>
-                                    <div className="font-medium text-base flex flex-row items-center gap-3">
+                                <div className="leading-[20px]">
+                                    <div className="font-medium text-[16px] flex flex-row justify-center items-end gap-3 align-middle">
                                         <div>
                                             ACCOUNT :{' '}
                                             {formatAddress(wallet.accounts[0]).toUpperCase()}
@@ -113,10 +113,10 @@ export default function PCUserInterfaceComponent({
                                             </ThemeProvider>
                                         </div>
                                     </div>
-                                    <div className="font-medium text-base">
+                                    <div className="font-medium text-[16px]">
                                         USDT BALANCE : {qhTokenBalance}
                                     </div>
-                                    <div className="font-medium text-base">
+                                    <div className="font-medium text-[16px]">
                                         TICKET BALANCE : {session.user.ticket_num}
                                     </div>
                                 </div>

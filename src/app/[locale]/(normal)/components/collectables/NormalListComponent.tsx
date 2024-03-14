@@ -36,8 +36,6 @@ export default function NormalCollectionListComponent({
             .filter((item) => item[1] !== null)
             .filter((item) => item[1].length !== 0)
 
-        console.log('process', process)
-
         const query = Object.fromEntries(process)
 
         query.page = pageParam
@@ -51,14 +49,10 @@ export default function NormalCollectionListComponent({
         queryKey: ['getCollection', queryParam, burtonMorris],
         queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
         getNextPageParam: (lastPage, allPages) => {
-            // console.log(lastPage)
-            // console.log(allPages)
             const currentPage = lastPage.paging.page
-            // const currentPage = 500
+
             const totalPage = lastPage.paging.total_pages
 
-            console.log(lastPage)
-            // return false
             if (currentPage === totalPage || totalPage === 0) {
                 return false
             }

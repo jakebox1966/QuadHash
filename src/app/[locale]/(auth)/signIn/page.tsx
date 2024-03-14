@@ -26,7 +26,7 @@ const disconnectedState: WalletState = { accounts: [], balance: '', chainId: '' 
 export default function SignIn(props: ISignInProps) {
     const { $alert } = React.useContext(AlertContext)
     const [isConnecting, setIsConnecting] = React.useState(false)
-    const { wallet, hasProvider, connectMetaMask, setWallet, setPrevWallet } = useMetaMask()
+    const { wallet, hasProvider, connectMetaMask } = useMetaMask()
     const callbackUrlParams = useSearchParams()
 
     const callbackUrl = callbackUrlParams.get('callbackUrl')
@@ -43,7 +43,7 @@ export default function SignIn(props: ISignInProps) {
             }
             try {
                 setIsConnecting(true)
-                // await connectMetaMask()
+                await connectMetaMask()
 
                 const accounts = await getAccounts()
 
@@ -68,34 +68,10 @@ export default function SignIn(props: ISignInProps) {
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
                     wallet_signature: signature,
-                    redirect: false,
+                    redirect: true,
                     // redirect: false,
-                    // callbackUrl: callbackUrl,
+                    callbackUrl: callbackUrl,
                 })
-
-                if (accounts.length === 0) {
-                    console.log('accounts', accounts)
-                    // If there are no accounts, then the user is disconnected
-                    setWallet(disconnectedState)
-                    return
-                }
-
-                console.log('넘어옴')
-                const balance = formatBalance(
-                    await window.ethereum.request({
-                        method: 'eth_getBalance',
-                        params: [accounts[0], 'latest'],
-                    }),
-                )
-                const chainId = await window.ethereum.request({
-                    method: 'eth_chainId',
-                })
-                console.log('chainId', chainId)
-                console.log('balance', balance)
-                setWallet({ accounts, balance, chainId })
-                setPrevWallet(accounts[0])
-
-                console.log('signInResult', signInResult)
             } catch (error) {
                 console.error(error)
                 // throw new Error('Error occured.')

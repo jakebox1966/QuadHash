@@ -160,8 +160,6 @@ export default function QhTokenModalComponent({
         const txListFromOnChain = await getLogs(wallet.accounts[0])
         const txListFromOffChain = await getUsedTicketList()
 
-        // console.log('txListFromOnChain', txListFromOnChain)
-        // console.log('txListFromOffChain', txListFromOffChain)
         const processingList = txListFromOffChain?.data?.tickets.map((item) => {
             return item.hash_tx
         })

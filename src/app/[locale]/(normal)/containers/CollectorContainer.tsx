@@ -129,7 +129,6 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
 
     React.useEffect(() => {
         if (session && wallet_address) {
-            console.log(123123)
             init()
         }
     }, [session, wallet_address, wallet.accounts[0]])
@@ -152,17 +151,14 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
             setIsLoading(true)
             const result = await getUserInfoByWalletAddress(wallet_address)
 
-            console.log('result', result)
             if (result.status !== 'NotFound') {
-                console.log('여기탄다')
                 const token_type = result.data.token_type
                 const token_id = result.data.token_id
                 let metadata = null
                 setCollector_address(result.data.wallet_address)
-                console.log('now setting profile', token_type)
+
                 if (token_type === 'saza' || token_type === 'gaza') {
                     metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
-                    console.log('metadata', metadata)
                     setProfileNFT(metadata)
                 } else if (!token_type) {
                     setProfileNFT('none')
@@ -170,15 +166,11 @@ export default function CollectorContainer({ wallet_address }: ICollectorContain
                 // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
                 const isOwner = await checkOwner(token_id)
                 if (!isOwner) {
-                    console.log('Owner 아님')
-
                     setProfileNFT('none')
                 }
             } else {
-                console.log('여기 안탄다')
                 setProfileNFT('none')
             }
-
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
