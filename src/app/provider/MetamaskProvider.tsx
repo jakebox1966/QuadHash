@@ -9,7 +9,8 @@ import {
 
 import detectEthereumProvider from '@metamask/detect-provider'
 import { formatBalance } from '@/app/utils/ethUtils'
-
+import { createSharedPathnamesNavigation } from 'next-intl/navigation'
+import { locales } from '@/i18nconfig'
 interface WalletState {
     accounts: any[]
     balance: string
@@ -32,9 +33,12 @@ const disconnectedState: WalletState = {
     chainId: '',
 }
 
+const { useRouter } = createSharedPathnamesNavigation({ locales })
+
 export const MetaMaskContext = createContext<MetaMaskContextData>({} as MetaMaskContextData)
 
 export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
+    const router = useRouter()
     const [hasProvider, setHasProvider] = useState<boolean | null>(null)
 
     const [prevWallet, setPrevWallet] = useState('')
@@ -46,14 +50,20 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
     const [wallet, setWallet] = useState(disconnectedState)
 
+    const _goToMain = useCallback(() => {
+        router.push('/')
+    }, [])
+
     // useCallback ensures that you don't uselessly recreate the _updateWallet function on every render
     const _updateWallet = useCallback(async (providedAccounts?: any) => {
+        console.log('변화')
         const accounts =
             providedAccounts || (await window.ethereum.request({ method: 'eth_accounts' }))
 
         if (accounts.length === 0) {
             // If there are no accounts, then the user is disconnected
             setWallet(disconnectedState)
+            router.push('/')
             return
         }
 
@@ -94,7 +104,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
 
     const updateWalletAndAccounts = useCallback(() => _updateWallet(), [_updateWallet])
     const updateWallet = useCallback((accounts: any) => _updateWallet(accounts), [_updateWallet])
-
+    const goToMain = useCallback(() => _goToMain(), [])
     /**
      * This logic checks if MetaMask is installed. If it is, some event handlers are set up
      * to update the wallet state when MetaMask changes. The function returned by useEffect
@@ -110,6 +120,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
                 updateWalletAndAccounts()
                 window.ethereum.on('accountsChanged', updateWallet)
                 window.ethereum.on('chainChanged', updateWalletAndAccounts)
+                window.ethereum.on('disconnect', () => goToMain)
             }
         }
 
@@ -118,6 +129,7 @@ export const MetaMaskContextProvider = ({ children }: PropsWithChildren) => {
         return () => {
             window.ethereum?.removeListener('accountsChanged', updateWallet)
             window.ethereum?.removeListener('chainChanged', updateWalletAndAccounts)
+            window.ethereum?.removeListener('disconnect', goToMain)
         }
     }, [updateWallet, updateWalletAndAccounts])
 
