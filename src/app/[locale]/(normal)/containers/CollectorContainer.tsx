@@ -174,8 +174,10 @@ export default function CollectorContainer({
                     updateSession(token_id, token_type)
                 }
 
+                // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
                 if (isUsingLockedNFT) {
                     setProfileNFT('none')
+                    updateSession(token_id, token_type)
                 }
             } else {
                 setProfileNFT('none')
