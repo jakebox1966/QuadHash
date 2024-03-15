@@ -127,7 +127,7 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                             </div>
                             {imageUrl && (
-                                <div className=" overflow-hidden aspect-square max-w-[40%]">
+                                <div className=" overflow-hidden aspect-square w-[40%]">
                                     <img
                                         src={imageUrl}
                                         alt="profile_image"

@@ -99,6 +99,7 @@ export default function Connect({ profileNFT }: IConnectProps) {
     }
 
     const disconnect = async () => {
+        alert('disconnect')
         await window.ethereum.request({
             method: 'wallet_revokePermissions',
             params: [
