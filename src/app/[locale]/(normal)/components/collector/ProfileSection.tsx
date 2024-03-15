@@ -51,7 +51,7 @@ export default function ProfileSection({
             </div>
         )
     }
-    if (!isLoading && profileNFT === 'none') {
+    if (profileNFT === 'none') {
         let profileNFT
         if (tokenType === 'saza') {
             profileNFT = {
@@ -249,7 +249,7 @@ export default function ProfileSection({
         )
     }
 
-    if (!isLoading && profileNFT && profileNFT !== 'none') {
+    if (profileNFT && profileNFT !== 'none') {
         const backgroundColor = profileNFT?.attributes.find((item) => {
             return item.trait_type === 'Background'
         })
@@ -402,7 +402,7 @@ export default function ProfileSection({
                 {/* PC 버전 */}
                 <div className="w-[calc(100%-581px)] mx-[30px] hidden lg:flex flex-col justify-start items-center h-[581px] pt-[45px]">
                     <div className="max-w-[550px] flex flex-col justify-center">
-                        <div className="w-full font-[700] leading-[25px] flex flex-row justify-center items-center">
+                        <div className="w-full font-[700] leading-[25px] flex flex-row justify-start items-center">
                             <div className="text-nowrap">
                                 <div className="text-[11.81px] font-Poppins_semiBold">QUADHASH</div>
                                 <div className="text-[25px] font-Poppins_bold">

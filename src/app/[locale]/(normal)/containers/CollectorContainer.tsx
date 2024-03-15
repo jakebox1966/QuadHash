@@ -37,6 +37,8 @@ export default function CollectorContainer({
     const { $alert } = React.useContext(AlertContext)
     const [isLoading, setIsLoading] = React.useState(false)
     const [profileNFT, setProfileNFT] = React.useState(null)
+
+    const [isOwner, setIsOwner] = React.useState(false)
     const [tokenType, setTokenType] = React.useState('saza')
 
     const [lockedNFTs, setLockedNFTs] = React.useState({ saza: [], gaza: [] })
@@ -58,6 +60,52 @@ export default function CollectorContainer({
 
     const { data: session, update } = useSession()
 
+    const init = async () => {
+        try {
+            await getCountForNFT()
+            setIsLoading(true)
+            const result = await getUserInfoByWalletAddress(wallet_address)
+
+            console.log('result', result)
+            if (result.status !== 'NotFound') {
+                const token_type = result.data.token_type
+                const token_id = result.data.token_id
+                let metadata = null
+                setCollector_address(result.data.wallet_address)
+
+                if (token_type === 'saza' || token_type === 'gaza') {
+                    metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
+                    setProfileNFT(metadata)
+                } else {
+                    setProfileNFT('none')
+                }
+                // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
+
+                if (session && wallet.accounts[0] > 0) {
+                    const isOwner = await checkOwner(token_id, token_type)
+                    setIsOwner(isOwner)
+                }
+
+                // if (!isOwner) {
+                //     setProfileNFT('none')
+                //     // updateSession(token_id, token_type)
+                // }
+
+                // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
+                if (isUsingLockedNFT) {
+                    setProfileNFT('none')
+                    // updateSession(token_id, token_type)
+                }
+            } else {
+                setProfileNFT('none')
+            }
+            setIsLoading(false)
+        } catch (error) {
+            setIsLoading(false)
+            console.error(error)
+        }
+    }
+
     /**
      * 모달 Control
      */
@@ -75,6 +123,7 @@ export default function CollectorContainer({
     }
 
     const updateSession = async (tokenId: string, tokenType: string) => {
+        console.log(123123)
         await update({
             ...session,
             user: {
@@ -86,27 +135,17 @@ export default function CollectorContainer({
     }
 
     const getCountForNFT = async () => {
-        const response = await getNftsForOwner(wallet_address, {
-            contractAddresses: [
-                process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-                process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-            ],
+        const sazaResponse = await getNftsForOwner(wallet_address, {
+            contractAddresses: [process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS],
         })
 
-        const sazaCount = response.ownedNfts.filter(
-            (item: any) => item.contract.address === process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS,
-        )
-
-        const gazaCount = response.ownedNfts.filter(
-            (item: any) => item.contract.address === process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
-        )
-
-        console.log(sazaCount)
-        console.log(gazaCount)
+        const gazaResponse = await getNftsForOwner(wallet_address, {
+            contractAddresses: [process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS],
+        })
 
         setNftCount({
-            sazaCount: sazaCount.length,
-            gazaCount: gazaCount.length,
+            sazaCount: sazaResponse.totalCount,
+            gazaCount: gazaResponse.totalCount,
         })
     }
 
@@ -135,66 +174,10 @@ export default function CollectorContainer({
     }
 
     React.useEffect(() => {
-        if (session && wallet_address) {
+        if (wallet_address) {
             init()
         }
     }, [session, wallet_address])
-
-    const disconnect = async () => {
-        await window.ethereum.request({
-            method: 'wallet_revokePermissions',
-            params: [
-                {
-                    eth_accounts: wallet.accounts[0],
-                },
-            ],
-        })
-        signOut({ redirect: true, callbackUrl: '/' })
-    }
-
-    const init = async () => {
-        try {
-            await getCountForNFT()
-            setIsLoading(true)
-            const result = await getUserInfoByWalletAddress(wallet_address)
-
-            if (result.status !== 'NotFound') {
-                const token_type = result.data.token_type
-                const token_id = result.data.token_id
-                let metadata = null
-                setCollector_address(result.data.wallet_address)
-
-                if (token_type === 'saza' || token_type === 'gaza') {
-                    metadata = await getMetadata({ nftType: token_type, tokenId: token_id })
-                    setProfileNFT(metadata)
-                } else if (!token_type) {
-                    setProfileNFT('none')
-                }
-
-                if (wallet.accounts[0]) {
-                    // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
-                    const isOwner = await checkOwner(token_id, token_type)
-                    console.log(isOwner)
-                    if (!isOwner) {
-                        setProfileNFT('none')
-                        // updateSession(token_id, token_type)
-                    }
-
-                    // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
-                    if (isUsingLockedNFT) {
-                        setProfileNFT('none')
-                        // updateSession(token_id, token_type)
-                    }
-                }
-            } else {
-                setProfileNFT('none')
-            }
-            setIsLoading(false)
-        } catch (error) {
-            setIsLoading(false)
-            console.error(error)
-        }
-    }
 
     React.useEffect(() => {
         const getLockedList = async () => {
@@ -212,22 +195,11 @@ export default function CollectorContainer({
             result = await getOwnerForNft(process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS, tokenId)
         }
 
-        console.log('tokenType===>', tokenType)
-        console.log('result=====>', result)
-        // return true
-
-        if (wallet) {
-            if (result && wallet.accounts[0]) {
-                console.log('주인은', result.owners[0])
-                console.log('지갑주소는', wallet.accounts[0])
-
-                console.log(result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase())
-                if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
-                    return true
-                }
-                return false
+        if (result && wallet.accounts[0]) {
+            console.log(result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase())
+            if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
+                return true
             }
-        } else {
             return false
         }
     }
