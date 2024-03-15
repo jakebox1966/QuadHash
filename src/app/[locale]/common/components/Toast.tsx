@@ -8,7 +8,7 @@ export interface IToastProps {
 
 export default function Toast({ message, isSuccess, setIsOpenToast }: IToastProps) {
     return (
-        <div className="absolute top-[10%] min-w-fit max-w-fit left-1/2 -translate-x-1/2 lg:left-auto lg:right-0 lg:translate-y-1/3 !z-[9999] font-Poppins_semiBold">
+        <div className="absolute top-[10%] min-w-fit max-w-fit left-1/2 -translate-x-1/2 !z-[9999] font-Poppins_semiBold">
             <div
                 className={`flex flex-col p-2 py-4 items-center justify-center border-2 ${
                     isSuccess ? 'border-[#54b144]' : 'border-[#F46221]'
@@ -30,7 +30,9 @@ export default function Toast({ message, isSuccess, setIsOpenToast }: IToastProp
                             <img src="/x-one.svg" alt="x-one" className="w-5 h-5" />
                         )}
                     </div>
-                    <p className="w-full text-[13px] text-black text-nowrap">{message}</p>
+                    <p className="w-full text-[13px] text-black text-nowrap">
+                        {message}asdfasdadfssdffsd
+                    </p>
                 </div>
                 {/* <div className="flex flex-row justify-center items-center w-full mt-2">
                     <div
