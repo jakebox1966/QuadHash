@@ -101,6 +101,9 @@ export default function CollectorContainer({
             (item: any) => item.contract.address === process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS,
         )
 
+        console.log(sazaCount)
+        console.log(gazaCount)
+
         setNftCount({
             sazaCount: sazaCount.length,
             gazaCount: gazaCount.length,
@@ -167,18 +170,21 @@ export default function CollectorContainer({
                 } else if (!token_type) {
                     setProfileNFT('none')
                 }
-                // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
-                const isOwner = await checkOwner(token_id, token_type)
-                console.log(isOwner)
-                if (!isOwner) {
-                    setProfileNFT('none')
-                    // updateSession(token_id, token_type)
-                }
 
-                // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
-                if (isUsingLockedNFT) {
-                    setProfileNFT('none')
-                    // updateSession(token_id, token_type)
+                if (wallet.accounts[0]) {
+                    // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
+                    const isOwner = await checkOwner(token_id, token_type)
+                    console.log(isOwner)
+                    if (!isOwner) {
+                        setProfileNFT('none')
+                        // updateSession(token_id, token_type)
+                    }
+
+                    // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
+                    if (isUsingLockedNFT) {
+                        setProfileNFT('none')
+                        // updateSession(token_id, token_type)
+                    }
                 }
             } else {
                 setProfileNFT('none')
@@ -209,14 +215,19 @@ export default function CollectorContainer({
         console.log('tokenType===>', tokenType)
         console.log('result=====>', result)
         // return true
-        if (result && wallet.accounts[0]) {
-            console.log('주인은', result.owners[0])
-            console.log('지갑주소는', wallet.accounts[0])
 
-            console.log(result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase())
-            if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
-                return true
+        if (wallet) {
+            if (result && wallet.accounts[0]) {
+                console.log('주인은', result.owners[0])
+                console.log('지갑주소는', wallet.accounts[0])
+
+                console.log(result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase())
+                if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
+                    return true
+                }
+                return false
             }
+        } else {
             return false
         }
     }
