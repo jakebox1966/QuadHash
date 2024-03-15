@@ -30,9 +30,7 @@ export default function Toast({ message, isSuccess, setIsOpenToast }: IToastProp
                             <img src="/x-one.svg" alt="x-one" className="w-5 h-5" />
                         )}
                     </div>
-                    <p className="w-full text-[13px] text-black text-nowrap">
-                        {message}asdfasdadfssdffsd
-                    </p>
+                    <p className="w-full text-[13px] text-black text-nowrap">{message}</p>
                 </div>
                 {/* <div className="flex flex-row justify-center items-center w-full mt-2">
                     <div

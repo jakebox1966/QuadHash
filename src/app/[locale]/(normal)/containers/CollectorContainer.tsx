@@ -123,7 +123,6 @@ export default function CollectorContainer({
     }
 
     const updateSession = async (tokenId: string, tokenType: string) => {
-        console.log(123123)
         await update({
             ...session,
             user: {
