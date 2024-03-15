@@ -356,7 +356,7 @@ export default function ProfileSection({
                         </div>
                         <div className="flex flex-row items-center mt-4">
                             <div className="w-full font-[700] leading-[25px] flex flex-row items-center">
-                                <div className="text-nowrap">
+                                <div className="whitespace-nowrap">
                                     <div className="text-[11.81px] font-Poppins_semiBold">
                                         QUADHASH
                                     </div>

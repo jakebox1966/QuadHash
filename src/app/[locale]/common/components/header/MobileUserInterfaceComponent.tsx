@@ -127,7 +127,7 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                             </div>
                             {imageUrl && (
-                                <div className=" overflow-hidden aspect-square max-w-[30%]">
+                                <div className=" overflow-hidden aspect-square max-w-[40%]">
                                     <img
                                         src={imageUrl}
                                         alt="profile_image"
@@ -136,7 +136,7 @@ export default function MobileUserInterfaceComponent({
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-col border-[1px] border-[#F46221] justify-center text-sm lg:text-lg items-center text-white w-full mt-10 font-medium rounded-lg overflow-hidden">
+                        <div className="flex flex-col border-[1px] border-[#F46221] justify-center text-sm lg:text-lg items-center text-white w-full mt-20 font-medium rounded-lg overflow-hidden">
                             <Link
                                 href={`/collector/${wallet.accounts[0]}`}
                                 className="bg-[#F46221] py-3 px-10 w-full border-b-[1px] border-[#F2F2F7] flex flex-row justify-center items-center gap-2 cursor-pointer hover:bg-white hover:text-[#F46221]">

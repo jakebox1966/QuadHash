@@ -447,7 +447,8 @@ export default function DynamicNFTDetailContainer({
                                     .map((item, index) => (
                                         <SwiperSlide key={`${item.trait_type}_${index}`}>
                                             <div
-                                                className={`w-[80%] px-2 py-1 pl-4 rounded-md ${!item.availability}
+                                                className={`w-[80%] px-2 py-1 pl-4 rounded-md ${
+                                                    !item.availability
                                                         ? 'bg-[#BDBDBD]'
                                                         : 'bg-[#FFC947]'
                                                 }`}>
