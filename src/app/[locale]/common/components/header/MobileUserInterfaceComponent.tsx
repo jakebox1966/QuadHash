@@ -52,6 +52,10 @@ export default function MobileUserInterfaceComponent({
     }
 
     React.useEffect(() => {
+        console.log(session)
+    }, [session])
+
+    React.useEffect(() => {
         closeMobileModal()
     }, [pathname])
 

@@ -148,6 +148,9 @@ export default function QhTokenModalComponent({
                 setZindex()
                 showToast('티켓 연동 완료', true)
                 getMissingTicketList()
+                const refreshInfo = await getUserInfo(session.user.access_token)
+                console.log(refreshInfo)
+                updateSessionForTicket(refreshInfo.data.ticket_num)
             } else {
                 throw new Error()
             }
@@ -285,6 +288,7 @@ export default function QhTokenModalComponent({
                     const refreshInfo = await getUserInfo(session.user.access_token)
                     console.log(refreshInfo)
                     updateSessionForTicket(refreshInfo.data.ticket_num)
+
                     setTokenAmount(0)
                     setTicketAmount(0)
                     setIsLoadingForExchangeTicket(false)
@@ -311,6 +315,10 @@ export default function QhTokenModalComponent({
         })
     }
 
+    React.useEffect(() => {
+        console.log('session for user ', session)
+    }, [session])
+
     const checkAllowance = async () => {
         const response = await checkQhTokenAllowance(wallet.accounts[0])
         // console.log('response', response)
@@ -325,7 +333,7 @@ export default function QhTokenModalComponent({
         if (wallet.accounts[0] && session) setTicketPrice(5)
         setTokenAmount(0)
         setTicketAmount(0)
-
+        getMissingTicketList()
         // getTicketPriceFromChain()
     }, [isQhTokenModalOpen])
 
