@@ -100,13 +100,8 @@ export default function Connect({ profileNFT }: IConnectProps) {
 
     const disconnect = async () => {
         await window.ethereum.request({
-            method: 'wallet_requestPermissions',
-            params: [
-                {
-                    eth_accounts: {},
-                    method: 'disconnect',
-                },
-            ],
+            method: 'eth_requestAccounts',
+            params: [{ eth_accounts: {} }],
         })
         signOut({ redirect: true, callbackUrl: '/' })
     }
