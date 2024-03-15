@@ -319,9 +319,9 @@ export default function ReportContainer(props: IReportContainerProps) {
             setContentValidationText('내용은 필수 항목입니다')
             contentValidation = false
         } else {
-            if (inputs.content.length < 10) {
+            if (inputs.content.length < 10 || inputs.content.length > 500) {
                 contentRef?.current?.classList.remove('invisible')
-                setContentValidationText('10글자 이상 입력해주세요.')
+                setContentValidationText('내용은 10글자 이상, 500글자 이하로 입력해주세요.')
                 contentValidation = false
             } else {
                 contentRef?.current?.classList.add('invisible')
