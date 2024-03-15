@@ -57,7 +57,7 @@ export default function ContactContainer() {
     }
     const submit = async () => {
         if (formValidation()) {
-            if (await $confirm('메일을 보내시겠습니까?')) {
+            if (await $confirm('제출하시겠습니까?')) {
                 try {
                     setIsLoading(true)
                     const result = await contactWithMail(inputs)
