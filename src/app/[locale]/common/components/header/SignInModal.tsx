@@ -109,8 +109,8 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
                 const signInResult = await signIn('Credentials', {
                     wallet_address: accounts[0],
                     wallet_signature: signature,
-                    // redirect: true,
-                    redirect: false,
+                    redirect: true,
+                    // redirect: false,
                     callbackUrl: callbackUrl,
                 })
                 handleOpen()

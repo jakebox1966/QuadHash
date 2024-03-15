@@ -30,7 +30,7 @@ const authMiddleware = withAuth(
         const session = await getToken({ req })
 
         if (!session) {
-            return NextResponse.rewrite(new URL('/signIn', req.nextUrl))
+            return NextResponse.redirect(new URL(`/signIn`, req.nextUrl))
         }
 
         /**
@@ -63,6 +63,7 @@ const authMiddleware = withAuth(
 export default async function middleware(req: NextRequestWithAuth) {
     console.log('A')
     const session = await getToken({ req })
+    console.log('sessionsessionsession', session)
 
     const publicPathnameRegex = RegExp(
         `^(/(${locales.join('|')}))?(${publicPages
@@ -85,7 +86,7 @@ export default async function middleware(req: NextRequestWithAuth) {
     const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
 
     const isPrivatePages = privatePathnameRegex.test(req.nextUrl.pathname)
-    console.log(privatePathnameRegex)
+    console.log(privatePathnameRegex.test(req.nextUrl.pathname))
 
     if (isPublicPage) {
         console.log('public')
