@@ -26,13 +26,19 @@ import QhTokenModalComponent from './QhTokenModalComponent'
 import MobileUserInterfaceComponent from './MobileUserInterfaceComponent'
 import PCUserInterfaceComponent from './PCUserInterfaceComponent'
 import { getQhTokenBalance } from '@/app/api/alchemy/api'
-import { Utils } from 'alchemy-sdk'
+import { Network, Utils } from 'alchemy-sdk'
 import useBodyScrollLock from '@/app/hooks/useBodyScrollLock'
+import { ConfirmContext } from '@/app/provider/ConfirmProvider'
+import { AlertContext } from '@/app/provider/AlertProvider'
 
 export interface IConnectProps {
     profileNFT: any
 }
 
+declare enum Networks {
+    ETH_MAINNET = '0x1',
+    ETH_SEPOLIA = '0xaa36a7',
+}
 const { Link, useRouter, usePathname } = createSharedPathnamesNavigation({ locales })
 export default function Connect({ profileNFT }: IConnectProps) {
     const localeNames = useLocaleNames()
@@ -51,6 +57,7 @@ export default function Connect({ profileNFT }: IConnectProps) {
 
     const [qhTokenBalance, setQhTokenBalance] = React.useState(0)
 
+    const [isMainNetwork, setIsMainNetwork] = React.useState(true)
     /**
      * Mobile User Interface Modal Control
      */
@@ -58,6 +65,7 @@ export default function Connect({ profileNFT }: IConnectProps) {
     const openMobileModal = () => setIsOpenMobileModal(true)
     const closeMobileModal = () => setIsOpenMobileModal(false)
 
+    const { $alert } = React.useContext(AlertContext)
     /**
      * PC User Interface Modal Control
      */
@@ -69,12 +77,19 @@ export default function Connect({ profileNFT }: IConnectProps) {
      * PC QH Token Interface Modal Control
      */
     const [isQhTokenModalOpen, setIsQhTokenModalOpen] = React.useState(false)
-    const handleQhTokenModal = () => {
+    const handleQhTokenModal = async () => {
+        console.log(wallet)
+        console.log(process.env.NEXT_PUBLIC_NETWORK)
+        console.log(Networks[process.env.NEXT_PUBLIC_NETWORK])
+        if (wallet.chainId !== Networks[process.env.NEXT_PUBLIC_NETWORK]) {
+            await $alert('이더리움 네트워크로 연결해 주세요.')
+            return
+        }
         setQhTokenModalTap('ticket')
         setIsQhTokenModalOpen(!isQhTokenModalOpen)
     }
     const [QhTokenModalTap, setQhTokenModalTap] = React.useState('ticket')
-    const handleQhTokenModalTap = (value: string) => {
+    const handleQhTokenModalTap = async (value: string) => {
         setQhTokenModalTap(value)
     }
 
