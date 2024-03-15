@@ -277,7 +277,7 @@ export default function ProfileSection({
                     backgroundColor: backgroundPallete[backgroundColor?.value.toLowerCase()],
                 }}>
                 <div
-                    className={`flex flex-col items-end max-w-[581px] min-w-[450px] lg:max-h-[581px] w-full h-full`}>
+                    className={`flex flex-col items-end max-w-[581px] lg:max-h-[581px] w-full h-full`}>
                     <img src={imageUrl} alt="profileNFT" />
 
                     {/* MOBILE 버전 */}
