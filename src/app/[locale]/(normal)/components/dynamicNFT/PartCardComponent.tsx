@@ -12,7 +12,7 @@ export default function CardComponent({ tokenType, partsData, item }: ICardCompo
     return (
         <>
             <div
-                className="w-[calc(50%-5px)] lg:w-[calc(25%-10px)]"
+                className="w-[calc(50%-13px)] lg:w-[calc(25%-19.5px)]"
                 // onClick={() => onClick(item.tokenId, tokenType)}
             >
                 <div
