@@ -168,10 +168,11 @@ export default function CollectorContainer({
                     setProfileNFT('none')
                 }
                 // 로그인 시 받아온 NFT tokenId가 로그인된 사용자의 NFT인지 확인하고 Profile 이미지와 session 업데이트
-                const isOwner = await checkOwner(token_id)
+                const isOwner = await checkOwner(token_id, token_type)
+                console.log(isOwner)
                 if (!isOwner) {
                     setProfileNFT('none')
-                    updateSession(token_id, token_type)
+                    // updateSession(token_id, token_type)
                 }
 
                 // 로그인 시 받아온 NFT tokenId가 Locked 인지 확인하고 Profile 이미지와 session 업데이트
@@ -197,15 +198,22 @@ export default function CollectorContainer({
         getLockedList()
     }, [])
 
-    const checkOwner = async (tokenId) => {
+    const checkOwner = async (tokenId, tokenType) => {
         let result
         if (tokenType === 'saza') {
             result = await getOwnerForNft(process.env.NEXT_PUBLIC_SAZA_CONTRACT_ADDRESS, tokenId)
         } else if (tokenType === 'gaza') {
             result = await getOwnerForNft(process.env.NEXT_PUBLIC_GAZA_CONTRACT_ADDRESS, tokenId)
         }
+
+        console.log('tokenType===>', tokenType)
+        console.log('result=====>', result)
         // return true
         if (result && wallet.accounts[0]) {
+            console.log('주인은', result.owners[0])
+            console.log('지갑주소는', wallet.accounts[0])
+
+            console.log(result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase())
             if (result.owners[0].toLowerCase() === wallet.accounts[0].toLowerCase()) {
                 return true
             }
@@ -216,7 +224,7 @@ export default function CollectorContainer({
     const updateUserProfile = async ({ tokenId, tokenType }) => {
         setIsLoading(true)
         try {
-            const isOwner = await checkOwner(tokenId)
+            const isOwner = await checkOwner(tokenId, tokenType)
 
             if (!isOwner) {
                 router.push('/access-denied')
