@@ -447,8 +447,7 @@ export default function DynamicNFTDetailContainer({
                                     .map((item, index) => (
                                         <SwiperSlide key={`${item.trait_type}_${index}`}>
                                             <div
-                                                className={`w-[80%] px-2 py-1 pl-4 rounded-md ${
-                                                    !item.availability
+                                                className={`w-[80%] px-2 py-1 pl-4 rounded-md ${!item.availability}
                                                         ? 'bg-[#BDBDBD]'
                                                         : 'bg-[#FFC947]'
                                                 }`}>
@@ -467,11 +466,11 @@ export default function DynamicNFTDetailContainer({
 
                     <button
                         className={`${
-                            selectedPartsData.availability
+                            selectedPartsData.availability && session?.user.ticket_num > 1
                                 ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
                                 : 'bg-[#BDBDBD]'
                         } absolute hidden lg:flex flex-col justify-center items-center gap-1 px-8 py-8 rounded-full top-1/2 -translate-y-1/2 right-20 text-[16px] border-black font-medium text-black border-2 shadow-[_5px_5px_black] transition-all`}
-                        disabled={!selectedPartsData.availability}
+                        disabled={!selectedPartsData.availability || session?.user.ticket_num < 1}
                         onClick={startDynamicNFT}>
                         <img src="/rotate.svg" alt="rotate" width={46} height={72} />
                         <div className="text-[25px] font-medium tracking-[0.1rem]">START</div>
@@ -480,16 +479,17 @@ export default function DynamicNFTDetailContainer({
                 <button
                     className="w-full flex lg:hidden flex-col justify-center items-center"
                     onClick={startDynamicNFT}
-                    disabled={!selectedPartsData.availability}>
+                    disabled={!selectedPartsData.availability && session?.user.ticket_num < 1}>
                     <div
                         className={`${
-                            selectedPartsData.availability
+                            selectedPartsData.availability || session?.user.ticket_num < 1
                                 ? 'bg-[#FFC947] cursor-pointer hover:opacity-60'
                                 : 'bg-[#BDBDBD]'
                         } flex lg:hidden flex-row justify-center items-center gap-1 px-4 py-2 rounded-full border-black font-medium text-black border-2 shadow-[_5px_5px_black]`}>
                         <img src="/rotate.svg" alt="rotate" width={20} height={20} />
                         <div className="text-[13px] font-medium">START</div>
                     </div>
+                    <div>'</div>
                 </button>
 
                 {/* {!selectedPartsData.availability && selectedPartsData.pool.length === 0 && (
