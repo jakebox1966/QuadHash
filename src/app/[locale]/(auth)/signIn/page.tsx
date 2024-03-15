@@ -84,7 +84,7 @@ export default function SignIn(props: ISignInProps) {
     }
     return (
         <>
-            <div className="min-h-[50%] w-full flex flex-col justify-center items-center mt-10 lg:mt-20">
+            <div className="min-h-[50%] z-[9998] w-full flex flex-col justify-center items-center mt-10 lg:mt-20">
                 <div className="bg-white/60 w-full p-6 rounded-lg max-w-[700px]">
                     <div className="flex flex-col justify-center items-center w-full">
                         <img className="w-[60%] max-w-[335px]" src="/com_saza.png" alt="" />

@@ -120,8 +120,8 @@ export function SignInModal({ open, handleOpen }: ISignInModalProps) {
             }
             setIsConnecting(false)
         } else if ('konkrit') {
-            await $alert('현재 서비스 준비중 입니다.')
-            return
+            // await $alert('현재 서비스 준비중 입니다.')
+            return false
         }
     }
     return (

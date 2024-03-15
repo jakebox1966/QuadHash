@@ -135,7 +135,7 @@ export default function CollectorContainer({
         if (session && wallet_address) {
             init()
         }
-    }, [session, wallet_address, wallet.accounts[0]])
+    }, [session, wallet_address])
 
     const disconnect = async () => {
         await window.ethereum.request({
