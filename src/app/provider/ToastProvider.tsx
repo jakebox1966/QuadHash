@@ -5,7 +5,7 @@ export const ToastContext = createContext({ showToast(message: string, isSuccess
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
     const [message, setMessage] = useState('')
-    const [isOpenToast, setIsOpenToast] = useState(false)
+    const [isOpenToast, setIsOpenToast] = useState(true)
     const [isSuccess, setIsSuccess] = useState(false)
     const toastTimer = useRef<NodeJS.Timeout>()
 

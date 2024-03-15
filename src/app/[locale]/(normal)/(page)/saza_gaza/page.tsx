@@ -51,7 +51,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                     <div className="text-[56px] text-[#0065F2] font-NeuePlak leading-[60px]">
                         OUR CREATIVE UNIVERSE
                     </div>
-                    <div className="font-NanumSquare text-[20px] leading-[27px] tracking-[0.4px]">
+                    <div className="font-NanumSquare text-[19px] leading-[24px] tracking-[0.4px]">
                         <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
                         <div>
                             모든 NFT가 소유자와 상호작용하며, 각각의 고유한 이야기를 써 내려가는
@@ -82,8 +82,8 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div className="text-[#0065F2]">MEET US AT THE</div>
                         <div className="text-[#0065F2]">SAZA&GAZA STORE</div>
                     </div>
-                    <div className="font-NanumSquare mt-[28px] text-[20px]">
-                        QUADHASH의 또다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해보세요.
+                    <div className="font-NanumSquare mt-[28px] text-[19px]">
+                        QUADHASH의 또다른 IP 브랜드. ‘사자랑가자’의 스토어에 방문해보세요.
                     </div>
 
                     <Link
@@ -229,7 +229,8 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         <div className="font-NanumSquare font-[17px]">
                             <div>QUADHASH는 디지털 아트를 선도하는 리더를 꿈꿉니다.</div>
                             <div>모든 NFT가 소유자와 상호작용하며, 각각의</div>
-                            <div>고유한 이야기를 써 내려가는 몰입형 세계를 만들어 갑니다.</div>
+                            <div>고유한 이야기를 써 내려가는 몰입형 세계를</div>
+                            <div>만들어 갑니다.</div>
                         </div>
 
                         <Link
@@ -261,7 +262,7 @@ export default async function SazaAndGazaPage(props: ISazaAndGazaPageProps) {
                         </div>
                         <div className=" font-[17px] font-NanumSquare">
                             <div className="font-NanumSquare mt-[28px] text-[20px]">
-                                <div>QUADHASH의 또다른 IP 브랜드,</div>
+                                <div>QUADHASH의 또다른 IP 브랜드.</div>
                                 <div>‘사자랑가자’의 스토어에 방문해보세요.</div>
                             </div>
                         </div>

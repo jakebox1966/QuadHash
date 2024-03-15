@@ -25,7 +25,7 @@ export default function AboutPage(props: IAboutPageProps) {
                                 <div>OUR</div>
                                 <div>JOURNEY</div>
                             </div>
-                            <div className="text-[20px] font-NanumSquare">
+                            <div className="text-[19px] font-NanumSquare">
                                 QUADHASH의 다이나믹한 여정에 함께 하세요!
                             </div>
                         </div>
@@ -66,7 +66,7 @@ export default function AboutPage(props: IAboutPageProps) {
                     <div className="w-full relative">
                         <div className="min-w-[775px] flex flex-col justify-center items-start font-black gap-[31px]">
                             <div className="text-[51.9px] font-NeuePlak">OUR MISSION</div>
-                            <div className="text-[20px] flex flex-row justify-between font-NanumSquare leading-[27px] tracking-[0.4px] w-full ">
+                            <div className="text-[19px] flex flex-row justify-between font-NanumSquare leading-[24px] tracking-[0.4px] w-full ">
                                 <div className="text-nowrap mr-[100px]">
                                     <div>
                                         ”QUADHASH는 블록체인 기술을 통해 IP에 독자적인 아이덴티티를
@@ -96,7 +96,7 @@ export default function AboutPage(props: IAboutPageProps) {
                     <div className="max-w-[1330px] w-full">
                         <div className="min-w-[775px] flex flex-col justify-center items-start font-black gap-10">
                             <div className="text-[51.9px] font-NeuePlak">OUR VISION</div>
-                            <div className="text-[20px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                            <div className="text-[19px] font-NanumSquare leading-[24px] tracking-[0.4px]">
                                 <div>"우리의 비전은 IP가 경험이 되는 디지털 아트 세계입니다.</div>
                                 <div>
                                     다양한 프로젝트를 통해 생태계를 확장하고 새로운 경험을
@@ -120,7 +120,7 @@ export default function AboutPage(props: IAboutPageProps) {
                             <div>OUR</div>
                             <div>MISSION</div>
                         </div>
-                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px]">
+                        <div className="text-[17px] font-NanumSquare leading-[27px] tracking-[0.4px] whitespace-nowrap">
                             <div>”QUADHASH는 IP와 기술이 융합된</div>
                             <div>독창적이고 풍부한 생태계를 만들어 갑니다.”</div>
                         </div>
@@ -156,7 +156,7 @@ export default function AboutPage(props: IAboutPageProps) {
                 <div className="max-w-[1102px] py-[231px] font-black">
                     <div className="flex flex-col justify-center items-center gap-[28px] font-NeuePlak">
                         <div className="text-[56px]">MEET THE QUADHASH TEAM</div>
-                        <div className="text-[20px] font-NanumSquare">
+                        <div className="text-[19px] font-NanumSquare">
                             예술과 기술의 결합, QUADHASH 팀이 이뤄냅니다.
                         </div>
                     </div>

@@ -17,7 +17,7 @@ export default function MainFirstComponent(props: IMainFirstComponentProps) {
                         <div>A NEW ERA OF </div>
                         <div>CREATIVITY</div>
                     </div>
-                    <div className="hidden lg:flex flex-col font-NanumSquare font-[700] justify-center items-center text-[20px] leading-[27px] w-full tracking-[0.4px]">
+                    <div className="hidden lg:flex flex-col font-NanumSquare font-[700] justify-center items-center text-[19px] leading-[24px] w-full tracking-[0.4px]">
                         <div>
                             QUADHASH(쿼드해시) 프로젝트는 IP 비즈니스의 새로운 가능성을 제시합니다.
                         </div>

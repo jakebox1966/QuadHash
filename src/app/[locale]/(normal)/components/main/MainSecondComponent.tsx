@@ -27,7 +27,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     </div>
                     <div className="lg:absolute top-44 flex flex-col justify-center items-start gap-[30px]">
                         <div className="text-[44.2px] font-NeuePlak">OUR COLLECTION</div>
-                        <div className="text-[20px] font-NanumSquare font-[700] leading-[27px] tracking-[0.4px]">
+                        <div className="text-[19px] font-NanumSquare font-[700] leading-[24px] tracking-[0.4px]">
                             <div>강렬한 색감과 독창적인 캐릭터.</div>
                             <div>세계적인 아티스트인 'Craig & Karl', 'Burton Morris'의 손에서 </div>
                             <div>탄생한 QUADHASH의 'SAZA'와 'GAZA'를 만나보세요.</div>
@@ -89,8 +89,8 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                     </div>
                     <div className="flex flex-col justify-center items-start gap-[30px] ">
                         <div className="text-[44.2px] font-NeuePlak">NEW MERCHANDISE!</div>
-                        <div className="font-NanumSquare text-[20px] lg:min-w-[660px] tracking-[0.4px]">
-                            QUADHASH의 또 다른 IP 브랜드, ‘사자랑가자’의 스토어에 방문해 보세요.
+                        <div className="font-NanumSquare text-[19px] lg:min-w-[660px] tracking-[0.4px]">
+                            QUADHASH의 또 다른 IP 브랜드. ‘사자랑가자’의 스토어에 방문해 보세요.
                         </div>
 
                         <Link
@@ -111,7 +111,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                             <div>MERCHANDISE!</div>
                         </div>
                         <div className="text-[17px] font-NanumSquare leading-[24px] text-center w-full mt-[27px]">
-                            <div>QUADHASH의 또 다른 IP 브랜드, </div>
+                            <div>QUADHASH의 또 다른 IP 브랜드. </div>
                             <div>‘사자랑가자’의 스토어에 방문해 보세요.</div>
                         </div>
 
