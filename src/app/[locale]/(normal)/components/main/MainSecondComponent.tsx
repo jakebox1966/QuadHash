@@ -34,7 +34,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
 
                         <Link
-                            href={'/collection'}
+                            href={'/collectables'}
                             className="bg-[#FFFFFF] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             VIEW COLLECTABLES
                         </Link>
@@ -62,7 +62,7 @@ export default function MainSecondComponent(props: IMainSecondComponentProps) {
                         </div>
 
                         <Link
-                            href={'/collection'}
+                            href={'/collectables'}
                             className="bg-[#FFFFFF] mt-[20px] min-w-[202px] border-[1px] border-black text-center z-30 text-black py-[16px] px-[20px] rounded-full shadow-[_4px_6px_black]">
                             VIEW COLLECTABLES
                         </Link>
