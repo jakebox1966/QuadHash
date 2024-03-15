@@ -222,13 +222,18 @@ export default function CollectorContainer({
     }
 
     const updateUserProfile = async ({ tokenId, tokenType }) => {
+        console.log(tokenId, tokenType)
         setIsLoading(true)
         try {
-            const isOwner = await checkOwner(tokenId, tokenType)
+            if (tokenType !== 'reset') {
+                const isOwner = await checkOwner(tokenId, tokenType)
 
-            if (!isOwner) {
-                router.push('/access-denied')
-                return
+                console.log('isOwner', isOwner)
+
+                if (!isOwner) {
+                    router.push('/access-denied')
+                    return
+                }
             }
 
             const accounts = await getAccounts()
