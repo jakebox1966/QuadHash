@@ -78,9 +78,6 @@ export default function Connect({ profileNFT }: IConnectProps) {
      */
     const [isQhTokenModalOpen, setIsQhTokenModalOpen] = React.useState(false)
     const handleQhTokenModal = async () => {
-        console.log(wallet)
-        console.log(process.env.NEXT_PUBLIC_NETWORK)
-        console.log(Networks[process.env.NEXT_PUBLIC_NETWORK])
         if (wallet.chainId !== Networks[process.env.NEXT_PUBLIC_NETWORK]) {
             await $alert('이더리움 네트워크로 연결해 주세요.')
             return
