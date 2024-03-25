@@ -41,7 +41,7 @@ export default function ReportContainer(props: IReportContainerProps) {
     return (
         <div className="flex flex-col justify-center items-center mt-3">
             <div className="flex flex-row justify-start items-center w-full">
-                <div className="text-3xl text-medium">캘린더</div>
+                <div className="text-3xl text-medium">해킹신고센터</div>
             </div>
 
             {isLoading && <Spinner className="h-12 w-12" />}

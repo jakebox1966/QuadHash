@@ -11,13 +11,8 @@ export interface IReportListProps {
 const TABLE_HEAD = ['Num', 'Title', 'E-mail', 'Created At', 'Status']
 
 export default function ReportList({ list }: IReportListProps) {
-    // React.useEffect(() => {
-    //     console.log(list)
-    // }, [list])
-
     return (
         <>
-            asdfasdfasdfasd
             {list?.pages?.map((page, index) => {
                 // return page?.data.map((item, index) => <div key={index}>123</div>)
                 return page?.data.map((item, index) => (
