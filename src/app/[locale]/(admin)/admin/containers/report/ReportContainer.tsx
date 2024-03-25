@@ -1,0 +1,77 @@
+'use client'
+import * as React from 'react'
+import ReportList from '../../components/report/ReportList'
+import { getReports } from '@/app/api/report/api'
+import { useInfiniteQuery } from 'react-query'
+import { Button, Spinner } from '@material-tailwind/react'
+import Image from 'next/image'
+import { useIntersectionObserver } from '@/app/hooks/useIntersectionObserver'
+import ReportDetail from '../../components/report/ReportDetail'
+import ReportListOrdinaryVerComponent from '../../components/report/ReportListOrdinaryVer'
+import Pagination from '@/app/[locale]/common/components/Pagination'
+
+export interface IReportContainerProps {}
+
+export default function ReportContainer(props: IReportContainerProps) {
+    const [activePage, setActivePage] = React.useState(1)
+    const [listData, setListData] = React.useState(null)
+
+    const fetchData = async (pageParam: number) => {
+        const result = await getReports(pageParam)
+        setListData(result)
+    }
+    React.useEffect(() => {
+        fetchData(activePage)
+    }, [activePage])
+
+    // const fetchData = async (pageParam: number) => {
+    //     const result = await getReports(pageParam)
+    //     setListData(result)
+    // }
+
+    // const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
+    //     queryKey: ['getReports'],
+    //     queryFn: ({ pageParam = 1 }) => fetchData(pageParam),
+    //     getNextPageParam: (lastPage, allPages) => {
+    //         const currentPage = lastPage.paging.page
+    //         const totalPage = lastPage.paging.total_pages
+
+    //         if (currentPage === totalPage) {
+    //             return false
+    //         }
+    //         return currentPage + 1
+    //     },
+    //     retry: 0,
+    //     refetchOnMount: false,
+    //     refetchOnReconnect: false,
+    //     refetchOnWindowFocus: false,
+    // })
+    // const { setTarget } = useIntersectionObserver({
+    //     hasNextPage,
+    //     fetchNextPage,
+    // })
+
+    return (
+        <div className="flex flex-col justify-center items-center mt-3">
+            <div className="flex flex-row justify-start items-center w-full">
+                <div className="text-3xl text-medium">해킹신고센터</div>
+            </div>
+
+            {/* {isLoading && <Spinner className="h-12 w-12" />} */}
+
+            {/* <ReportList list={data} /> */}
+            <ReportListOrdinaryVerComponent listData={listData} />
+
+            {listData && (
+                <Pagination
+                    fetchData={fetchData}
+                    listData={listData}
+                    activePage={activePage}
+                    setActivePage={setActivePage}
+                />
+            )}
+            {/* <ReportDetail /> */}
+            {/* <div ref={setTarget} className="h-[1rem]" /> */}
+        </div>
+    )
+}

@@ -1,6 +1,6 @@
 import { getCalendar } from '@/app/api/calendar/api'
 import * as React from 'react'
-import CalendarDetailContainer from '../../../containers/ calendar/CalendarDetailContainer'
+import CalendarDetailContainer from '../../../containers/calendar/CalendarDetailContainer'
 
 export interface ICalendarDetailPageProps {
     params: {

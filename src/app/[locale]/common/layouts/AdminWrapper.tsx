@@ -8,7 +8,7 @@ export default function AdminWrapper({ children }: { children: React.ReactNode }
         <>
             <main className="flex flex-row min-h-screen w-full border-black">
                 <Sidebar />
-                <div className="w-full mx-3">{children}</div>
+                <div className="w-full m-3">{children}</div>
             </main>
         </>
     )
